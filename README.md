@@ -14,7 +14,7 @@ for [Nushell](http://nushell.sh), a data driven document language.
 
 ## Known Issues
 
-See [our Github repository](https://github.com/nushell/vscode-nushell-lang)
+See [our Github repository](https://github.com/nushell/vscode-nushell-lang/issues)
 for active issues.
 
 ## Regex Engine
