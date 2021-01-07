@@ -54,7 +54,7 @@
       "name": "constant.numeric.nushell"
     },
     "variable":{
-      "match": "(set)\\s+([a-zA-Z0-9-_\\-]+)|(\\s+\\$[a-zA-Z0-9_\\-]+)",
+      "match": "(let)\\s+([a-zA-Z0-9-_\\-]+)|(\\s+\\$[a-zA-Z0-9_\\-]+)",
       "name": "variable.nushell",
       "captures": {
         "1":{
