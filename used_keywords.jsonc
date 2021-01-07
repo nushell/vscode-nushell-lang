@@ -1,0 +1,68 @@
+// This serves no purpose other than to let one
+// know which scopes are used so far in specific
+// nushell coloring
+
+"FlatShape__InternalCommand": "#55FFFF", //"Cyan.bold"
+{
+	"scope": [
+		"keyword.control",
+		"source.cpp keyword.operator.new",
+		"keyword.operator.delete",
+		"keyword.other.using",
+		"keyword.other.operator",
+		"entity.name.operator"
+	],
+	"settings": {
+		"foreground": "#55FFFF"
+	}
+},
+
+"FlatShape__String": "#00AA00", //"Green"
+{
+	"scope": [
+		"string",
+		"meta.embedded.assembly"
+	],
+	"settings": {
+		"foreground": "#00AA00"
+	}
+},
+
+"FlatShape__Variable_or_FlatShape__Identifier": "#AA00AA", //"Purple"
+{
+	"scope": [
+		"variable",
+		"meta.definition.variable.name",
+		"support.variable",
+		"entity.name.variable"
+	],
+	"settings": {
+		"foreground": "#03af03"
+	}
+},
+
+"FlatShape__Flag": "#5555FF", //"Blue.bold"
+"FlatShape__ShorthandFlag": "#5555FF", //"Blue.bold"
+{
+	"scope": [
+		"variable.parameter.function.nushell"
+	],
+	"settings": {
+		"foreground": "#5555FF",
+		// "fontStyle": "bold"
+	}
+},
+
+"FlatShape__Int": "#FF55FF", //"Purple.bold"
+"FlatShape__Decimal": "#FF55FF", //"Purple.bold"
+{
+	"scope": [
+		"constant.numeric",
+		"variable.other.enummember",
+		"keyword.operator.plus.exponent",
+		"keyword.operator.minus.exponent"
+	],
+	"settings": {
+		"foreground": "#FF55FF"
+	}
+},

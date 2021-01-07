@@ -1,0 +1,34 @@
+{
+  // color mapping came from here
+  // https://tintin.mudhalla.net/info/ansicolor/
+  // The colors to the far right are windows terminal colors
+  // without specifying a color schema
+  "FlatShape__OpenDelimiter": "#AAAAAA", //"White" #a4a4a4
+  "FlatShape__CloseDelimiter": "#AAAAAA", //"White" #a4a4a4
+  "FlatShape__ItVariable_or_FlatShape__Keyword": "#FF55FF", //"Purple.bold" #b4009e
+  "FlatShape__Variable_or_FlatShape__Identifier": "#AA00AA", //"Purple" #821791
+  "FlatShape__Type": "#5555FF", //"Blue.bold" #3878ff
+  "FlatShape__Operator": "#AAAA00", //"Yellow" #c19c00
+  "FlatShape__DotDotLeftAngleBracket": "#FFFF55", //"Yellow.bold" #f9f1a5
+  "FlatShape__DotDot": "#FFFF55", //"Yellow.bold" #f9f1a5
+  "FlatShape__Dot": "#AAAAAA", //"White" #a4a4a4
+  "FlatShape__InternalCommand": "#55FFFF", //"Cyan.bold" #61d6d6
+  "FlatShape__ExternalCommand": "#00AAAA", //"Cyan" #3a96dd
+  "FlatShape__ExternalWord": "#55FF55", //"Green.bold", #16c60c
+  "FlatShape__BareMember": "#FFFF55", //"Yellow.bold" #f9f1a5
+  "FlatShape__StringMember": "#FFFF55", //"Yellow.bold" #f9f1a5
+  "FlatShape__String": "#00AA00", //"Green" #12820e
+  "FlatShape__Path": "#00AAAA", //"Cyan" #3a96dd
+  "FlatShape__GlobPattern": "#55FFFF", //"Cyan.bold" #61d6d6
+  "FlatShape__Word": "#00AA00", //"Green" #12820e
+  "FlatShape__Pipe": "#FF55FF", //"Purple.bold" #b4009e
+  "FlatShape__Flag": "#5555FF", //"Blue.bold" #3878ff
+  "FlatShape__ShorthandFlag": "#5555FF", //"Blue.bold" #3878ff
+  "FlatShape__Int": "#FF55FF", //"Purple.bold" #b4009e
+  "FlatShape__Decimal": "#FF55FF", //"Purple.bold" #b4009e
+  "FlatShape__Whitespace_or_FlatShape__Separator": "#AAAAAA", //"White" #a4a4a4
+  "FlatShape__Comment": "#55FF55", //"Green.bold", #16c60c
+  "FlatShape__Garbage": "#AAAAAA on #FF5555", // fg(White).on(Red)" #cccccc on #c50f1f
+  "FlatShape__Size_number": "#FF55FF", //"Purple.bold" #b4009e
+  "FlatShape__Size_unit": "#55FFFF" //"Cyan.bold" #61d6d6
+}

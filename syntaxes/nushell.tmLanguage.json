@@ -1,0 +1,100 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "nushell",
+  "patterns": [
+    { "include": "#keywords" },
+    { "include": "#strings" },
+    { "include": "#punctuation" },
+    { "include": "#comment" },
+    { "include": "#range" },
+    { "include": "#parameter" },
+    { "include": "#digit" },
+    { "include": "#variable" },
+    { "include": "#function" },
+    { "include": "#type" }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.nu",
+          "match": "\\b(str\\slpad|echo|str\\scollect|char\\snewline|math\\smin|each|build-string|append)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.nu",
+      "begin": "\"|'|`",
+      "end": "\"|'|`",
+      "patterns": [
+        {
+          "name": "constant.character.escape.nu",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "punctuation": {
+      "match": "(;|\\||\\.|\\[|\\]|\\{|\\}|\\(|\\)|=|\\<|>)|(\\$\\(|\\$\\[)",
+      "name": "punctuation.nushell"
+    },
+    "comment": {
+      "match": "(#.*)",
+      "name": "comment.nushell"
+    },
+    "range": {
+      "match": "(\\d+\\.\\.\\d+)",
+      "name": "constant.nushell"
+    },
+    "parameter": {
+      "match": "(-[a-zA-Z_\\-]|--[a-zA-Z_\\-]{1,50})",
+      "name": "variable.parameter.function.nushell"
+    },
+    "digit": {
+      "match": "(\\b[0-9]+)",
+      "name": "constant.numeric.nushell"
+    },
+    "variable":{
+      "match": "(set)\\s+([a-zA-Z0-9-_\\-]+)|(\\s+\\$[a-zA-Z0-9_\\-]+)",
+      "name": "variable.nushell",
+      "captures": {
+        "1":{
+          "name":"variable.other.nushell"
+        },
+        "2":{
+          "name":"variable.name.nushell"
+        },
+        "3":{
+          "name":"variable.language.nushell"
+        },
+        "4":{
+          "name":"variable.language.nushell"
+        }
+      }
+    },
+    "function": {
+      "match": "\\b(def)\\s+([a-zA-Z0-9_\\-]{1,50})",
+      "name": "entity.name",
+      "captures": {
+        "1":{
+          "name": "entity.name.function.nushell"
+        },
+        "2":{
+          "name": "entity.name.type.nushell"
+        }
+      }
+    },
+    "type": {
+      "match": "([a-zA-Z0-9\\-_]+)(\\:[a-z]{1,15})",
+      "name": "storage",
+      "captures": {
+        "1":{
+          "name":"storage.modifier.nushell"
+        },
+        "2":{
+          "name":"storage.type.nushell"
+        }
+      }
+    }
+  },
+  "scopeName": "source.nu"
+}
