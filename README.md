@@ -3,11 +3,14 @@
 This extension provides editing and syntax highlighting support
 for [Nushell](http://nushell.sh), a data driven document language.
 
-
 ## Features
 
 * Syntax highlighting grammar
 * Nushell theme that tries to match Nushell's coloring
+
+## Screenshot (v0.0.3)
+![](2021-01-07_15-02-51.png)
+
 
 ## Known Issues
 
