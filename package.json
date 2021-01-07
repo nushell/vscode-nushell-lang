@@ -1,0 +1,45 @@
+{
+  "name": "vscode-nushell-lang",
+  "displayName": "vscode-nushell-lang",
+  "description": "nushell language for vscode",
+  "version": "0.0.2",
+  "license": "MIT",
+  "publisher": "nushell-team",
+  "repository": "https://github.com/fdncred/vscode-nushell-lang/",
+  "engines": {
+    "vscode": "^1.52.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "nushell",
+        "aliases": [
+          "nushell",
+          "nu"
+        ],
+        "extensions": [
+          ".nu"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "nushell",
+        "scopeName": "source.nu",
+        "path": "./syntaxes/nushell.tmLanguage.json"
+      }
+    ],
+    "themes": [
+      {
+          "label": "nushell",
+          "id": "nushell",
+          "uiTheme": "vs-dark",
+          "path": "./nushell.theme-minimal.json"
+      }
+    ]
+  }
+}

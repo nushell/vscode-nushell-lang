@@ -1,0 +1,176 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "nunu",
+	"fileTypes": [
+		"nu"
+	],
+	"scopeName": "source.nunu",
+	"patterns": [
+		// { "include": "#boolean" },
+		// { "include": "#keywords" }, 
+		// { "include": "#strings" },
+		// { "include": "#commands" },
+		// { "include": "#comment" },
+		// { "include": "#punctuation" },
+		// { "include": "#types" },
+		// { "include": "#logical-expression" },
+		// { "include": "#pipeline" },
+		// { "include": "#alias_statement" }
+		{ "include": "keyword" },
+		{ "include": "punctuation" },
+		{ "include": "quoted_text" },
+		{ "include": "comment" },
+		{ "include": "range" },
+		{ "include": "parameter" },
+		{ "include": "digits" },
+		{ "include": "variable" },
+		{ "include": "function" },
+		{ "include": "types" }
+	],
+	"repository": {
+		"keyword": {
+          "match": "\b(str lpad|echo|str collect|char newline|math min|set|each|build-string|append)\b",
+          "name": "keyword.nushell"
+        },
+        "punctuation": {
+          "match": "(;|\\||\\.|\\[|\\]|\\{|\\}|\\(|\\)|=|\\<|>)",
+          "name": "punctuation.nushell"
+        },
+        "quoted_text": {
+          "begin": "(\"|'|`)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.nushell"
+            }
+          },
+          "contentName": "string.quoted.nushell",
+          "end": "(\"|'|`)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.nushell"
+            }
+          }
+        },
+        "comment": {
+          "match": "(#.*)",
+          "name": "comment.nushell"
+        },
+        "range": {
+          "match": "(\\d+\\.\\.\\d+)",
+          "name": "constant.nushell"
+        },
+        "parameter": {
+          "match": "(-[a-zA-Z]|--[a-zA-Z]{1,50})",
+          "name": "variable.parameter.function.nushell"
+        },
+        "digits": {
+          "match": "(\b[0-9]+)",
+          "name": "constant.numeric.nushell"
+        },
+        "variable": {
+          "match": "(\\$[a-zA-Z0-9-_]{1,50})",
+          "name": "variable.nushell"
+        },
+        "function": {
+          "match": "(\bdef)",
+          "name": "entity.name.function.nushell"
+        },
+        "types": {
+          "match": "(\\:[a-z]{1,15})",
+          "name": "storage.type.nushell"
+        }
+
+		// "boolean": {
+		// 	"match": "\b(?:\\$true|\\$false)\b",
+		// 	"name": "constant.language.$0.nunu"
+		// },
+		// "keywords": {
+		// 	"patterns": [{
+		// 		"name": "keyword.control.nunu",
+		// 		"match": "\b(def|set)\b"
+		// 	}]
+		// },
+		// "strings": {
+		// 	"name": "string.quoted.double.nunu",
+		// 	"begin": "\"",
+		// 	"end": "\"",
+		// 	"patterns": [
+		// 		{
+		// 			"name": "constant.character.escape.nunu",
+		// 			"match": "\\\\."
+		// 		}
+		// 	]
+		// },
+		// "commands":{
+		// 	"patterns": [
+		// 		{
+		// 			"name": "support.function.nunu",
+		// 			"match": "\b(ansi|append|autoenv|autoview|benchmark|binaryview|build-string|cal|cd|char|chart|clear|clip|compact|config|count|cp|date|debug|def|default|describe|do|drop|du|each|echo|empty?|enter|every|exec|exit|fetch|first|flatten|format|from|get|group-by|hash|headers|help|histogram|history|if|inc|insert|into-int|keep|kill|last|lines|ls|match|math|merge|mkdir|move|mv|n|nth|open|p|parse|path|pivot|post|prepend|ps|pwd|random|range|reduce|reject|rename|reverse|rm|s3|save|select|selector|seq|set|set-env|shells|shuffle|size|skip|sleep|sort-by|source|split|split-by|start|str|sys|table|tags|textview|to|touch|tree|uniq|update|url|version|where|which|with-env|wrap|xpath)\b"
+		// 		}
+		// 	]
+		// },
+		// "comment": {
+		// 	"match": "(#).*",
+		// 	"captures": {
+		// 		"1": {
+		// 			"name": "comment.line.number-sign.nunu"
+		// 		},
+		// 		"2": {
+		// 			"name": "punctuation.definition.comment.nunu"
+		// 		}
+		// 	}
+		// },
+		// "logical-expression": {
+		// 	"patterns": [{
+		// 			"comment": "do we want a special rule for ( expr )?",
+		// 			"match": "=[=~]?|!=?|<|>|&&|\\|\\|",
+		// 			"name": "keyword.operator.logical.nunu"
+		// 		}
+		// 	]
+		// },
+		// "pipeline": {
+		// 	"patterns": [{
+		// 			"match": "(?<=^|;|&|\\s)(time)(?=\\s|;|&|$)",
+		// 			"name": "keyword.other.nunu"
+		// 		},
+		// 		{
+		// 			"match": "[|!]",
+		// 			"name": "keyword.operator.pipe.nunu"
+		// 		}
+		// 	]
+		// },
+		// "alias_statement": {
+		// 	"name": "meta.expression.assignment.nunu",
+		// 	"begin": "(alias)\\s+\\s*+((?:^|\b)[a-zA-Z_][a-zA-Z0-9_]*+(?:\b|$))(?:(\\=)|(\\+\\=))",
+		// 	"beginCaptures": {
+		// 		"1": {
+		// 			"name": "storage.type.alias.nunu"
+		// 		},
+		// 		"2": {
+		// 			"name": "variable.other.assignment.nunu"
+		// 		},
+		// 		"3": {
+		// 			"name": "keyword.operator.assignment.nunu"
+		// 		},
+		// 		"4": {
+		// 			"name": "keyword.operator.assignment.compound.nunu"
+		// 		}
+		// 	},
+		// 	"end": "(?:(?:(?:(?:(?:(;)|(&&))|(\\|\\|))|(&))|\\n)|(?= ))",
+		// 	"endCaptures": {
+		// 		"1": {
+		// 			"name": "punctuation.terminator.statement.semicolon.nunu"
+		// 		},
+		// 		"2": {
+		// 			"name": "punctuation.separator.statement.and.nunu"
+		// 		},
+		// 		"3": {
+		// 			"name": "punctuation.separator.statement.or.nunu"
+		// 		},
+		// 		"4": {
+		// 			"name": "punctuation.separator.statement.background.nunu"
+		// 		}
+		// 	}
+		// }
+	}
+}
