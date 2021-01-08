@@ -10,6 +10,14 @@
       }
     },
 
+    // these are the sub commands
+    {
+      "scope": [ "keyword.other", ],
+      "settings": {
+        "foreground": "#00b7ff"
+      }
+    },
+
     // "FlatShape__String": "#12820e", //"Green"
     {
 	//   "scope": ["string", "meta.embedded.assembly"],
