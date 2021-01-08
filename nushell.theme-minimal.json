@@ -10,6 +10,14 @@
       }
     },
 
+    {
+      "scope":"keyword.control.other.nushell",
+      "settings": {
+        "foreground": "#FF0000",
+        "fontStyle": "bold"
+      }
+    },
+
     // these are the sub commands
     {
       "scope": [ "keyword.other", ],
