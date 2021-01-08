@@ -8,9 +8,11 @@ for [Nushell](http://nushell.sh), a data driven document language.
 * Syntax highlighting grammar
 * Nushell theme that tries to match Nushell's coloring
 
-## Screenshot (v0.0.3)
-![](2021-01-07_15-02-51.png)
-
+## Screenshot (v0.0.4)
+With Nushell Color Theme
+![](004-nushell.png)
+With VSDark+ Color Theme
+![](004-vsdark.png)
 
 ## Known Issues
 
