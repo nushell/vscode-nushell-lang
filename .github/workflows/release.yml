@@ -34,19 +34,26 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         
-      - name: Determine Release Info
-        id: info
-        env:
-          GITHUB_REF: ${{ github.ref }}
-        run: |
-          VERSION=${GITHUB_REF##*/}
-          MAJOR=${VERSION%%.*}
-          MINOR=${VERSION%.*}
-          MINOR=${MINOR#*.}
-          PATCH=${VERSION##*.}
-          echo "::set-output name=version::${VERSION}"
-          echo "Major=${MAJOR} Minor=${MINOR} Patch=${PATCH}"
+      #- name: Determine Release Info
+      #  id: info
+      #  env:
+      #    GITHUB_REF: ${{ github.ref }}
+      #  run: |
+      #    VERSION=${GITHUB_REF##*/}
+      #    MAJOR=${VERSION%%.*}
+      #    MINOR=${VERSION%.*}
+      #    MINOR=${MINOR#*.}
+      #    PATCH=${VERSION##*.}
+      #    echo "::set-output name=version::${VERSION}"
+      #    echo "Major=${MAJOR} Minor=${MINOR} Patch=${PATCH}"
 
+      - name: Current NPM Package Version
+        uses: justincy/npm-version-action@2.1.0
+        id: info
+        with:
+          path: "./package.json"
+
+     
       - run: npm install
         
       - uses: lannonbr/vsce-action@master
