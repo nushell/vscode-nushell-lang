@@ -55,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: ${{ steps.info.outputs.version }} Release
+          release_name: ${{ steps.ver.outputs.packageVersion }} Release
           draft: true
           prerelease: true
         
@@ -66,6 +66,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./vscode-nushell-lang-${{steps.ver.outputs.version}}.vsix # Need to get this version number dynamically
-          asset_name: vscode-nushell-lang-${{steps.ver.outputs.version}}.vsix
+          asset_path: ./vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix # Need to get this version number dynamically
+          asset_name: vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix
           asset_content_type: application/vsix
