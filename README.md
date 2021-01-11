@@ -10,9 +10,9 @@ This [extension for VSCode](https://code.visualstudio.com/docs/introvideos/exten
 ## Screenshot (v0.0.4)
 
 With Nushell Color Theme
-![Nushell script with Nushell color theme](004-nushell.png)
+![Nushell script with Nushell color theme](assets/004-nushell.png)
 With VSDark+ Color Theme
-![Nushell script with VSDark+ color theme](004-vsdark.png)
+![Nushell script with VSDark+ color theme](assets/004-vsdark.png)
 
 ## Known Issues
 
