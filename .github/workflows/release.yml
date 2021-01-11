@@ -34,7 +34,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - uses: actions/core
       #- name: Determine Release Info
       #  id: info
       #  env:
@@ -49,11 +48,9 @@ jobs:
       #    echo "Major=${MAJOR} Minor=${MINOR} Patch=${PATCH}"
 
       - name: Current NPM Package Version
-        uses: justincy/npm-version-action@2.1.0
+      - uses: justincy/npm-version-action@2.1.0
         id: info
-        with:
-          path: "./package.json"
-
+      - run: echo '${{ steps.info.outputs.version }}'
      
       - run: npm install
         
