@@ -32,7 +32,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Check out code
       - uses: actions/checkout@v2
         
       - name: Determine Release Info
@@ -48,10 +47,8 @@ jobs:
           echo "::set-output name=version::${VERSION}"
           echo "Major=${MAJOR} Minor=${MINOR} Patch=${PATCH}"
 
-      - name: Install NPM
       - run: npm install
         
-      - name: Install VSCE Action
       - uses: lannonbr/vsce-action@master
         with:
           args: "package"
