@@ -27,3 +27,4 @@ readme updates from `waldyrious` ty!
 moved assets to a folder
 - 0.0.7
 made release work dynamically with versions
+added icon
