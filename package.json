@@ -33,7 +33,7 @@
     "grammars": [
       {
         "language": "nushell",
-        "scopeName": "source.nu",
+        "scopeName": "source.nushell",
         "path": "./syntaxes/nushell.tmLanguage.json"
       }
     ],
