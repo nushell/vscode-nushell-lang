@@ -2,7 +2,7 @@
 
 All notable changes to the "vscode-nushell-lang" extension will be documented in this file.
 
-## [Unreleased]
+## [Pre-Release]
 
 - Initial release 0.0.1
 proof of concept release
