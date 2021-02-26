@@ -28,3 +28,16 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 - 0.0.7
     * made release work dynamically with versions
     * added icon
+- 0.0.8
+    * added ansi strip
+    * added term size
+    * added mod
+    * fixed bug in escapes
+    * fixed build-string
+    * added alias
+    * added char prompt
+    * added char newline
+    * added format
+    * added $it.item
+    * added $it.index
+
