@@ -40,4 +40,8 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
     * added format
     * added $it.item
     * added $it.index
+- 0.0.9
+    * renamed dark theme to Nushell-Dark
+    * added light theme named Nushell-Light
+
 

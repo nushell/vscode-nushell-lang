@@ -2,7 +2,7 @@
   "name": "vscode-nushell-lang",
   "displayName": "vscode-nushell-lang",
   "description": "nushell language for vscode",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "license": "MIT",
   "publisher": "nushell-team",
   "repository": {
@@ -39,11 +39,17 @@
     ],
     "themes": [
       {
-          "label": "nushell",
+          "label": "Nushell-Dark",
           "id": "nushell",
           "uiTheme": "vs-dark",
-          "path": "./nushell.theme-minimal.json"
-      }
-    ]
+          "path": "./nushell.theme-minimal-dark.json"
+      },
+      {
+        "label": "Nushell-Light",
+        "id": "nushell",
+        "uiTheme": "vs",
+        "path": "./nushell.theme-minimal-light.json"
+    }
+  ]
   }
 }
