@@ -34,13 +34,7 @@
     "strings": {
       "name": "string.quoted.double.nushell",
       "begin": "\"|'|`",
-      "end": "\"|'|`",
-      "patterns": [
-        {
-          "name": "constant.character.escape.nushell",
-          "match": "\\."
-        }
-      ]
+      "end": "\"|'|`"
     },
     "punctuation": {
       "match": "(;|\\||\\.|\\[|\\]|\\{|\\}|\\(|\\)|=|\\<|>)|(\\$\\(|\\$\\[|\\+|\\%|\\/|\\*)",
