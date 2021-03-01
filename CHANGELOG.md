@@ -43,5 +43,9 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 - 0.0.9
     * renamed dark theme to Nushell-Dark
     * added light theme named Nushell-Light
+- 0.1.0
+    * tweaked some dark colors
+    * added source color for dark color
+    * changed double quote regex
 
 
