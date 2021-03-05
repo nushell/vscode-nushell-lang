@@ -1,0 +1,56 @@
+{
+    "Create Custom Command": {
+        "prefix": "def",
+        "body": [
+            "# Documentation for ${1:Custom_Command_Name}",
+            "def ${1:Custom_Command_Name} [] {",
+            "\t# Write some code here",
+            "\t${2}",
+            "}"
+        ],
+        "description": "Example: Write a custom command"
+    },
+    "Custom Command With Parameter": {
+        "prefix": "defp",
+        "body": [
+            "# Documentation for ${1:Custom_Command_Name}",
+            "# Written on ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}",
+            "def ${1:Custom_Command_Name} [",
+            "\t ${2:Param_Name} # Docs for ${2:Param_Name}",
+            "\t] {",
+            "\t# Test the parameter",
+            "\techo \\$${2:Param_Name}",
+            "\t${3}",
+            "}"
+        ],
+        "description": "Example: Write a custom command with a parameter"
+    },
+    "Custom Command With Switch": {
+        "prefix": "defs",
+        "body": [
+            "# Documentation for ${1:Custom_Command_Name}",
+            "# Written on ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}",
+            "def ${1:Custom_Command_Name} [",
+            "\t--${2:Long_Switch}(-${3:Short_Switch}) # Docs for ${2:Long_Switch}",
+            "\t] {",
+            "\t\tlet is_${2:Long_Switch} = $(= \\$${2:Long_Switch} | empty?)\n",
+            "\t\tif \\$is_${2:Long_Switch} {",
+            "\t\t\techo \\$true",
+            "\t\t} {",
+            "\t\t\techo \\$false",
+            "\t\t}\n",
+            "\t# Write some code here",
+            "\t${4}",
+            "}"
+        ],
+        "description": "Example: Write a custom command with a switch"
+    },
+    "Create an Alias": {
+        "prefix": "alias",
+        "body": [
+            "# Documentation for ${1:Alias_Name}",
+            "aliase ${1:Alias_Name} = ${2}"
+        ],
+        "description": "Create an alias"
+    }
+}
