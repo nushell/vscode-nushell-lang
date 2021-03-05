@@ -2,20 +2,30 @@
   "name": "vscode-nushell-lang",
   "displayName": "vscode-nushell-lang",
   "description": "nushell language for vscode",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "preview": true,
   "license": "MIT",
   "publisher": "nushell-team",
+  "homepage": "https://www.nushell.sh/",
   "repository": {
     "type": "git",
     "url": "https://github.com/nushell/vscode-nushell-lang.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nushell/vscode-nushell-lang/issues"
   },
   "engines": {
     "vscode": "^1.52.0"
   },
   "icon": "assets/nushell.ico",
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Snippets"
   ],
+  "galleryBanner": {
+    "color": "#008000",
+    "theme": "light"
+  },
   "contributes": {
     "languages": [
       {
@@ -49,7 +59,27 @@
         "id": "nushell",
         "uiTheme": "vs",
         "path": "./nushell.theme-minimal-light.json"
-    }
-  ]
+      }
+    ],
+    "keybindings":[
+      {
+        "command": "start https://www.nushell.sh/book/",
+        "key": "ctrl+f1",
+        "when": "editorTextFocus && editorLangId == 'nushell'"
+      },
+      {
+        "command": "editor.action.insertSnippet",
+        "when": "editorTextFocus && editorLangId == 'nushell'",
+        "mac": "cmd+alt+j",
+        "win": "ctrl+alt+j",
+        "linux": "ctrl+alt+j"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "nushell",
+        "path": "./snippets/nushell.json"
+      }
+    ]
   }
 }
