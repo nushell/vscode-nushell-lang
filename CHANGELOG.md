@@ -47,5 +47,10 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
     * tweaked some dark colors
     * added source color for dark color
     * changed double quote regex
+- 0.1.1
+    * added def snippet for custom command
+    * added defp snippet for custom command with a parameter
+    * added defs snippet for custom command with a switch
+    * added alias snippet for alias creation
 
 
