@@ -52,5 +52,8 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
     * added defp snippet for custom command with a parameter
     * added defs snippet for custom command with a switch
     * added alias snippet for alias creation
+- 0.1.2
+    * added search keywords in package.json
+    * added publisher name
 
 
