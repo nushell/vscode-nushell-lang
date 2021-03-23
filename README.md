@@ -7,12 +7,12 @@ This [extension for VSCode](https://code.visualstudio.com/docs/introvideos/exten
 * Syntax highlighting grammar for Nushell scripts (`.nu` files)
 * Nushell theme that tries to match Nushell's coloring
 
-## Screenshot (v0.0.4)
+## Screenshot (v0.1.1)
 
-With Nushell Color Theme
-![Nushell script with Nushell color theme](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/004-nushell.png)
-With VSDark+ Color Theme
-![Nushell script with VSDark+ color theme](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/004-vsdark.png)
+With Nushell-Dark Color Theme
+![Nushell script with Nushell color theme](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/012-dark.png)
+With Nushell-Light Color Theme
+![Nushell script with VSDark+ color theme](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/012-light.png)
 
 ## Known Issues
 
