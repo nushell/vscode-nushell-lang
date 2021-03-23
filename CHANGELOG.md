@@ -55,5 +55,6 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 - 0.1.2
     * added search keywords in package.json
     * added publisher name
+    * updated screenshots
 
 
