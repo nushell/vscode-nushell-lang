@@ -56,5 +56,7 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
     * added search keywords in package.json
     * added publisher name
     * updated screenshots
+- 0.2.0
+    * added intellisense aka auto-complete for commands and subcommands
 
 

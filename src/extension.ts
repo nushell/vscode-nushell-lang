@@ -1,212 +1,1827 @@
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
 export function activate(context: vscode.ExtensionContext) {
+  const keywordsWithSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position,
+        token: vscode.CancellationToken,
+        context: vscode.CompletionContext
+      ) {
+        const allCompletion = new vscode.CompletionItem("all?");
+        allCompletion.commitCharacters = [" "];
 
-    const keywordsWithSubCommandsProvider = vscode.languages.registerCompletionItemProvider('nushell', {
+        const ansiCompletion = new vscode.CompletionItem("ansi");
+        ansiCompletion.commitCharacters = [" "];
 
-        provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+        const anyCompletion = new vscode.CompletionItem("any?");
+        anyCompletion.commitCharacters = [" "];
 
-            // a simple completion item which inserts `Hello World!`
-            // const simpleCompletion = new vscode.CompletionItem('Hello World!');
+        const appendCompletion = new vscode.CompletionItem("append");
+        appendCompletion.commitCharacters = [" "];
 
-            // a completion item that inserts its text as snippet,
-            // the `insertText`-property is a `SnippetString` which will be
-            // honored by the editor.
-            // const snippetCompletion = new vscode.CompletionItem('Good part of the day');
-            // snippetCompletion.insertText = new vscode.SnippetString('Good ${1|morning,afternoon,evening|}. It is ${1}, right?');
-            // snippetCompletion.documentation = new vscode.MarkdownString("Inserts a snippet that lets you select the _appropriate_ part of the day for your greeting.");
+        const autoenvCompletion = new vscode.CompletionItem("autoenv");
+        autoenvCompletion.commitCharacters = [" "];
 
-            // a completion item that can be accepted by a commit character,
-            // the `commitCharacters`-property is set which means that the completion will
-            // be inserted and then the character will be typed.
-            // const commitCharacterCompletion = new vscode.CompletionItem('console');
-            // commitCharacterCompletion.commitCharacters = ['.'];
-            // commitCharacterCompletion.documentation = new vscode.MarkdownString('Press `.` to get `console.`');
+        const autoviewCompletion = new vscode.CompletionItem("autoview");
+        autoviewCompletion.commitCharacters = [" "];
 
-            // a completion item that retriggers IntelliSense when being accepted,
-            // the `command`-property is set which the editor will execute after
-            // completion has been inserted. Also, the `insertText` is set so that
-            // a space is inserted after `new`
-            // const commandCompletion = new vscode.CompletionItem('new');
-            // commandCompletion.kind = vscode.CompletionItemKind.Keyword;
-            // commandCompletion.insertText = 'new ';
-            // commandCompletion.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
+        const benchmarkCompletion = new vscode.CompletionItem("benchmark");
+        benchmarkCompletion.commitCharacters = [" "];
 
-            const ansiCompletion = new vscode.CompletionItem('ansi');
-            ansiCompletion.commitCharacters = [' '];
-            ansiCompletion.documentation = new vscode.MarkdownString('Press <kbd>SpaceBar</kbd> to get completions');
+        const binaryviewCompletion = new vscode.CompletionItem("binaryview");
+        binaryviewCompletion.commitCharacters = [" "];
 
-            const strCompletion = new vscode.CompletionItem('str');
-            strCompletion.commitCharacters = [' '];
-            strCompletion.documentation = new vscode.MarkdownString('Press <kbd>SpaceBar</kbd> to get completions');
+        const buildStringCompletion = new vscode.CompletionItem("build-string");
+        buildStringCompletion.commitCharacters = [" "];
 
-            // return all completion items as array
-            return [
-                // simpleCompletion,
-                // snippetCompletion,
-                // commitCharacterCompletion,
-                // commandCompletion,
-                ansiCompletion,
-                strCompletion
-            ];
+        const calCompletion = new vscode.CompletionItem("cal");
+        calCompletion.commitCharacters = [" "];
+
+        const cdCompletion = new vscode.CompletionItem("cd");
+        cdCompletion.commitCharacters = [" "];
+
+        const charCompletion = new vscode.CompletionItem("char");
+        charCompletion.commitCharacters = [" "];
+
+        const chartCompletion = new vscode.CompletionItem("chart");
+        chartCompletion.commitCharacters = [" "];
+
+        const clearCompletion = new vscode.CompletionItem("clear");
+        clearCompletion.commitCharacters = [" "];
+
+        const clipCompletion = new vscode.CompletionItem("clip");
+        clipCompletion.commitCharacters = [" "];
+
+        const compactCompletion = new vscode.CompletionItem("compact");
+        compactCompletion.commitCharacters = [" "];
+
+        const configCompletion = new vscode.CompletionItem("config");
+        configCompletion.commitCharacters = [" "];
+
+        const cpCompletion = new vscode.CompletionItem("cp");
+        cpCompletion.commitCharacters = [" "];
+
+        const dateCompletion = new vscode.CompletionItem("date");
+        dateCompletion.commitCharacters = [" "];
+
+        const debugCompletion = new vscode.CompletionItem("debug");
+        debugCompletion.commitCharacters = [" "];
+
+        const defCompletion = new vscode.CompletionItem("def");
+        defCompletion.commitCharacters = [" "];
+
+        const defaultCompletion = new vscode.CompletionItem("default");
+        defaultCompletion.commitCharacters = [" "];
+
+        const describeCompletion = new vscode.CompletionItem("describe");
+        describeCompletion.commitCharacters = [" "];
+
+        const doCompletion = new vscode.CompletionItem("do");
+        doCompletion.commitCharacters = [" "];
+
+        const dropCompletion = new vscode.CompletionItem("drop");
+        dropCompletion.commitCharacters = [" "];
+
+        const duCompletion = new vscode.CompletionItem("du");
+        duCompletion.commitCharacters = [" "];
+
+        const eachCompletion = new vscode.CompletionItem("each");
+        eachCompletion.commitCharacters = [" "];
+
+        const echoCompletion = new vscode.CompletionItem("echo");
+        echoCompletion.commitCharacters = [" "];
+
+        const emptyCompletion = new vscode.CompletionItem("empty?");
+        emptyCompletion.commitCharacters = [" "];
+
+        const enterCompletion = new vscode.CompletionItem("enter");
+        enterCompletion.commitCharacters = [" "];
+
+        const everyCompletion = new vscode.CompletionItem("every");
+        everyCompletion.commitCharacters = [" "];
+
+        const execCompletion = new vscode.CompletionItem("exec");
+        execCompletion.commitCharacters = [" "];
+
+        const exitCompletion = new vscode.CompletionItem("exit");
+        exitCompletion.commitCharacters = [" "];
+
+        const fetchCompletion = new vscode.CompletionItem("fetch");
+        fetchCompletion.commitCharacters = [" "];
+
+        const firstCompletion = new vscode.CompletionItem("first");
+        firstCompletion.commitCharacters = [" "];
+
+        const flattenCompletion = new vscode.CompletionItem("flatten");
+        flattenCompletion.commitCharacters = [" "];
+
+        const formatCompletion = new vscode.CompletionItem("format");
+        formatCompletion.commitCharacters = [" "];
+
+        const fromCompletion = new vscode.CompletionItem("from");
+        fromCompletion.commitCharacters = [" "];
+
+        const getCompletion = new vscode.CompletionItem("get");
+        getCompletion.commitCharacters = [" "];
+
+        const groupByCompletion = new vscode.CompletionItem("group-by");
+        groupByCompletion.commitCharacters = [" "];
+
+        const hashCompletion = new vscode.CompletionItem("hash");
+        hashCompletion.commitCharacters = [" "];
+
+        const headersCompletion = new vscode.CompletionItem("headers");
+        headersCompletion.commitCharacters = [" "];
+
+        const helpCompletion = new vscode.CompletionItem("help");
+        helpCompletion.commitCharacters = [" "];
+
+        const histogramCompletion = new vscode.CompletionItem("histogram");
+        histogramCompletion.commitCharacters = [" "];
+
+        const historyCompletion = new vscode.CompletionItem("history");
+        historyCompletion.commitCharacters = [" "];
+
+        const ifCompletion = new vscode.CompletionItem("if");
+        ifCompletion.commitCharacters = [" "];
+
+        const incCompletion = new vscode.CompletionItem("inc");
+        incCompletion.commitCharacters = [" "];
+
+        const insertCompletion = new vscode.CompletionItem("insert");
+        insertCompletion.commitCharacters = [" "];
+
+        const intoIntCompletion = new vscode.CompletionItem("into-int");
+        intoIntCompletion.commitCharacters = [" "];
+
+        const keepCompletion = new vscode.CompletionItem("keep");
+        keepCompletion.commitCharacters = [" "];
+
+        const killCompletion = new vscode.CompletionItem("kill");
+        killCompletion.commitCharacters = [" "];
+
+        const lastCompletion = new vscode.CompletionItem("last");
+        lastCompletion.commitCharacters = [" "];
+
+        const lengthCompletion = new vscode.CompletionItem("length");
+        lengthCompletion.commitCharacters = [" "];
+
+        const letCompletion = new vscode.CompletionItem("let");
+        letCompletion.commitCharacters = [" "];
+
+        const letEnvCompletion = new vscode.CompletionItem("let-env");
+        letEnvCompletion.commitCharacters = [" "];
+
+        const linesCompletion = new vscode.CompletionItem("lines");
+        linesCompletion.commitCharacters = [" "];
+
+        const lsCompletion = new vscode.CompletionItem("ls");
+        lsCompletion.commitCharacters = [" "];
+
+        const matchCompletion = new vscode.CompletionItem("match");
+        matchCompletion.commitCharacters = [" "];
+
+        const mathCompletion = new vscode.CompletionItem("math");
+        mathCompletion.commitCharacters = [" "];
+
+        const mergeCompletion = new vscode.CompletionItem("merge");
+        mergeCompletion.commitCharacters = [" "];
+
+        const mkdirCompletion = new vscode.CompletionItem("mkdir");
+        mkdirCompletion.commitCharacters = [" "];
+
+        const moveCompletion = new vscode.CompletionItem("move");
+        moveCompletion.commitCharacters = [" "];
+
+        const mvCompletion = new vscode.CompletionItem("mv");
+        mvCompletion.commitCharacters = [" "];
+
+        const nCompletion = new vscode.CompletionItem("n");
+        nCompletion.commitCharacters = [" "];
+
+        const nthCompletion = new vscode.CompletionItem("nth");
+        nthCompletion.commitCharacters = [" "];
+
+        const openCompletion = new vscode.CompletionItem("open");
+        openCompletion.commitCharacters = [" "];
+
+        const pCompletion = new vscode.CompletionItem("p");
+        pCompletion.commitCharacters = [" "];
+
+        const parseCompletion = new vscode.CompletionItem("parse");
+        parseCompletion.commitCharacters = [" "];
+
+        const pathCompletion = new vscode.CompletionItem("path");
+        pathCompletion.commitCharacters = [" "];
+
+        const pivotCompletion = new vscode.CompletionItem("pivot");
+        pivotCompletion.commitCharacters = [" "];
+
+        const postCompletion = new vscode.CompletionItem("post");
+        postCompletion.commitCharacters = [" "];
+
+        const prependCompletion = new vscode.CompletionItem("prepend");
+        prependCompletion.commitCharacters = [" "];
+
+        const psCompletion = new vscode.CompletionItem("ps");
+        psCompletion.commitCharacters = [" "];
+
+        const pwdCompletion = new vscode.CompletionItem("pwd");
+        pwdCompletion.commitCharacters = [" "];
+
+        const randomCompletion = new vscode.CompletionItem("random");
+        randomCompletion.commitCharacters = [" "];
+
+        const rangeCompletion = new vscode.CompletionItem("range");
+        rangeCompletion.commitCharacters = [" "];
+
+        const reduceCompletion = new vscode.CompletionItem("reduce");
+        reduceCompletion.commitCharacters = [" "];
+
+        const rejectCompletion = new vscode.CompletionItem("reject");
+        rejectCompletion.commitCharacters = [" "];
+
+        const renameCompletion = new vscode.CompletionItem("rename");
+        renameCompletion.commitCharacters = [" "];
+
+        const reverseCompletion = new vscode.CompletionItem("reverse");
+        reverseCompletion.commitCharacters = [" "];
+
+        const rmCompletion = new vscode.CompletionItem("rm");
+        rmCompletion.commitCharacters = [" "];
+
+        const rollCompletion = new vscode.CompletionItem("roll");
+        rollCompletion.commitCharacters = [" "];
+
+        const rotateCompletion = new vscode.CompletionItem("rotate");
+        rotateCompletion.commitCharacters = [" "];
+
+        const s3Completion = new vscode.CompletionItem("s3");
+        s3Completion.commitCharacters = [" "];
+
+        const saveCompletion = new vscode.CompletionItem("save");
+        saveCompletion.commitCharacters = [" "];
+
+        const selectCompletion = new vscode.CompletionItem("select");
+        selectCompletion.commitCharacters = [" "];
+
+        const selectorCompletion = new vscode.CompletionItem("selector");
+        selectorCompletion.commitCharacters = [" "];
+
+        const seqCompletion = new vscode.CompletionItem("seq");
+        seqCompletion.commitCharacters = [" "];
+
+        const shellsCompletion = new vscode.CompletionItem("shells");
+        shellsCompletion.commitCharacters = [" "];
+
+        const shuffleCompletion = new vscode.CompletionItem("shuffle");
+        shuffleCompletion.commitCharacters = [" "];
+
+        const sizeCompletion = new vscode.CompletionItem("size");
+        sizeCompletion.commitCharacters = [" "];
+
+        const skipCompletion = new vscode.CompletionItem("skip");
+        skipCompletion.commitCharacters = [" "];
+
+        const sleepCompletion = new vscode.CompletionItem("sleep");
+        sleepCompletion.commitCharacters = [" "];
+
+        const sortByCompletion = new vscode.CompletionItem("sort-by");
+        sortByCompletion.commitCharacters = [" "];
+
+        const sourceCompletion = new vscode.CompletionItem("source");
+        sourceCompletion.commitCharacters = [" "];
+
+        const splitCompletion = new vscode.CompletionItem("split");
+        splitCompletion.commitCharacters = [" "];
+
+        const splitByCompletion = new vscode.CompletionItem("split-by");
+        splitByCompletion.commitCharacters = [" "];
+
+        const startCompletion = new vscode.CompletionItem("start");
+        startCompletion.commitCharacters = [" "];
+
+        const strCompletion = new vscode.CompletionItem("str");
+        strCompletion.commitCharacters = [" "];
+
+        const sysCompletion = new vscode.CompletionItem("sys");
+        sysCompletion.commitCharacters = [" "];
+
+        const tableCompletion = new vscode.CompletionItem("table");
+        tableCompletion.commitCharacters = [" "];
+
+        const tagsCompletion = new vscode.CompletionItem("tags");
+        tagsCompletion.commitCharacters = [" "];
+
+        const textviewCompletion = new vscode.CompletionItem("textview");
+        textviewCompletion.commitCharacters = [" "];
+
+        const toCompletion = new vscode.CompletionItem("to");
+        toCompletion.commitCharacters = [" "];
+
+        const touchCompletion = new vscode.CompletionItem("touch");
+        touchCompletion.commitCharacters = [" "];
+
+        const treeCompletion = new vscode.CompletionItem("tree");
+        treeCompletion.commitCharacters = [" "];
+
+        const uniqCompletion = new vscode.CompletionItem("uniq");
+        uniqCompletion.commitCharacters = [" "];
+
+        const updateCompletion = new vscode.CompletionItem("update");
+        updateCompletion.commitCharacters = [" "];
+
+        const urlCompletion = new vscode.CompletionItem("url");
+        urlCompletion.commitCharacters = [" "];
+
+        const versionCompletion = new vscode.CompletionItem("version");
+        versionCompletion.commitCharacters = [" "];
+
+        const whereCompletion = new vscode.CompletionItem("where");
+        whereCompletion.commitCharacters = [" "];
+
+        const whichCompletion = new vscode.CompletionItem("which");
+        whichCompletion.commitCharacters = [" "];
+
+        const withEnvCompletion = new vscode.CompletionItem("with-env");
+        withEnvCompletion.commitCharacters = [" "];
+
+        const wrapCompletion = new vscode.CompletionItem("wrap");
+        wrapCompletion.commitCharacters = [" "];
+
+        const xpathCompletion = new vscode.CompletionItem("xpath");
+        xpathCompletion.commitCharacters = [" "];
+
+        return [
+          allCompletion,
+          ansiCompletion,
+          anyCompletion,
+          appendCompletion,
+          autoenvCompletion,
+          autoviewCompletion,
+          benchmarkCompletion,
+          binaryviewCompletion,
+          buildStringCompletion,
+          calCompletion,
+          cdCompletion,
+          charCompletion,
+          chartCompletion,
+          clearCompletion,
+          clipCompletion,
+          compactCompletion,
+          configCompletion,
+          cpCompletion,
+          dateCompletion,
+          debugCompletion,
+          defCompletion,
+          defaultCompletion,
+          describeCompletion,
+          doCompletion,
+          dropCompletion,
+          duCompletion,
+          eachCompletion,
+          echoCompletion,
+          emptyCompletion,
+          enterCompletion,
+          everyCompletion,
+          execCompletion,
+          exitCompletion,
+          fetchCompletion,
+          firstCompletion,
+          flattenCompletion,
+          formatCompletion,
+          fromCompletion,
+          getCompletion,
+          groupByCompletion,
+          hashCompletion,
+          headersCompletion,
+          helpCompletion,
+          histogramCompletion,
+          historyCompletion,
+          ifCompletion,
+          incCompletion,
+          insertCompletion,
+          intoIntCompletion,
+          keepCompletion,
+          killCompletion,
+          lastCompletion,
+          lengthCompletion,
+          letCompletion,
+          letEnvCompletion,
+          linesCompletion,
+          lsCompletion,
+          matchCompletion,
+          mathCompletion,
+          mergeCompletion,
+          mkdirCompletion,
+          moveCompletion,
+          mvCompletion,
+          nCompletion,
+          nthCompletion,
+          openCompletion,
+          pCompletion,
+          parseCompletion,
+          pathCompletion,
+          pivotCompletion,
+          postCompletion,
+          prependCompletion,
+          psCompletion,
+          pwdCompletion,
+          randomCompletion,
+          rangeCompletion,
+          reduceCompletion,
+          rejectCompletion,
+          renameCompletion,
+          reverseCompletion,
+          rmCompletion,
+          rollCompletion,
+          rotateCompletion,
+          s3Completion,
+          saveCompletion,
+          selectCompletion,
+          selectorCompletion,
+          seqCompletion,
+          shellsCompletion,
+          shuffleCompletion,
+          sizeCompletion,
+          skipCompletion,
+          sleepCompletion,
+          sortByCompletion,
+          sourceCompletion,
+          splitCompletion,
+          splitByCompletion,
+          startCompletion,
+          strCompletion,
+          sysCompletion,
+          tableCompletion,
+          tagsCompletion,
+          textviewCompletion,
+          toCompletion,
+          touchCompletion,
+          treeCompletion,
+          uniqCompletion,
+          updateCompletion,
+          urlCompletion,
+          versionCompletion,
+          whereCompletion,
+          whichCompletion,
+          withEnvCompletion,
+          wrapCompletion,
+          xpathCompletion,
+        ];
+      },
+    }
+  );
+
+  const ansiSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("ansi ")) {
+          const ansiStrip = new vscode.CompletionItem(
+            "strip",
+            vscode.CompletionItemKind.Method
+          );
+          ansiStrip.detail = "strip ansi escape sequences from string";
+
+          return [ansiStrip];
+        } else {
+          return undefined;
         }
-    });
+      },
+    },
+    " "
+  );
 
-    const ansiSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
-        'nushell',
-        {
-            provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+  const autoenvSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("autoenv ")) {
+          const autoenvTrust = new vscode.CompletionItem(
+            "trust",
+            vscode.CompletionItemKind.Method
+          );
+          autoenvTrust.detail =
+            "Trust a .nu-env file in the current or given directory";
 
-                // get all text until the `position` and check if it reads `console.`
-                const linePrefix = document.lineAt(position).text.substr(0, position.character);
-                if (linePrefix.endsWith('ansi ')) {
+          const autoenvUntrust = new vscode.CompletionItem(
+            "untrust",
+            vscode.CompletionItemKind.Method
+          );
+          autoenvUntrust.detail =
+            "Untrust a .nu-env file in the current or given directory";
 
-                    const ansiStrip = new vscode.CompletionItem('strip', vscode.CompletionItemKind.Method);
-                    ansiStrip.documentation = new vscode.MarkdownString('Press `Enter` for a strip');
-                    ansiStrip.detail = 'Remove ansi escape sequences';
+          return [autoenvTrust, autoenvUntrust];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
 
-                    return [
-                        ansiStrip
-                    ];
-                } else {
-                    return undefined
-                }
-            }
-        },
-        ' ' // triggered whenever a ' ' is being typed
-    );
+  const chartSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("chart ")) {
+          const chartBar = new vscode.CompletionItem(
+            "bar",
+            vscode.CompletionItemKind.Method
+          );
+          chartBar.detail = "Bar charts";
 
-    const strSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
-        'nushell',
-        {
-            provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+          const chartLine = new vscode.CompletionItem(
+            "line",
+            vscode.CompletionItemKind.Method
+          );
+          chartLine.detail = "Line charts";
 
-                // get all text until the `position` and check if it reads `console.`
-                const linePrefix = document.lineAt(position).text.substr(0, position.character);
-                if (linePrefix.endsWith('str ')) {
+          return [chartBar, chartLine];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
 
-                    const strCamelCase = new vscode.CompletionItem('camel-case', vscode.CompletionItemKind.Method);
-                    strCamelCase.documentation = new vscode.MarkdownString('Press `Enter` for a camel');
-                    strCamelCase.detail = 'Change string to camelCase';
+  const configSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("config ")) {
+          const configClear = new vscode.CompletionItem(
+            "clear",
+            vscode.CompletionItemKind.Method
+          );
+          configClear.detail = "clear the config";
 
-                    const strCapitalize = new vscode.CompletionItem('capitalize', vscode.CompletionItemKind.Method);
-                    strCapitalize.documentation = new vscode.MarkdownString('Press `Enter` to capitalize');
-                    strCapitalize.detail = 'Capitalize string';
+          const configGet = new vscode.CompletionItem(
+            "get",
+            vscode.CompletionItemKind.Method
+          );
+          configGet.detail = "Gets a value from the config";
 
-                    const strCollect = new vscode.CompletionItem('collect', vscode.CompletionItemKind.Method);
-                    strCollect.documentation = new vscode.MarkdownString('Press `Enter` for a collect');
-                    strCollect.detail = 'Collect strings with optional delimiter';
+          const configPath = new vscode.CompletionItem(
+            "path",
+            vscode.CompletionItemKind.Method
+          );
+          configPath.detail = "return the path to the config file";
 
-                    const strContains = new vscode.CompletionItem('contains', vscode.CompletionItemKind.Method);
-                    strContains.documentation = new vscode.MarkdownString('Press `Enter` for a contains');
-                    strContains.detail = 'Check if string contains another string';
+          const configRemove = new vscode.CompletionItem(
+            "remove",
+            vscode.CompletionItemKind.Method
+          );
+          configRemove.detail = "Removes a value from the config";
 
-                    const strDowncase = new vscode.CompletionItem('downcase', vscode.CompletionItemKind.Method);
-                    strDowncase.documentation = new vscode.MarkdownString('Press `Enter` for a downcase');
-                    strDowncase.detail = 'Change string to lowercase';
+          const configSet = new vscode.CompletionItem(
+            "set",
+            vscode.CompletionItemKind.Method
+          );
+          configSet.detail = "Sets a value in the config";
 
-                    const strEndsWith = new vscode.CompletionItem('ends-with', vscode.CompletionItemKind.Method);
-                    strEndsWith.documentation = new vscode.MarkdownString('Press `Enter` for a ends-with');
-                    strEndsWith.detail = 'Check if string ends with another string';
+          const configSetInto = new vscode.CompletionItem(
+            "set_into",
+            vscode.CompletionItemKind.Method
+          );
+          configSetInto.detail = "Sets a value in the config";
 
-                    const strFindReplace = new vscode.CompletionItem('find-replace', vscode.CompletionItemKind.Method);
-                    strFindReplace.documentation = new vscode.MarkdownString('Press `Enter` for a find-replace');
-                    strFindReplace.detail = 'Find string and replace with another';
+          return [
+            configClear,
+            configGet,
+            configPath,
+            configRemove,
+            configSet,
+            configSetInto,
+          ];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
 
-                    const strFrom = new vscode.CompletionItem('from', vscode.CompletionItemKind.Method);
-                    strFrom.documentation = new vscode.MarkdownString('Press `Enter` for a from');
-                    strFrom.detail = 'Convert anything to string';
+  const dateSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("date ")) {
+          const dateFormat = new vscode.CompletionItem(
+            "format",
+            vscode.CompletionItemKind.Method
+          );
+          dateFormat.detail =
+            "Format a given date using the given format string.";
 
-                    const strIndexOf = new vscode.CompletionItem('index-of', vscode.CompletionItemKind.Method);
-                    strIndexOf.documentation = new vscode.MarkdownString('Press `Enter` for a index-of');
-                    strIndexOf.detail = 'Return the index of a string';
+          const dateListTimezone = new vscode.CompletionItem(
+            "list-timezone",
+            vscode.CompletionItemKind.Method
+          );
+          dateListTimezone.detail = "List supported time zones.";
 
-                    const strKebabCase = new vscode.CompletionItem('kebab-case', vscode.CompletionItemKind.Method);
-                    strKebabCase.documentation = new vscode.MarkdownString('Press `Enter` for a kebab-case');
-                    strKebabCase.detail = 'Change string-to-kebab-case';
+          const dateNow = new vscode.CompletionItem(
+            "now",
+            vscode.CompletionItemKind.Method
+          );
+          dateNow.detail = "Get the current date.";
 
-                    const strLength = new vscode.CompletionItem('length', vscode.CompletionItemKind.Method);
-                    strLength.documentation = new vscode.MarkdownString('Press `Enter` for a length');
-                    strLength.detail = 'Return the length of a string in chars';
+          const dateToTable = new vscode.CompletionItem(
+            "to-table",
+            vscode.CompletionItemKind.Method
+          );
+          dateToTable.detail = "Print the date in a structured table.";
 
-                    const strLPad = new vscode.CompletionItem('lpad', vscode.CompletionItemKind.Method);
-                    strLPad.documentation = new vscode.MarkdownString('Press `Enter` for a lpad');
-                    strLPad.detail = 'Left pad a string with another string';
+          const dateToTimezone = new vscode.CompletionItem(
+            "to-timezone",
+            vscode.CompletionItemKind.Method
+          );
+          dateToTimezone.detail = "Convert a date to a given time zone.";
 
-                    const strLTrim = new vscode.CompletionItem('ltrim', vscode.CompletionItemKind.Method);
-                    strLTrim.documentation = new vscode.MarkdownString('Press `Enter` for a ltrim');
-                    strLTrim.detail = 'Left trim a string with another string';
+          return [
+            dateFormat,
+            dateListTimezone,
+            dateNow,
+            dateToTable,
+            dateToTimezone,
+          ];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
 
-                    const strPascalCase = new vscode.CompletionItem('pascal-case', vscode.CompletionItemKind.Method);
-                    strPascalCase.documentation = new vscode.MarkdownString('Press `Enter` for a pascal-case');
-                    strPascalCase.detail = 'Convert StringToPascalCase';
+  const dropSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("drop ")) {
+          const dropColumn = new vscode.CompletionItem(
+            "column",
+            vscode.CompletionItemKind.Method
+          );
+          dropColumn.detail =
+            "Remove the last number of columns. If you want to remove columns by name, try 'reject'.";
 
-                    const strSnakeCase = new vscode.CompletionItem('snake-case', vscode.CompletionItemKind.Method);
-                    strSnakeCase.documentation = new vscode.MarkdownString('Press `Enter` for a snake-case');
-                    strSnakeCase.detail = 'Convert string_to_snake_case';
+          return [dropColumn];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
 
-                    const strStartsWith = new vscode.CompletionItem('starts-with', vscode.CompletionItemKind.Method);
-                    strStartsWith.documentation = new vscode.MarkdownString('Press `Enter` for a starts-with');
-                    strStartsWith.detail = 'Check if a string starts with another string';
+  const eachSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("each ")) {
+          const eachGroup = new vscode.CompletionItem(
+            "group",
+            vscode.CompletionItemKind.Method
+          );
+          eachGroup.detail =
+            "Runs a block on groups of `group_size` rows of a table at a time.";
 
-                    const strSubString = new vscode.CompletionItem('substring', vscode.CompletionItemKind.Method);
-                    strSubString.documentation = new vscode.MarkdownString('Press `Enter` for a substring');
-                    strSubString.detail = 'Extract a part of a string';
+          const eachWindow = new vscode.CompletionItem(
+            "window",
+            vscode.CompletionItemKind.Method
+          );
+          eachWindow.detail =
+            "Runs a block on sliding windows of `window_size` rows of a table at a time.";
 
-                    const strToDateTime = new vscode.CompletionItem('to-datetime', vscode.CompletionItemKind.Method);
-                    strToDateTime.documentation = new vscode.MarkdownString('Press `Enter` for a to-datetime');
-                    strToDateTime.detail = 'Convert a string to a datetime';
+          return [eachGroup, eachWindow];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
 
-                    const strToDecimal = new vscode.CompletionItem('to-decimal', vscode.CompletionItemKind.Method);
-                    strToDecimal.documentation = new vscode.MarkdownString('Press `Enter` for a to-decimal');
-                    strToDecimal.detail = 'Convert a string to a decimal';
+  const formatSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("format ")) {
+          const formatFilesize = new vscode.CompletionItem(
+            "filesize",
+            vscode.CompletionItemKind.Method
+          );
+          formatFilesize.detail =
+            "Converts a column of filesizes to some specified format";
 
-                    const strToInt = new vscode.CompletionItem('to-int', vscode.CompletionItemKind.Method);
-                    strToInt.documentation = new vscode.MarkdownString('Press `Enter` for a to-int');
-                    strToInt.detail = 'Convert a string to an int';
+          return [formatFilesize];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
 
-                    const strTrim = new vscode.CompletionItem('trim', vscode.CompletionItemKind.Method);
-                    strTrim.documentation = new vscode.MarkdownString('Press `Enter` for a trim');
-                    strTrim.detail = 'Trim a string on both ends';
+  const fromSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("from ")) {
+          const fromBson = new vscode.CompletionItem(
+            "bson",
+            vscode.CompletionItemKind.Method
+          );
+          fromBson.detail = "Convert from .bson binary into table";
 
-                    const strUpcase = new vscode.CompletionItem('upcase', vscode.CompletionItemKind.Method);
-                    strUpcase.documentation = new vscode.MarkdownString('Press `Enter` for a upcase');
-                    strUpcase.detail = 'Change string to upper case';
+          const fromCsv = new vscode.CompletionItem(
+            "csv",
+            vscode.CompletionItemKind.Method
+          );
+          fromCsv.detail = "Parse text as .csv and create table.";
 
-                    return [
-                        strCamelCase,
-                        strCapitalize,
-                        strCollect,
-                        strContains,
-                        strDowncase,
-                        strEndsWith,
-                        strFindReplace,
-                        strFrom,
-                        strIndexOf,
-                        strKebabCase,
-                        strLength,
-                        strLPad,
-                        strLTrim,
-                        strPascalCase,
-                        strSnakeCase,
-                        strStartsWith,
-                        strSubString,
-                        strToDateTime,
-                        strToDecimal,
-                        strToInt,
-                        strTrim,
-                        strUpcase,
-                    ];
-                } else {
-                    return undefined
-                }
-            }
-        },
-        ' ' // triggered whenever a ' ' is being typed
-    );
+          const fromEml = new vscode.CompletionItem(
+            "eml",
+            vscode.CompletionItemKind.Method
+          );
+          fromEml.detail = "Parse text as .eml and create table.";
 
-    context.subscriptions.push(
-        keywordsWithSubCommandsProvider,
-        ansiSubCommandsProvider,
-        strSubCommandsProvider);
+          const fromIcs = new vscode.CompletionItem(
+            "ics",
+            vscode.CompletionItemKind.Method
+          );
+          fromIcs.detail = "Parse text as .ics and create table.";
+
+          const fromIni = new vscode.CompletionItem(
+            "ini",
+            vscode.CompletionItemKind.Method
+          );
+          fromIni.detail = "Parse text as .ini and create table";
+
+          const fromJson = new vscode.CompletionItem(
+            "json",
+            vscode.CompletionItemKind.Method
+          );
+          fromJson.detail = "Parse text as .json and create table.";
+
+          const fromOds = new vscode.CompletionItem(
+            "ods",
+            vscode.CompletionItemKind.Method
+          );
+          fromOds.detail =
+            "Parse OpenDocument Spreadsheet(.ods) data and create table.";
+
+          const fromSqlite = new vscode.CompletionItem(
+            "sqlite",
+            vscode.CompletionItemKind.Method
+          );
+          fromSqlite.detail = "Convert from sqlite binary into table";
+
+          const fromSsv = new vscode.CompletionItem(
+            "ssv",
+            vscode.CompletionItemKind.Method
+          );
+          fromSsv.detail =
+            "Parse text as space-separated values and create a table. The default minimum number of spaces counted as a separator is 2.";
+
+          const fromToml = new vscode.CompletionItem(
+            "toml",
+            vscode.CompletionItemKind.Method
+          );
+          fromToml.detail = "Parse text as .toml and create table.";
+
+          const fromTsv = new vscode.CompletionItem(
+            "tsv",
+            vscode.CompletionItemKind.Method
+          );
+          fromTsv.detail = "Parse text as .tsv and create table.";
+
+          const fromUrl = new vscode.CompletionItem(
+            "url",
+            vscode.CompletionItemKind.Method
+          );
+          fromUrl.detail = "Parse url-encoded string as a table.";
+
+          const fromVcf = new vscode.CompletionItem(
+            "vcf",
+            vscode.CompletionItemKind.Method
+          );
+          fromVcf.detail = "Parse text as .vcf and create table.";
+
+          const fromXlsx = new vscode.CompletionItem(
+            "xlsx",
+            vscode.CompletionItemKind.Method
+          );
+          fromXlsx.detail = "Parse binary Excel(.xlsx) data and create table.";
+
+          const fromXml = new vscode.CompletionItem(
+            "xml",
+            vscode.CompletionItemKind.Method
+          );
+          fromXml.detail = "Parse text as .xml and create table.";
+
+          const fromYaml = new vscode.CompletionItem(
+            "yaml",
+            vscode.CompletionItemKind.Method
+          );
+          fromYaml.detail = "Parse text as .yaml/.yml and create table.";
+
+          const fromYml = new vscode.CompletionItem(
+            "yml",
+            vscode.CompletionItemKind.Method
+          );
+          fromYml.detail = "Parse text as .yaml/.yml and create table.";
+
+          return [
+            fromBson,
+            fromCsv,
+            fromEml,
+            fromIcs,
+            fromIni,
+            fromJson,
+            fromOds,
+            fromSqlite,
+            fromSsv,
+            fromToml,
+            fromTsv,
+            fromUrl,
+            fromVcf,
+            fromXlsx,
+            fromXml,
+            fromYaml,
+            fromYml,
+          ];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const groupBySubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("group-by ")) {
+          const groupByDate = new vscode.CompletionItem(
+            "date",
+            vscode.CompletionItemKind.Method
+          );
+          groupByDate.detail = "creates a table grouped by date.";
+
+          return [groupByDate];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const hashSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("hash ")) {
+          const hashBase64 = new vscode.CompletionItem(
+            "base64",
+            vscode.CompletionItemKind.Method
+          );
+          hashBase64.detail = "base64 encode or decode a value";
+
+          const hashMd5 = new vscode.CompletionItem(
+            "md5",
+            vscode.CompletionItemKind.Method
+          );
+          hashMd5.detail = "md5 encode a value";
+
+          return [hashBase64, hashMd5];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const keepSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("keep ")) {
+          const keepUntil = new vscode.CompletionItem(
+            "until",
+            vscode.CompletionItemKind.Method
+          );
+          keepUntil.detail = "Keeps rows until the condition matches.";
+
+          const keepWhile = new vscode.CompletionItem(
+            "while",
+            vscode.CompletionItemKind.Method
+          );
+          keepWhile.detail = "Keeps rows while the condition matches.";
+
+          return [keepUntil, keepWhile];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const mathSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("math ")) {
+          const mathAbs = new vscode.CompletionItem(
+            "abs",
+            vscode.CompletionItemKind.Method
+          );
+          mathAbs.detail = "Returns absolute values of a list of numbers";
+
+          const mathAvg = new vscode.CompletionItem(
+            "avg",
+            vscode.CompletionItemKind.Method
+          );
+          mathAvg.detail = "Finds the average of a list of numbers or tables";
+
+          const mathCeil = new vscode.CompletionItem(
+            "ceil",
+            vscode.CompletionItemKind.Method
+          );
+          mathCeil.detail = "Applies the ceil function to a list of numbers";
+
+          const mathEval = new vscode.CompletionItem(
+            "eval",
+            vscode.CompletionItemKind.Method
+          );
+          mathEval.detail = "Evaluate a math expression into a number";
+
+          const mathFloor = new vscode.CompletionItem(
+            "floor",
+            vscode.CompletionItemKind.Method
+          );
+          mathFloor.detail = "Applies the floor function to a list of numbers";
+
+          const mathMax = new vscode.CompletionItem(
+            "max",
+            vscode.CompletionItemKind.Method
+          );
+          mathMax.detail =
+            "Finds the maximum within a list of numbers or tables";
+
+          const mathMedian = new vscode.CompletionItem(
+            "median",
+            vscode.CompletionItemKind.Method
+          );
+          mathMedian.detail = "Gets the median of a list of numbers";
+
+          const mathMin = new vscode.CompletionItem(
+            "min",
+            vscode.CompletionItemKind.Method
+          );
+          mathMin.detail =
+            "Finds the minimum within a list of numbers or tables";
+
+          const mathMode = new vscode.CompletionItem(
+            "mode",
+            vscode.CompletionItemKind.Method
+          );
+          mathMode.detail =
+            "Gets the most frequent element(s) from a list of numbers or tables";
+
+          const mathProduct = new vscode.CompletionItem(
+            "product",
+            vscode.CompletionItemKind.Method
+          );
+          mathProduct.detail =
+            "Finds the product of a list of numbers or tables";
+
+          const mathRound = new vscode.CompletionItem(
+            "round",
+            vscode.CompletionItemKind.Method
+          );
+          mathRound.detail = "Applies the round function to a list of numbers";
+
+          const mathSqrt = new vscode.CompletionItem(
+            "sqrt",
+            vscode.CompletionItemKind.Method
+          );
+          mathSqrt.detail =
+            "Applies the square root function to a list of numbers";
+
+          const mathStddev = new vscode.CompletionItem(
+            "stddev",
+            vscode.CompletionItemKind.Method
+          );
+          mathStddev.detail = "Finds the stddev of a list of numbers or tables";
+
+          const mathSum = new vscode.CompletionItem(
+            "sum",
+            vscode.CompletionItemKind.Method
+          );
+          mathSum.detail = "Finds the sum of a list of numbers or tables";
+
+          const mathVariance = new vscode.CompletionItem(
+            "variance",
+            vscode.CompletionItemKind.Method
+          );
+          mathVariance.detail =
+            "Finds the variance of a list of numbers or tables";
+
+          return [
+            mathAbs,
+            mathAvg,
+            mathCeil,
+            mathEval,
+            mathFloor,
+            mathMax,
+            mathMedian,
+            mathMin,
+            mathMode,
+            mathProduct,
+            mathRound,
+            mathSqrt,
+            mathStddev,
+            mathSum,
+            mathVariance,
+          ];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const pathSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("path ")) {
+          const pathBasename = new vscode.CompletionItem(
+            "basename",
+            vscode.CompletionItemKind.Method
+          );
+          pathBasename.detail = "Gets the final component of a path";
+
+          const pathDirname = new vscode.CompletionItem(
+            "dirname",
+            vscode.CompletionItemKind.Method
+          );
+          pathDirname.detail = "Gets the parent directory of a path";
+
+          const pathExists = new vscode.CompletionItem(
+            "exists",
+            vscode.CompletionItemKind.Method
+          );
+          pathExists.detail = "Checks whether a path exists";
+
+          const pathExpand = new vscode.CompletionItem(
+            "expand",
+            vscode.CompletionItemKind.Method
+          );
+          pathExpand.detail = "Expands a path to its absolute form";
+
+          const pathExtension = new vscode.CompletionItem(
+            "extension",
+            vscode.CompletionItemKind.Method
+          );
+          pathExtension.detail = "Gets the extension of a path";
+
+          const pathFilestem = new vscode.CompletionItem(
+            "filestem",
+            vscode.CompletionItemKind.Method
+          );
+          pathFilestem.detail = "Gets the file stem of a path";
+
+          const pathJoin = new vscode.CompletionItem(
+            "join",
+            vscode.CompletionItemKind.Method
+          );
+          pathJoin.detail = "Joins an input path with another path";
+
+          const pathType = new vscode.CompletionItem(
+            "type",
+            vscode.CompletionItemKind.Method
+          );
+          pathType.detail =
+            "Gives the type of the object a path refers to (e.g., file, dir, symlink)";
+
+          return [
+            pathBasename,
+            pathDirname,
+            pathExists,
+            pathExpand,
+            pathExtension,
+            pathFilestem,
+            pathJoin,
+            pathType,
+          ];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const randomSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("random ")) {
+          const randomBool = new vscode.CompletionItem(
+            "bool",
+            vscode.CompletionItemKind.Method
+          );
+          randomBool.detail = "Generate a random boolean value";
+
+          const randomChars = new vscode.CompletionItem(
+            "chars",
+            vscode.CompletionItemKind.Method
+          );
+          randomChars.detail = "Generate random chars";
+
+          const randomDecimal = new vscode.CompletionItem(
+            "decimal",
+            vscode.CompletionItemKind.Method
+          );
+          randomDecimal.detail =
+            "Generate a random decimal within a range [min..max]";
+
+          const randomDice = new vscode.CompletionItem(
+            "dice",
+            vscode.CompletionItemKind.Method
+          );
+          randomDice.detail = "Generate a random dice roll";
+
+          const randomInteger = new vscode.CompletionItem(
+            "integer",
+            vscode.CompletionItemKind.Method
+          );
+          randomInteger.detail = "Generate a random integer [min..max]";
+
+          const randomUuid = new vscode.CompletionItem(
+            "uuid",
+            vscode.CompletionItemKind.Method
+          );
+          randomUuid.detail = "Generate a random uuid4 string";
+
+          return [
+            randomBool,
+            randomChars,
+            randomDecimal,
+            randomDice,
+            randomInteger,
+            randomUuid,
+          ];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const rollSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("roll ")) {
+          const rollColumn = new vscode.CompletionItem(
+            "column",
+            vscode.CompletionItemKind.Method
+          );
+          rollColumn.detail = "Rolls the table columns";
+
+          const rollUp = new vscode.CompletionItem(
+            "up",
+            vscode.CompletionItemKind.Method
+          );
+          rollUp.detail = "Rolls the table rows";
+
+          return [rollColumn, rollUp];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const rotateSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("rotate ")) {
+          const rotateCounterClockwise = new vscode.CompletionItem(
+            "counter-clockwise",
+            vscode.CompletionItemKind.Method
+          );
+          rotateCounterClockwise.detail =
+            "Rotates the table by 90 degrees counter clockwise.";
+
+          return [rotateCounterClockwise];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const seqSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("seq ")) {
+          const seqDate = new vscode.CompletionItem(
+            "date",
+            vscode.CompletionItemKind.Method
+          );
+          seqDate.detail = "print sequences of dates";
+
+          return [seqDate];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const skipSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("skip ")) {
+          const skipUntil = new vscode.CompletionItem(
+            "until",
+            vscode.CompletionItemKind.Method
+          );
+          skipUntil.detail = "Skips rows until the condition matches.";
+
+          const skipWhile = new vscode.CompletionItem(
+            "while",
+            vscode.CompletionItemKind.Method
+          );
+          skipWhile.detail = "Skips rows while the condition matches.";
+
+          return [skipUntil, skipWhile];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const splitSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("split ")) {
+          const splitChars = new vscode.CompletionItem(
+            "chars",
+            vscode.CompletionItemKind.Method
+          );
+          splitChars.detail = "splits a string's characters into separate rows";
+
+          const splitColumn = new vscode.CompletionItem(
+            "column",
+            vscode.CompletionItemKind.Method
+          );
+          splitColumn.detail =
+            "splits contents across multiple columns via the separator.";
+
+          const splitRow = new vscode.CompletionItem(
+            "row",
+            vscode.CompletionItemKind.Method
+          );
+          splitRow.detail =
+            "splits contents over multiple rows via the separator.";
+
+          return [splitChars, splitColumn, splitRow];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const strSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("str ")) {
+          const strCamelCase = new vscode.CompletionItem(
+            "camel-case",
+            vscode.CompletionItemKind.Method
+          );
+          strCamelCase.detail = "converts a string to camelCase";
+
+          const strCapitalize = new vscode.CompletionItem(
+            "capitalize",
+            vscode.CompletionItemKind.Method
+          );
+          strCapitalize.detail = "capitalizes text";
+
+          const strCollect = new vscode.CompletionItem(
+            "collect",
+            vscode.CompletionItemKind.Method
+          );
+          strCollect.detail = "collects a list of strings into a string";
+
+          const strContains = new vscode.CompletionItem(
+            "contains",
+            vscode.CompletionItemKind.Method
+          );
+          strContains.detail = "Checks if string contains pattern";
+
+          const strDowncase = new vscode.CompletionItem(
+            "downcase",
+            vscode.CompletionItemKind.Method
+          );
+          strDowncase.detail = "downcases text";
+
+          const strEndsWith = new vscode.CompletionItem(
+            "ends-with",
+            vscode.CompletionItemKind.Method
+          );
+          strEndsWith.detail = "checks if string ends with pattern";
+
+          const strFindReplace = new vscode.CompletionItem(
+            "find-replace",
+            vscode.CompletionItemKind.Method
+          );
+          strFindReplace.detail = "finds and replaces text";
+
+          const strFrom = new vscode.CompletionItem(
+            "from",
+            vscode.CompletionItemKind.Method
+          );
+          strFrom.detail =
+            "Converts numeric types to strings. Trims trailing zeros unless decimals parameter is specified.";
+
+          const strIndexOf = new vscode.CompletionItem(
+            "index-of",
+            vscode.CompletionItemKind.Method
+          );
+          strIndexOf.detail =
+            "Returns starting index of given pattern in string counting from 0. Returns -1 when there are no results.";
+
+          const strKebabCase = new vscode.CompletionItem(
+            "kebab-case",
+            vscode.CompletionItemKind.Method
+          );
+          strKebabCase.detail = "converts a string to kebab-case";
+
+          const strLength = new vscode.CompletionItem(
+            "length",
+            vscode.CompletionItemKind.Method
+          );
+          strLength.detail =
+            "outputs the lengths of the strings in the pipeline";
+
+          const strLpad = new vscode.CompletionItem(
+            "lpad",
+            vscode.CompletionItemKind.Method
+          );
+          strLpad.detail = "pad a string with a character a certain length";
+
+          const strLtrim = new vscode.CompletionItem(
+            "ltrim",
+            vscode.CompletionItemKind.Method
+          );
+          strLtrim.detail =
+            "trims whitespace or character from the beginning of text";
+
+          const strPascalCase = new vscode.CompletionItem(
+            "pascal-case",
+            vscode.CompletionItemKind.Method
+          );
+          strPascalCase.detail = "converts a string to PascalCase";
+
+          const strReverse = new vscode.CompletionItem(
+            "reverse",
+            vscode.CompletionItemKind.Method
+          );
+          strReverse.detail =
+            "outputs the reversals of the strings in the pipeline";
+
+          const strRpad = new vscode.CompletionItem(
+            "rpad",
+            vscode.CompletionItemKind.Method
+          );
+          strRpad.detail = "pad a string with a character a certain length";
+
+          const strRtrim = new vscode.CompletionItem(
+            "rtrim",
+            vscode.CompletionItemKind.Method
+          );
+          strRtrim.detail =
+            "trims whitespace or character from the end of text";
+
+          const strScreamingSnakeCase = new vscode.CompletionItem(
+            "screaming-snake-case",
+            vscode.CompletionItemKind.Method
+          );
+          strScreamingSnakeCase.detail =
+            "converts a string to SCREAMING_SNAKE_CASE";
+
+          const strSnakeCase = new vscode.CompletionItem(
+            "snake-case",
+            vscode.CompletionItemKind.Method
+          );
+          strSnakeCase.detail = "converts a string to snake_case";
+
+          const strStartsWith = new vscode.CompletionItem(
+            "starts-with",
+            vscode.CompletionItemKind.Method
+          );
+          strStartsWith.detail = "checks if string starts with pattern";
+
+          const strSubstring = new vscode.CompletionItem(
+            "substring",
+            vscode.CompletionItemKind.Method
+          );
+          strSubstring.detail = "substrings text";
+
+          const strToDatetime = new vscode.CompletionItem(
+            "to-datetime",
+            vscode.CompletionItemKind.Method
+          );
+          strToDatetime.detail = "converts text into datetime";
+
+          const strToDecimal = new vscode.CompletionItem(
+            "to-decimal",
+            vscode.CompletionItemKind.Method
+          );
+          strToDecimal.detail = "converts text into decimal";
+
+          const strToInt = new vscode.CompletionItem(
+            "to-int",
+            vscode.CompletionItemKind.Method
+          );
+          strToInt.detail = "converts text into integer";
+
+          const strTrim = new vscode.CompletionItem(
+            "trim",
+            vscode.CompletionItemKind.Method
+          );
+          strTrim.detail = "trims text";
+
+          const strUpcase = new vscode.CompletionItem(
+            "upcase",
+            vscode.CompletionItemKind.Method
+          );
+          strUpcase.detail = "upcases text";
+
+          return [
+            strCamelCase,
+            strCapitalize,
+            strCollect,
+            strContains,
+            strDowncase,
+            strEndsWith,
+            strFindReplace,
+            strFrom,
+            strIndexOf,
+            strKebabCase,
+            strLength,
+            strLpad,
+            strLtrim,
+            strPascalCase,
+            strReverse,
+            strRpad,
+            strRtrim,
+            strScreamingSnakeCase,
+            strSnakeCase,
+            strStartsWith,
+            strSubstring,
+            strToDatetime,
+            strToDecimal,
+            strToInt,
+            strTrim,
+            strUpcase,
+          ];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const toSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("to ")) {
+          const toBson = new vscode.CompletionItem(
+            "bson",
+            vscode.CompletionItemKind.Method
+          );
+          toBson.detail = "Convert table into .bson binary";
+
+          const toCsv = new vscode.CompletionItem(
+            "csv",
+            vscode.CompletionItemKind.Method
+          );
+          toCsv.detail = "Convert table into .csv text ";
+
+          const toHtml = new vscode.CompletionItem(
+            "html",
+            vscode.CompletionItemKind.Method
+          );
+          toHtml.detail = "Convert table into simple HTML";
+
+          const toJson = new vscode.CompletionItem(
+            "json",
+            vscode.CompletionItemKind.Method
+          );
+          toJson.detail = "Converts table data into JSON text.";
+
+          const toMd = new vscode.CompletionItem(
+            "md",
+            vscode.CompletionItemKind.Method
+          );
+          toMd.detail = "Convert table into simple Markdown";
+
+          const toSqlite = new vscode.CompletionItem(
+            "sqlite",
+            vscode.CompletionItemKind.Method
+          );
+          toSqlite.detail = "Convert table into sqlite binary";
+
+          const toStr = new vscode.CompletionItem(
+            "str",
+            vscode.CompletionItemKind.Method
+          );
+          toStr.detail = "";
+
+          const toToml = new vscode.CompletionItem(
+            "toml",
+            vscode.CompletionItemKind.Method
+          );
+          toToml.detail = "Convert table into .toml text";
+
+          const toTsv = new vscode.CompletionItem(
+            "tsv",
+            vscode.CompletionItemKind.Method
+          );
+          toTsv.detail = "Convert table into .tsv text";
+
+          const toUrl = new vscode.CompletionItem(
+            "url",
+            vscode.CompletionItemKind.Method
+          );
+          toUrl.detail = "Convert table into url-encoded text";
+
+          const toXml = new vscode.CompletionItem(
+            "xml",
+            vscode.CompletionItemKind.Method
+          );
+          toXml.detail = "Convert table into .xml text";
+
+          const toYaml = new vscode.CompletionItem(
+            "yaml",
+            vscode.CompletionItemKind.Method
+          );
+          toYaml.detail = "Convert table into .yaml/.yml text";
+
+          return [
+            toBson,
+            toCsv,
+            toHtml,
+            toJson,
+            toMd,
+            toSqlite,
+            toStr,
+            toStr,
+            toToml,
+            toTsv,
+            toUrl,
+            toXml,
+            toYaml,
+          ];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const urlSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("url ")) {
+          const urlHost = new vscode.CompletionItem(
+            "host",
+            vscode.CompletionItemKind.Method
+          );
+          urlHost.detail = "gets the host of a url";
+
+          const urlPath = new vscode.CompletionItem(
+            "path",
+            vscode.CompletionItemKind.Method
+          );
+          urlPath.detail = "gets the path of a url";
+
+          const urlQuery = new vscode.CompletionItem(
+            "query",
+            vscode.CompletionItemKind.Method
+          );
+          urlQuery.detail = "gets the query of a url";
+
+          const urlScheme = new vscode.CompletionItem(
+            "scheme",
+            vscode.CompletionItemKind.Method
+          );
+          urlScheme.detail = "gets the scheme (eg http, file) of a url";
+
+          return [urlHost, urlPath, urlQuery, urlScheme];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  context.subscriptions.push(
+    ansiSubCommandsProvider,
+    autoenvSubCommandsProvider,
+    chartSubCommandsProvider,
+    configSubCommandsProvider,
+    dateSubCommandsProvider,
+    dropSubCommandsProvider,
+    eachSubCommandsProvider,
+    formatSubCommandsProvider,
+    fromSubCommandsProvider,
+    groupBySubCommandsProvider,
+    hashSubCommandsProvider,
+    keepSubCommandsProvider,
+    mathSubCommandsProvider,
+    pathSubCommandsProvider,
+    randomSubCommandsProvider,
+    rollSubCommandsProvider,
+    rotateSubCommandsProvider,
+    seqSubCommandsProvider,
+    skipSubCommandsProvider,
+    splitSubCommandsProvider,
+    strSubCommandsProvider,
+    toSubCommandsProvider,
+    urlSubCommandsProvider
+  );
 }
