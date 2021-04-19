@@ -4,7 +4,7 @@
   "tokenColors": [
     // "FlatShape__InternalCommand": "#61d6d6", //"Cyan.bold"
     {
-      "scope": [ "keyword.control", ],
+      "scope": [ "keyword.control.nushell", ],
       "settings": {
         "foreground": "#61d6d6"
       }
@@ -15,7 +15,7 @@
     {
       "scope": [ "source.nushell", ],
       "settings": {
-        "foreground": "#61d6d6",
+        "foreground": "#06989a", //#61d6d6
         // "fontStyle": "bold"
       }
     },

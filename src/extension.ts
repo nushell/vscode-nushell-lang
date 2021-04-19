@@ -154,8 +154,8 @@ export function activate(context: vscode.ExtensionContext) {
         const insertCompletion = new vscode.CompletionItem("insert");
         insertCompletion.commitCharacters = [" "];
 
-        const intoIntCompletion = new vscode.CompletionItem("into-int");
-        intoIntCompletion.commitCharacters = [" "];
+        const intoCompletion = new vscode.CompletionItem("into");
+        intoCompletion.commitCharacters = [" "];
 
         const keepCompletion = new vscode.CompletionItem("keep");
         keepCompletion.commitCharacters = [" "];
@@ -404,7 +404,7 @@ export function activate(context: vscode.ExtensionContext) {
           ifCompletion,
           incCompletion,
           insertCompletion,
-          intoIntCompletion,
+          intoCompletion,
           keepCompletion,
           killCompletion,
           lastCompletion,
@@ -968,6 +968,32 @@ export function activate(context: vscode.ExtensionContext) {
           hashMd5.detail = "md5 encode a value";
 
           return [hashBase64, hashMd5];
+        } else {
+          return undefined;
+        }
+      },
+    },
+    " "
+  );
+
+  const intoSubCommandsProvider = vscode.languages.registerCompletionItemProvider(
+    "nushell",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (linePrefix.endsWith("into ")) {
+          const intoInt = new vscode.CompletionItem(
+            "int",
+            vscode.CompletionItemKind.Method
+          );
+          intoInt.detail = "Convert value to integer";
+
+          return [intoInt];
         } else {
           return undefined;
         }
@@ -1696,12 +1722,6 @@ export function activate(context: vscode.ExtensionContext) {
           );
           toSqlite.detail = "Convert table into sqlite binary";
 
-          const toStr = new vscode.CompletionItem(
-            "str",
-            vscode.CompletionItemKind.Method
-          );
-          toStr.detail = "";
-
           const toToml = new vscode.CompletionItem(
             "toml",
             vscode.CompletionItemKind.Method
@@ -1739,8 +1759,6 @@ export function activate(context: vscode.ExtensionContext) {
             toJson,
             toMd,
             toSqlite,
-            toStr,
-            toStr,
             toToml,
             toTsv,
             toUrl,
@@ -1811,6 +1829,7 @@ export function activate(context: vscode.ExtensionContext) {
     fromSubCommandsProvider,
     groupBySubCommandsProvider,
     hashSubCommandsProvider,
+    intoSubCommandsProvider,
     keepSubCommandsProvider,
     mathSubCommandsProvider,
     pathSubCommandsProvider,

@@ -101,8 +101,8 @@ function activate(context) {
             incCompletion.commitCharacters = [" "];
             const insertCompletion = new vscode.CompletionItem("insert");
             insertCompletion.commitCharacters = [" "];
-            const intoIntCompletion = new vscode.CompletionItem("into-int");
-            intoIntCompletion.commitCharacters = [" "];
+            const intoCompletion = new vscode.CompletionItem("into");
+            intoCompletion.commitCharacters = [" "];
             const keepCompletion = new vscode.CompletionItem("keep");
             keepCompletion.commitCharacters = [" "];
             const killCompletion = new vscode.CompletionItem("kill");
@@ -284,7 +284,7 @@ function activate(context) {
                 ifCompletion,
                 incCompletion,
                 insertCompletion,
-                intoIntCompletion,
+                intoCompletion,
                 keepCompletion,
                 killCompletion,
                 lastCompletion,
@@ -611,6 +611,21 @@ function activate(context) {
                 const hashMd5 = new vscode.CompletionItem("md5", vscode.CompletionItemKind.Method);
                 hashMd5.detail = "md5 encode a value";
                 return [hashBase64, hashMd5];
+            }
+            else {
+                return undefined;
+            }
+        },
+    }, " ");
+    const intoSubCommandsProvider = vscode.languages.registerCompletionItemProvider("nushell", {
+        provideCompletionItems(document, position) {
+            const linePrefix = document
+                .lineAt(position)
+                .text.substr(0, position.character);
+            if (linePrefix.endsWith("into ")) {
+                const intoInt = new vscode.CompletionItem("int", vscode.CompletionItemKind.Method);
+                intoInt.detail = "Convert value to integer";
+                return [intoInt];
             }
             else {
                 return undefined;
@@ -974,8 +989,6 @@ function activate(context) {
                 toMd.detail = "Convert table into simple Markdown";
                 const toSqlite = new vscode.CompletionItem("sqlite", vscode.CompletionItemKind.Method);
                 toSqlite.detail = "Convert table into sqlite binary";
-                const toStr = new vscode.CompletionItem("str", vscode.CompletionItemKind.Method);
-                toStr.detail = "";
                 const toToml = new vscode.CompletionItem("toml", vscode.CompletionItemKind.Method);
                 toToml.detail = "Convert table into .toml text";
                 const toTsv = new vscode.CompletionItem("tsv", vscode.CompletionItemKind.Method);
@@ -993,8 +1006,6 @@ function activate(context) {
                     toJson,
                     toMd,
                     toSqlite,
-                    toStr,
-                    toStr,
                     toToml,
                     toTsv,
                     toUrl,
@@ -1028,7 +1039,7 @@ function activate(context) {
             }
         },
     }, " ");
-    context.subscriptions.push(ansiSubCommandsProvider, autoenvSubCommandsProvider, chartSubCommandsProvider, configSubCommandsProvider, dateSubCommandsProvider, dropSubCommandsProvider, eachSubCommandsProvider, formatSubCommandsProvider, fromSubCommandsProvider, groupBySubCommandsProvider, hashSubCommandsProvider, keepSubCommandsProvider, mathSubCommandsProvider, pathSubCommandsProvider, randomSubCommandsProvider, rollSubCommandsProvider, rotateSubCommandsProvider, seqSubCommandsProvider, skipSubCommandsProvider, splitSubCommandsProvider, strSubCommandsProvider, toSubCommandsProvider, urlSubCommandsProvider);
+    context.subscriptions.push(ansiSubCommandsProvider, autoenvSubCommandsProvider, chartSubCommandsProvider, configSubCommandsProvider, dateSubCommandsProvider, dropSubCommandsProvider, eachSubCommandsProvider, formatSubCommandsProvider, fromSubCommandsProvider, groupBySubCommandsProvider, hashSubCommandsProvider, intoSubCommandsProvider, keepSubCommandsProvider, mathSubCommandsProvider, pathSubCommandsProvider, randomSubCommandsProvider, rollSubCommandsProvider, rotateSubCommandsProvider, seqSubCommandsProvider, skipSubCommandsProvider, splitSubCommandsProvider, strSubCommandsProvider, toSubCommandsProvider, urlSubCommandsProvider);
 }
 exports.activate = activate;
 //# sourceMappingURL=extension.js.map
