@@ -1,6 +1,7 @@
 {
   "$schema": "vscode://schemas/color-theme",
   "type": "dark",
+	// "include": "./dark_vs.json",
   "tokenColors": [
     // "FlatShape__InternalCommand": "#61d6d6", //"Cyan.bold"
     {

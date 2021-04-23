@@ -61,4 +61,6 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 - 0.2.1
     * tweaked the dark theme colors a tiny bit
     * updated commands and keywords
+- 0.2.2
+    * fixed a regression in syntax highlighting (thanks yume-chan)
 
