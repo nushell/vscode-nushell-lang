@@ -63,4 +63,8 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
     * updated commands and keywords
 - 0.2.2
     * fixed a regression in syntax highlighting (thanks yume-chan)
+- 0.3.0
+    * updated commands to support all commands in nushell 0.32.0
+    * update intellisense to support all commands in nushell 0.32.0
+    * added block parameter syntax highlighting
 
