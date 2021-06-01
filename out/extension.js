@@ -77,6 +77,8 @@ function activate(context) {
             firstCompletion.commitCharacters = [" "];
             const flattenCompletion = new vscode.CompletionItem("flatten");
             flattenCompletion.commitCharacters = [" "];
+            const forCompletion = new vscode.CompletionItem("for");
+            forCompletion.commitCharacters = [" "];
             const formatCompletion = new vscode.CompletionItem("format");
             formatCompletion.commitCharacters = [" "];
             const fromCompletion = new vscode.CompletionItem("from");
@@ -117,6 +119,8 @@ function activate(context) {
             letEnvCompletion.commitCharacters = [" "];
             const linesCompletion = new vscode.CompletionItem("lines");
             linesCompletion.commitCharacters = [" "];
+            const loadEnvCompletion = new vscode.CompletionItem("load-env");
+            loadEnvCompletion.commitCharacters = [" "];
             const lsCompletion = new vscode.CompletionItem("ls");
             lsCompletion.commitCharacters = [" "];
             const matchCompletion = new vscode.CompletionItem("match");
@@ -145,6 +149,8 @@ function activate(context) {
             pathCompletion.commitCharacters = [" "];
             const pivotCompletion = new vscode.CompletionItem("pivot");
             pivotCompletion.commitCharacters = [" "];
+            const plsCompletion = new vscode.CompletionItem("pls");
+            plsCompletion.commitCharacters = [" "];
             const postCompletion = new vscode.CompletionItem("post");
             postCompletion.commitCharacters = [" "];
             const prependCompletion = new vscode.CompletionItem("prepend");
@@ -272,6 +278,7 @@ function activate(context) {
                 fetchCompletion,
                 firstCompletion,
                 flattenCompletion,
+                forCompletion,
                 formatCompletion,
                 fromCompletion,
                 getCompletion,
@@ -292,6 +299,7 @@ function activate(context) {
                 letCompletion,
                 letEnvCompletion,
                 linesCompletion,
+                loadEnvCompletion,
                 lsCompletion,
                 matchCompletion,
                 mathCompletion,
@@ -306,6 +314,7 @@ function activate(context) {
                 parseCompletion,
                 pathCompletion,
                 pivotCompletion,
+                plsCompletion,
                 postCompletion,
                 prependCompletion,
                 psCompletion,
@@ -553,7 +562,8 @@ function activate(context) {
                 const fromVcf = new vscode.CompletionItem("vcf", vscode.CompletionItemKind.Method);
                 fromVcf.detail = "Parse text as .vcf and create table.";
                 const fromXlsx = new vscode.CompletionItem("xlsx", vscode.CompletionItemKind.Method);
-                fromXlsx.detail = "Parse binary Excel(.xlsx) data and create table.";
+                fromXlsx.detail =
+                    "Parse binary Excel(.xlsx) data and create table.";
                 const fromXml = new vscode.CompletionItem("xml", vscode.CompletionItemKind.Method);
                 fromXml.detail = "Parse text as .xml and create table.";
                 const fromYaml = new vscode.CompletionItem("yaml", vscode.CompletionItemKind.Method);
@@ -623,9 +633,13 @@ function activate(context) {
                 .lineAt(position)
                 .text.substr(0, position.character);
             if (linePrefix.endsWith("into ")) {
+                const intoBinary = new vscode.CompletionItem("binary", vscode.CompletionItemKind.Method);
+                intoBinary.detail = "Convert value to a binary primitive";
                 const intoInt = new vscode.CompletionItem("int", vscode.CompletionItemKind.Method);
                 intoInt.detail = "Convert value to integer";
-                return [intoInt];
+                const intoString = new vscode.CompletionItem("string", vscode.CompletionItemKind.Method);
+                intoString.detail = "Convert value to string";
+                return [intoBinary, intoInt, intoString];
             }
             else {
                 return undefined;
@@ -664,7 +678,8 @@ function activate(context) {
                 const mathEval = new vscode.CompletionItem("eval", vscode.CompletionItemKind.Method);
                 mathEval.detail = "Evaluate a math expression into a number";
                 const mathFloor = new vscode.CompletionItem("floor", vscode.CompletionItemKind.Method);
-                mathFloor.detail = "Applies the floor function to a list of numbers";
+                mathFloor.detail =
+                    "Applies the floor function to a list of numbers";
                 const mathMax = new vscode.CompletionItem("max", vscode.CompletionItemKind.Method);
                 mathMax.detail =
                     "Finds the maximum within a list of numbers or tables";
@@ -680,12 +695,14 @@ function activate(context) {
                 mathProduct.detail =
                     "Finds the product of a list of numbers or tables";
                 const mathRound = new vscode.CompletionItem("round", vscode.CompletionItemKind.Method);
-                mathRound.detail = "Applies the round function to a list of numbers";
+                mathRound.detail =
+                    "Applies the round function to a list of numbers";
                 const mathSqrt = new vscode.CompletionItem("sqrt", vscode.CompletionItemKind.Method);
                 mathSqrt.detail =
                     "Applies the square root function to a list of numbers";
                 const mathStddev = new vscode.CompletionItem("stddev", vscode.CompletionItemKind.Method);
-                mathStddev.detail = "Finds the stddev of a list of numbers or tables";
+                mathStddev.detail =
+                    "Finds the stddev of a list of numbers or tables";
                 const mathSum = new vscode.CompletionItem("sum", vscode.CompletionItemKind.Method);
                 mathSum.detail = "Finds the sum of a list of numbers or tables";
                 const mathVariance = new vscode.CompletionItem("variance", vscode.CompletionItemKind.Method);
@@ -721,31 +738,86 @@ function activate(context) {
                 .text.substr(0, position.character);
             if (linePrefix.endsWith("path ")) {
                 const pathBasename = new vscode.CompletionItem("basename", vscode.CompletionItemKind.Method);
-                pathBasename.detail = "Gets the final component of a path";
+                pathBasename.detail = "Get the final component of a path";
                 const pathDirname = new vscode.CompletionItem("dirname", vscode.CompletionItemKind.Method);
-                pathDirname.detail = "Gets the parent directory of a path";
+                pathDirname.detail = "Get the parent directory of a path";
                 const pathExists = new vscode.CompletionItem("exists", vscode.CompletionItemKind.Method);
-                pathExists.detail = "Checks whether a path exists";
+                pathExists.detail = "Check whether a path exists";
                 const pathExpand = new vscode.CompletionItem("expand", vscode.CompletionItemKind.Method);
-                pathExpand.detail = "Expands a path to its absolute form";
-                const pathExtension = new vscode.CompletionItem("extension", vscode.CompletionItemKind.Method);
-                pathExtension.detail = "Gets the extension of a path";
-                const pathFilestem = new vscode.CompletionItem("filestem", vscode.CompletionItemKind.Method);
-                pathFilestem.detail = "Gets the file stem of a path";
+                pathExpand.detail = "Expand a path to its absolute form";
                 const pathJoin = new vscode.CompletionItem("join", vscode.CompletionItemKind.Method);
-                pathJoin.detail = "Joins an input path with another path";
+                pathJoin.detail = "Join a structured path or a list of path parts.";
+                const pathParse = new vscode.CompletionItem("parse", vscode.CompletionItemKind.Method);
+                pathParse.detail = "Convert a path into structured data.";
+                const pathRelativeTo = new vscode.CompletionItem("relative-to", vscode.CompletionItemKind.Method);
+                pathRelativeTo.detail = "Get a path as relative to another path.";
+                const pathSplit = new vscode.CompletionItem("split", vscode.CompletionItemKind.Method);
+                pathSplit.detail = "Split a path into parts by a separator.";
                 const pathType = new vscode.CompletionItem("type", vscode.CompletionItemKind.Method);
                 pathType.detail =
-                    "Gives the type of the object a path refers to (e.g., file, dir, symlink)";
+                    "Get the type of the object a path refers to (e.g., file, dir, symlink)";
                 return [
                     pathBasename,
                     pathDirname,
                     pathExists,
                     pathExpand,
-                    pathExtension,
-                    pathFilestem,
                     pathJoin,
+                    pathParse,
+                    pathRelativeTo,
+                    pathSplit,
                     pathType,
+                ];
+            }
+            else {
+                return undefined;
+            }
+        },
+    }, " ");
+    const plsSubCommandsProvider = vscode.languages.registerCompletionItemProvider("nushell", {
+        provideCompletionItems(document, position) {
+            const linePrefix = document
+                .lineAt(position)
+                .text.substr(0, position.character);
+            if (linePrefix.endsWith("pls ")) {
+                const plsAggregate = new vscode.CompletionItem("aggregate", vscode.CompletionItemKind.Method);
+                plsAggregate.detail =
+                    "Performs an aggregation operation on a groupby object";
+                const plsConvert = new vscode.CompletionItem("convert", vscode.CompletionItemKind.Method);
+                plsConvert.detail =
+                    "Converts a pipelined Table or List into a polars dataframe";
+                const plsDrop = new vscode.CompletionItem("drop", vscode.CompletionItemKind.Method);
+                plsDrop.detail =
+                    "Creates a new dataframe by dropping the selected columns";
+                const plsDtypes = new vscode.CompletionItem("dtypes", vscode.CompletionItemKind.Method);
+                plsDtypes.detail = "Show dataframe data types";
+                const plsGroupby = new vscode.CompletionItem("groupby", vscode.CompletionItemKind.Method);
+                plsGroupby.detail =
+                    "Creates a groupby object that can be used for other aggregations";
+                const plsJoin = new vscode.CompletionItem("join", vscode.CompletionItemKind.Method);
+                plsJoin.detail = "Joins a dataframe using columns as reference";
+                const plsList = new vscode.CompletionItem("list", vscode.CompletionItemKind.Method);
+                plsList.detail = "Lists stored dataframes";
+                const plsLoad = new vscode.CompletionItem("load", vscode.CompletionItemKind.Method);
+                plsLoad.detail = "Loads dataframe form csv file";
+                const plsSample = new vscode.CompletionItem("sample", vscode.CompletionItemKind.Method);
+                plsSample.detail = "Create sample dataframe";
+                const plsSelect = new vscode.CompletionItem("select", vscode.CompletionItemKind.Method);
+                plsSelect.detail =
+                    "Creates a new dataframe with the selected columns";
+                const plsShow = new vscode.CompletionItem("show", vscode.CompletionItemKind.Method);
+                plsShow.detail = "Show dataframe";
+                return [
+                    plsAggregate,
+                    plsConvert,
+                    plsDrop,
+                    plsDtypes,
+                    plsGroupby,
+                    plsJoin,
+                    plsList,
+                    plsLoad,
+                    plsSample,
+                    plsSelect,
+                    plsShow,
                 ];
             }
             else {
@@ -858,7 +930,8 @@ function activate(context) {
                 .text.substr(0, position.character);
             if (linePrefix.endsWith("split ")) {
                 const splitChars = new vscode.CompletionItem("chars", vscode.CompletionItemKind.Method);
-                splitChars.detail = "splits a string's characters into separate rows";
+                splitChars.detail =
+                    "splits a string's characters into separate rows";
                 const splitColumn = new vscode.CompletionItem("column", vscode.CompletionItemKind.Method);
                 splitColumn.detail =
                     "splits contents across multiple columns via the separator.";
@@ -892,9 +965,6 @@ function activate(context) {
                 strEndsWith.detail = "checks if string ends with pattern";
                 const strFindReplace = new vscode.CompletionItem("find-replace", vscode.CompletionItemKind.Method);
                 strFindReplace.detail = "finds and replaces text";
-                const strFrom = new vscode.CompletionItem("from", vscode.CompletionItemKind.Method);
-                strFrom.detail =
-                    "Converts numeric types to strings. Trims trailing zeros unless decimals parameter is specified.";
                 const strIndexOf = new vscode.CompletionItem("index-of", vscode.CompletionItemKind.Method);
                 strIndexOf.detail =
                     "Returns starting index of given pattern in string counting from 0. Returns -1 when there are no results.";
@@ -945,7 +1015,6 @@ function activate(context) {
                     strDowncase,
                     strEndsWith,
                     strFindReplace,
-                    strFrom,
                     strIndexOf,
                     strKebabCase,
                     strLength,
@@ -1039,7 +1108,7 @@ function activate(context) {
             }
         },
     }, " ");
-    context.subscriptions.push(ansiSubCommandsProvider, autoenvSubCommandsProvider, chartSubCommandsProvider, configSubCommandsProvider, dateSubCommandsProvider, dropSubCommandsProvider, eachSubCommandsProvider, formatSubCommandsProvider, fromSubCommandsProvider, groupBySubCommandsProvider, hashSubCommandsProvider, intoSubCommandsProvider, keepSubCommandsProvider, mathSubCommandsProvider, pathSubCommandsProvider, randomSubCommandsProvider, rollSubCommandsProvider, rotateSubCommandsProvider, seqSubCommandsProvider, skipSubCommandsProvider, splitSubCommandsProvider, strSubCommandsProvider, toSubCommandsProvider, urlSubCommandsProvider);
+    context.subscriptions.push(ansiSubCommandsProvider, autoenvSubCommandsProvider, chartSubCommandsProvider, configSubCommandsProvider, dateSubCommandsProvider, dropSubCommandsProvider, eachSubCommandsProvider, formatSubCommandsProvider, fromSubCommandsProvider, groupBySubCommandsProvider, hashSubCommandsProvider, intoSubCommandsProvider, keepSubCommandsProvider, mathSubCommandsProvider, pathSubCommandsProvider, plsSubCommandsProvider, randomSubCommandsProvider, rollSubCommandsProvider, rotateSubCommandsProvider, seqSubCommandsProvider, skipSubCommandsProvider, splitSubCommandsProvider, strSubCommandsProvider, toSubCommandsProvider, urlSubCommandsProvider);
 }
 exports.activate = activate;
 //# sourceMappingURL=extension.js.map

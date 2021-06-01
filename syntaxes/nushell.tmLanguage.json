@@ -9,6 +9,7 @@
     { "include": "#range" },
     { "include": "#parameter" },
     { "include": "#digit" },
+    { "include": "#blockparam"},
     { "include": "#variable" },
     { "include": "#function" },
     { "include": "#type" }
@@ -18,13 +19,13 @@
       "patterns": [
         {
           "name":"keyword.other.nushell",
-          "match": "\\b(into\\sint|ansi\\sstrip|autoenv\\strust|autoenv\\suntrust|build\\-string|chart\\sbar|char\\sprompt|char\\snewline|chart\\sline|config\\sclear|config\\sget|config\\sload|config\\spath|config\\sremove|config\\sset|config\\sset_into|date\\sformat|date\\slist-timezone|date\\snow|date\\sto-table|date\\sto-timezoneeach\\sgroup|each\\swindow|format\\sfilesize|from\\sbson|from\\scsv|from\\seml|from\\sics|from\\sini|from\\sjson|from\\sods|from\\ssqlite|from\\sssv|from\\stoml|from\\stsv|from\\surl|from\\svcf|from\\sxlsx|from\\sxml|from\\syaml|from\\syml|group-by\\sdate|hash\\sbase64|keep\\suntil|keep\\swhile|math\\sabs|math\\savg|math\\sceil|math\\seval|math\\sfloor|math\\smax|math\\smedian|math\\smin|math\\smode|math\\sproduct|math\\sround|math\\sstddev|math\\ssum|math\\svariance|path\\sbasename|path\\sdirname|path\\sexists|path\\sexpand|path\\sextension|path\\sfilestem|path\\stype|random\\sbool|random\\schars|random\\sdecimal|random\\sdice|random\\sinteger|random\\suuid|seq\\sdate|skip\\suntil|skip\\swhile|split\\schars|split\\scolumn|split\\srow|str\\scamel-case|str\\scapitalize|str\\scollect|str\\scontains|str\\sdowncase|str\\sends-with|str\\sfind-replace|str\\sfrom|str\\sindex-of|str\\skebab-case|str\\slength|str\\slpad|str\\sltrim|str\\spascal-case|str\\sreverse|str\\srpad|str\\srtrim|str\\sscreaming-snake-case|str\\sset|str\\ssnake-case|str\\sstarts-with|str\\ssubstring|str\\sto-datetime|str\\sto-decimal|str\\sto-int|str\\strim|str\\supcase|to\\sbson|to\\scsv|to\\shtml|to\\sjson|to\\smd|to\\ssqlite|to\\stoml|to\\stsv|to\\surl|to\\sxml|to\\syaml|url\\shost|url\\spath|url\\squery|url\\sscheme|term\\ssize)\\b"
+          "match": "\\b(ansi\\sreset|ansi\\sstrip|autoenv\\strust|autoenv\\suntrust|build\\-string|char\\snewline|chart\\sbar|chart\\sline|config\\sclear|config\\sget|config\\spath|config\\sremove|config\\sset|config\\sset_into|date\\sformat|date\\slist-timezone|date\\snow|date\\sto-table|date\\sto-timezone|drop\\scolumn|each\\sgroup|each\\swindow|format\\sfilesize|from\\sbson|from\\scsv|from\\seml|from\\sics|from\\sini|from\\sjson|from\\sods|from\\ssqlite|from\\sssv|from\\stoml|from\\stsv|from\\surl|from\\svcf|from\\sxlsx|from\\sxml|from\\syaml|from\\syml|group-by\\sdate|hash\\sbase64|hash\\smd5|into\\sbinary|into\\sint|into\\sstring|keep\\suntil|keep\\swhile|math\\sabs|math\\savg|math\\sceil|math\\seval|math\\sfloor|math\\smax|math\\smedian|math\\smin|math\\smode|math\\sproduct|math\\sround|math\\ssqrt|math\\sstddev|math\\ssum|math\\svariance|path\\sbasename|path\\sdirname|path\\sexists|path\\sexpand|path\\sjoin|path\\sparse|path\\srelative-to|path\\ssplit|path\\stype|pls\\saggregate|pls\\sconvert|pls\\sdrop|pls\\sdtypes|pls\\sgroupby|pls\\sjoin|pls\\slist|pls\\sload|pls\\ssample|pls\\sselect|pls\\sshow|random\\sbool|random\\schars|random\\sdecimal|random\\sdice|random\\sinteger|random\\suuid|roll\\scolumn|roll\\sup|rotate\\scounter-clockwise|seq\\sdate|skip\\suntil|skip\\swhile|split\\schars|split\\scolumn|split\\srow|str\\scamel-case|str\\scapitalize|str\\scollect|str\\scontains|str\\sdowncase|str\\sends-with|str\\sfind-replace|str\\sindex-of|str\\skebab-case|str\\slength|str\\slpad|str\\sltrim|str\\spascal-case|str\\sreverse|str\\srpad|str\\srtrim|str\\sscreaming-snake-case|str\\ssnake-case|str\\sstarts-with|str\\ssubstring|str\\sto-datetime|str\\sto-decimal|str\\sto-int|str\\strim|str\\supcase|to\\sbson|to\\scsv|to\\shtml|to\\sjson|to\\smd|to\\ssqlite|to\\sstr|to\\stoml|to\\stsv|to\\surl|to\\sxml|to\\syaml|url\\shost|url\\spath|url\\squery|url\\sscheme)\\b"
         },
         {
-          "match": "([a-zA-Z]+[\\-_][a-zA-Z]+\\s)|\\b(alias|ansi|append|autoview|benchmark|binaryview|cal|cd|char|clear|clip|compact|count|cp|debug|default|describe|do|drop|du|echo|empty|enter|each|every|exec|exit|format|fetch|first|flatten|get|headers|help|histogram|history|if|inc|insert|item|index|kill|last|lines|ls|match|merge|mkdir|mod|move|mv|n|nth|open|p|parse|pivot|post|prepend|ps|pwd|range|reduce|reject|rename|reverse|rm|s3|save|select|selector|set|set-env|seq|shells|shuffle|size|sleep|sort-by|source|split-by|start|sys|table|tags|textview|touch|tree|uniq|update|version|where|which|with-env|wrap|xpath)\\b",
+          "match": "\\b(all|ansi|any|alias|append|autoview|benchmark|binaryview|cal|cd|char|clear|clip|compact|cp|date|debug|default|describe|do|drop|du|echo|empty|enter|each|every|exec|exit|fetch|first|flatten|for|format|get|group-by|hash|headers|help|histogram|history|if|inc|insert|into|item|index|keep|kill|last|length|let-env|lines|load-env|ls|match|math|merge|mkdir|mv|n|nth|open|p|parse|path|pivot|pls|post|prepend|ps|pwd|random|range|reduce|reject|rename|reverse|rm|roll|rotate|s3|save|select|selector|seq|shells|shuffle|size|skip|sleep|source|split|start|str|sys|sort-by|split-by|table|tags|textview|to|touch|tree|uniq|update|url|version|where|which|with-env|wrap|xpath)\\b",
           "name": "keyword",
           "captures": {
-            "2":{
+            "1":{
               "name":"keyword.control.nushell"
             }
           }
@@ -55,6 +56,15 @@
     "digit": {
       "match": "(\\b[0-9]+)",
       "name": "constant.numeric.nushell"
+    },
+    "blockparam": {
+      "match": "(\\|)([a-zA-Z0-9\\-\\_]+)(\\|)",
+      "name": "variable.nushell",
+      "captures": {
+        "2":{
+          "name": "variable.language.nushell"
+        }
+      }
     },
     "variable":{
       "match": "(let)\\s+([a-zA-Z0-9_\\-]+)|(^[\\[]\\[\\$[a-zA-Z0-9_\\-]+)|(\\$[a-zA-Z0-9_\\-]+)",
