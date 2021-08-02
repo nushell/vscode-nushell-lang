@@ -5,66 +5,68 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 ## [Pre-Release]
 
 - Initial release 0.0.1
-    * proof of concept release
+  - proof of concept release
 - 0.0.2
-    * tweak sytnax highlighting
+  - tweak sytnax highlighting
 - 0.0.3
-    * changed `set` to `let` since the language changed
+  - changed `set` to `let` since the language changed
 - 0.0.4
-    * changed line comment from `//` to `#`
-    * updated readme screenshot and issue link
-    * added all current nushell keywords
-    * added all current nushell sub commands
-    * fixed `[$var` bug
-    * fixed `foo-bar` bug
+  - changed line comment from `//` to `#`
+  - updated readme screenshot and issue link
+  - added all current nushell keywords
+  - added all current nushell sub commands
+  - fixed `[$var` bug
+  - fixed `foo-bar` bug
 - 0.0.5
-    * updated screenshot with different themes
-    * reorganized code a bit
+  - updated screenshot with different themes
+  - reorganized code a bit
 - 0.0.6
-    * fixed `my-ls` highlighting bug
-    * added build ci and release pipeline
-    * readme updates from `waldyrious` ty!
-    * moved assets to a folder
+  - fixed `my-ls` highlighting bug
+  - added build ci and release pipeline
+  - readme updates from `waldyrious` ty!
+  - moved assets to a folder
 - 0.0.7
-    * made release work dynamically with versions
-    * added icon
+  - made release work dynamically with versions
+  - added icon
 - 0.0.8
-    * added ansi strip
-    * added term size
-    * added mod
-    * fixed bug in escapes
-    * fixed build-string
-    * added alias
-    * added char prompt
-    * added char newline
-    * added format
-    * added $it.item
-    * added $it.index
+  - added ansi strip
+  - added term size
+  - added mod
+  - fixed bug in escapes
+  - fixed build-string
+  - added alias
+  - added char prompt
+  - added char newline
+  - added format
+  - added $it.item
+  - added $it.index
 - 0.0.9
-    * renamed dark theme to Nushell-Dark
-    * added light theme named Nushell-Light
+  - renamed dark theme to Nushell-Dark
+  - added light theme named Nushell-Light
 - 0.1.0
-    * tweaked some dark colors
-    * added source color for dark color
-    * changed double quote regex
+  - tweaked some dark colors
+  - added source color for dark color
+  - changed double quote regex
 - 0.1.1
-    * added def snippet for custom command
-    * added defp snippet for custom command with a parameter
-    * added defs snippet for custom command with a switch
-    * added alias snippet for alias creation
+  - added def snippet for custom command
+  - added defp snippet for custom command with a parameter
+  - added defs snippet for custom command with a switch
+  - added alias snippet for alias creation
 - 0.1.2
-    * added search keywords in package.json
-    * added publisher name
-    * updated screenshots
+  - added search keywords in package.json
+  - added publisher name
+  - updated screenshots
 - 0.2.0
-    * added intellisense aka auto-complete for commands and subcommands
+  - added intellisense aka auto-complete for commands and subcommands
 - 0.2.1
-    * tweaked the dark theme colors a tiny bit
-    * updated commands and keywords
+  - tweaked the dark theme colors a tiny bit
+  - updated commands and keywords
 - 0.2.2
-    * fixed a regression in syntax highlighting (thanks yume-chan)
+  - fixed a regression in syntax highlighting (thanks yume-chan)
 - 0.3.0
-    * updated commands to support all commands in nushell 0.32.0
-    * update intellisense to support all commands in nushell 0.32.0
-    * added block parameter syntax highlighting
-
+  - updated commands to support all commands in nushell 0.32.0
+  - updated intellisense to support all commands in nushell 0.32.0
+  - added block parameter syntax highlighting
+- 0.4.0
+  - updated commands to support all commands in nushell 0.34.1
+  - disabled intellisense completions
