@@ -70,3 +70,7 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 - 0.4.0
   - updated commands to support all commands in nushell 0.34.1
   - disabled intellisense completions
+- 0.4.1
+  - syntax changed to allow optional `$` in variable name
+  - syntax changed to allow space after custom command parameters
+  - added `in` to go with `for`
