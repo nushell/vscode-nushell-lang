@@ -22,7 +22,7 @@
           "match": "\\b(ansi\\sgradient|ansi\\sstrip|autoenv\\strust|autoenv\\suntrust|char\\snewline|chart\\sbar|chart\\sline|config\\sclear|config\\sget|config\\spath|config\\sremove|config\\sset|config\\sset_into|dataframe\\saggregate|dataframe\\sall-false|dataframe\\sall-true|dataframe\\sappend|dataframe\\sarg-max|dataframe\\sarg-min|dataframe\\sarg-sort|dataframe\\sarg-true|dataframe\\sarg-unique|dataframe\\scolumn|dataframe\\sconcatenate|dataframe\\scontains|dataframe\\scount-null|dataframe\\scount-unique|dataframe\\sdrop|dataframe\\sdrop-duplicates|dataframe\\sdrop-nulls|dataframe\\sdtypes|dataframe\\sfilter-with|dataframe\\sfirst|dataframe\\sget|dataframe\\sgroup-by|dataframe\\sis-duplicated|dataframe\\sis-in|dataframe\\sis-not-null|dataframe\\sis-null|dataframe\\sis-unique|dataframe\\sjoin|dataframe\\slast|dataframe\\slist|dataframe\\smelt|dataframe\\snot|dataframe\\sopen|dataframe\\spivot|dataframe\\srename|dataframe\\sreplace|dataframe\\sreplace-all|dataframe\\ssample|dataframe\\sselect|dataframe\\sset|dataframe\\sset-with-idx|dataframe\\sshape|dataframe\\sshift|dataframe\\sshow|dataframe\\sslice|dataframe\\ssort|dataframe\\sstr-lengths|dataframe\\sstr-slice|dataframe\\stake|dataframe\\sto-csv|dataframe\\sto-df|dataframe\\sto-dummies|dataframe\\sto-lowercase|dataframe\\sto-parquet|dataframe\\sto-uppercase|dataframe\\sunique|dataframe\\svalue-counts|dataframe\\swhere|dataframe\\swith-column|date\\sformat|date\\shumanize|date\\slist-timezone|date\\snow|date\\sto-table|date\\sto-timezone|drop\\scolumn|each\\sgroup|each\\swindow|format\\sfilesize|from\\sbson|from\\scsv|from\\seml|from\\sics|from\\sini|from\\sjson|from\\sods|from\\ssqlite|from\\sssv|from\\stoml|from\\stsv|from\\surl|from\\svcf|from\\sxlsx|from\\sxml|from\\syaml|from\\syml|group-by\\sdate|hash\\sbase64|hash\\smd5|hash\\ssha256|into\\sbinary|into\\sint|into\\spath|into\\sstring|keep\\suntil|keep\\swhile|math\\sabs|math\\savg|math\\sceil|math\\seval|math\\sfloor|math\\smax|math\\smedian|math\\smin|math\\smode|math\\sproduct|math\\sround|math\\ssqrt|math\\sstddev|math\\ssum|math\\svariance|path\\sbasename|path\\sdirname|path\\sexists|path\\sexpand|path\\sjoin|path\\sparse|path\\srelative-to|path\\ssplit|path\\stype|pathvar\\sadd|pathvar\\sappend|pathvar\\sremove|pathvar\\sreset|pathvar\\ssave|random\\sbool|random\\schars|random\\sdecimal|random\\sdice|random\\sinteger|random\\suuid|roll\\scolumn|roll\\sup|rotate\\scounter-clockwise|seq\\sdate|skip\\suntil|skip\\swhile|split\\schars|split\\scolumn|split\\srow|str\\scamel-case|str\\scapitalize|str\\scollect|str\\scontains|str\\sdowncase|str\\sends-with|str\\sfind-replace|str\\sindex-of|str\\skebab-case|str\\slength|str\\slpad|str\\spascal-case|str\\sreverse|str\\srpad|str\\sscreaming-snake-case|str\\ssnake-case|str\\sstarts-with|str\\ssubstring|str\\sto-datetime|str\\sto-decimal|str\\sto-int|str\\strim|str\\supcase|to\\sbson|to\\scsv|to\\shtml|to\\sjson|to\\smd|to\\ssqlite|to\\stoml|to\\stsv|to\\surl|to\\sxml|to\\syaml|url\\shost|url\\spath|url\\squery|url\\sscheme)\\b"
         },
         {
-          "match": "\\b(alias|all|ansi|any|append|autoenv|autoview|benchmark|binaryview|cal|cd|char|chart|clear|clip|collect|config|compact|cp|date|dataframe|def|debug|default|describe|do|drop|du|each|echo|empty|enter|every|exec|exit|fetch|first|flatten|for|format|from|get|group-by|hash|headers|help|histogram|history|if|ignore|inc|insert|into|item|index|keep|kill|last|length|let-env|lines|load-env|ls|match|math|merge|mkdir|move|mv|n|nth|open|p|parse|paste|path|pathvar|pivot|post|prepend|ps|pwd|random|range|reduce|reject|rename|reverse|rm|roll|rotate|s3|save|select|selector|seq|shells|shuffle|size|skip|sleep|source|split|start|str|sys|sort-by|split-by|table|tags|textview|to|touch|tree|uniq|unlet-env|update|url|version|where|which|with-env|wrap|xpath)\\b",
+          "match": "\\b(alias|all|ansi|any|append|autoenv|autoview|benchmark|binaryview|cal|cd|char|chart|clear|clip|collect|config|compact|cp|date|dataframe|debug|default|describe|do|drop|du|each|echo|empty|enter|every|exec|exit|fetch|first|flatten|for|format|from|get|group-by|hash|headers|help|histogram|history|if|ignore|in|inc|insert|into|item|index|keep|kill|last|length|let-env|lines|load-env|ls|match|math|merge|mkdir|move|mv|n|nth|open|p|parse|paste|path|pathvar|pivot|post|prepend|ps|pwd|random|range|reduce|reject|rename|reverse|rm|roll|rotate|s3|save|select|selector|seq|shells|shuffle|size|skip|sleep|source|split|start|str|sys|sort-by|split-by|table|tags|textview|to|touch|tree|uniq|unlet-env|update|url|version|where|which|with-env|wrap|xpath)\\b",
           "name": "keyword",
           "captures": {
             "1": {
@@ -67,7 +67,7 @@
       }
     },
     "variable": {
-      "match": "(let)\\s+([a-zA-Z0-9_\\-]+)|(^[\\[]\\[\\$[a-zA-Z0-9_\\-]+)|(\\$[a-zA-Z0-9_\\-]+)",
+      "match": "(let)\\s+(\\$?[a-zA-Z0-9_\\-]+)|(^[\\[]\\[\\$[a-zA-Z0-9_\\-]+)|(\\$[a-zA-Z0-9_\\-]+)",
       "name": "variable.nushell",
       "captures": {
         "1": {
@@ -97,7 +97,7 @@
       }
     },
     "type": {
-      "match": "([a-zA-Z0-9\\-_]+)(\\:[a-z]{1,15})",
+      "match": "([a-zA-Z0-9\\-_]+)(\\:[A-Za-z0-9\\- ]{1,15})",
       "name": "storage",
       "captures": {
         "1": {
