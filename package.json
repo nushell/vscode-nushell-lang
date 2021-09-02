@@ -2,7 +2,7 @@
   "name": "vscode-nushell-lang",
   "displayName": "vscode-nushell-lang",
   "description": "nushell language for vscode",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "preview": true,
   "license": "MIT",
   "publisher": "TheNuProjectContributors",
@@ -15,7 +15,7 @@
     "url": "https://github.com/nushell/vscode-nushell-lang/issues"
   },
   "engines": {
-    "vscode": "^1.52.0"
+    "vscode": "^1.59.0"
   },
   "icon": "assets/nushell.ico",
   "categories": [
@@ -23,22 +23,25 @@
     "Snippets"
   ],
   "activationEvents": [
-    "*"
+    "onTerminalProfile:nushell_default"
   ],
-  "main": "./out/extension.js",
+  "main": "./dist/extension",
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "lint": "eslint . --ext .ts,.tsx",
-    "watch": "tsc -watch -p ./"
+    "vscode:prepublish": "webpack --mode production",
+    "webpack": "webpack --mode development",
+    "webpack-dev": "webpack --mode development --watch",
+    "test-compile": "tsc -p ./"
   },
   "devDependencies": {
-    "@types/node": "^12.20.18",
-    "@types/vscode": "^1.52.0",
-    "@typescript-eslint/eslint-plugin": "^4.29.0",
-    "@typescript-eslint/parser": "^4.29.0",
+    "@types/node": "^12.20.23",
+    "@types/vscode": "^1.59.0",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
     "eslint": "^7.32.0",
-    "typescript": "^4.3.5"
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.2",
+    "webpack": "^5.51.2",
+    "webpack-cli": "^4.8.0"
   },
   "keywords": [
     "nushell",
@@ -104,6 +107,18 @@
         "language": "nushell",
         "path": "./snippets/nushell.json"
       }
-    ]
+    ],
+    "terminal": {
+      "profiles": [
+        {
+          "title": "Nushell",
+          "id": "nushell_default"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "glob": "^7.1.7",
+    "os": "^0.1.2"
   }
 }

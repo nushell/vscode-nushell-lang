@@ -74,3 +74,5 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - syntax changed to allow optional `$` in variable name
   - syntax changed to allow space after custom command parameters
   - added `in` to go with `for`
+- 0.4.2
+  - added contribute custom terminal feature it is easier to use nushell as a terminal in vscode
