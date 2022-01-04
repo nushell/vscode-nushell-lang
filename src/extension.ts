@@ -12,6 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
             const pathsToCheck = [
                 // cargo install location
                 '~/.cargo/bin/nu',
+                '~/.cargo/bin/nu.exe',
 
                 // winget on Windows install location
                 'c:\\program files\\nu\\bin\\nu.exe',
