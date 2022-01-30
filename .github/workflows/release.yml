@@ -41,7 +41,7 @@ jobs:
       #- run: echo '${{ steps.info.outputs.version }}'
 
       - name: Retrieve information from package.json
-        uses: myrotvorets/info-from-package-json-action@1.0.5
+        uses: myrotvorets/info-from-package-json-action@1.1.0
         id: ver
 
       - uses: lannonbr/vsce-action@master
