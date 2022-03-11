@@ -76,3 +76,8 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - added `in` to go with `for`
 - 0.4.2
   - added contribute custom terminal feature it is easier to use nushell as a terminal in vscode
+- 0.5.0
+  - updated language to support 0.60.0 new keywords
+  - fixed some bugs with highlighting
+  - separated keywords for easier regex debugging
+  - updated dependency versions
