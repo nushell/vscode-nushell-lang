@@ -961,17 +961,17 @@
         "meta.definition.variable.name",
         "support.variable",
         "entity.name.variable",
-        "variable.name.nushell"
+        "variable.name"
       ],
       "settings": {
         "foreground": "#AA00AA"
       }
     },
     {
-      "scope": ["variable.parameter.function.nushell"],
+      "scope": ["variable.parameter.function"],
       "settings": {
-        "foreground": "#5555FF"
-        // "fontStyle": "bold"
+        "foreground": "#5555FF",
+        "fontStyle": "bold"
       }
     },
     {

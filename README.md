@@ -4,15 +4,15 @@ This [extension for VSCode](https://code.visualstudio.com/docs/introvideos/exten
 
 ## Features
 
-* Syntax highlighting grammar for Nushell scripts (`.nu` files)
-* Nushell theme that tries to match Nushell's coloring
+- Syntax highlighting grammar for Nushell scripts (`.nu` files)
+- Nushell theme that tries to match Nushell's coloring
 
-## Screenshot (v0.3.0)
+## Screenshot (v0.5.1)
 
 With Nushell-Dark Color Theme
-![Nushell script with Nushell color theme](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/032-dark.png)
+![Nushell script with Nushell color theme](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/051-dark.png)
 With Nushell-Light Color Theme
-![Nushell script with VSDark+ color theme](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/032-light.png)
+![Nushell script with VSDark+ color theme](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/051-light.png)
 
 ## Known Issues
 

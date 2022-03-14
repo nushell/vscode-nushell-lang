@@ -1,11 +1,11 @@
 {
   "$schema": "vscode://schemas/color-theme",
   "type": "dark",
-	// "include": "./dark_vs.json",
+  // "include": "./dark_vs.json",
   "tokenColors": [
     // "FlatShape__InternalCommand": "#61d6d6", //"Cyan.bold"
     {
-      "scope": [ "keyword.control.nushell", ],
+      "scope": ["keyword.control.nushell"],
       "settings": {
         "foreground": "#61d6d6"
       }
@@ -14,15 +14,15 @@
     // I used this for things like
     // alias <this_word> = blah
     {
-      "scope": [ "source.nushell", ],
+      "scope": ["source.nushell"],
       "settings": {
-        "foreground": "#06989a", //#61d6d6
+        "foreground": "#06989a" //#61d6d6
         // "fontStyle": "bold"
       }
     },
 
     {
-      "scope":"keyword.control.other.nushell",
+      "scope": "keyword.control.other.nushell",
       "settings": {
         "foreground": "#FF0000",
         "fontStyle": "bold"
@@ -31,7 +31,7 @@
 
     // these are the sub commands
     {
-      "scope": [ "keyword.other", ],
+      "scope": ["keyword.other"],
       "settings": {
         "foreground": "#00b7ff"
       }
@@ -39,87 +39,74 @@
 
     // "FlatShape__String": "#12820e", //"Green"
     {
-	//   "scope": ["string", "meta.embedded.assembly"],
-	"scope": ["string.quoted"],
+      //   "scope": ["string", "meta.embedded.assembly"],
+      "scope": ["string.quoted"],
       "settings": {
         "foreground": "#12820e"
       }
     },
 
-	// "FlatShape__Operator": "#AAAA00", //"Yellow" #c19c00
-	{
-		"scope": [
-			"punctuation.nushell"
-		],
-		"settings": {
-			"foreground": "#c19c00",
-			// "fontStyle": "bold"
-		}
-	},
-
-	// "FlatShape__Comment": "#55FF55", //"Green.bold", #16c60c
-	{
-		"scope": [
-			"comment"
-		],
-		"settings": {
-			"foreground": "#16c60c",
-			// "fontStyle": "bold"
-		}
-	},
-
-	// for range 0..10
-	{
-		"scope": [
-			"constant",
-			"constant.numeric"
-		],
-		"settings": {
-			"foreground": "#b4009e",
-			// "fontStyle": "bold"
-		}
-	},
-
-	// "FlatShape__Flag": "#3878ff", //"Blue.bold"
-	// "FlatShape__ShorthandFlag": "#3878ff", //"Blue.bold"
-	// for --flag
+    // "FlatShape__Operator": "#AAAA00", //"Yellow" #c19c00
     {
-		"scope": ["variable.parameter.function"],
-		"settings": {
-		  "foreground": "#3878ff"
-		  // "fontStyle": "bold"
-		}
-	},
+      "scope": ["punctuation.nushell"],
+      "settings": {
+        "foreground": "#c19c00"
+        // "fontStyle": "bold"
+      }
+    },
+
+    // "FlatShape__Comment": "#55FF55", //"Green.bold", #16c60c
+    {
+      "scope": ["comment"],
+      "settings": {
+        "foreground": "#16c60c"
+        // "fontStyle": "bold"
+      }
+    },
+
+    // for range 0..10
+    {
+      "scope": ["constant", "constant.numeric"],
+      "settings": {
+        "foreground": "#b4009e"
+        // "fontStyle": "bold"
+      }
+    },
+
+    // "FlatShape__Flag": "#3878ff", //"Blue.bold"
+    // "FlatShape__ShorthandFlag": "#3878ff", //"Blue.bold"
+    // for --flag
+    {
+      "scope": ["variable.parameter.function"],
+      "settings": {
+        "foreground": "#3878ff"
+        // "fontStyle": "bold"
+      }
+    },
 
     // "FlatShape__Variable_or_FlatShape__Identifier": "#821791", //"Purple"
     {
-      "scope": [
-        "variable.name"
-      ],
+      "scope": ["variable.name", "variable.name.nushell"],
       "settings": {
         "foreground": "#aa44dd"
       }
     },
 
     {
-		"scope": [
-		  "variable.other"
-		],
-		"settings": {
-		  "foreground": "#61d6d6"
-		}
+      "scope": ["variable.other"],
+      "settings": {
+        "foreground": "#61d6d6"
+      }
     },
 
-    {
-		"scope": [
-		  "variable.language"
-		],
-		"settings": {
-		  "foreground": "#aa44dd"
-		}
-    },
+    // {
+    //   "scope": ["variable.language"],
+    //   "settings": {
+    //     "foreground": "#aa44dd"
+    //   }
+    // },
 
-	// "FlatShape__Int": "#b4009e", //"Purple.bold"
+    // "FlatShape__Int": "#b4009e", //"Purple.bold"
     // "FlatShape__Decimal": "#b4009e", //"Purple.bold"
     {
       "scope": [
@@ -131,46 +118,37 @@
       "settings": {
         "foreground": "#b4009e"
       }
-	},
+    },
 
-	// for def
+    // for def
     {
-		"scope": [
-		  "entity.name.function"
-		],
-		"settings": {
-		  "foreground": "#61d6d6"
-		}
-	},
+      "scope": ["entity.name.function"],
+      "settings": {
+        "foreground": "#61d6d6"
+      }
+    },
 
     {
-		"scope": [
-		  "entity.name.type"
-		],
-		"settings": {
-		  "foreground": "#f9f1a5"
-		}
-	},
+      "scope": ["entity.name.type"],
+      "settings": {
+        "foreground": "#f9f1a5"
+      }
+    },
 
-	// for var:storage_type
-	{
-		"scope": [
-			"storage.type"
-		],
-		"settings": {
-			"foreground": "#a538ff"
-		}
-	},
+    // for var:storage_type
+    {
+      "scope": ["storage.type"],
+      "settings": {
+        "foreground": "#a538ff"
+      }
+    },
 
-	{
-		"scope": [
-			"storage.modifier"
-		],
-		"settings": {
-			"foreground": "#5555FF"
-		}
-	},
-
+    {
+      "scope": ["storage.modifier"],
+      "settings": {
+        "foreground": "#5555FF"
+      }
+    }
 
     // {
     // 	"scope": [
