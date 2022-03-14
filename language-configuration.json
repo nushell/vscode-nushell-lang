@@ -40,5 +40,11 @@
   "indentationRules": {
     "increaseIndentPattern": "^((?!.*?\\/\\*).*\\*/)?\\s*[\\}\\]].*$",
     "decreaseIndentPattern": "^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*)$"
-  }
+  },
+  "onEnterRules": [
+    {
+      "beforeText": "^\\s*(?:alias|def|def-env|else|extern|for|if|let|let-env|with-env).*?:\\s*$",
+      "action": { "indent": "indent" }
+    }
+  ]
 }

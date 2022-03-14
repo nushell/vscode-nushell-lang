@@ -104,7 +104,7 @@
         },
         {
           "name": "keyword.other.n",
-          "match": "\\b(n|nu-example-1|nu-example-2|nu-example-3|nu-highlight)\\b"
+          "match": "\\b(n|not-in|nu-example-1|nu-example-2|nu-example-3|nu-highlight)\\b"
         },
         {
           "name": "keyword.other.o",

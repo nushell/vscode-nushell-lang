@@ -81,3 +81,8 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - fixed some bugs with highlighting
   - separated keywords for easier regex debugging
   - updated dependency versions
+- 0.5.1 - TODO
+  - add `not-in` as a pseudo keyword to go with `in` and `else`
+  - update screenshots showing else keyword
+  - add `on-Enter` rules
+  - fixed a bug with variable syntax coloring
