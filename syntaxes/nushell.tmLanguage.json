@@ -3,17 +3,39 @@
   "name": "nushell",
   "scopeName": "source.nushell",
   "patterns": [
-    { "include": "#keywords" },
-    { "include": "#strings" },
-    { "include": "#punctuation" },
-    { "include": "#comment" },
-    { "include": "#range" },
-    { "include": "#parameter" },
-    { "include": "#digit" },
-    { "include": "#blockparam" },
-    { "include": "#variable" },
-    { "include": "#function" },
-    { "include": "#type" }
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#punctuation"
+    },
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#range"
+    },
+    {
+      "include": "#parameter"
+    },
+    {
+      "include": "#digit"
+    },
+    {
+      "include": "#blockparam"
+    },
+    {
+      "include": "#variable"
+    },
+    {
+      "include": "#function"
+    },
+    {
+      "include": "#type"
+    }
   ],
   "repository": {
     "keywords": {
@@ -60,7 +82,7 @@
         },
         {
           "name": "keyword.other.f",
-          "match": "\\b(fetch|find|first|flatten|fmt|for|format|from)\\b"
+          "match": "\\b(false|fetch|find|first|flatten|fmt|for|format|from)\\b"
         },
         {
           "name": "keyword.other.g",
@@ -104,7 +126,7 @@
         },
         {
           "name": "keyword.other.n",
-          "match": "\\b(n|not-in|nu-example-1|nu-example-2|nu-example-3|nu-highlight)\\b"
+          "match": "\\b(n|not-in|nu-example-1|nu-example-2|nu-example-3|nu-highlight|null)\\b"
         },
         {
           "name": "keyword.other.o",
@@ -148,7 +170,7 @@
         },
         {
           "name": "keyword.other.t",
-          "match": "\\b(table|to|touch|transpose|tutor)\\b"
+          "match": "\\b(table|to|touch|transpose|true|tutor)\\b"
         },
         {
           "name": "keyword.other.u_sub",
