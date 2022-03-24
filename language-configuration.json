@@ -38,8 +38,8 @@
   },
   "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
   "indentationRules": {
-    "increaseIndentPattern": "^((?!.*?\\/\\*).*\\*/)?\\s*[\\}\\]].*$",
-    "decreaseIndentPattern": "^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*)$"
+    "increaseIndentPattern": "{{?(def|def-env|else|extern|for|if|let|let-env|with-env)\\b.*}}?",
+    "decreaseIndentPattern": "{{?/(def|def-env|for|if)\\b}}?"
   },
   "onEnterRules": [
     {

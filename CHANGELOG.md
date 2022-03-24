@@ -86,3 +86,6 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - update screenshots showing else keyword
   - add `on-Enter` rules
   - fixed a bug with variable syntax coloring
+- 0.5.2
+  - add `true`, `false`, and `null` as pseudo keywords
+  - changed the indentation rules
