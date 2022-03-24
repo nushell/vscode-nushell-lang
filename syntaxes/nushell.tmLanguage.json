@@ -3,39 +3,17 @@
   "name": "nushell",
   "scopeName": "source.nushell",
   "patterns": [
-    {
-      "include": "#keywords"
-    },
-    {
-      "include": "#strings"
-    },
-    {
-      "include": "#punctuation"
-    },
-    {
-      "include": "#comment"
-    },
-    {
-      "include": "#range"
-    },
-    {
-      "include": "#parameter"
-    },
-    {
-      "include": "#digit"
-    },
-    {
-      "include": "#blockparam"
-    },
-    {
-      "include": "#variable"
-    },
-    {
-      "include": "#function"
-    },
-    {
-      "include": "#type"
-    }
+    { "include": "#keywords" },
+    { "include": "#strings" },
+    { "include": "#punctuation" },
+    { "include": "#comment" },
+    { "include": "#range" },
+    { "include": "#parameter" },
+    { "include": "#digit" },
+    { "include": "#blockparam" },
+    { "include": "#variable" },
+    { "include": "#function" },
+    { "include": "#type" }
   ],
   "repository": {
     "keywords": {
