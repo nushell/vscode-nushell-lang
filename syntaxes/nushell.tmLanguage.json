@@ -177,9 +177,52 @@
       "begin": "\"|'|`",
       "end": "\"|'|`"
     },
+    "variable": {
+      "match": "(alias|let|let-env)\\s+[\\$'\"]?([a-z A-Z0-9_-]+)['\"]?|(\\$[a-zA-Z0-9_\\-]+)|(\\|)([$a-zA-Z0-9-]+)[\\s,]+([$a-zA-Z0-9-]+)(\\|)",
+      "name": "variable.nushell",
+      "captures": {
+        "1": { "name": "keyword.other.nushell" },
+        "2": { "name": "variable.name.nushell" },
+        "3": { "name": "variable.name.nushell" },
+        "4": { "name": "punctuation.nushell" },
+        "5": { "name": "variable.name.nushell" },
+        "6": { "name": "variable.name.nushell" },
+        "7": { "name": "punctuation.nushell" }
+      }
+    },
     "punctuation": {
-      "match": "(;|\\||\\.|\\[|\\]|\\{|\\}|\\(|\\)|=|\\<|>)|(\\$\\(|\\$\\[|\\+|\\%|\\/|\\*)",
-      "name": "punctuation.nushell"
+      "patterns": [
+        {
+          "comment": "comma",
+          "name": "punctuation.comma.nushell",
+          "match": ","
+        },
+        {
+          "comment": "curly braces",
+          "name": "punctuation.brackets.curly.nushell",
+          "match": "[{}]"
+        },
+        {
+          "comment": "parentheses, round brackets",
+          "name": "punctuation.brackets.round.nushell",
+          "match": "[()]"
+        },
+        {
+          "comment": "semicolon",
+          "name": "punctuation.semi.nushell",
+          "match": ";"
+        },
+        {
+          "comment": "square brackets",
+          "name": "punctuation.brackets.square.nushell",
+          "match": "[\\[\\]]"
+        },
+        {
+          "comment": "angle brackets",
+          "name": "punctuation.brackets.angle.nushell",
+          "match": "(?<!=)[<>]"
+        }
+      ]
     },
     "comment": {
       "match": "(#.*)",
@@ -202,24 +245,6 @@
       "name": "variable.nushell",
       "captures": {
         "2": {
-          "name": "variable.language.nushell"
-        }
-      }
-    },
-    "variable": {
-      "match": "(alias|let|let-env)\\s+(\\$?[a-zA-Z0-9_\\-]+)|(^[\\[]\\[\\$[a-zA-Z0-9_\\-]+)|(\\$[a-zA-Z0-9_\\-]+)",
-      "name": "variable.nushell",
-      "captures": {
-        "1": {
-          "name": "keyword.other.nushell"
-        },
-        "2": {
-          "name": "variable.name.nushell"
-        },
-        "3": {
-          "name": "variable.language.nushell"
-        },
-        "4": {
           "name": "variable.language.nushell"
         }
       }
