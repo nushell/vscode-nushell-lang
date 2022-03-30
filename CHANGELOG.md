@@ -89,3 +89,7 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 - 0.5.2
   - add `true`, `false`, and `null` as pseudo keywords
   - changed the indentation rules
+- 0.5.3
+  - updated language punctuation recognition
+  - added the ability to recognize block parameters as variables
+  - split out part of the readme.md into building.md
