@@ -6,7 +6,7 @@ let patterns = (
     |upsert category {|a|
         if ($a.command|split row ' '|get 0) == 'dfr' {
             'dfr_sub'
-        } else if ($a.command|split row ' '|get 0) == db {
+        } else if ($a.command|split row ' '|get 0) == 'db' {
             'db_sub'
         } else if ($a.command|split row ' '|length) == 2 {
             $"($a.command|split chars|get 0)_sub"
