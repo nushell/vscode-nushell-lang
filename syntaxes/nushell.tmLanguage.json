@@ -46,7 +46,7 @@
       [
         {
           "name": "keyword.other.a",
-          "match": "\\b(alias|all?|ansi|any?|append)\\b"
+          "match": "\\b(alias|all\\?|ansi|any\\?|append)\\b"
         },
         {
           "name": "keyword.other.a_sub",
@@ -82,7 +82,7 @@
         },
         {
           "name": "keyword.other.e",
-          "match": "\\b(each|echo|empty?|enter|env|every|exec|exit|export|extern)\\b"
+          "match": "\\b(each|echo|empty\\?|enter|env|every|exec|exit|export|extern)\\b"
         },
         {
           "name": "keyword.other.e_sub",
