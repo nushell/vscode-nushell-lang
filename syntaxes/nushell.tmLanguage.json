@@ -46,7 +46,7 @@
       [
         {
           "name": "keyword.other.a",
-          "match": "(alias|all\\?|ansi|any\\?|append)"
+          "match": "\\b(alias|all?|ansi|any?|append)\\b"
         },
         {
           "name": "keyword.other.a_sub",
