@@ -32,7 +32,7 @@
     "webpack-dev": "webpack --mode development --watch",
     "test-compile": "tsc -p ./",
     "package": "vsce package",
-    "postpackage": "./install-extension.nu"
+    "postpackage": "code --install-extension *.vsix"
   },
   "devDependencies": {
     "@types/node": "^12.20.47",
