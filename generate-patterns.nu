@@ -17,7 +17,7 @@ let patterns = (
     |group-by category
     |transpose category commands
     |each {|it|
-        let match = (build-string "\\b(" ($it.commands.command|str collect '|'|str replace -a ' ' "\\s"|str replace -a -s '?' '\?') ")\\b")
+        let match = (build-string "\\b(" ($it.commands.command|str collect '|'|str replace -a ' ' "\\s") ")\\b")
         {name: $"keyword.other.($it.category)", match: $match}
     }
 )

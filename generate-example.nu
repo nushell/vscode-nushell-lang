@@ -2,6 +2,8 @@
 $nu.scope.commands
 |get -i examples
 |each {take 1}
-|flatten
 |get example
+|compact
+|each {append (char nl)}
+|flatten
 |save example.nu
