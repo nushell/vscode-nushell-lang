@@ -1,4 +1,23 @@
+[[a b]; [1 2] [1 4] [2 6] [2 4]]
+    | to-df
+    | group-by a
+    | agg [
+        (col b | min | as "b_min")
+        (col b | max | as "b_max")
+        (col b | sum | as "b_sum")
+     ]
+
+
+
+
+
 alias ll = ls -l
+
+
+[false false false] | to-df | all-false
+
+
+[true true true] | to-df | all-true
 
 
 echo [[status]; [UP] [UP]] | all? status == UP
@@ -16,13 +35,44 @@ echo [ (ansi green) (ansi cursor_on) "hello" ] | str collect | ansi strip
 echo [[status]; [UP] [DOWN] [UP]] | any? status == DOWN
 
 
+let a = ([[a b]; [1 2] [3 4]] | to-df);
+    $a | append $a
+
+
 [0,1,2,3] | append 4
+
+
+[1 3 2] | to-df | arg-max
+
+
+[1 3 2] | to-df | arg-min
+
+
+[1 2 2 3 3] | to-df | arg-sort
+
+
+[false true false] | to-df | arg-true
+
+
+[1 2 2 3 3] | to-df | arg-unique
+
+
+col a | as new_a | to-nu
+
+
+["2021-12-30" "2021-12-31"] | to-df | as-datetime "%Y-%m-%d"
+
+
+["2021-12-30 00:00:00" "2021-12-31 00:00:00"] | to-df | as-datetime "%Y-%m-%d %H:%M:%S"
 
 
 benchmark { sleep 500ms }
 
 
 build-string a b c
+
+
+[[a b]; [6 2] [4 2] [2 2]] | to-df | reverse | cache
 
 
 cal
@@ -37,6 +87,12 @@ char newline
 clear
 
 
+col a | to-nu
+
+
+[[a b]; [1 2] [3 4]] | to-lazy | collect
+
+
 echo 1 2 3 | collect { |x| echo $x.1 }
 
 
@@ -49,13 +105,30 @@ echo [["Hello" "World"]; [$nothing 3]]| compact Hello
 ^external arg1 | complete
 
 
+let other = ([za xs cd] | to-df);
+    [abc abc abc] | to-df | concatenate $other
+
+
 config env
 
 
 config nu
 
 
+[abc acb acb] | to-df | contains ab
+
+
+
+
+
+let s = ([1 1 0 0 3 3 4] | to-df);
+    ($s / $s) | count-null
+
+
 cp myfile dir_b
+
+
+[1 2 3 4 5] | to-df | cumulative sum
 
 
 "2021-10-22 20:00:12 +01:00" | date format
@@ -133,10 +206,10 @@ db open db.mysql
     | db describe
 
 
-db open db.mysql 
-    | db from table_a 
-    | db select a 
-    | db order-by a 
+db open db.mysql
+    | db from table_a
+    | db select a
+    | db order-by a
     | db describe
 
 
@@ -177,369 +250,16 @@ def-env foo [] { let-env BAR = "BAZ" }; foo; $env.BAR
 ls -la | default 'nothing' target 
 
 
+[[a b]; [1 1] [1 1]] | to-df | describe
+
+
 'hello' | describe
 
 
 echo 'a b c' | detect columns -n
 
 
-
-
-
-[[a b]; [1 2] [1 4] [2 6] [2 4]]
-    | dfr to-df
-    | dfr group-by a
-    | dfr aggregate [
-        ("b" | dfr min | dfr as "b_min")
-        ("b" | dfr max | dfr as "b_max")
-        ("b" | dfr sum | dfr as "b_sum")
-     ]
-
-
-[false false false] | dfr to-df | dfr all-false
-
-
-[true true true] | dfr to-df | dfr all-true
-
-
-let a = ([[a b]; [1 2] [3 4]] | dfr to-df);
-    $a | dfr append $a
-
-
-[1 3 2] | dfr to-df | dfr arg-max
-
-
-[1 3 2] | dfr to-df | dfr arg-min
-
-
-[1 2 2 3 3] | dfr to-df | dfr arg-sort
-
-
-[false true false] | dfr to-df | dfr arg-true
-
-
-[1 2 2 3 3] | dfr to-df | dfr arg-unique
-
-
-(dfr col a | df as new_a)
-
-
-["2021-12-30" "2021-12-31"] | dfr to-df | dfr as-datetime "%Y-%m-%d"
-
-
-["2021-12-30 00:00:00" "2021-12-31 00:00:00"] | dfr to-df | dfr as-datetime "%Y-%m-%d %H:%M:%S"
-
-
-
-
-
-dfr col col_a | dfr to-nu
-
-
-
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr column a
-
-
-let other = ([za xs cd] | dfr to-df);
-    [abc abc abc] | dfr to-df | dfr concatenate $other
-
-
-[abc acb acb] | dfr to-df | dfr contains ab
-
-
-let s = ([1 1 0 0 3 3 4] | dfr to-df);
-    ($s / $s) | dfr count-null
-
-
-[1 1 2 2 3 3 4] | dfr to-df | dfr count-unique
-
-
-[1 2 3 4 5] | dfr to-df | dfr cumulative sum
-
-
-[[a b]; [1 1] [1 1]] | dfr to-df | dfr describe
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr drop a
-
-
-[[a b]; [1 2] [3 4] [1 2]] | dfr to-df | dfr drop-duplicates
-
-
-let df = ([[a b]; [1 2] [3 0] [1 2]] | dfr to-df);
-    let res = ($df.b / $df.b);
-    let a = ($df | dfr with-column $res --name res);
-    $a | dfr drop-nulls
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr dtypes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let mask = ([true false] | dfr to-df);
-    [[a b]; [1 2] [3 4]] | dfr to-df | dfr filter-with $mask
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr first 1
-
-
-
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr get a
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr get-day
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr get-hour
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr get-minute
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr get-month
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr get-nanosecond
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr get-ordinal
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr get-second
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr get-week
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr get-weekday
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr get-year
-
-
-[[a b]; [1 2] [1 4] [2 6] [2 4]]
-    | dfr to-df
-    | dfr group-by a
-    | dfr aggregate [
-        ("b" | dfr min | dfr as "b_min")
-        ("b" | dfr max | dfr as "b_max")
-        ("b" | dfr sum | dfr as "b_sum")
-     ]
-
-
-[5 6 6 6 8 8 8] | dfr to-df | dfr is-duplicated
-
-
-let other = ([1 3 6] | dfr to-df);
-    [5 6 6 6 8 8 8] | dfr to-df | dfr is-in $other
-
-
-let s = ([5 6 0 8] | dfr to-df);
-    let res = ($s / $s);
-    $res | dfr is-not-null
-
-
-let s = ([5 6 0 8] | dfr to-df);
-    let res = ($s / $s);
-    $res | dfr is-null
-
-
-[5 6 6 6 8 8 8] | dfr to-df | dfr is-unique
-
-
-let df_a = ([[a b c];[1 "a" 0] [2 "b" 1] [1 "c" 2] [1 "c" 3]] | dfr to-lazy);
-    let df_b = ([["foo" "bar" "ham"];[1 "a" "let"] [1 "c" "var"] [1 "c" "const"]] | dfr to-lazy);
-    $df_a | dfr join $df_b a foo | dfr collect
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr last 1
-
-
-
-
-
-dfr lit 2 | dfr to-nu
-
-
-let test = ([[a b];[1 2] [3 4]] | dfr to-df);
-    dfr ls
-
-
-
-
-
-
-
-
-
-
-
-[[a b c d]; [x 1 4 a] [y 2 5 b] [z 3 6 c]] | dfr to-df | dfr melt -c [b c] -v [a d]
-
-
-
-
-
-[true false true] | dfr to-df | dfr not
-
-
-dfr open test.csv
-
-
-
-
-
-[5 6 7 8] | dfr to-df | dfr rename new_name
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr rename-col a a_new
-
-
-[abc abc abc] | dfr to-df | dfr replace -p ab -r AB
-
-
-[abac abac abac] | dfr to-df | dfr replace-all -p a -r A
-
-
-
-
-
-[1 2 3 4 5] | dfr to-df | dfr rolling sum 2 | dfr drop-nulls
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr sample -n 1
-
-
-
-
-
-let s = ([1 2 2 3 3] | dfr to-df | dfr shift 2);
-    let mask = ($s | dfr is-null);
-    $s | dfr set 0 --mask $mask
-
-
-let series = ([4 1 5 2 4 3] | dfr to-df);
-    let indices = ([0 2] | dfr to-df);
-    $series | dfr set-with-idx 6 -i $indices
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr shape
-
-
-[1 2 2 3 3] | dfr to-df | dfr shift 2 | dfr drop-nulls
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr slice 0 1
-
-
-[[a b]; [3 4] [1 2]] | dfr to-df | dfr sort a
-
-
-
-
-
-
-
-
-[a ab abc] | dfr to-df | dfr str-lengths
-
-
-[abcded abc321 abc123] | dfr to-df | dfr str-slice 1 -l 2
-
-
-let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
-    let df = ([$dt $dt] | dfr to-df);
-    $df | dfr strftime "%Y/%m/%d"
-
-
-
-
-
-let df = ([[a b]; [4 1] [5 2] [4 3]] | dfr to-df);
-    let indices = ([0 2] | dfr to-df);
-    $df | dfr take $indices
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr to-csv test.csv
-
-
-[[a b];[1 2] [3 4]] | dfr to-df
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr to-dummies
-
-
-[[a b];[1 2] [3 4]] | dfr to-df | dfl to-lazy
-
-
-[Abc aBc abC] | dfr to-df | dfr to-lowercase
-
-
-dfr col col_a | dfr to-nu
-
-
-[[a b]; [1 2] [3 4]] | dfr to-df | dfr to-parquet test.parquet
-
-
-[Abc aBc abC] | dfr to-df | dfr to-uppercase
-
-
-[2 2 2 2 2] | dfr to-df | dfr unique
-
-
-[5 5 5 5 6 6] | dfr to-df | dfr value-counts
-
-
-
-
-
-[[a b]; [1 2] [3 4]]
-   | dfr to-df
-   | dfr to-lazy
-   | dfr with-column (
-       dfr when ((dfr col a) > 2) --then 4 --otherwise 5  | dfr as "c"
-     )
-   | dfr collect
-
-
-[[a b]; [1 2] [3 4]] 
-    | dfr to-df 
-    | dfr with-column ([5 6] | dfr to-df) --name c
+[true false true] | to-df | df-not
 
 
 do { echo hello }
@@ -548,16 +268,34 @@ do { echo hello }
 [0,1,2,3] | drop
 
 
+[[a b]; [1 2] [3 4]] | to-df | drop a
+
+
 echo [[lib, extension]; [nu-lib, rs] [nu-core, rb]] | drop column
 
 
 [sam,sarah,2,3,4,5] | drop nth 0 1 2
 
 
+[[a b]; [1 2] [3 4] [1 2]] | to-df | drop-duplicates
+
+
+let df = ([[a b]; [1 2] [3 0] [1 2]] | to-df);
+    let res = ($df.b / $df.b);
+    let a = ($df | with-column $res --name res);
+    $a | drop-nulls
+
+
+[[a b]; [1 2] [3 4]] | to-df | dtypes
+
+
 du
 
 
 [1 2 3] | each { |it| 2 * $it }
+
+
+[1 2 3] | each while { |it| if $it < 3 {$it} else {$nothing} }
 
 
 echo 'hello'
@@ -587,6 +325,9 @@ exec ps aux
 exit
 
 
+
+
+
 module utils { export def my-command [] { "hello" } }; use utils my-command; my-command
 
 
@@ -605,16 +346,41 @@ module foo { export env FOO_ENV { "BAZ" } }; use foo FOO_ENV; $env.FOO_ENV
 export extern echo [text: string]
 
 
+(col a) > 2) | expr-not
+
+
 extern echo [text: string]
 
 
+[[a b]; [6 2] [4 2] [2 2]] | to-df | fetch 2
+
+
 fetch url.com
+
+
+
+
+
+[1 2 2 3 3] | to-df | shift 2 | fill-null 0
+
+
+let mask = ([true false] | to-df);
+    [[a b]; [1 2] [3 4]] | to-df | filter-with $mask
 
 
 ls | find toml md sh
 
 
 [1 2 3] | first
+
+
+[[a b]; [1 2] [3 4]] | to-df | first 1
+
+
+col a | first
+
+
+
 
 
 [[N, u, s, h, e, l, l]] | flatten 
@@ -657,7 +423,7 @@ b=2' | from ini
 '{ a:1 }' | from nuon
 
 
-open test.txt | from ods
+open --raw test.ods | from ods
 
 
 'FOO   BAR
@@ -680,7 +446,7 @@ EMAIL:foo@bar.com
 END:VCARD' | from vcf
 
 
-open test.txt | from xlsx
+open --raw test.xlsx | from xlsx
 
 
 '<?xml version="1.0" encoding="UTF-8"?>
@@ -698,7 +464,60 @@ open test.txt | from xlsx
 mkdir foo bar; enter foo; enter ../bar; g 1
 
 
+[[a b]; [1 2] [3 4]] | to-df | get a
+
+
 ls | get name
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | get-day
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | get-hour
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | get-minute
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | get-month
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | get-nanosecond
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | get-ordinal
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | get-second
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | get-week
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | get-weekday
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | get-year
 
 
 glob *.rs
@@ -708,6 +527,16 @@ glob *.rs
 
 
 echo [1 2 3 4] | group 2
+
+
+[[a b]; [1 2] [1 4] [2 6] [2 4]]
+    | to-df
+    | group-by a
+    | agg [
+        (col b | min | as "b_min")
+        (col b | max | as "b_max")
+        (col b | sum | as "b_sum")
+     ]
 
 
 ls | group-by type
@@ -773,6 +602,40 @@ echo [[num]; ['-5'] [4] [1.5]] | into int num
 1.7 | into string -d 0
 
 
+if is-admin { echo "iamroot" } else { echo "iamnotroot" }
+
+
+[5 6 6 6 8 8 8] | to-df | is-duplicated
+
+
+let other = ([1 3 6] | to-df);
+    [5 6 6 6 8 8 8] | to-df | is-in $other
+
+
+col a | is-not-null
+
+
+let s = ([5 6 0 8] | to-df);
+    let res = ($s / $s);
+    $res | is-not-null
+
+
+col a | is-null
+
+
+let s = ([5 6 0 8] | to-df);
+    let res = ($s / $s);
+    $res | is-null
+
+
+[5 6 6 6 8 8 8] | to-df | is-unique
+
+
+let df_a = ([[a b c];[1 "a" 0] [2 "b" 1] [1 "c" 2] [1 "c" 3]] | to-lazy);
+    let df_b = ([["foo" "bar" "ham"];[1 "a" "let"] [2 "c" "var"] [3 "c" "const"]] | to-lazy);
+    $df_a | join $df_b a foo | collect
+
+
 keybindings default
 
 
@@ -788,6 +651,12 @@ ps | sort-by mem | last | kill $in.pid
 [1,2,3] | last 2
 
 
+[[a b]; [1 2] [3 4]] | to-df | last 1
+
+
+col a | last
+
+
 echo [1 2 3 4 5] | length
 
 
@@ -800,10 +669,20 @@ let-env MY_ENV_VAR = 1; $env.MY_ENV_VAR
 echo $'two(char nl)lines' | lines
 
 
+
+
+
+lit 2 | to-nu
+
+
 {NAME: ABE, AGE: UNKNOWN} | load-env; echo $env.NAME
 
 
 ls
+
+
+let test = ([[a b];[1 2] [3 4]] | to-df);
+    ls-df
 
 
 [-50 -100.0 25] | math abs
@@ -851,10 +730,49 @@ ls
 echo [1 2 3 4 5] | math variance
 
 
+[[a b]; [one 2] [one 4] [two 1]]
+    | to-df
+    | group-by a
+    | agg (col b | max)
+
+
+[[a b]; [6 2] [1 4] [4 1]] | to-df | max
+
+
+[[a b]; [6 2] [4 2] [2 2]] | to-df | mean
+
+
+[[a b]; [one 2] [one 4] [two 1]]
+    | to-df
+    | group-by a
+    | agg (col b | mean)
+
+
+[[a b]; [6 2] [4 2] [2 2]] | to-df | median
+
+
+[[a b]; [one 2] [one 4] [two 1]]
+    | to-df
+    | group-by a
+    | agg (col b | median)
+
+
+[[a b c d]; [x 1 4 a] [y 2 5 b] [z 3 6 c]] | to-df | melt -c [b c] -v [a d]
+
+
 [a b c] | wrap name | merge { [1 2 3] | wrap index }
 
 
 metadata $a
+
+
+[[a b]; [6 2] [1 4] [4 1]] | to-df | min
+
+
+[[a b]; [one 2] [one 4] [two 1]]
+    | to-df
+    | group-by a
+    | agg (col b | min)
 
 
 mkdir foo
@@ -872,10 +790,22 @@ mv before.txt after.txt
 mkdir foo bar; enter foo; enter ../bar; n
 
 
+[1 1 2 2 3 3 4] | to-df | n-unique
+
+
+col a | n-unique
+
+
 'let x = 3' | nu-highlight
 
 
 open myfile.json
+
+
+open test.csv
+
+
+when ((col a) > 2) 4 | otherwise 5
 
 
 module spam { export def foo [] { "foo" } }
@@ -885,6 +815,9 @@ module spam { export def foo [] { "foo" } }
 module spam { export def foo [] { "foo" } }
     overlay add spam
     overlay list | last
+
+
+overlay new spam
 
 
 module spam { export def foo [] { "foo" } }
@@ -940,6 +873,15 @@ print "hello world"
 ps
 
 
+[[a b]; [one 2] [one 4] [two 1]]
+    | to-df
+    | group-by a
+    | agg (col b | quantile 0.5)
+
+
+[[a b]; [6 2] [1 4] [4 1]] | to-df | quantile 0.5
+
+
 random bool
 
 
@@ -973,7 +915,19 @@ ls | reject modified
 [[a, b]; [1, 2]] | rename my_column
 
 
+[5 6 7 8] | to-df | rename '0' new_name
+
+
+[abc abc abc] | to-df | replace -p ab -r AB
+
+
+[abac abac abac] | to-df | replace-all -p a -r A
+
+
 [0,1,2,3] | reverse
+
+
+[[a b]; [6 2] [4 2] [2 2]] | to-df | reverse
 
 
 rm file.txt
@@ -991,16 +945,25 @@ rm file.txt
 [[a b]; [1 2] [3 4] [5 6]] | roll up
 
 
+[1 2 3 4 5] | to-df | rolling sum 2 | drop-nulls
+
+
 [[a b]; [1 2]] | rotate
 
 
 run-external "echo" "-n" "hello"
 
 
+[[a b]; [1 2] [3 4]] | to-df | sample -n 1
+
+
 echo 'save me' | save foo.txt
 
 
 ls | select name
+
+
+[[a b]; [6 2] [4 2] [2 2]] | to-df | select a
 
 
 seq 1 10
@@ -1012,7 +975,23 @@ seq char a e
 seq date --days 10
 
 
+let s = ([1 2 2 3 3] | to-df | shift 2);
+    let mask = ($s | is-null);
+    $s | set 0 --mask $mask
+
+
+let series = ([4 1 5 2 4 3] | to-df);
+    let indices = ([0 2] | to-df);
+    $series | set-with-idx 6 -i $indices
+
+
+[[a b]; [1 2] [3 4]] | to-df | shape
+
+
 enter ..; shells
+
+
+[1 2 2 3 3] | to-df | shift 2 | drop-nulls
 
 
 echo [[version patch]; [1.0.0 false] [3.0.1 true] [2.0.0 false]] | shuffle
@@ -1033,7 +1012,13 @@ echo [-2 0 2 -1] | skip while $it < 0
 sleep 1sec
 
 
+[[a b]; [1 2] [3 4]] | to-df | slice 0 1
+
+
 [2 0 1] | sort
+
+
+[[a b]; [6 2] [1 4] [4 1]] | to-df | sort-by a
 
 
 [2 0 1] | sort-by
@@ -1062,6 +1047,15 @@ echo 'abc' | split row ''
                     ]
                 } | split-by lang
                 
+
+
+[[a b]; [one 2] [one 2] [two 1] [two 1]]
+    | to-df
+    | group-by a
+    | agg (col b | std)
+
+
+[[a b]; [6 2] [4 2] [2 2]] | to-df | std
 
 
  'NuShell' | str camel-case
@@ -1127,6 +1121,26 @@ echo 'abc' | split row ''
 'nu' | str upcase
 
 
+[a ab abc] | to-df | str-lengths
+
+
+[abcded abc321 abc123] | to-df | str-slice 1 -l 2
+
+
+let dt = ('2020-08-04T16:39:18+00:00' | into datetime -z 'UTC');
+    let df = ([$dt $dt] | to-df);
+    $df | strftime "%Y/%m/%d"
+
+
+[[a b]; [one 2] [one 4] [two 1]]
+    | to-df
+    | group-by a
+    | agg (col b | sum)
+
+
+[[a b]; [6 2] [1 4] [4 1]] | to-df | sum
+
+
 sys
 
 
@@ -1134,6 +1148,11 @@ ls | table -n 1
 
 
 echo [[editions]; [2015] [2018] [2021]] | take 2
+
+
+let df = ([[a b]; [4 1] [5 2] [4 3]] | to-df);
+    let indices = ([0 2] | to-df);
+    $df | take $indices
 
 
 echo [-1 -2 9 1] | take until $it > 0
@@ -1178,6 +1197,33 @@ term size
 [[foo bar]; ["1" "2"]] | to yaml
 
 
+[[a b]; [1 2] [3 4]] | to-df | to-csv test.csv
+
+
+[[a b];[1 2] [3 4]] | to-df
+
+
+[[a b]; [1 2] [3 4]] | to-df | to-dummies
+
+
+[[a b];[1 2] [3 4]] | to-lazy
+
+
+[Abc aBc abC] | to-df | to-lowercase
+
+
+[[a b]; [1 2] [3 4]] | to-df | to nu
+
+
+col a | to-nu
+
+
+[[a b]; [1 2] [3 4]] | to-df | to-parquet test.parquet
+
+
+[Abc aBc abC] | to-df | to-uppercase
+
+
 touch fixture.json
 
 
@@ -1188,6 +1234,9 @@ tutor begin
 
 
 [2 3 3 4] | uniq
+
+
+[2 2 2 2 2] | to-df | unique
 
 
 echo {'name': 'nu', 'stars': 5} | update name 'Nushell'
@@ -1223,6 +1272,18 @@ echo 'http://www.example.com' | url scheme
 module spam { export def foo [] { "foo" } }; use spam foo; foo
 
 
+[5 5 5 5 6 6] | to-df | value-counts
+
+
+[[a b]; [6 2] [4 2] [2 2]] | to-df | var
+
+
+[[a b]; [one 2] [one 2] [two 1] [two 1]]
+    | to-df
+    | group-by a
+    | agg (col b | var)
+
+
 version
 
 
@@ -1232,6 +1293,9 @@ let abc = { echo 'hi' }; view-source $abc
 watch . --glob=**/*.rs { cargo test }
 
 
+when ((col a) > 2) 4
+
+
 ls | where size > 2kb
 
 
@@ -1239,6 +1303,11 @@ which myapp
 
 
 echo [1 2 3 4] | window 2
+
+
+[[a b]; [1 2] [3 4]]
+    | to-df
+    | with-column ([5 6] | to-df) --name c
 
 
 with-env [MYENV "my env value"] { $env.MYENV }
