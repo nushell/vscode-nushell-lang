@@ -33,7 +33,15 @@ let patterns = (
     |get command
     |split column ' ' first-word second-word
     |default '' second-word
-    |upsert category {get first-word|split chars|get 0}
+    |uniq
+    |upsert category {|x|
+        let first-letter = ($x.first-word|split chars|get 0)
+        if $x.second-word == '' {
+            $"($first-letter)"
+        } else {
+            $"($first-letter)_sub"
+        }
+    }
     |group-by category
     |transpose category commands
     |upsert commands {
@@ -42,7 +50,8 @@ let patterns = (
         |transpose command subcommands
     }
     |each {|category|
-        generate-matches $category|each {|match|
+        generate-matches $category
+        |each {|match|
             {name: $"keyword.other.($category.category)", match: $match}
         }
     }
