@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-# generate regex for all single word commands
+# generate combined regex for all single word commands
 def match-for-single [
     commands:record
 ] {
@@ -16,7 +16,7 @@ def match-for-double [
         build-string '\b' $x.command '(\s' ($x.subcommands.second-word|compact|str collect '|\s') ')?\b'
     }
 }
-# returns regexes for all commands, both single and double word
+# returns regexes for all commands, both single and double word single-word append is conditional because some letters only have two word commands e.g 'q'
 def generate-matches [
     category: record
 ] {
