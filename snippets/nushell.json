@@ -49,7 +49,7 @@
         "prefix": "alias",
         "body": [
             "# Documentation for ${1:Alias_Name}",
-            "aliase ${1:Alias_Name} = ${2}"
+            "alias ${1:Alias_Name} = ${2}"
         ],
         "description": "Create an alias"
     }
