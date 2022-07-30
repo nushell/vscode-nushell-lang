@@ -1,2 +1,5 @@
 node_modules
 *.vsix
+
+# ignore the git mailmap file
+.mailmap
