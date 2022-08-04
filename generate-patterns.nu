@@ -4,7 +4,7 @@
 def match-for-single [
     commands:record
 ] {
-    build-string '\b(' ($commands|where ($it.subcommands|length) == 1|get command|str collect '|'|str replace -a -s '?' '\?') ')\b'
+    build-string '\b(' ($commands|where ($it.subcommands|length) == 1|get command|str collect '|'|str replace -a -s '?' '\?') ')\w*'
 }
 
 # generate list of regexes for every two word command
@@ -13,7 +13,7 @@ def match-for-double [
 ] {
     $commands
     |where ($it.subcommands|length) > 1|each {|x|
-        build-string '\b' $x.command '(\s' ($x.subcommands.second-word|compact|str collect '|\s') ')?\b'
+        build-string '\b' $x.command '(\s' ($x.subcommands.second-word|compact|str collect '|\s') ')\w*'
     }
 }
 # returns regexes for all commands, both single and double word single-word append is conditional because some letters only have two word commands e.g 'q'
@@ -49,6 +49,7 @@ let patterns = (
         |group-by first-word
         |transpose command subcommands
     }
+    |reverse
     |each {|category|
         generate-matches $category
         |each {|match|

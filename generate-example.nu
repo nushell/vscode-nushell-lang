@@ -2,7 +2,7 @@
 $nu.scope.commands
 |where is_builtin and (not $it.is_extern)
 |get -i examples
-|each {take 1}
+|each {take 2}
 |get example
 |compact
 |each {append (char nl)}
