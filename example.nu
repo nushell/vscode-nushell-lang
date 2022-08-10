@@ -42,17 +42,15 @@ echo [2 4 6 8] | all? ($it mod 2) == 0
 (field a) > 1 | and ((field a) < 10) | into nu
 
 
-open db.mysql
-    | into db
+open db.sqlite
+    | from table table_1
     | select a
-    | from table_1
     | where ((field a) > 1)
     | and ((field b) == 1)
     | describe
-open db.mysql
-    | into db
+open db.sqlite
+    | from table table_1
     | select a
-    | from table_1
     | where ((field a) > 1 | and ((field a) < 10))
     | and ((field b) == 1)
     | describe
@@ -73,14 +71,14 @@ echo [[status]; [UP] [DOWN] [UP]] | any? status == DOWN
 echo [2 4 1 6 8] | any? ($it mod 2) == 1
 
 
-[0,1,2,3] | append 4
-[0,1] | append [2,3,4]
-
-
 let a = ([[a b]; [1 2] [3 4]] | into df);
     $a | append $a
 let a = ([[a b]; [1 2] [3 4]] | into df);
     $a | append $a --col
+
+
+[0,1,2,3] | append 4
+[0,1] | append [2,3,4]
 
 
 [1 3 2] | into df | arg-max
@@ -99,29 +97,26 @@ let a = ([[a b]; [1 2] [3 4]] | into df);
 [1 2 2 3 3] | into df | arg-unique
 
 
+open db.sqlite
+    | from table table_1
+    | select a
+    | as t1
+    | describe
+open db.sqlite
+    | from table (
+        open db.sqlite
+        | from table table_a
+        | select a b
+      )
+    | select a
+    | as t1
+    | describe
+
+
 col a | as new_a | into nu
 
 
 field name_a | as new_a | into nu
-
-
-open db.mysql
-    | into db
-    | select a
-    | from table_1
-    | as t1
-    | describe
-open db.mysql
-    | into db
-    | select a
-    | from (
-        open db.mysql
-        | into db
-        | select a b
-        | from table_a
-      )
-    | as t1
-    | describe
 
 
 ["2021-12-30" "2021-12-31"] | into df | as-datetime "%Y-%m-%d"
@@ -131,6 +126,38 @@ open db.mysql
 
 
 benchmark { sleep 500ms }
+
+
+2 | bits and 2
+[4 3 2] | bits and 2
+
+
+[4 3 2] | bits not
+[4 3 2] | bits not -n 2
+
+
+2 | bits or 6
+[8 3 2] | bits or 2
+
+
+17 | bits rol 2
+[5 3 2] | bits rol 2
+
+
+17 | bits ror 60
+[15 33 92] | bits ror 2 -n 1
+
+
+2 | bits shl 7
+2 | bits shl 7 -n 1
+
+
+8 | bits shr 2
+[15 35 2] | bits shr 2
+
+
+2 | bits xor 2
+[8 3 2] | bits xor 2
 
 
 build-string a b c
@@ -201,13 +228,13 @@ clear
 col a | into nu
 
 
-open foo.db | into db | select a | from table_1 | collect
-
-
-echo 1 2 3 | collect { |x| echo $x.1 }
+open foo.db | from table table_1 db | select a | collect
 
 
 [[a b]; [1 2] [3 4]] | into lazy | collect
+
+
+echo 1 2 3 | collect { |x| echo $x.1 }
 
 
 [[name,age,grade]; [bill,20,a]] | columns
@@ -233,6 +260,9 @@ config env
 
 
 config nu
+
+
+config reset
 
 
 [abc acb acb] | into df | contains ab
@@ -302,13 +332,13 @@ ls -la | default 'nothing' target
 $env | get -i MY_ENV | default 'abc'
 
 
-'hello' | describe
+open foo.db | from table table_1 | select col_1 | describe
 
 
 [[a b]; [1 1] [1 1]] | into df | describe
 
 
-open foo.db | into db | select col_1 | from table_1 | describe
+'hello' | describe
 
 
 echo 'a b c' | detect columns -n
@@ -322,11 +352,11 @@ do { echo hello }
 do -i { thisisnotarealcommand }
 
 
+[[a b]; [1 2] [3 4]] | into df | drop a
+
+
 [0,1,2,3] | drop
 [0,1,2,3] | drop 0
-
-
-[[a b]; [1 2] [3 4]] | into df | drop a
 
 
 echo [[lib, extension]; [nu-lib, rs] [nu-core, rb]] | drop column
@@ -429,17 +459,24 @@ module foo { export env FOO_ENV { "BAZ" } }; use foo FOO_ENV; $env.FOO_ENV
 export extern echo [text: string]
 
 
+module spam { export def foo [] { "foo" } }
+    module eggs { export use spam foo }
+    use eggs foo
+    foo
+            
+
+
 (col a) > 2) | expr-not
 
 
 extern echo [text: string]
 
 
+[[a b]; [6 2] [4 2] [2 2]] | into df | fetch 2
+
+
 fetch url.com
 fetch -u myuser -p mypass url.com
-
-
-[[a b]; [6 2] [4 2] [2 2]] | into df | fetch 2
 
 
 field name_1 | into nu
@@ -463,28 +500,27 @@ echo Cargo.toml | find toml
 [[a b]; [1 2] [3 4]] | into df | first 1
 
 
-[1 2 3] | first
-[1 2 3] | first 2
-
-
 col a | first
 
 
-
+[1 2 3] | first
+[1 2 3] | first 2
 
 
 [[N, u, s, h, e, l, l]] | flatten 
 [[N, u, s, h, e, l, l]] | flatten | first
 
 
+
+
+
 42 | fmt
 
 
 fn count name_1 | into nu
-open db.mysql
-    | into db
+open db.sqlite
+    | from table table_a
     | select (fn lead col_a)
-    | from table_a
     | describe
 
 
@@ -498,9 +534,6 @@ echo [[col1, col2]; [v1, v2] [v3, v4]] | format '{col2}'
 
 ls | format filesize size KB
 du | format filesize apparent B
-
-
-open db.mysql | into db | from table_a | describe
 
 
 open data.txt | from csv
@@ -546,6 +579,9 @@ open --raw test.ods | from ods -s [Spreadsheet1]
 1   2' | from ssv -n
 
 
+open db.sqlite | from table table_a | describe
+
+
 'a = 1' | from toml
 'a = 1
 b = [1, 2]' | from toml
@@ -583,8 +619,8 @@ open --raw test.xlsx | from xlsx -s [Spreadsheet1]
 '[ a: 1, b: [1, 2] ]' | from yaml
 
 
+g
 mkdir foo bar; enter foo; enter ../bar; g 1
-shells; g 2
 
 
 [[a b]; [1 2] [3 4]] | into df | get a
@@ -655,6 +691,10 @@ glob **/*.{rs,toml} --depth 2
 echo [1 2 3 4] | group 2
 
 
+ls | group-by type
+echo ['1' '3' '1' '3' '2' '1' '1'] | group-by
+
+
 [[a b]; [1 2] [1 4] [2 6] [2 4]]
     | into df
     | group-by a
@@ -674,22 +714,16 @@ echo [1 2 3 4] | group 2
     | collect
 
 
-open db.mysql
-    | into db
-    | from table_a
+open db.sqlite
+    | from table table_a
     | select (fn max a)
     | group-by a
     | describe
-open db.mysql
-    | into db
-    | from table_a
+open db.sqlite
+    | from table table_a
     | select (fn count *)
     | group-by a
     | describe
-
-
-ls | group-by type
-echo ['1' '3' '1' '3' '2' '1' '1'] | group-by
 
 
 echo 'abcdefghijklmnopqrstuvwxyz' | hash md5
@@ -745,7 +779,7 @@ true | into bool
 '2021-02-27T13:55:40+00:00' | into datetime
 
 
-open db.mysql | into db
+open db.sqlite | into db
 
 
 [[num]; ['5.01']] | into decimal num
@@ -781,6 +815,10 @@ field name_1 | into nu
 col a | into nu
 
 
+ls | into sqlite my_ls.db
+ls | into sqlite my_ls.db -t my_table
+
+
 5 | into string -d 3
 1.7 | into string -d 0
 
@@ -795,20 +833,20 @@ let other = ([1 3 6] | into df);
     [5 6 6 6 8 8 8] | into df | is-in $other
 
 
-col a | is-not-null
-
-
 let s = ([5 6 0 8] | into df);
     let res = ($s / $s);
     $res | is-not-null
 
 
-let s = ([5 6 0 8] | into df);
-    let res = ($s / $s);
-    $res | is-null
+col a | is-not-null
 
 
 col a | is-null
+
+
+let s = ([5 6 0 8] | into df);
+    let res = ($s / $s);
+    $res | is-null
 
 
 [5 6 6 6 8 8 8] | into df | is-unique
@@ -822,22 +860,19 @@ let df_a = ([[a b c];[1 "a" 0] [2 "b" 1] [1 "c" 2] [1 "c" 3]] | into df);
     $df_a | join $df_b a foo
 
 
-open db.mysql
-    | into db
-    | select col_a
-    | from table_1 --as t1
+open db.sqlite
+    | from table table_1 --as t1
     | join table_2 col_b --as t2
-    | describe
-open db.mysql
-    | into db
     | select col_a
-    | from table_1 --as t1
+    | describe
+open db.sqlite
+    | from table table_1 --as t1
     | join (
-        open db.mysql
-        | into db
+        open db.sqlite
+        | from table table_2
         | select col_c
-        | from table_2
       ) ((field t1.col_a) == (field t2.col_c)) --as t2 --right
+    | select col_a
     | describe
 
 
@@ -855,10 +890,10 @@ ps | sort-by mem | last | kill $in.pid
 kill --force 12345
 
 
-[[a b]; [1 2] [3 4]] | into df | last 1
-
-
 col a | last
+
+
+[[a b]; [1 2] [3 4]] | into df | last 1
 
 
 [1,2,3] | last 2
@@ -876,9 +911,8 @@ let x = 10 + 100
 let-env MY_ENV_VAR = 1; $env.MY_ENV_VAR
 
 
-open db.mysql
-    | into db
-    | from table_a
+open db.sqlite
+    | from table table_a
     | select a
     | limit 10
     | describe
@@ -957,13 +991,13 @@ echo [1 2 3 4 5] | math variance
 [1 2 3 4 5] | math variance -s
 
 
+[[a b]; [6 2] [1 4] [4 1]] | into df | max
+
+
 [[a b]; [one 2] [one 4] [two 1]]
     | into df
     | group-by a
     | agg (col b | max)
-
-
-[[a b]; [6 2] [1 4] [4 1]] | into df | max
 
 
 [[a b]; [one 2] [one 4] [two 1]]
@@ -1024,10 +1058,10 @@ mkdir foo bar; enter foo; enter ../bar; n
 n
 
 
-[1 1 2 2 3 3 4] | into df | n-unique
-
-
 col a | n-unique
+
+
+[1 1 2 2 3 3 4] | into df | n-unique
 
 
 nu-check script.nu
@@ -1047,34 +1081,30 @@ open-db file.sqlite
 open test.csv
 
 
-open db.mysql
-    | into db
+(field a) > 1 | or ((field a) < 10) | into nu
+
+
+open db.sqlite
+    | from table table_1
     | select a
-    | from table_1
     | where ((field a) > 1)
     | or ((field b) == 1)
     | describe
-open db.mysql
-    | into db
+open db.sqlite
+    | from table table_1
     | select a
-    | from table_1
     | where ((field a) > 1 | or ((field a) < 10))
     | or ((field b) == 1)
     | describe
 
 
-(field a) > 1 | or ((field a) < 10) | into nu
-
-
-open db.mysql
-    | into db
-    | from table_a
+open db.sqlite
+    | from table table_a
     | select a
     | order-by a
     | describe
-open db.mysql
-    | into db
-    | from table_a
+open db.sqlite
+    | from table table_a
     | select a
     | order-by a --ascending
     | order-by b
@@ -1086,10 +1116,9 @@ when ((col a) > 2) 4 | when ((col a) < 0) 6 | otherwise 0
 
 
 fn avg col_a | over col_b | into nu
-open db.mysql
-    | into db
+open db.sqlite
+    | from table table_a
     | select (fn lead col_a | over col_b)
-    | from table_a
     | describe
 
 
@@ -1127,35 +1156,35 @@ echo "hi there" | parse "{foo} {bar}"
 echo "hi there" | parse -r '(?P<foo>\w+) (?P<bar>\w+)'
 
 
-'/home/joe/test.txt' | path basename
-[[name];[/home/joe]] | path basename -c [ name ]
+'C:\Users\joe\test.txt' | path basename
+ls .. | path basename -c [ name ]
 
 
-'/home/joe/code/test.txt' | path dirname
+'C:\Users\joe\code\test.txt' | path dirname
 ls ('.' | path expand) | path dirname -c [ name ]
 
 
-'/home/joe/todo.txt' | path exists
+'C:\Users\joe\todo.txt' | path exists
 ls | path exists -c [ name ]
 
 
-'/home/joe/foo/../bar' | path expand
+'C:\Users\joe\foo\..\bar' | path expand
 ls | path expand -c [ name ]
 
 
-'/home/viking' | path join spam.txt
-'/home/viking' | path join spams this_spam.txt
+'C:\Users\viking' | path join spam.txt
+'C:\Users\viking' | path join spams this_spam.txt
 
 
-'/home/viking/spam.txt' | path parse
-'/home/viking/spam.tar.gz' | path parse -e tar.gz | upsert extension { 'txt' }
+'C:\Users\viking\spam.txt' | path parse
+'C:\Users\viking\spam.tar.gz' | path parse -e tar.gz | upsert extension { 'txt' }
 
 
-'/home/viking' | path relative-to '/home'
+'C:\Users\viking' | path relative-to 'C:\Users'
 ls ~ | path relative-to ~ -c [ name ]
 
 
-'/home/viking/spam.txt' | path split
+'C:\Users\viking\spam.txt' | path split
 ls ('.' | path expand) | path split -c [ name ]
 
 
@@ -1183,16 +1212,16 @@ ps
 ps | sort-by mem | last 5
 
 
+[[a b]; [6 2] [1 4] [4 1]] | into df | quantile 0.5
+
+
 [[a b]; [one 2] [one 4] [two 1]]
     | into df
     | group-by a
     | agg (col b | quantile 0.5)
 
 
-[[a b]; [6 2] [1 4] [4 1]] | into df | quantile 0.5
-
-
-open foo.db | into db | query "SELECT * FROM Bar"
+open foo.db | query db "SELECT * FROM Bar"
 
 
 random bool
@@ -1234,12 +1263,12 @@ ls | reject modified
 echo {a: 1, b: 2} | reject a
 
 
-[5 6 7 8] | into df | rename '0' new_name
-[[a b]; [1 2] [3 4]] | into df | rename a a_new
-
-
 [[a, b]; [1, 2]] | rename my_column
 [[a, b, c]; [1, 2, 3]] | rename eggs ham bacon
+
+
+[5 6 7 8] | into df | rename '0' new_name
+[[a b]; [1 2] [3 4]] | into df | rename a a_new
 
 
 [abc abc abc] | into df | replace -p ab -r AB
@@ -1291,7 +1320,7 @@ echo 'save me' | save foo.txt
 echo 'append me' | save --append foo.txt
 
 
-open foo.db | into db | schema
+open foo.db | schema
 
 
 [[a b]; [6 2] [4 2] [2 2]] | into df | select a
@@ -1301,11 +1330,11 @@ ls | select name
 ls | select name size
 
 
-open db.mysql | into db | select a | describe
-open db.mysql
+open db.sqlite | into db | select a | describe
+open db.sqlite
     | into db
     | select (field a | as new_a) b c
-    | from table_1
+    | from table table_1
     | describe
 
 
@@ -1409,13 +1438,13 @@ echo 'a--b--c' | split row '--'
                 
 
 
+[[a b]; [6 2] [4 2] [2 2]] | into df | std
+
+
 [[a b]; [one 2] [one 2] [two 1] [two 1]]
     | into df
     | group-by a
     | agg (col b | std)
-
-
-[[a b]; [6 2] [4 2] [2 2]] | into df | std
 
 
  'NuShell' | str camel-case
@@ -1529,16 +1558,16 @@ ls | table -n 1
 echo [[a b]; [1 2] [3 4]] | table
 
 
+[1 2 3] | take
+[1 2 3] | take 2
+
+
 let df = ([[a b]; [4 1] [5 2] [4 3]] | into df);
     let indices = ([0 2] | into df);
     $df | take $indices
 let series = ([4 1 5 2 4 3] | into df);
     let indices = ([0 2] | into df);
     $series | take $indices
-
-
-[1 2 3] | take
-[1 2 3] | take 2
 
 
 echo [-1 -2 9 1] | take until $it > 0
@@ -1554,12 +1583,12 @@ term size -c
 
 
 
-[[a b]; [1 2] [3 4]] | into df | to csv test.csv
-[[a b]; [1 2] [3 4]] | into df | to csv test.csv -d '|'
-
-
 [[foo bar]; [1 2]] | to csv
 [[foo bar]; [1 2]] | to csv -s ';' 
+
+
+[[a b]; [1 2] [3 4]] | into df | to csv test.csv
+[[a b]; [1 2] [3 4]] | into df | to csv test.csv -d '|'
 
 
 [[foo bar]; [1 2]] | to html
@@ -1699,10 +1728,9 @@ when ((col a) > 2) 4
 when ((col a) > 2) 4 | when ((col a) < 0) 6
 
 
-open db.mysql
-    | into db
+open db.sqlite
+    | from table table_1
     | select a
-    | from table_1
     | where ((field a) > 1)
     | describe
 
