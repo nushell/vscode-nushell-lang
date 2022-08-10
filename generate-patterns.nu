@@ -29,17 +29,17 @@ def generate-matches [
 }
 let patterns = (
     $nu.scope.commands
-    |where is_builtin and (not $it.is_extern)
+    |where is_builtin == true and is_extern == false
     |get command
     |split column ' ' first-word second-word
     |default '' second-word
     |uniq
     |upsert category {|x|
-        let first-letter = ($x.first-word|split chars|get 0)
+        let first_letter = ($x.first-word|split chars|get 0)
         if $x.second-word == '' {
-            $"($first-letter)"
+            $"($first_letter)"
         } else {
-            $"($first-letter)_sub"
+            $"($first_letter)_sub"
         }
     }
     |group-by category
