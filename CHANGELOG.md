@@ -93,3 +93,10 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - updated language punctuation recognition
   - added the ability to recognize block parameters as variables
   - split out part of the readme.md into building.md
+- 0.6.0
+  - Thanks to @Yethal we have a new syntax generating script to help making releases easier
+  - Another item @Yethal contributed was a script to generate examples to test the syntax on
+  - Other general cleanup
+  - Supports most recent nushell syntax as of 0.66.4
+  - @schuelermine fixed a type-o
+
