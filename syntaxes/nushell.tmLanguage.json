@@ -2,196 +2,328 @@
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "nushell",
   "scopeName": "source.nushell",
-  "patterns": [
-    { "include": "#keywords" },
-    { "include": "#strings" },
-    { "include": "#punctuation" },
-    { "include": "#comment" },
-    { "include": "#range" },
-    { "include": "#parameter" },
-    { "include": "#digit" },
-    { "include": "#blockparam" },
-    { "include": "#variable" },
-    { "include": "#function" },
-    { "include": "#type" }
+  "patterns":
+  [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#punctuation"
+    },
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#range"
+    },
+    {
+      "include": "#parameter"
+    },
+    {
+      "include": "#digit"
+    },
+    {
+      "include": "#blockparam"
+    },
+    {
+      "include": "#variable"
+    },
+    {
+      "include": "#function"
+    },
+    {
+      "include": "#type"
+    }
   ],
-  "repository": {
-    "keywords": {
-      "patterns": [
+  "repository":
+  {
+    "keywords":
+    {
+      "patterns":
+      [
         {
-          "name": "keyword.other.a_sub",
-          "match": "\\b(ansi\\sgradient|ansi\\sstrip)\\b"
-        },
-        {
-          "name": "keyword.other.a",
-          "match": "\\b(all?|ansi|any?|append)\\b"
-        },
-        {
-          "name": "keyword.other.b",
-          "match": "\\b(benchmark|build-string)\\b"
-        },
-        {
-          "name": "keyword.other.c",
-          "match": "\\b(cal|cd|char|clear|collect|columns|compact|complete|cp)\\b"
-        },
-        {
-          "name": "keyword.other.d_sub",
-          "match": "\\b(date\\sformat|date\\shumanize|date\\slist-timezone|date\\snow|date\\sto-table|date\\sto-timezone|detect\\scolumns|drop\\scolumn|drop\\snth)\\b"
-        },
-        {
-          "name": "keyword.other.dfr_sub",
-          "match": "\\b(dfr\\saggregate|dfr\\sall-false|dfr\\sall-true|dfr\\sappend|dfr\\sarg-max|dfr\\sarg-min|dfr\\sarg-sort|dfr\\sarg-true|dfr\\sarg-unique|dfr\\scolumn|dfr\\sconcatenate|dfr\\scontains|dfr\\scount-null|dfr\\scount-unique|dfr\\scumulative|dfr\\sdescribe|dfr\\sdrop-duplicates|dfr\\sdrop-nulls|dfr\\sdrop|dfr\\sdtypes|dfr\\sfilter-with|dfr\\sfirst|dfr\\sget-day|dfr\\sget-hour|dfr\\sget-minute|dfr\\sget-month|dfr\\sget-nanosecond|dfr\\sget-ordinal|dfr\\sget-second|dfr\\sget-week|dfr\\sget-weekday|dfr\\sget-year|dfr\\sget|dfr\\sgroup-by|dfr\\sis-duplicated|dfr\\sis-in|dfr\\sis-not-null|dfr\\sis-null|dfr\\sis-unique|dfr\\sjoin|dfr\\slast|dfr\\slist|dfr\\smelt|dfr\\snot|dfr\\sopen|dfr\\spivot|dfr\\srename|dfr\\srename-col|dfr\\sreplace|dfr\\sreplace-all|dfr\\srolling|dfr\\ssample|dfr\\sset-with-idx|dfr\\sset|dfr\\sshape|dfr\\sshift|dfr\\sslice|dfr\\ssort|dfr\\sstr-lengths|dfr\\sstr-slice|dfr\\sstrftime|dfr\\stake|dfr\\sto-csv|dfr\\sto-df|dfr\\sto-dummies|dfr\\sto-lowercase|dfr\\sto-nu|dfr\\sto-parquet|dfr\\sto-uppercase|dfr\\sunique|dfr\\svalue-counts|dfr\\swith-column)\\b"
-        },
-        {
-          "name": "keyword.other.d",
-          "match": "\\b(date|debug|decode|default|describe|dfr|do|drop|du)\\b"
-        },
-        {
-          "name": "keyword.other.e_sub",
-          "match": "\\b(error\\smake|export\\sdef|export\\sdef-env|export\\senv)\\b"
-        },
-        {
-          "name": "keyword.other.e",
-          "match": "\\b(each|echo|else|empty?|enter|env|every|exec|exit|export)\\b"
-        },
-        {
-          "name": "keyword.other.f_sub",
-          "match": "\\b(from\\scsv|from\\seml|from\\sics|from\\sini|from\\sjson|from\\snuon|from\\sods|from\\sssv|from\\stoml|from\\stsv|from\\surl|from\\svcf|from\\sxlsx|from\\sxml|from\\syaml|from\\syml)\\b"
-        },
-        {
-          "name": "keyword.other.f",
-          "match": "\\b(false|fetch|find|first|flatten|fmt|for|format|from)\\b"
-        },
-        {
-          "name": "keyword.other.g",
-          "match": "\\b(g|get|grid|group-by|group|gstat)\\b"
-        },
-        {
-          "name": "keyword.other.h_sub",
-          "match": "\\b(hash\\sbase64|hash\\smd5|hash\\ssha256)\\b"
-        },
-        {
-          "name": "keyword.other.h",
-          "match": "\\b(hash|headers|help|hide|history)\\b"
-        },
-        {
-          "name": "keyword.other.i_sub",
-          "match": "\\b(into\\sbinary|into\\sbool|into\\sdatetime|into\\sdecimal|into\\sduration|into\\sfilesize|into\\sint|into\\sstring)\\b"
-        },
-        {
-          "name": "keyword.other.i",
-          "match": "\\b(if|in|ignore|inc|input|into)\\b"
-        },
-        {
-          "name": "keyword.other.k_sub",
-          "match": "\\b(keep\\suntil|keep\\swhile|keybindings\\sdefault|keybindings\\slist|keybindings\\slisten)\\b"
-        },
-        {
-          "name": "keyword.other.k",
-          "match": "\\b(keep|keybindings|kill)\\b"
-        },
-        {
-          "name": "keyword.other.l",
-          "match": "\\b(last|length|lines|load-env|ls)\\b"
-        },
-        {
-          "name": "keyword.other.m_sub",
-          "match": "\\b(math\\sabs|math\\savg|math\\sceil|math\\seval|math\\sfloor|math\\smax|math\\smedian|math\\smin|math\\smode|math\\sproduct|math\\sround|math\\ssqrt|math\\sstddev|math\\ssum|math\\svariance)\\b"
-        },
-        {
-          "name": "keyword.other.m",
-          "match": "\\b(math|merge|metadata|mkdir|module|move|mv)\\b"
-        },
-        {
-          "name": "keyword.other.n",
-          "match": "\\b(n|not-in|nu-example-1|nu-example-2|nu-example-3|nu-highlight|null)\\b"
-        },
-        {
-          "name": "keyword.other.o",
-          "match": "\\b(open)\\b"
-        },
-        {
-          "name": "keyword.other.p_sub",
-          "match": "\\b(path\\sbasename|path\\sdirname|path\\sexists|path\\sexpand|path\\sjoin|path\\sparse|path\\srelative-to|path\\ssplit|path\\stype)\\b"
-        },
-        {
-          "name": "keyword.other.p",
-          "match": "\\b(p|par-each|parse|path|post|prepend|print|ps)\\b"
-        },
-        {
-          "name": "keyword.other.q_sub",
-          "match": "\\b(query\\sjson|query\\sweb|query\\sxml)\\b"
-        },
-        {
-          "name": "keyword.other.q",
-          "match": "\\b(query)\\b"
-        },
-        {
-          "name": "keyword.other.r_sub",
-          "match": "\\b(random\\sbool|random\\schars|random\\sdecimal|random\\sdice|random\\sinteger|random\\suuid|roll\\sdown|roll\\sleft|roll\\sright|roll\\sup)\\b"
-        },
-        {
-          "name": "keyword.other.r",
-          "match": "\\b(random|range|reduce|register|reject|rename|reverse|rm|roll|rotate|run-external)\\b"
-        },
-        {
-          "name": "keyword.other.s_sub",
-          "match": "\\b(seq\\sdate|skip\\suntil|skip\\swhile|split\\schars|split\\scolumn|split\\srow|str\\scamel-case|str\\scapitalize|str\\scollect|str\\scontains|str\\sdowncase|str\\sends-with|str\\sfind-replace|str\\sindex-of|str\\skebab-case|str\\slength|str\\slpad|str\\spascal-case|str\\sreverse|str\\srpad|str\\sscreaming-snake-case|str\\ssnake-case|str\\sstarts-with|str\\ssubstring|str\\strim|str\\supcase)\\b"
-        },
-        {
-          "name": "keyword.other.s",
-          "match": "\\b(save|select|seq|shells|shuffle|size|skip|sleep|sort-by|source|split|split-by|str|sys)\\b"
-        },
-        {
-          "name": "keyword.other.t_sub",
-          "match": "\\b(term\\ssize|to\\scsv|to\\shtml|to\\sjson|to\\smd|to\\snuon|to\\stoml|to\\stsv|to\\surl|to\\sxml|to\\syaml)\\b"
-        },
-        {
-          "name": "keyword.other.t",
-          "match": "\\b(table|to|touch|transpose|true|tutor)\\b"
-        },
-        {
-          "name": "keyword.other.u_sub",
-          "match": "\\b(update\\scells|url\\shost|url\\spath|url\\squery|url\\sscheme)\\b"
-        },
-        {
-          "name": "keyword.other.u",
-          "match": "\\b(uniq|update|url|use)\\b"
-        },
-        {
-          "name": "keyword.other.v",
-          "match": "\\b(version|view-source)\\b"
+          "name": "keyword.other.z",
+          "match": "\\b(zip)\\w*"
         },
         {
           "name": "keyword.other.w",
-          "match": "\\b(where|which|window|with-env|wrap)\\b"
+          "match": "\\b(watch|when|where|which|window|with-column|with-env|wrap)\\w*"
         },
         {
-          "name": "keyword.other.z",
-          "match": "\\b(zip)\\b"
+          "name": "keyword.other.v",
+          "match": "\\b(value-counts|var|version|view-source)\\w*"
+        },
+        {
+          "name": "keyword.other.u_sub",
+          "match": "\\burl(\\shost|\\spath|\\squery|\\sscheme)\\w*"
+        },
+        {
+          "name": "keyword.other.u_sub",
+          "match": "\\b(update)\\w*"
+        },
+        {
+          "name": "keyword.other.u",
+          "match": "\\b(uniq|unique|update|uppercase|upsert|url|use)\\w*"
+        },
+        {
+          "name": "keyword.other.t_sub",
+          "match": "\\btake(\\suntil|\\swhile)\\w*"
+        },
+        {
+          "name": "keyword.other.t_sub",
+          "match": "\\bto(\\scsv|\\shtml|\\sjson|\\smd|\\snuon|\\sparquet|\\stext|\\stoml|\\stsv|\\surl|\\sxml|\\syaml)\\w*"
+        },
+        {
+          "name": "keyword.other.t_sub",
+          "match": "\\b(term)\\w*"
+        },
+        {
+          "name": "keyword.other.t",
+          "match": "\\b(table|take|testing-db|to|touch|transpose|tutor)\\w*"
+        },
+        {
+          "name": "keyword.other.s_sub",
+          "match": "\\bseq(\\schar|\\sdate)\\w*"
+        },
+        {
+          "name": "keyword.other.s_sub",
+          "match": "\\bskip(\\suntil|\\swhile)\\w*"
+        },
+        {
+          "name": "keyword.other.s_sub",
+          "match": "\\bsplit(\\schars|\\scolumn|\\slist|\\srow)\\w*"
+        },
+        {
+          "name": "keyword.other.s_sub",
+          "match": "\\bstr(\\scamel-case|\\scapitalize|\\scollect|\\scontains|\\sdowncase|\\sends-with|\\sfind-replace|\\sindex-of|\\skebab-case|\\slength|\\slpad|\\spascal-case|\\sreplace|\\sreverse|\\srpad|\\sscreaming-snake-case|\\ssnake-case|\\sstarts-with|\\ssubstring|\\stitle-case|\\sto-datetime|\\sto-decimal|\\sto-int|\\strim|\\supcase)|sort-by|split-by\\w*"
+        },
+        {
+          "name": "keyword.other.s",
+          "match": "\\bset-with-idx\\w*"
+        },
+        {
+          "name": "keyword.other.s",
+          "match": "\\b(sample|save|schema|select|seq|set|shape|shells|shift|shuffle|size|skip|sleep|slice|sort|source|split|std|str|str-lengths|str-slice|strftime|sum|sys)\\w*"
+        },
+        {
+          "name": "keyword.other.r_sub",
+          "match": "\\brandom(\\sbool|\\schars|\\sdecimal|\\sdice|\\sinteger|\\suuid)\\w*"
+        },
+        {
+          "name": "keyword.other.r_sub",
+          "match": "\\broll(\\sdown|\\sleft|\\sright|\\sup)\\w*"
+        },
+        {
+          "name": "keyword.other.r",
+          "match": "\\breplace-all\\w*"
+        },
+        {
+          "name": "keyword.other.r",
+          "match": "\\b(random|range|reduce|register|reject|rename|replace|replace-all|reverse|rm|roll|rolling|rotate|run-external)\\w*"
+        },
+        {
+          "name": "keyword.other.q_sub",
+          "match": "\\bquery(\\sdb|\\sjson|\\sweb|\\sxml)\\w*"
+        },
+        {
+          "name": "keyword.other.q",
+          "match": "\\b(quantile|query)\\w*"
+        },
+        {
+          "name": "keyword.other.p_sub",
+          "match": "\\bpath(\\sbasename|\\sdirname|\\sexists|\\sexpand|\\sjoin|\\sparse|\\srelative-to|\\ssplit|\\stype)\\w*"
+        },
+        {
+          "name": "keyword.other.p",
+          "match": "\\b(p|par-each|parse|path|port|post|prepend|print|ps)\\w*"
+        },
+        {
+          "name": "keyword.other.o_sub",
+          "match": "\\boverlay(\\sadd|\\slist|\\snew|\\sremove)\\w*"
+        },
+        {
+          "name": "keyword.other.o",
+          "match": "\\b(open|open-db|open-df|or|order-by|otherwise|over|overlay)\\w*"
+        },
+        {
+          "name": "keyword.other.n",
+          "match": "\\b(n-unique|nu-check|nu-example-1|nu-example-2|nu-example-3|nu-highlight)\\w*"
+        },
+        {
+          "name": "keyword.other.n",
+          "match": "\\bn\\w*"
+        },
+        {
+          "name": "keyword.other.m_sub",
+          "match": "\\bmath(\\sabs|\\savg|\\sceil|\\seval|\\sfloor|\\smax|\\smedian|\\smin|\\smode|\\sproduct|\\sround|\\ssqrt|\\sstddev|\\ssum|\\svariance)\\w*"
+        },
+        {
+          "name": "keyword.other.m",
+          "match": "\\b(math|max|mean|median|melt|merge|metadata|min|mkdir|module|move|mv)\\w*"
+        },
+        {
+          "name": "keyword.other.l",
+          "match": "\\b(ls-df)\\w*"
+        },
+        {
+          "name": "keyword.other.l",
+          "match": "\\b(last|length|let|let-env|limit|lines|list|lit|load-env|lowercase|ls|ls-df)\\w*"
+        },
+        {
+          "name": "keyword.other.k_sub",
+          "match": "\\bkeybindings(\\sdefault|\\slist|\\slisten)\\w*"
+        },
+        {
+          "name": "keyword.other.k",
+          "match": "\\b(keybindings|kill)\\w*"
+        },
+        {
+          "name": "keyword.other.j",
+          "match": "\\b(join)\\w*"
+        },
+        {
+          "name": "keyword.other.i_sub",
+          "match": "\\binto(\\sbinary|\\sbool|\\sdatetime|\\sdb|\\sdecimal|\\sdf|\\sduration|\\sfilesize|\\sint|\\slazy|\\snu|\\ssqlite|\\sstring)\\w*"
+        },
+        {
+          "name": "keyword.other.i",
+          "match": "\\b(if|ignore|inc|input|insert|into|is-admin|is-duplicated|is-in|is-not-null|is-null|is-unique)\\w*"
+        },
+        {
+          "name": "keyword.other.h_sub",
+          "match": "\\bhash(\\sbase64|\\smd5|\\ssha256)\\w*"
+        },
+        {
+          "name": "keyword.other.h",
+          "match": "\\b(hash|headers|help|hide|histogram|history)\\w*"
+        },
+        {
+          "name": "keyword.other.g",
+          "match": "\\b(group-by|get-day|get-hour|get-minute|get-month|get-nanosecond|get-ordinal|get-second|get-week|get-weekday|get-year)\\w*"
+        },
+        {
+          "name": "keyword.other.g",
+          "match": "\\b(g|get|glob|grid|group|group-by|gstat)\\w*"
+        },
+        {
+          "name": "keyword.other.f_sub",
+          "match": "\\bfrom(\\scsv|\\seml|\\sics|\\sini|\\sjson|\\snuon|\\sods|\\sparquet|\\sssv|\\stable|\\stoml|\\stsv|\\surl|\\svcf|\\sxlsx|\\sxml|\\syaml|\\syml)\\w*"
+        },
+        {
+          "name": "keyword.other.f_sub",
+          "match": "\\bformat(\\sfilesize)\\w*"
+        },
+        {
+          "name": "keyword.other.f",
+          "match": "\\b(fetch|field|fill-na|fill-null|filter-with|find|first|flatten|fmt|fn|for|format|from)\\w*"
+        },
+        {
+          "name": "keyword.other.e_sub",
+          "match": "\\bexport(\\salias|\\sdef|\\sdef-env|\\senv|\\sextern|\\suse)\\w*"
+        },
+        {
+          "name": "keyword.other.e_sub",
+          "match": "\\beach(\\swhile)|encode(\\sbase64|\\sshift-jis\\sutf-8\\sutf-16be)|error\\w*"
+        },
+        {
+          "name": "keyword.other.e",
+          "match": "\\b(each|echo|empty\\?|encode|enter|env|every|exec|exit|explode|export|expr-not|extern)\\w*"
+        },
+        {
+          "name": "keyword.other.d_sub",
+          "match": "\\bdate(\\sformat|\\shumanize|\\slist-timezone|\\snow|\\sto-record|\\sto-table|\\sto-timezone)\\w*"
+        },
+        {
+          "name": "keyword.other.d_sub",
+          "match": "\\bdrop(\\scolumn|\\snth)\\w*"
+        },
+        {
+          "name": "keyword.other.d_sub",
+          "match": "\\bdecode(\\sbase64|\\sutf-8|\\sutf-16be\\sshift-jis)|detect\\w*"
+        },
+        {
+          "name": "keyword.other.d",
+          "match": "\\b(date|debug|def|def-env|default|describe|df-not|do|drop|drop-duplicates|drop-nulls|dtypes|du|dummies)\\w*"
+        },
+        {
+          "name": "keyword.other.c_sub",
+          "match": "\\bconfig(\\senv|\\snu|\\sreset)\\w*"
+        },
+        {
+          "name": "keyword.other.c",
+          "match": "\\b(cache|cal|cd|char|clear|col|collect|columns|compact|complete|concat-str|concatenate|config|contains|count|count-null|cp|cumulative)\\w*"
+        },
+        {
+          "name": "keyword.other.b_sub",
+          "match": "\\bbits(\\sand|\\snot|\\sor|\\srol|\\sror|\\sshl|\\sshr|\\sxor)\\w*"
+        },
+        {
+          "name": "keyword.other.b_sub",
+          "match": "\\bbytes(\\sadd|\\sat|\\sbuild|\\scollect|\\sends-with|\\sindex-of|\\slength|\\sremove|\\sreplace|\\sreverse|\\sstarts-with)\\w*"
+        },
+        {
+          "name": "keyword.other.b",
+          "match": "\\b(benchmark|bits|build-string|bytes)\\w*"
+        },
+        {
+          "name": "keyword.other.a_sub",
+          "match": "\\bansi(\\sgradient|\\sstrip)\\w*"
+        },
+        {
+          "name": "keyword.other.a",
+          "match": "\\b(agg|agg-groups|alias|all-false|all-true|all\\?|and|ansi|any\\?|append|arg-max|arg-min|arg-sort|arg-true|arg-unique|as|as-date|as-datetime)\\w*"
         }
       ]
     },
-    "strings": {
+    "strings":
+    {
       "name": "string.quoted.double.nushell",
       "begin": "\"|'|`",
       "end": "\"|'|`"
     },
-    "variable": {
+    "variable":
+    {
       "match": "(alias|let|let-env)\\s+[\\$'\"]?([a-z A-Z0-9_-]+)['\"]?|(\\$[a-zA-Z0-9_\\-]+)|(\\|)([$a-zA-Z0-9-]+)[\\s,]+([$a-zA-Z0-9-]+)(\\|)",
       "name": "variable.nushell",
-      "captures": {
-        "1": { "name": "keyword.other.nushell" },
-        "2": { "name": "variable.name.nushell" },
-        "3": { "name": "variable.name.nushell" },
-        "4": { "name": "punctuation.nushell" },
-        "5": { "name": "variable.name.nushell" },
-        "6": { "name": "variable.name.nushell" },
-        "7": { "name": "punctuation.nushell" }
+      "captures":
+      {
+        "1":
+        {
+          "name": "keyword.other.nushell"
+        },
+        "2":
+        {
+          "name": "variable.name.nushell"
+        },
+        "3":
+        {
+          "name": "variable.name.nushell"
+        },
+        "4":
+        {
+          "name": "punctuation.nushell"
+        },
+        "5":
+        {
+          "name": "variable.name.nushell"
+        },
+        "6":
+        {
+          "name": "variable.name.nushell"
+        },
+        "7":
+        {
+          "name": "punctuation.nushell"
+        }
       }
     },
-    "punctuation": {
-      "patterns": [
+    "punctuation":
+    {
+      "patterns":
+      [
         {
           "comment": "comma",
           "name": "punctuation.comma.nushell",
@@ -224,51 +356,66 @@
         }
       ]
     },
-    "comment": {
+    "comment":
+    {
       "match": "(#.*)",
       "name": "comment.nushell"
     },
-    "range": {
+    "range":
+    {
       "match": "(\\d+\\.\\.\\d+)",
       "name": "constant.nushell"
     },
-    "digit": {
+    "digit":
+    {
       "match": "(\\b[0-9]+\\b)",
       "name": "constant.numeric.nushell"
     },
-    "parameter": {
+    "parameter":
+    {
       "match": "(\\s-[a-zA-Z_\\-]|--[a-zA-Z_\\-]{1,50})",
       "name": "variable.parameter.function.nushell"
     },
-    "blockparam": {
+    "blockparam":
+    {
       "match": "(\\|)([a-zA-Z0-9\\-\\_]+)(\\|)",
       "name": "variable.nushell",
-      "captures": {
-        "2": {
+      "captures":
+      {
+        "2":
+        {
           "name": "variable.language.nushell"
         }
       }
     },
-    "function": {
+    "function":
+    {
       "match": "\\b(def|def-env|extern)\\s+([\"'a-zA-Z0-9_\\- ]{1,})",
       "name": "entity.name",
-      "captures": {
-        "1": {
+      "captures":
+      {
+        "1":
+        {
           "name": "entity.name.function.nushell"
         },
-        "2": {
+        "2":
+        {
           "name": "entity.name.type.nushell"
         }
       }
     },
-    "type": {
+    "type":
+    {
       "match": "([a-zA-Z0-9\\-_ ]+)(\\:[A-Za-z0-9\\-_ ]{1,})",
       "name": "storage",
-      "captures": {
-        "1": {
+      "captures":
+      {
+        "1":
+        {
           "name": "storage.modifier.nushell"
         },
-        "2": {
+        "2":
+        {
           "name": "storage.type.nushell"
         }
       }
