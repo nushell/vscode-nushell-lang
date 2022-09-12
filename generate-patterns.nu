@@ -4,7 +4,7 @@
 def sort-by-length [
     column: string
 ] {
-    insert length {get $column|split chars|length}
+    insert length {get $column|str length}
     |sort-by -r length
     |reject length
 }
@@ -21,7 +21,7 @@ def match-for-double [
     commands: record
 ] {
     $commands
-    |where ($it.subcommands|length) > 0 and $it.subcommands.0 != ''|each {|x|
+    |where ($it.subcommands|length) > 0 and ($it.subcommands.second-word|all $it != '')|each {|x|
         build-string '\b' $x.command '(\s' ($x.subcommands.second-word|compact|str collect '|\s') ')\b'
     }
 }
@@ -30,12 +30,7 @@ def match-for-double [
 def generate-matches [
     category: record
 ] {
-    let matches = (match-for-double $category.commands)
-    if ($category.commands.subcommands|any ($it|length) == 1) {
-       $matches|append (match-for-single $category.commands)
-    } else {
-        $matches
-    }
+    match-for-double $category.commands
 }
 
 let patterns = (
@@ -69,7 +64,6 @@ let patterns = (
     }
     |flatten
 )
-
 open syntaxes/nushell.tmLanguage.json
 |update repository.keywords.patterns $patterns
 |save syntaxes/nushell.tmLanguage.json
