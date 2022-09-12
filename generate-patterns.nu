@@ -30,7 +30,11 @@ def match-for-double [
 def generate-matches [
     category: record
 ] {
-    match-for-double $category.commands
+    if ($category | get category) ends-with '_sub' {
+        match-for-double $category.commands
+    } else {
+        match-for-single $category.commands
+    }
 }
 
 let patterns = (
@@ -64,6 +68,7 @@ let patterns = (
     }
     |flatten
 )
+
 open syntaxes/nushell.tmLanguage.json
 |update repository.keywords.patterns $patterns
 |save syntaxes/nushell.tmLanguage.json
