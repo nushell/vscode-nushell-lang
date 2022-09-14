@@ -378,13 +378,13 @@
     },
     "blockparam":
     {
-      "match": "(\\|)([a-zA-Z0-9\\-\\_]+)(\\|)",
+      "match": "(\\|)([a-zA-Z0-9, \\-_]+)(\\|)",
       "name": "variable.nushell",
       "captures":
       {
         "2":
         {
-          "name": "variable.language.nushell"
+          "name": "variable.name.nushell"
         }
       }
     },

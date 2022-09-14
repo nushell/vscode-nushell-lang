@@ -99,4 +99,6 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Other general cleanup
   - Supports most recent nushell syntax as of 0.66.4
   - @schuelermine fixed a type-o
-
+- 0.7.0
+  - better automatic syntax from @Yethal
+  - better block variable highlighting
