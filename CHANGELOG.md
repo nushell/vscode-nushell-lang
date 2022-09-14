@@ -102,3 +102,4 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 - 0.7.0
   - better automatic syntax from @Yethal
   - better block variable highlighting
+  - remove themes + some cleanup

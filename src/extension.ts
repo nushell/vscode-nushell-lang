@@ -39,22 +39,19 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // brew install location mac
                 '/usr/local/bin/nu',
-
-                // fdncred install path
-                'c:\\apps\\nushell\\nu_latest\\nu.exe',
             ];
 
-            var found_nushell_path = "";
+            let found_nushell_path = "";
             const home = os.homedir();
 
-            for (var cur_val of pathsToCheck) {
+            for (const cur_val of pathsToCheck) {
                 // console.log("Inspecting location: " + cur_val);
-                var constructed_file = "";
+                let constructed_file = "";
                 if (cur_val.startsWith('~/scoop')) {
                     // console.log("Found scoop: " + cur_val);
-                    var p = path.join(home, cur_val.slice(1));
+                    const p = path.join(home, cur_val.slice(1));
                     // console.log("Expanded ~: " + p);
-                    var file = glob.sync(p, "debug").toString();
+                    const file = glob.sync(p, "debug").toString();
                     // console.log("Glob for files: " + file);
 
                     if (file) {
@@ -85,7 +82,7 @@ export function activate(context: vscode.ExtensionContext) {
                         name: 'Nushell',
                         shellPath: found_nushell_path
                     }
-                }
+                };
             }
             else {
                 console.log("Nushell not found, returning undefined");

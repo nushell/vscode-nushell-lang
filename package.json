@@ -77,20 +77,6 @@
         "path": "./syntaxes/nushell.tmLanguage.json"
       }
     ],
-    "themes": [
-      {
-        "label": "Nushell-Dark",
-        "id": "nushell",
-        "uiTheme": "vs-dark",
-        "path": "./nushell.theme-minimal-dark.json"
-      },
-      {
-        "label": "Nushell-Light",
-        "id": "nushell",
-        "uiTheme": "vs",
-        "path": "./nushell.theme-minimal-light.json"
-      }
-    ],
     "keybindings": [
       {
         "command": "start https://www.nushell.sh/book/",
