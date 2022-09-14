@@ -46,235 +46,227 @@
       [
         {
           "name": "keyword.other.z",
-          "match": "\\b(zip)\\w*"
+          "match": "\\b(zip)\\b"
         },
         {
           "name": "keyword.other.w",
-          "match": "\\b(watch|when|where|which|window|with-column|with-env|wrap)\\w*"
+          "match": "\\b(with-column|with-env|window|which|where|watch|wrap|when)\\b"
         },
         {
           "name": "keyword.other.v",
-          "match": "\\b(value-counts|var|version|view-source)\\w*"
+          "match": "\\b(value-counts|view-source|version|var)\\b"
         },
         {
           "name": "keyword.other.u_sub",
-          "match": "\\burl(\\shost|\\spath|\\squery|\\sscheme)\\w*"
+          "match": "\\bupdate(\\scells)\\b"
         },
         {
           "name": "keyword.other.u_sub",
-          "match": "\\b(update)\\w*"
+          "match": "\\burl(\\shost|\\spath|\\squery|\\sscheme)\\b"
         },
         {
           "name": "keyword.other.u",
-          "match": "\\b(uniq|unique|update|uppercase|upsert|url|use)\\w*"
+          "match": "\\b(uppercase|upsert|update|unique|uniq|use|url)\\b"
         },
         {
           "name": "keyword.other.t_sub",
-          "match": "\\btake(\\suntil|\\swhile)\\w*"
+          "match": "\\btake(\\suntil|\\swhile)\\b"
         },
         {
           "name": "keyword.other.t_sub",
-          "match": "\\bto(\\scsv|\\shtml|\\sjson|\\smd|\\snuon|\\sparquet|\\stext|\\stoml|\\stsv|\\surl|\\sxml|\\syaml)\\w*"
+          "match": "\\bterm(\\ssize)\\b"
         },
         {
           "name": "keyword.other.t_sub",
-          "match": "\\b(term)\\w*"
+          "match": "\\bto(\\scsv|\\shtml|\\sjson|\\smd|\\snuon|\\sparquet|\\stext|\\stoml|\\stsv|\\surl|\\sxml|\\syaml)\\b"
         },
         {
           "name": "keyword.other.t",
-          "match": "\\b(table|take|testing-db|to|touch|transpose|tutor)\\w*"
+          "match": "\\b(testing-db|transpose|tutor|touch|table|take|to)\\b"
         },
         {
           "name": "keyword.other.s_sub",
-          "match": "\\bseq(\\schar|\\sdate)\\w*"
+          "match": "\\bseq(\\schar|\\sdate)\\b"
         },
         {
           "name": "keyword.other.s_sub",
-          "match": "\\bskip(\\suntil|\\swhile)\\w*"
+          "match": "\\bskip(\\suntil|\\swhile)\\b"
         },
         {
           "name": "keyword.other.s_sub",
-          "match": "\\bsplit(\\schars|\\scolumn|\\slist|\\srow)\\w*"
+          "match": "\\bsplit(\\schars|\\scolumn|\\slist|\\srow|\\swords)\\b"
         },
         {
           "name": "keyword.other.s_sub",
-          "match": "\\bstr(\\scamel-case|\\scapitalize|\\scollect|\\scontains|\\sdowncase|\\sends-with|\\sfind-replace|\\sindex-of|\\skebab-case|\\slength|\\slpad|\\spascal-case|\\sreplace|\\sreverse|\\srpad|\\sscreaming-snake-case|\\ssnake-case|\\sstarts-with|\\ssubstring|\\stitle-case|\\sto-datetime|\\sto-decimal|\\sto-int|\\strim|\\supcase)|sort-by|split-by\\w*"
+          "match": "\\bstr(\\scamel-case|\\scapitalize|\\scollect|\\scontains|\\sdistance|\\sdowncase|\\sends-with|\\sfind-replace|\\sindex-of|\\skebab-case|\\slength|\\slpad|\\spascal-case|\\sreplace|\\sreverse|\\srpad|\\sscreaming-snake-case|\\ssnake-case|\\sstarts-with|\\ssubstring|\\stitle-case|\\sto-datetime|\\sto-decimal|\\sto-int|\\strim|\\supcase)\\b"
         },
         {
           "name": "keyword.other.s",
-          "match": "\\bset-with-idx\\w*"
-        },
-        {
-          "name": "keyword.other.s",
-          "match": "\\b(sample|save|schema|select|seq|set|shape|shells|shift|shuffle|size|skip|sleep|slice|sort|source|split|std|str|str-lengths|str-slice|strftime|sum|sys)\\w*"
+          "match": "\\b(set-with-idx|str-lengths|source-env|str-slice|strftime|split-by|sort-by|shuffle|source|shells|select|schema|sample|split|slice|sleep|shift|shape|sort|skip|size|save|sys|sum|str|std|set|seq)\\b"
         },
         {
           "name": "keyword.other.r_sub",
-          "match": "\\brandom(\\sbool|\\schars|\\sdecimal|\\sdice|\\sinteger|\\suuid)\\w*"
+          "match": "\\brandom(\\sbool|\\schars|\\sdecimal|\\sdice|\\sinteger|\\suuid)\\b"
         },
         {
           "name": "keyword.other.r_sub",
-          "match": "\\broll(\\sdown|\\sleft|\\sright|\\sup)\\w*"
+          "match": "\\broll(\\sdown|\\sleft|\\sright|\\sup)\\b"
         },
         {
           "name": "keyword.other.r",
-          "match": "\\breplace-all\\w*"
-        },
-        {
-          "name": "keyword.other.r",
-          "match": "\\b(random|range|reduce|register|reject|rename|replace|replace-all|reverse|rm|roll|rolling|rotate|run-external)\\w*"
+          "match": "\\b(run-external|replace-all|register|rolling|reverse|replace|rotate|rename|reject|reduce|random|range|roll|rm)\\b"
         },
         {
           "name": "keyword.other.q_sub",
-          "match": "\\bquery(\\sdb|\\sjson|\\sweb|\\sxml)\\w*"
+          "match": "\\bquery(\\sdb|\\sjson|\\sweb|\\sxml)\\b"
         },
         {
           "name": "keyword.other.q",
-          "match": "\\b(quantile|query)\\w*"
+          "match": "\\b(quantile|query)\\b"
         },
         {
           "name": "keyword.other.p_sub",
-          "match": "\\bpath(\\sbasename|\\sdirname|\\sexists|\\sexpand|\\sjoin|\\sparse|\\srelative-to|\\ssplit|\\stype)\\w*"
+          "match": "\\bpath(\\sbasename|\\sdirname|\\sexists|\\sexpand|\\sjoin|\\sparse|\\srelative-to|\\ssplit|\\stype)\\b"
         },
         {
           "name": "keyword.other.p",
-          "match": "\\b(p|par-each|parse|path|port|post|prepend|print|ps)\\w*"
+          "match": "\\b(par-each|prepend|print|parse|post|port|path|ps|p)\\b"
         },
         {
           "name": "keyword.other.o_sub",
-          "match": "\\boverlay(\\sadd|\\slist|\\snew|\\sremove)\\w*"
+          "match": "\\boverlay(\\shide|\\slist|\\snew|\\suse)\\b"
         },
         {
           "name": "keyword.other.o",
-          "match": "\\b(open|open-db|open-df|or|order-by|otherwise|over|overlay)\\w*"
+          "match": "\\b(otherwise|order-by|overlay|open-df|open-db|over|open|or)\\b"
         },
         {
           "name": "keyword.other.n",
-          "match": "\\b(n-unique|nu-check|nu-example-1|nu-example-2|nu-example-3|nu-highlight)\\w*"
-        },
-        {
-          "name": "keyword.other.n",
-          "match": "\\bn\\w*"
+          "match": "\\b(nu-highlight|nu-check|n-unique|n)\\b"
         },
         {
           "name": "keyword.other.m_sub",
-          "match": "\\bmath(\\sabs|\\savg|\\sceil|\\seval|\\sfloor|\\smax|\\smedian|\\smin|\\smode|\\sproduct|\\sround|\\ssqrt|\\sstddev|\\ssum|\\svariance)\\w*"
+          "match": "\\bmath(\\sabs|\\savg|\\sceil|\\seval|\\sfloor|\\smax|\\smedian|\\smin|\\smode|\\sproduct|\\sround|\\ssqrt|\\sstddev|\\ssum|\\svariance)\\b"
         },
         {
           "name": "keyword.other.m",
-          "match": "\\b(math|max|mean|median|melt|merge|metadata|min|mkdir|module|move|mv)\\w*"
+          "match": "\\b(metadata|module|median|mkdir|merge|move|melt|mean|math|min|max|mv)\\b"
         },
         {
           "name": "keyword.other.l",
-          "match": "\\b(ls-df)\\w*"
-        },
-        {
-          "name": "keyword.other.l",
-          "match": "\\b(last|length|let|let-env|limit|lines|list|lit|load-env|lowercase|ls|ls-df)\\w*"
+          "match": "\\b(lowercase|load-env|let-env|length|ls-df|lines|limit|list|last|lit|let|ls)\\b"
         },
         {
           "name": "keyword.other.k_sub",
-          "match": "\\bkeybindings(\\sdefault|\\slist|\\slisten)\\w*"
+          "match": "\\bkeybindings(\\sdefault|\\slist|\\slisten)\\b"
         },
         {
           "name": "keyword.other.k",
-          "match": "\\b(keybindings|kill)\\w*"
+          "match": "\\b(keybindings|kill)\\b"
         },
         {
           "name": "keyword.other.j",
-          "match": "\\b(join)\\w*"
+          "match": "\\b(join)\\b"
         },
         {
           "name": "keyword.other.i_sub",
-          "match": "\\binto(\\sbinary|\\sbool|\\sdatetime|\\sdb|\\sdecimal|\\sdf|\\sduration|\\sfilesize|\\sint|\\slazy|\\snu|\\ssqlite|\\sstring)\\w*"
+          "match": "\\binto(\\sbinary|\\sbool|\\sdatetime|\\sdb|\\sdecimal|\\sdf|\\sduration|\\sfilesize|\\sint|\\slazy|\\snu|\\ssqlite|\\sstring)\\b"
         },
         {
           "name": "keyword.other.i",
-          "match": "\\b(if|ignore|inc|input|insert|into|is-admin|is-duplicated|is-in|is-not-null|is-null|is-unique)\\w*"
+          "match": "\\b(is-duplicated|is-not-null|is-unique|is-empty|is-admin|is-null|insert|ignore|is-in|input|into|inc|if)\\b"
         },
         {
           "name": "keyword.other.h_sub",
-          "match": "\\bhash(\\sbase64|\\smd5|\\ssha256)\\w*"
+          "match": "\\bhash(\\sbase64|\\smd5|\\ssha256)\\b"
         },
         {
           "name": "keyword.other.h",
-          "match": "\\b(hash|headers|help|hide|histogram|history)\\w*"
+          "match": "\\b(histogram|hide-env|history|headers|hide|help|hash)\\b"
         },
         {
           "name": "keyword.other.g",
-          "match": "\\b(group-by|get-day|get-hour|get-minute|get-month|get-nanosecond|get-ordinal|get-second|get-week|get-weekday|get-year)\\w*"
-        },
-        {
-          "name": "keyword.other.g",
-          "match": "\\b(g|get|glob|grid|group|group-by|gstat)\\w*"
+          "match": "\\b(get-nanosecond|get-weekday|get-ordinal|get-second|get-minute|get-month|group-by|get-year|get-week|get-hour|get-day|gstat|group|grid|glob|get|g)\\b"
         },
         {
           "name": "keyword.other.f_sub",
-          "match": "\\bfrom(\\scsv|\\seml|\\sics|\\sini|\\sjson|\\snuon|\\sods|\\sparquet|\\sssv|\\stable|\\stoml|\\stsv|\\surl|\\svcf|\\sxlsx|\\sxml|\\syaml|\\syml)\\w*"
+          "match": "\\bformat(\\sfilesize)\\b"
         },
         {
           "name": "keyword.other.f_sub",
-          "match": "\\bformat(\\sfilesize)\\w*"
+          "match": "\\bfrom(\\scsv|\\seml|\\sics|\\sini|\\sjson|\\snuon|\\sods|\\sssv|\\stable|\\stoml|\\stsv|\\surl|\\svcf|\\sxlsx|\\sxml|\\syaml|\\syml)\\b"
         },
         {
           "name": "keyword.other.f",
-          "match": "\\b(fetch|field|fill-na|fill-null|filter-with|find|first|flatten|fmt|fn|for|format|from)\\w*"
+          "match": "\\b(filter-with|fill-null|flatten|fill-na|format|filter|first|field|fetch|from|find|for|fmt|fn)\\b"
         },
         {
           "name": "keyword.other.e_sub",
-          "match": "\\bexport(\\salias|\\sdef|\\sdef-env|\\senv|\\sextern|\\suse)\\w*"
+          "match": "\\beach(\\swhile)\\b"
         },
         {
           "name": "keyword.other.e_sub",
-          "match": "\\beach(\\swhile)|encode(\\sbase64|\\sshift-jis\\sutf-8\\sutf-16be)|error\\w*"
+          "match": "\\bencode(\\sbase64)\\b"
+        },
+        {
+          "name": "keyword.other.e_sub",
+          "match": "\\berror(\\smake)\\b"
+        },
+        {
+          "name": "keyword.other.e_sub",
+          "match": "\\bexport(\\salias|\\sdef|\\sdef-env|\\senv|\\sextern|\\suse)\\b"
         },
         {
           "name": "keyword.other.e",
-          "match": "\\b(each|echo|empty\\?|encode|enter|env|every|exec|exit|explode|export|expr-not|extern)\\w*"
+          "match": "\\b(export-env|expr-not|explode|extern|export|encode|every|enter|exit|exec|echo|each|env)\\b"
         },
         {
           "name": "keyword.other.d_sub",
-          "match": "\\bdate(\\sformat|\\shumanize|\\slist-timezone|\\snow|\\sto-record|\\sto-table|\\sto-timezone)\\w*"
+          "match": "\\bdate(\\sformat|\\shumanize|\\slist-timezone|\\snow|\\sto-record|\\sto-table|\\sto-timezone)\\b"
         },
         {
           "name": "keyword.other.d_sub",
-          "match": "\\bdrop(\\scolumn|\\snth)\\w*"
+          "match": "\\bdecode(\\sbase64)\\b"
         },
         {
           "name": "keyword.other.d_sub",
-          "match": "\\bdecode(\\sbase64|\\sutf-8|\\sutf-16be\\sshift-jis)|detect\\w*"
+          "match": "\\bdetect(\\scolumns)\\b"
+        },
+        {
+          "name": "keyword.other.d_sub",
+          "match": "\\bdrop(\\scolumn|\\snth)\\b"
         },
         {
           "name": "keyword.other.d",
-          "match": "\\b(date|debug|def|def-env|default|describe|df-not|do|drop|drop-duplicates|drop-nulls|dtypes|du|dummies)\\w*"
+          "match": "\\b(drop-duplicates|drop-nulls|describe|dummies|default|def-env|dtypes|df-not|decode|debug|drop|date|def|du|do)\\b"
         },
         {
           "name": "keyword.other.c_sub",
-          "match": "\\bconfig(\\senv|\\snu|\\sreset)\\w*"
+          "match": "\\bconfig(\\senv|\\snu|\\sreset)\\b"
         },
         {
           "name": "keyword.other.c",
-          "match": "\\b(cache|cal|cd|char|clear|col|collect|columns|compact|complete|concat-str|concatenate|config|contains|count|count-null|cp|cumulative)\\w*"
+          "match": "\\b(concatenate|cumulative|count-null|concat-str|contains|complete|compact|columns|collect|config|count|clear|cache|char|col|cal|cp|cd)\\b"
         },
         {
           "name": "keyword.other.b_sub",
-          "match": "\\bbits(\\sand|\\snot|\\sor|\\srol|\\sror|\\sshl|\\sshr|\\sxor)\\w*"
+          "match": "\\bbits(\\sand|\\snot|\\sor|\\srol|\\sror|\\sshl|\\sshr|\\sxor)\\b"
         },
         {
           "name": "keyword.other.b_sub",
-          "match": "\\bbytes(\\sadd|\\sat|\\sbuild|\\scollect|\\sends-with|\\sindex-of|\\slength|\\sremove|\\sreplace|\\sreverse|\\sstarts-with)\\w*"
+          "match": "\\bbytes(\\sadd|\\sat|\\sbuild|\\scollect|\\sends-with|\\sindex-of|\\slength|\\sremove|\\sreplace|\\sreverse|\\sstarts-with)\\b"
         },
         {
           "name": "keyword.other.b",
-          "match": "\\b(benchmark|bits|build-string|bytes)\\w*"
+          "match": "\\b(build-string|benchmark|bytes|bits)\\b"
         },
         {
           "name": "keyword.other.a_sub",
-          "match": "\\bansi(\\sgradient|\\sstrip)\\w*"
+          "match": "\\bansi(\\sgradient|\\sstrip)\\b"
         },
         {
           "name": "keyword.other.a",
-          "match": "\\b(agg|agg-groups|alias|all-false|all-true|all\\?|and|ansi|any\\?|append|arg-max|arg-min|arg-sort|arg-true|arg-unique|as|as-date|as-datetime)\\w*"
+          "match": "\\b(as-datetime|arg-unique|agg-groups|arg-where|all-false|arg-true|arg-sort|all-true|as-date|arg-min|arg-max|append|alias|ansi|ast|any|and|all|agg|as)\\b"
         }
       ]
     },

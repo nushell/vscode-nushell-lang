@@ -1,10 +1,19 @@
 #!/usr/bin/env nu
 
+# builtin sort functions only sort alphabetically
+def sort-by-length [
+    column: string
+] {
+    insert length {get $column|str length}
+    |sort-by -r length
+    |reject length
+}
+
 # generate combined regex for all single word commands
 def match-for-single [
     commands:record
 ] {
-    build-string '\b(' ($commands|where ($it.subcommands|length) == 1|get command|str collect '|'|str replace -a -s '?' '\?') ')\w*'
+    build-string '\b(' ($commands|where ($it.subcommands|length) == 1|sort-by-length command|get command|str collect '|'|str replace -a -s '?' '\?') ')\b'
 }
 
 # generate list of regexes for every two word command
@@ -12,21 +21,22 @@ def match-for-double [
     commands: record
 ] {
     $commands
-    |where ($it.subcommands|length) > 1|each {|x|
-        build-string '\b' $x.command '(\s' ($x.subcommands.second-word|compact|str collect '|\s') ')\w*'
+    |where ($it.subcommands|length) > 0 and ($it.subcommands.second-word|all $it != '')|each {|x|
+        build-string '\b' $x.command '(\s' ($x.subcommands.second-word|compact|str collect '|\s') ')\b'
     }
 }
+
 # returns regexes for all commands, both single and double word single-word append is conditional because some letters only have two word commands e.g 'q'
 def generate-matches [
     category: record
 ] {
-    let matches = (match-for-double $category.commands)
-    if ($category.commands.subcommands|any? ($it|length) == 1) {
-       $matches|append (match-for-single $category.commands)
+    if ($category | get category) ends-with '_sub' {
+        match-for-double $category.commands
     } else {
-        $matches
+        match-for-single $category.commands
     }
 }
+
 let patterns = (
     $nu.scope.commands
     |where is_builtin == true and is_extern == false
@@ -58,6 +68,7 @@ let patterns = (
     }
     |flatten
 )
+
 open syntaxes/nushell.tmLanguage.json
 |update repository.keywords.patterns $patterns
 |save syntaxes/nushell.tmLanguage.json
