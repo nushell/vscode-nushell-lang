@@ -8,6 +8,9 @@
       "include": "#keywords"
     },
     {
+      "include": "#interpolated_strings"
+    },
+    {
       "include": "#strings"
     },
     {
@@ -30,6 +33,12 @@
     },
     {
       "include": "#variable"
+    },
+    {
+      "include": "#variable_keyword"
+    },
+    {
+      "include": "#for_variable"
     },
     {
       "include": "#function"
@@ -150,11 +159,11 @@
         },
         {
           "name": "keyword.other.m",
-          "match": "\\b(metadata|module|median|mkdir|merge|move|melt|mean|math|min|max|mv)\\b"
+          "match": "\\b(metadata|median|mkdir|merge|move|melt|mean|math|min|max|mv)\\b"
         },
         {
           "name": "keyword.other.l",
-          "match": "\\b(lowercase|load-env|let-env|length|ls-df|lines|limit|list|last|lit|let|ls)\\b"
+          "match": "\\b(lowercase|load-env|length|ls-df|lines|limit|list|last|lit|ls)\\b"
         },
         {
           "name": "keyword.other.k_sub",
@@ -198,7 +207,7 @@
         },
         {
           "name": "keyword.other.f",
-          "match": "\\b(filter-with|fill-null|flatten|fill-na|format|filter|first|field|fetch|from|find|for|fmt|fn)\\b"
+          "match": "\\b(filter-with|fetch|fill-null|flatten|fill-na|format|filter|first|field|from|find|fmt|fn)\\b"
         },
         {
           "name": "keyword.other.e_sub",
@@ -218,7 +227,7 @@
         },
         {
           "name": "keyword.other.e",
-          "match": "\\b(export-env|expr-not|explode|extern|export|encode|every|enter|exit|exec|echo|each|env)\\b"
+          "match": "\\b(export-env|expr-not|explode|export|encode|every|enter|exit|exec|echo|each|env|else)\\b"
         },
         {
           "name": "keyword.other.d_sub",
@@ -238,7 +247,7 @@
         },
         {
           "name": "keyword.other.d",
-          "match": "\\b(drop-duplicates|drop-nulls|describe|dummies|default|def-env|dtypes|df-not|decode|debug|drop|date|def|du|do)\\b"
+          "match": "\\b(drop-duplicates|drop-nulls|describe|dummies|default|dtypes|df-not|decode|debug|drop|date|du|do)\\b"
         },
         {
           "name": "keyword.other.c_sub",
@@ -266,9 +275,19 @@
         },
         {
           "name": "keyword.other.a",
-          "match": "\\b(as-datetime|arg-unique|agg-groups|arg-where|all-false|arg-true|arg-sort|all-true|as-date|arg-min|arg-max|append|alias|ansi|ast|any|and|all|agg|as)\\b"
+          "match": "\\b(as-datetime|arg-unique|agg-groups|arg-where|all-false|arg-true|arg-sort|all-true|as-date|arg-min|arg-max|append|ansi|ast|any|and|all|agg|as)\\b"
+        },
+        {
+          "name": "keyword.other.unit",
+          "match": "\\btrue|false"
         }
       ]
+    },
+    "interpolated_strings":
+    {
+      "name": "string.interpolated.nushell",
+      "begin": "\\$\"|\\$'|\\$`",
+      "end": "\"|'|`"
     },
     "strings":
     {
@@ -276,9 +295,30 @@
       "begin": "\"|'|`",
       "end": "\"|'|`"
     },
+    "variable_keyword":
+    {
+      "match": "\\$\\w+",
+      "name": "variable.language.nushell"
+    },
     "variable":
     {
-      "match": "(alias|let|let-env)\\s+[\\$'\"]?([a-z A-Z0-9_-]+)['\"]?|(\\$[a-zA-Z0-9_\\-]+)|(\\|)([$a-zA-Z0-9-]+)[\\s,]+([$a-zA-Z0-9-]+)(\\|)",
+      "match": "(alias|let|let-env)\\s+[\\$'\"]?([$a-z A-Z0-9_-]+)['\"]?",
+      "name": "variable.nushell",
+      "captures":
+      {
+        "1":
+        {
+          "name": "keyword.other.nushell"
+        },
+        "2":
+        {
+          "name": "variable.name.nushell"
+        }
+      }
+    },
+    "for_variable":
+    {
+      "match": "(for)\\s+([a-z A-Z0-9_-]+)(in)",
       "name": "variable.nushell",
       "captures":
       {
@@ -292,23 +332,7 @@
         },
         "3":
         {
-          "name": "variable.name.nushell"
-        },
-        "4":
-        {
-          "name": "punctuation.nushell"
-        },
-        "5":
-        {
-          "name": "variable.name.nushell"
-        },
-        "6":
-        {
-          "name": "variable.name.nushell"
-        },
-        "7":
-        {
-          "name": "punctuation.nushell"
+          "name": "keyword.other.nushell"
         }
       }
     },
@@ -382,7 +406,7 @@
     },
     "function":
     {
-      "match": "\\b(def|def-env|extern)\\s+([\"'a-zA-Z0-9_\\- ]{1,})",
+      "match": "\\b(def|def-env|extern|module|overlay)\\s+([\"'a-zA-Z0-9_\\- ]{1,})",
       "name": "entity.name",
       "captures":
       {
