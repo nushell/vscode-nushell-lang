@@ -38,7 +38,10 @@ export function activate(context: vscode.ExtensionContext) {
                 // linux and mac zips can be put anywhere so it's hard to guess
 
                 // brew install location mac
+                // intel
                 '/usr/local/bin/nu',
+                // arm
+                '/opt/homebrew/bin/nu',
             ];
 
             let found_nushell_path = "";
