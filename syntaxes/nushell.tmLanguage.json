@@ -59,7 +59,7 @@
         },
         {
           "name": "keyword.other.w",
-          "match": "\\b(with-column|with-env|window|which|where|watch|wrap|when)\\b"
+          "match": "\\b(with-column|with-env|window|while|which|where|watch|wrap|when)\\b"
         },
         {
           "name": "keyword.other.v",
@@ -71,7 +71,7 @@
         },
         {
           "name": "keyword.other.u_sub",
-          "match": "\\burl(\\shost|\\spath|\\squery|\\sscheme)\\b"
+          "match": "\\burl(\\sparse)\\b"
         },
         {
           "name": "keyword.other.u",
@@ -87,11 +87,11 @@
         },
         {
           "name": "keyword.other.t_sub",
-          "match": "\\bto(\\scsv|\\shtml|\\sjson|\\smd|\\snuon|\\sparquet|\\stext|\\stoml|\\stsv|\\surl|\\sxml|\\syaml)\\b"
+          "match": "\\bto(\\sarrow|\\scsv|\\shtml|\\sjson|\\smd|\\snuon|\\sparquet|\\stext|\\stoml|\\stsv|\\surl|\\sxml|\\syaml)\\b"
         },
         {
           "name": "keyword.other.t",
-          "match": "\\b(testing-db|transpose|tutor|touch|table|take|to)\\b"
+          "match": "\\b(transpose|tutor|touch|table|take|try|to)\\b"
         },
         {
           "name": "keyword.other.s_sub",
@@ -107,11 +107,11 @@
         },
         {
           "name": "keyword.other.s_sub",
-          "match": "\\bstr(\\scamel-case|\\scapitalize|\\scollect|\\scontains|\\sdistance|\\sdowncase|\\sends-with|\\sfind-replace|\\sindex-of|\\skebab-case|\\slength|\\slpad|\\spascal-case|\\sreplace|\\sreverse|\\srpad|\\sscreaming-snake-case|\\ssnake-case|\\sstarts-with|\\ssubstring|\\stitle-case|\\sto-datetime|\\sto-decimal|\\sto-int|\\strim|\\supcase)\\b"
+          "match": "\\bstr(\\scamel-case|\\scapitalize|\\scollect|\\scontains|\\sdistance|\\sdowncase|\\sends-with|\\sfind-replace|\\sindex-of|\\sjoin|\\skebab-case|\\slength|\\slpad|\\spascal-case|\\sreplace|\\sreverse|\\srpad|\\sscreaming-snake-case|\\ssnake-case|\\sstarts-with|\\ssubstring|\\stitle-case|\\sto-datetime|\\sto-decimal|\\sto-int|\\strim|\\supcase)\\b"
         },
         {
           "name": "keyword.other.s",
-          "match": "\\b(set-with-idx|str-lengths|source-env|str-slice|strftime|split-by|sort-by|shuffle|source|shells|select|schema|sample|split|slice|sleep|shift|shape|sort|skip|size|save|sys|sum|str|std|set|seq)\\b"
+          "match": "\\b(set-with-idx|str-lengths|source-env|str-slice|strftime|split-by|summary|sort-by|shuffle|source|shells|select|schema|sample|split|slice|sleep|shift|shape|sort|skip|size|save|sys|sum|str|std|set|seq)\\b"
         },
         {
           "name": "keyword.other.r_sub",
@@ -119,15 +119,19 @@
         },
         {
           "name": "keyword.other.r_sub",
+          "match": "\\bregistry(\\squery)\\b"
+        },
+        {
+          "name": "keyword.other.r_sub",
           "match": "\\broll(\\sdown|\\sleft|\\sright|\\sup)\\b"
         },
         {
           "name": "keyword.other.r",
-          "match": "\\b(run-external|replace-all|register|rolling|reverse|replace|rotate|rename|reject|reduce|random|range|roll|rm)\\b"
+          "match": "\\b(run-external|replace-all|register|rolling|reverse|replace|rotate|return|rename|reject|reduce|random|range|roll|rm)\\b"
         },
         {
           "name": "keyword.other.q_sub",
-          "match": "\\bquery(\\sdb|\\sjson|\\sweb|\\sxml)\\b"
+          "match": "\\bquery(\\sdb|\\sdf|\\sjson|\\sweb|\\sxml)\\b"
         },
         {
           "name": "keyword.other.q",
@@ -147,11 +151,11 @@
         },
         {
           "name": "keyword.other.o",
-          "match": "\\b(otherwise|order-by|overlay|open-df|open-db|over|open|or)\\b"
+          "match": "\\b(otherwise|open-df|open)\\b"
         },
         {
           "name": "keyword.other.n",
-          "match": "\\b(nu-highlight|nu-check|n-unique|n)\\b"
+          "match": "\\b(nu-highlight|nu-example-3|nu-example-2|nu-example-1|nu-check|n-unique|n)\\b"
         },
         {
           "name": "keyword.other.m_sub",
@@ -159,11 +163,11 @@
         },
         {
           "name": "keyword.other.m",
-          "match": "\\b(metadata|median|mkdir|merge|move|melt|mean|math|min|max|mv)\\b"
+          "match": "\\b(metadata|median|mkdir|merge|move|melt|mean|math|mut|min|max|mv)\\b"
         },
         {
           "name": "keyword.other.l",
-          "match": "\\b(lowercase|load-env|length|ls-df|lines|limit|list|last|lit|ls)\\b"
+          "match": "\\b(lowercase|load-env|length|ls-df|lines|loop|list|last|lit|ls)\\b"
         },
         {
           "name": "keyword.other.k_sub",
@@ -179,7 +183,7 @@
         },
         {
           "name": "keyword.other.i_sub",
-          "match": "\\binto(\\sbinary|\\sbool|\\sdatetime|\\sdb|\\sdecimal|\\sdf|\\sduration|\\sfilesize|\\sint|\\slazy|\\snu|\\ssqlite|\\sstring)\\b"
+          "match": "\\binto(\\sbinary|\\sbool|\\sdatetime|\\sdecimal|\\sdf|\\sduration|\\sfilesize|\\sint|\\slazy|\\snu|\\srecord|\\ssqlite|\\sstring)\\b"
         },
         {
           "name": "keyword.other.i",
@@ -188,6 +192,14 @@
         {
           "name": "keyword.other.h_sub",
           "match": "\\bhash(\\sbase64|\\smd5|\\ssha256)\\b"
+        },
+        {
+          "name": "keyword.other.h_sub",
+          "match": "\\bhelp(\\soperators)\\b"
+        },
+        {
+          "name": "keyword.other.h_sub",
+          "match": "\\bhistory(\\ssession)\\b"
         },
         {
           "name": "keyword.other.h",
@@ -203,11 +215,11 @@
         },
         {
           "name": "keyword.other.f_sub",
-          "match": "\\bfrom(\\scsv|\\seml|\\sics|\\sini|\\sjson|\\snuon|\\sods|\\sssv|\\stable|\\stoml|\\stsv|\\surl|\\svcf|\\sxlsx|\\sxml|\\syaml|\\syml)\\b"
+          "match": "\\bfrom(\\scsv|\\seml|\\sics|\\sini|\\sjson|\\snuon|\\sods|\\sparquet|\\sssv|\\stoml|\\stsv|\\surl|\\svcf|\\sxlsx|\\sxml|\\syaml|\\syml)\\b"
         },
         {
           "name": "keyword.other.f",
-          "match": "\\b(filter-with|fetch|fill-null|flatten|fill-na|format|filter|first|field|from|find|fmt|fn)\\b"
+          "match": "\\b(filter-with|fill-null|flatten|fill-na|format|filter|first|fetch|from|find|fmt|fn)\\b"
         },
         {
           "name": "keyword.other.e_sub",
@@ -223,7 +235,7 @@
         },
         {
           "name": "keyword.other.e_sub",
-          "match": "\\bexport(\\salias|\\sdef|\\sdef-env|\\senv|\\sextern|\\suse)\\b"
+          "match": "\\bexport(\\salias|\\sdef|\\sdef-env|\\sextern|\\suse)\\b"
         },
         {
           "name": "keyword.other.e",
@@ -254,8 +266,12 @@
           "match": "\\bconfig(\\senv|\\snu|\\sreset)\\b"
         },
         {
+          "name": "keyword.other.c_sub",
+          "match": "\\bcustom-value(\\sgenerate|\\sgenerate2|\\supdate)\\b"
+        },
+        {
           "name": "keyword.other.c",
-          "match": "\\b(concatenate|cumulative|count-null|concat-str|contains|complete|compact|columns|collect|config|count|clear|cache|char|col|cal|cp|cd)\\b"
+          "match": "\\b(catch|concatenate|commandline|cumulative|count-null|concat-str|continue|contains|complete|compact|columns|collect|config|count|clear|cache|char|col|cal|cp|cd)\\b"
         },
         {
           "name": "keyword.other.b_sub",
@@ -267,7 +283,7 @@
         },
         {
           "name": "keyword.other.b",
-          "match": "\\b(build-string|benchmark|bytes|bits)\\b"
+          "match": "\\b(benchmark|bytes|break|bits)\\b"
         },
         {
           "name": "keyword.other.a_sub",
@@ -275,11 +291,15 @@
         },
         {
           "name": "keyword.other.a",
-          "match": "\\b(as-datetime|arg-unique|agg-groups|arg-where|all-false|arg-true|arg-sort|all-true|as-date|arg-min|arg-max|append|ansi|ast|any|and|all|agg|as)\\b"
+          "match": "\\b(as-datetime|arg-unique|agg-groups|arg-where|all-false|arg-true|arg-sort|all-true|as-date|arg-min|arg-max|append|ansi|ast|any|all|agg|as)\\b"
         },
         {
           "name": "keyword.other.unit",
           "match": "\\btrue|false"
+        },
+        {
+          "name": "keyword.other.redirect",
+          "match": "\\bout>|err>|out\\+err>|err\\+out>"
         }
       ]
     },
@@ -346,12 +366,12 @@
           "match": ","
         },
         {
-          "comment": "curly braces",
+          "comment": "braces",
           "name": "punctuation.brackets.curly.nushell",
           "match": "[{}]"
         },
         {
-          "comment": "parentheses, round brackets",
+          "comment": "parentheses",
           "name": "punctuation.brackets.round.nushell",
           "match": "[()]"
         },
@@ -361,7 +381,7 @@
           "match": ";"
         },
         {
-          "comment": "square brackets",
+          "comment": "brackets",
           "name": "punctuation.brackets.square.nushell",
           "match": "[\\[\\]]"
         },

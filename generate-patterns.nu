@@ -13,16 +13,16 @@ def sort-by-length [
 def match-for-single [
     commands:record
 ] {
-    build-string '\b(' ($commands|where ($it.subcommands|length) == 1|sort-by-length command|get command|str collect '|'|str replace -a -s '?' '\?') ')\b'
+    '\b(' + ($commands|where ($it.subcommands|length) == 1|sort-by-length name|get name|str collect '|'|str replace -a -s '?' '\?') + ')\b'
 }
 
-# generate list of regexes for every two word command
+# generate list of regexes for every two word command name
 def match-for-double [
     commands: record
 ] {
     $commands
     |where ($it.subcommands|length) > 0 and ($it.subcommands.second-word|all $it != '')|each {|x|
-        build-string '\b' $x.command '(\s' ($x.subcommands.second-word|compact|str collect '|\s') ')\b'
+        '\b' + $x.name + '(\s' + ($x.subcommands.second-word|compact|str collect '|\s') + ')\b'
     }
 }
 
@@ -40,7 +40,7 @@ def generate-matches [
 let patterns = (
     $nu.scope.commands
     |where is_builtin == true and is_extern == false
-    |get command
+    |get name
     |split column ' ' first-word second-word
     |default '' second-word
     |uniq
@@ -57,7 +57,7 @@ let patterns = (
     |upsert commands {
         get commands
         |group-by first-word
-        |transpose command subcommands
+        |transpose name subcommands
     }
     |reverse
     |each {|category|
@@ -72,3 +72,9 @@ let patterns = (
 open syntaxes/nushell.tmLanguage.json
 |update repository.keywords.patterns $patterns
 |save syntaxes/nushell.tmLanguage.json
+
+# TODO: don't allow keywords that have their own definition to be included keyword.other.blah
+
+# like:
+# alias, let, let-env, for, def, def-env, extern, module, overlay
+# probably some others should be added
