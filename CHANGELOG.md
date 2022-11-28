@@ -104,3 +104,12 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - better block variable highlighting
   - remove themes + some cleanup
   - tweak auto-generated syntax
+- 0.8.0
+  - added path for arm brew @melMass
+  - update readme screenshots
+  - add the old dark and light themes to repo for anyone who wants to use them
+  - update example.nu for testing
+  - update generate-example.nu to include all samples
+  - update generate-patterns.nu to support the new language features
+  - update language syntax to support new nushell 0.72 features (break, continue, return, loop, try, catch, mut, while, err>, out>, err+out>, out+err>)
+
