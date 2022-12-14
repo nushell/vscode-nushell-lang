@@ -151,7 +151,7 @@
         },
         {
           "name": "keyword.other.o",
-          "match": "\\b(otherwise|open-df|open)\\b"
+          "match": "\\b(or|otherwise|open-df|open)\\b"
         },
         {
           "name": "keyword.other.n",
@@ -291,7 +291,7 @@
         },
         {
           "name": "keyword.other.a",
-          "match": "\\b(as-datetime|arg-unique|agg-groups|arg-where|all-false|arg-true|arg-sort|all-true|as-date|arg-min|arg-max|append|ansi|ast|any|all|agg|as)\\b"
+          "match": "\\b(and|as-datetime|arg-unique|agg-groups|arg-where|all-false|arg-true|arg-sort|all-true|as-date|arg-min|arg-max|append|ansi|ast|any|all|agg|as)\\b"
         },
         {
           "name": "keyword.other.unit",
