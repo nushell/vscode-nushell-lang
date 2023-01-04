@@ -14,14 +14,15 @@
                 { "include": "#string-backtick" },
                 { "include": "#string-double-quote" },
                 { "include": "#string-interpolated-double" },
-                { "include": "#string-interpolated-single" }
+                { "include": "#string-interpolated-single" },
+                { "include": "#string-bare" }
             ]
         },
         "string-escape": {
             "match": "\\\\(?:[bfrnt\\'\"/]|u[0-9a-fA-F]{4})",
             "name": "constant.character.escape.nushell"
         },
-        "string-expression": {
+        "braced-expression": {
             "begin": "\\(",
             "beginCaptures": {
 				"0": { "name": "meta.brace.round.begin.nushell" }
@@ -30,9 +31,14 @@
             "endCaptures": {
 				"0": { "name": "meta.brace.round.end.nushell" }
 			},
+            "name": "meta.expression.braced.nushell",
             "patterns": [
-                { "include": "#command" }
+                { "include": "#expression" }
             ]
+        },
+        "string-bare": {
+            "match": "\\w+",
+            "name": "source.nushell"
         },
         "string-single-quote": {
             "begin": "'",
@@ -79,14 +85,14 @@
             "endCaptures": {
 				"0": { "name": "punctuation.definition.string.end.nushell" }
 			},
-            "name": "string.interpolated.nushell",
+            "name": "string.interpolated.double.nushell",
             "patterns": [
-                {"include": "#string-escape"},
                 {
                     "match": "\\\\[()]",
                     "name": "constant.character.escape.nushell"
                 },
-                {"include": "#string-expression"}
+                {"include": "#string-escape"},
+                {"include": "#braced-expression"}
             ]
         },
         "string-interpolated-single": {
@@ -98,9 +104,9 @@
             "endCaptures": {
 				"0": { "name": "punctuation.definition.string.end.nushell" }
 			},
-            "name": "string.interpolated.nushell",
+            "name": "string.interpolated.single.nushell",
             "patterns": [
-                {"include": "#string-expression"}
+                {"include": "#braced-expression"}
             ]
         },
         "comment": {
