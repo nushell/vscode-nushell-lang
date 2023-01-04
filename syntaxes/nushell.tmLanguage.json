@@ -5,7 +5,7 @@
     "patterns": [
         { "include": "#string" },
         { "include": "#comment" },
-        { "include": "#command" }
+        { "include": "#expression" }
     ],
     "repository": {
         "string": {
@@ -117,9 +117,33 @@
             "match": "(?:def(?:-env)?)",
             "name": "keyword.other.nushell"
         },
-        "command": {
-            "match": "\\^?(?:\\s*\\w+)+",
-            "name":"entity.name.function"
+        "parameters": {
+            "match": "--[\\w-]*|-\\w*",
+            "name":"variable.parameter.nushell"
+        },
+        "variables": {
+            "match": "\\$\\w+(?:.\\w+)*",
+            "name":"variable.name.nushell"
+        },
+        "external-command-name": {
+            "match": "(\\^?)(\\w+(?:\\s*\\w+)+)",
+            "captures": {
+                "1": { "name": "keyword.operator.nushell" },
+                "2": { "name":"entity.name.function.nushell" }
+            }
+        },
+        "expression": {
+            "patterns": [
+                { "include": "#command-name" },
+                { "include": "#parameters" },
+                { "include": "#variables" },
+                { "include": "#string" },
+                { "include": "#braced-expression" },
+                {
+                    "match": "\\|",
+                    "name": "keyword.operator.nushell"
+                }
+            ]
         }
     }
 }
