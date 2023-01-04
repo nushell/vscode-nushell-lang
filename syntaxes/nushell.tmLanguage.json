@@ -4,7 +4,8 @@
     "scopeName": "source.nushell",
     "patterns": [
         { "include": "#string" },
-        { "include": "#comment" }
+        { "include": "#comment" },
+        { "include": "#command" }
     ],
     "repository": {
         "string": {
@@ -106,8 +107,13 @@
           "match": "(#.*)$",
           "name": "comment.nushell"
         },
+        "keyword": {
+            "match": "(?:def(?:-env)?)",
+            "name": "keyword.other.nushell"
+        },
         "command": {
-            "name": "variable.other.nushell"
+            "match": "\\^?(?:\\s*\\w+)+",
+            "name":"entity.name.function"
         }
     }
 }
