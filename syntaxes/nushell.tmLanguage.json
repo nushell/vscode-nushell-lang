@@ -5,6 +5,7 @@
     "patterns": [
         { "include": "#string" },
         { "include": "#comment" },
+        { "include": "#define-variable" },
         { "include": "#expression" }
     ],
     "repository": {
@@ -163,6 +164,22 @@
             "patterns": [
                 { 
                     "match": "(\\w+):",
+                    "captures": {
+                        "1": { "name": "variable.other.nushell" }
+                    }
+                }
+            ]
+        },
+        "define-variable": {
+            "match": "(def(?:-env)|mut|const)\\s+(\\w+)\\s*(=)",
+            "captures": {
+                "1": { "name": "keyword.other.nushell" },
+                "2": { "name": "variable.other.nushell" },
+                "3": { "name": "keyword.operator.nushell" }
+            },
+            "patterns": [
+                {
+                    "match": "(\\w+)",
                     "captures": {
                         "1": { "name": "variable.other.nushell" }
                     }
