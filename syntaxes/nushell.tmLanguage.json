@@ -150,6 +150,25 @@
                 { "include": "#expression" }
             ]
         },
+        "record": {
+            "begin": "\\{",
+            "beginCaptures": {
+                "0": { "name": "meta.brace.curly.begin.nushell" }
+            },
+            "end": "\\}",
+            "endCaptures": {
+                "0": { "name": "meta.brace.curly.end.nushell" }
+            },
+            "name": "meta.record.nushell",
+            "patterns": [
+                { 
+                    "match": "(\\w+):",
+                    "captures": {
+                        "1": { "name": "variable.other.nushell" }
+                    }
+                }
+            ]
+        },
         "expression": {
             "patterns": [
                 { "include": "#command-name" },
