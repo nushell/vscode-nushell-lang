@@ -132,12 +132,32 @@
                 "2": { "name":"entity.name.function.nushell" }
             }
         },
+        "numbers": {
+            "match": "\\d+(?:\\.?\\d*)",
+            "name": "constant.numeric.nushell"
+        },
+        "table": {
+            "begin": "\\[",
+            "beginCaptures": {
+                "0": { "name": "meta.brace.square.begin.nushell" }
+            },
+            "end": "\\]",
+            "endCaptures": {
+                "0": { "name": "meta.brace.square.end.nushell" }
+            },
+            "name": "meta.table.nushell",
+            "patterns": [
+                { "include": "#expression" }
+            ]
+        },
         "expression": {
             "patterns": [
                 { "include": "#command-name" },
                 { "include": "#parameters" },
                 { "include": "#variables" },
                 { "include": "#string" },
+                { "include": "#table" },
+                { "include": "#numbers" },
                 { "include": "#braced-expression" },
                 {
                     "match": "\\|",
