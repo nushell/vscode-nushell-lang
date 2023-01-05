@@ -170,10 +170,11 @@
             ]
         },
         "record": {
-            "begin": "\\{(?=[\\s\n]*(?:\\w+|\"[\\w ]+\")\\s*:)",
+            "begin": "\\{",
             "beginCaptures": {
                 "0": { "name": "punctuation.definition.record.begin.nushell" }
             },
+            "while": "(?=(?:\\w+|\"[\\w ]+\")(?:\\.(?:\\w+|\"[\\w ]+\"))*\\s*:)",
             "end": "\\}",
             "endCaptures": {
                 "0": { "name": "punctuation.definition.record.end.nushell" }
@@ -181,11 +182,11 @@
             "name": "meta.record.nushell",
             "patterns": [
                 { 
-                    "begin": "(\\w+)\\s*:",
+                    "begin": "((?:\\w+|\"[\\w ]+\")(?:\\.(?:\\w+|\"[\\w ]+\"))*)\\s*:",
                     "beginCaptures": {
                         "1": { "name": "variable.other.nushell" }
                     },
-                    "end": "(?=(,)|(?=\\}))",
+                    "end": "(?=(,)|(?=\\}|((?:\\w+|\"[\\w ]+\"))\\s*:))",
                     "endCaptures": {
                         "1": { "name": "punctuation.separator.nushell" }
                     },
