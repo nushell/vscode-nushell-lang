@@ -318,7 +318,16 @@
             "begin": "(?:(\\^)|(?![0-9]))(\\w+(?:\\-+\\w+)*)",
             "beginCaptures": {
                 "1": { "name": "keyword.operator.nushell" },
-                "2": { "name":"entity.name.function" }
+                "2": { 
+                    "patterns": [
+                        { "include": "#control-keywords" },
+                        { 
+                            "match": ".+",
+                            "name": "entity.name.function.nushell"
+                        }
+                    ]
+                    
+                }
             },
             "end": "(?=\\||\\)|\\}|;)|$",
             "name": "meta.expression.nushell",
