@@ -9,6 +9,7 @@
         { "include": "#module" },
         { "include": "#use-module" },
         { "include": "#for-loop" },
+        { "include": "#control-keyword" },
         { "include": "#expression" },
         { "include": "#string" },
         { "include": "#comment" }
@@ -100,6 +101,10 @@
             "patterns": [
                 {"include": "#paren-expression"}
             ]
+        },
+        "control-keywords" : {
+            "match": "\\b(?:break|continue|do|else|for|if|in|return|while|for)\\b",
+            "name": "keyword.control.nushell"
         },
         "comment": {
           "match": "(#.*)$",
