@@ -204,12 +204,25 @@
                 "3": { "patterns": [{"include": "#inline-expression"}] }
             }
         },
+        "function-name": {
+            "match": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
+            "name": "entity.name.function.nushell"
+        },
+        "function-parameters": {
+            "begin": "\\[",
+            "while": "(?=(?:-{0,2}[\\w-]+)(?:\\s*:\\s*(\\w+))?(?:\\s*=\\s*(.+))?)",
+            "end": "\\]",
+            "patterns": [
+                { "include": "#function-parameter" }
+            ],
+            "name": "meta.function.parameters.nushell"
+        },
         "function": {
             "begin": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-]+|\"[\\w\\- ]+\")\\s*\\[(.*)\\]\\s*\\{",
             "beginCaptures": {
                 "1": { "name": "keyword.other.nushell" },
                 "2": { "name": "entity.name.function.nushell" },
-                "3":{ "patterns": [{"include": "#function-parameter"}] }
+                "3": { "patterns": [{"include": "#function-parameter"}] }
             },
             "end": "\\}",
             "endCaptures": {
