@@ -5,6 +5,10 @@
     "patterns": [
         { "include": "#define-variable" },
         { "include": "#define-alias" },
+        { "include": "#function" },
+        { "include": "#module" },
+        { "include": "#use-module" },
+        { "include": "#for-loop" },
         { "include": "#expression" },
         { "include": "#string" },
         { "include": "#comment" }
@@ -24,22 +28,8 @@
             "match": "\\\\(?:[bfrnt\\'\"/]|u[0-9a-fA-F]{4})",
             "name": "constant.character.escape.nushell"
         },
-        "paren-expression": {
-            "begin": "\\(",
-            "beginCaptures": {
-				"0": { "name": "meta.brace.round.begin.nushell" }
-			},
-            "end": "\\)",
-            "endCaptures": {
-				"0": { "name": "meta.brace.round.end.nushell" }
-			},
-            "name": "meta.expression.braced.nushell",
-            "patterns": [
-                { "include": "#expression" }
-            ]
-        },
         "string-bare": {
-            "match": "\\w[\\w-]+",
+            "match": "\\w[\\w-]*",
             "name": "string.bare.nushell"
         },
         "string-single-quote": {
@@ -167,26 +157,116 @@
             },
             "name": "meta.table.nushell",
             "patterns": [
-                { "include": "#inline-expression" }
+                { "include": "#inline-expression" },
+                {
+                    "match": ",",
+                    "name": "punctuation.separator.nushell"
+                }
             ]
         },
         "record": {
-            "begin": "\\{",
+            "begin": "\\{(?=[\\s\n]*(?:\\w+|\"[\\w ]+\")\\s*:)",
             "beginCaptures": {
                 "0": { "name": "punctuation.definition.record.begin.nushell" }
             },
             "end": "\\}",
             "endCaptures": {
-                "0": { "name": "punctuation.definition.record.begin.nushell" }
+                "0": { "name": "punctuation.definition.record.end.nushell" }
             },
             "name": "meta.record.nushell",
             "patterns": [
                 { 
-                    "match": "(\\w+):",
-                    "captures": {
+                    "begin": "(\\w+)\\s*:",
+                    "beginCaptures": {
                         "1": { "name": "variable.other.nushell" }
-                    }
+                    },
+                    "end": "(?=(,)|(?=\\}))",
+                    "endCaptures": {
+                        "1": { "name": "punctuation.separator.nushell" }
+                    },
+                    "patterns": [
+                        { "include": "#inline-expression" }
+                    ]
                 }
+            ]
+        },
+        "function-parameter": {
+            "match": "(-{0,2}[\\w-]+)(?:\\s*:\\s*(\\w+))?(?:\\s*=\\s*(.+))?",
+            "captures": {
+                "1": { "name": "variable.parameter.nushell" },
+                "2": { "name": "storage.type.nushell" },
+                "3": { "patterns": [{"include": "#inline-expression"}] }
+            }
+        },
+        "function": {
+            "begin": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-]+|\"[\\w\\- ]+\")\\s*\\[(.*)\\]\\s*\\{",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.nushell" },
+                "2": { "name": "entity.name.function.nushell" },
+                "3":{ "patterns": [{"include": "#function-parameter"}] }
+            },
+            "end": "\\}",
+            "endCaptures": {
+                "0": { "name": "punctuation.definition.function.end.nushell" }
+            },
+            "name": "meta.function.nushell",
+            "patterns": [
+                { "include": "source.nushell" }
+            ]
+        },
+        "module": {
+            "begin": "(module)\\s+([\\w\\-]+)\\s*\\{",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.nushell" },
+                "2": { "name": "entity.name.namespace.nushell" }
+            },
+            "end": "\\}",
+            "endCaptures": {
+                "0": { "name": "punctuation.definition.module.end.nushell" }
+            },
+            "name": "meta.module.nushell",
+            "patterns": [
+                { "include": "source.nushell" }
+            ]
+        },
+        "use-module": {
+            "match": "(use)\\s+([\\w\\-]+)(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"))?",
+            "captures": {
+                "1": { "name": "keyword.other.nushell" },
+                "2": { "name": "entity.name.namespace.nushell" },
+                "3": { "name": "entity.name.function.nushell" }
+            }
+        },
+        "for-loop": {
+            "begin": "(for)\\s+(\\$?\\w+)\\s+(in)\\s+(.+)\\s*(\\{)",
+            "beginCaptures": {
+                "1": { "name": "keyword.other.nushell" },
+                "2": { "name": "variable.other.nushell" },
+                "3": { "name": "keyword.other.nushell" },
+                "4": { "patterns": [{"include": "#inline-expression"}] },
+                "5": { "name": "punctuation.section.block.begin.bracket.curly.nushell" }
+            },
+            "end": "\\}",
+            "endCaptures": {
+                "0": { "name": "punctuation.section.block.end.bracket.curly.nushell" }
+            },
+            "name": "meta.for-loop.nushell",
+            "patterns": [
+                { "include": "source.nushell" }
+            ]
+        },
+        "paren-expression": {
+            "begin": "\\(",
+            "beginCaptures": {
+				"0": { "name": "meta.brace.round.begin.nushell" }
+			},
+            "end": "\\)",
+            "endCaptures": {
+				"0": { "name": "meta.brace.round.end.nushell" }
+			},
+            "name": "meta.expression.braced.nushell",
+            "patterns": [
+                { "include": "#expression" }
             ]
         },
         "braced-expression": {
@@ -195,9 +275,10 @@
 				"1": { "name": "punctuation.section.block.begin.bracket.curly.nushell" },
                 "2": { 
                     "patterns": [
+                        { "include": "#function-parameter" },
                         {
-                            "match": "\\w+",
-                            "name": "variable.parameter.nushell"
+                            "match": ",",
+                            "name": "punctuation.separator.nushell"
                         }
                     ]
                  }
@@ -208,7 +289,7 @@
 			},
             "name": "meta.expression.braced.nushell",
             "patterns": [
-                { "include": "#expression" }
+                { "include": "source.nushell" }
             ]
         },
         "define-variable": {
@@ -220,7 +301,7 @@
             }
         },
         "define-alias": {
-            "match": "(alias)\\s+(\\w+)\\s*(=)",
+            "match": "((?:export\\s+)?alias)\\s+(\\w+)\\s*(=)",
             "captures": {
                 "1": { "name": "keyword.other.nushell" },
                 "2": { "name": "entity.name.function" },
@@ -233,7 +314,7 @@
                 "1": { "name": "keyword.operator.nushell" },
                 "2": { "name":"entity.name.function" }
             },
-            "end": "(?=\\||\\)|\\})|$",
+            "end": "(?=\\||\\)|\\}|;)|$",
             "name": "meta.expression.nushell",
             "patterns": [
                 { "include": "#inline-expression" }
@@ -252,6 +333,7 @@
                 { "include": "#numbers" },
                 { "include": "#binary" },
                 { "include": "#table" },
+                { "include": "#record" },
                 { "include": "#string" },
                 { "include": "#paren-expression" },
                 { "include": "#braced-expression" }
