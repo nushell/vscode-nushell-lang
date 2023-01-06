@@ -134,7 +134,7 @@
             "name": "constant.numeric.nushell"
         },
         "numbers": {
-            "match": "\\b-?\\d+(?:\\.\\d*)?(?i:ns|us|ms|sec|min|hr|day|wk|b|kb|mb|gb|tb|pt|eb|zb|kib|mib|gib|tib|pit|eib|zib)?\\b",
+            "match": "-?\\d+(?:\\.\\d*)?(?i:ns|us|ms|sec|min|hr|day|wk|b|kb|mb|gb|tb|pt|eb|zb|kib|mib|gib|tib|pit|eib|zib)?",
             "name": "constant.numeric.nushell"
         },
         "binary": {
