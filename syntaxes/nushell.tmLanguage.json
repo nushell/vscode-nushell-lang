@@ -114,14 +114,11 @@
             "name": "keyword.other.nushell"
         },
         "parameters": {
-            "match": "\\b--[\\w-]*|-\\w*",
+            "match": "\\b-{1,2}[\\w-]*",
             "name":"variable.parameter.nushell"
         },
         "variables": {
-            "match": "(\\$[a-zA-Z0-9_]+)(?:\\.\\w+)*",
-            "captures": {
-                "1": { "name": "constant.language" }
-            },
+            "match": "\\$[a-zA-Z0-9_]+(?:\\.\\w+)*",
             "name":"variable.name.nushell"
         },
         "command-name": {
