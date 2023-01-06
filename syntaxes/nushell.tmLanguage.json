@@ -301,7 +301,7 @@
             ]
         },
         "braced-expression": {
-            "begin": "(\\{)(?:\\|(.*)\\|)?",
+            "begin": "(\\{)(?:\\s*\\|([\\w, ]*)\\|)?",
             "beginCaptures": {
 				"1": { "name": "punctuation.section.block.begin.bracket.curly.nushell" },
                 "2": { 
