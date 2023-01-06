@@ -6,6 +6,7 @@
         { "include": "#define-variable" },
         { "include": "#define-alias" },
         { "include": "#function" },
+        { "include": "#extern" },
         { "include": "#module" },
         { "include": "#use-module" },
         { "include": "#for-loop" },
@@ -228,7 +229,7 @@
             ]
         },
         "function": {
-            "begin": "((?:export\\s+)?(?:def(?:-env)?|extern))\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
+            "begin": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
             "beginCaptures": {
                 "0": { 
                     "patterns": [
@@ -237,13 +238,30 @@
                     ] 
                 }
             },
-            "end": "(?<=\\}|\\])",
+            "end": "(?<=\\})",
             "endCaptures": {
                 "0": { "name": "punctuation.definition.function.end.nushell" }
             },
             "patterns": [
                 { "include": "#function-parameters" },
                 { "include": "#function-body" }
+            ]
+        },
+        "extern": {
+            "begin": "((?:export\\s+)?extern)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
+            "beginCaptures": {
+                "0": { 
+                    "patterns": [
+                        { "include": "#define-extern" }
+                    ] 
+                }
+            },
+            "end": "(?<=\\])",
+            "endCaptures": {
+                "0": { "name": "punctuation.definition.function.end.nushell" }
+            },
+            "patterns": [
+                { "include": "#function-parameters" }
             ]
         },
         "module": {
