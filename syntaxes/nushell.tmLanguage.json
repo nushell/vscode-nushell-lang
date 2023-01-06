@@ -353,7 +353,11 @@
             "patterns": [
                 { "include": "#pre-command" },
                 { "include": "#command" },
-                { "include": "#inline-expression" }
+                { "include": "#inline-expression" },
+                {
+                    "match": "\\|",
+                    "name": "keyword.operator.nushell"
+                }
             ]
         },
         "inline-expression": {
