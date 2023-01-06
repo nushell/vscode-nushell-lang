@@ -316,6 +316,18 @@
                 "3": { "name": "keyword.operator.nushell" }
             }
         },
+        "pre-command": {
+            "begin": "(\\w+)(=)",
+            "beginCaptures": {
+                "1": { "name": "variable.other.nushell" },
+                "2": { "name": "keyword.operator.nushell" }
+            },
+            "end": "(?=\\s+)",
+            "patterns": [
+                { "include": "#inline-expression" }
+            ]
+        },
+
         "command": {
             "begin": "(?:(\\^)|(?![0-9]))(\\w+(?:\\-+\\w+)*)",
             "beginCaptures": {
@@ -339,6 +351,7 @@
         },
         "expression": {
             "patterns": [
+                { "include": "#pre-command" },
                 { "include": "#command" },
                 { "include": "#inline-expression" }
             ]
