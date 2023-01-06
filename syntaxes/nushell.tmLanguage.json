@@ -397,13 +397,13 @@
         },
         "inline-expression": {
             "patterns": [
-                { "include": "#parameters" },
                 { "include": "#variables" },
                 { "include": "#datetime" },
                 { "include": "#numbers" },
                 { "include": "#binary" },
                 { "include": "#boolean" },
                 { "include": "#table" },
+                { "include": "#parameters" },
                 { "include": "#string" },
                 { "include": "#paren-expression" },
                 { "include": "#braced-expression" }
