@@ -173,33 +173,6 @@
                 }
             ]
         },
-        "record": {
-            "begin": "\\{",
-            "beginCaptures": {
-                "0": { "name": "punctuation.definition.record.begin.nushell" }
-            },
-            "while": "(?=(?:\\w+|\"[\\w ]+\")(?:\\.(?:\\w+|\"[\\w ]+\"))*\\s*:)",
-            "end": "\\}",
-            "endCaptures": {
-                "0": { "name": "punctuation.definition.record.end.nushell" }
-            },
-            "name": "meta.record.nushell",
-            "patterns": [
-                { 
-                    "begin": "((?:\\w+|\"[\\w ]+\")(?:\\.(?:\\w+|\"[\\w ]+\"))*)\\s*:",
-                    "beginCaptures": {
-                        "1": { "name": "variable.other.nushell" }
-                    },
-                    "end": "(?=(,)|(?=\\}|((?:\\w+|\"[\\w ]+\"))\\s*:))",
-                    "endCaptures": {
-                        "1": { "name": "punctuation.separator.nushell" }
-                    },
-                    "patterns": [
-                        { "include": "#inline-expression" }
-                    ]
-                }
-            ]
-        },
         "function-parameter": {
             "match": "(-{0,2}[\\w-]+)(?:\\s*:\\s*(\\w+))?(?:\\s*=\\s*(.+))?",
             "captures": {
@@ -312,6 +285,18 @@
 			},
             "name": "meta.expression.braced.nushell",
             "patterns": [
+                { 
+                    "begin": "((?:\\w+|\"[\\w ]+\")(?:\\.(?:\\w+|\"[\\w ]+\"))*)\\s*(:)\\s*",
+                    "beginCaptures": {
+                        "1": { "name": "variable.other.nushell" },
+                        "2": { "name": "punctuation.separator.nushell" }
+                    },
+                    "end": "(?=,|\\s)",
+                    "name": "meta.record-entry.nushell",
+                    "patterns": [
+                        { "include": "#inline-expression" }
+                    ]
+                },
                 { "include": "source.nushell" }
             ]
         },
@@ -366,7 +351,6 @@
                 { "include": "#binary" },
                 { "include": "#boolean" },
                 { "include": "#table" },
-                { "include": "#record" },
                 { "include": "#string" },
                 { "include": "#paren-expression" },
                 { "include": "#braced-expression" }
