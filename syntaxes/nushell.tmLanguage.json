@@ -170,7 +170,8 @@
                 {
                     "match": ",",
                     "name": "punctuation.separator.nushell"
-                }
+                },
+                { "include": "#comment" }
             ]
         },
         "function-parameter": {
