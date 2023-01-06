@@ -151,6 +151,10 @@
                 { "match": "[0-9a-fA-F]{2}", "name": "constant.numeric.nushell" }
             ]
         },
+        "boolean": {
+            "match": "\\b(?:true|false)\\b",
+            "name": "constant.language.nushell"
+        },
         "table": {
             "begin": "\\[",
             "beginCaptures": {
@@ -360,6 +364,7 @@
                 { "include": "#variables" },
                 { "include": "#numbers" },
                 { "include": "#binary" },
+                { "include": "#boolean" },
                 { "include": "#table" },
                 { "include": "#record" },
                 { "include": "#string" },
