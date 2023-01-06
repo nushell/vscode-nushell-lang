@@ -170,40 +170,75 @@
             ]
         },
         "function-parameter": {
-            "match": "(-{0,2}[\\w-]+)(?:\\s*:\\s*(\\w+))?(?:\\s*=\\s*(.+))?",
+            "match": "(-{0,2}[\\w-]+|\\.{3})(?:\\s*(\\??:)\\s*(\\w+))?(?:\\s*=\\s*(.+))?",
             "captures": {
                 "1": { "name": "variable.parameter.nushell" },
-                "2": { "name": "storage.type.nushell" },
-                "3": { "patterns": [{"include": "#inline-expression"}] }
+                "2": { "name": "keyword.operator.nushell" },
+                "3": { "name": "storage.type.nushell" },
+                "4": { "patterns": [{"include": "#inline-expression"}] }
             }
-        },
-        "function-name": {
-            "match": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
-            "name": "entity.name.function.nushell"
         },
         "function-parameters": {
             "begin": "\\[",
-            "while": "(?=(?:-{0,2}[\\w-]+)(?:\\s*:\\s*(\\w+))?(?:\\s*=\\s*(.+))?)",
+            "beginCaptures": {
+                "0": { "name": "meta.brace.square.begin.nushell" }
+            },
             "end": "\\]",
+            "endCaptures": {
+                "0": { "name": "meta.brace.square.end.nushell" }
+            },
             "patterns": [
-                { "include": "#function-parameter" }
+                { "include": "#function-parameter" },
+                { "include": "#comment" }
+
             ],
             "name": "meta.function.parameters.nushell"
         },
-        "function": {
-            "begin": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-]+|\"[\\w\\- ]+\")\\s*\\[(.*)\\]\\s*\\{",
-            "beginCaptures": {
+        "define-function": {
+            "match": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
+            "captures": {
                 "1": { "name": "keyword.other.nushell" },
-                "2": { "name": "entity.name.function.nushell" },
-                "3": { "patterns": [{"include": "#function-parameter"}] }
+                "2": { "name": "entity.name.function.nushell" }
+            }
+        },
+        "define-extern": {
+            "match": "((?:export\\s+)?extern)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
+            "captures": {
+                "1": { "name": "keyword.other.nushell" },
+                "2": { "name": "entity.name.function.nushell" }
+            }
+        },
+        "function-body": {
+            "begin": "\\{",
+            "beginCaptures": {
+                "0": { "name": "punctuation.definition.function.begin.nushell" }
             },
             "end": "\\}",
             "endCaptures": {
                 "0": { "name": "punctuation.definition.function.end.nushell" }
             },
-            "name": "meta.function.nushell",
+            "name": "meta.function.body.nushell",
             "patterns": [
                 { "include": "source.nushell" }
+            ]
+        },
+        "function": {
+            "begin": "((?:export\\s+)?(?:def(?:-env)?|extern))\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
+            "beginCaptures": {
+                "0": { 
+                    "patterns": [
+                        { "include": "#define-function" },
+                        { "include": "#define-extern" }
+                    ] 
+                }
+            },
+            "end": "(?<=\\}|\\])",
+            "endCaptures": {
+                "0": { "name": "punctuation.definition.function.end.nushell" }
+            },
+            "patterns": [
+                { "include": "#function-parameters" },
+                { "include": "#function-body" }
             ]
         },
         "module": {
