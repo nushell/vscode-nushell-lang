@@ -10,7 +10,6 @@
         { "include": "#module" },
         { "include": "#use-module" },
         { "include": "#for-loop" },
-        { "include": "#control-keyword" },
         { "include": "#expression" },
         { "include": "#comment" }
     ],
