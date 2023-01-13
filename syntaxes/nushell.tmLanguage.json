@@ -183,7 +183,7 @@
             "captures": {
                 "1": { "name": "variable.parameter.nushell" },
                 "2": { "name": "keyword.operator.nushell" },
-                "3": { "name": "storage.type.nushell" },
+                "3": { "name": "entity.name.type.nushell" },
                 "4": { "patterns": [{"include": "#inline-expression"}] }
             }
         },
