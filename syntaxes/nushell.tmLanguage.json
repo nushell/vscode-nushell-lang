@@ -30,7 +30,7 @@
             "name": "constant.character.escape.nushell"
         },
         "string-bare": {
-            "match": "[\\w\\-./:\\\\]+",
+            "match": "[\\w\\-.\\/:\\\\]+",
             "name": "string.bare.nushell"
         },
         "string-single-quote": {
