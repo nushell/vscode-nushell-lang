@@ -299,7 +299,7 @@
             ]
         },
         "use-module": {
-            "match": "(use)\\s+([\\w\\-]+)(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"))?",
+            "match": "((?:export )?use)\\s+([\\w\\-]+)(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"))?;?",
             "captures": {
                 "1": { "name": "keyword.other.nushell" },
                 "2": { "name": "entity.name.namespace.nushell" },
