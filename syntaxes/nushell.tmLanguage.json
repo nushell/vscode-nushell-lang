@@ -328,7 +328,7 @@
             "endCaptures": {
 				"0": { "name": "meta.brace.round.end.nushell" }
 			},
-            "name": "meta.expression.braced.nushell",
+            "name": "meta.expression.parenthesis.nushell",
             "patterns": [
                 { "include": "#expression" }
             ]
