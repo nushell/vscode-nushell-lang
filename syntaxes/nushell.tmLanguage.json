@@ -450,7 +450,8 @@
                 { "include": "#parameters" },
                 { "include": "#string" },
                 { "include": "#paren-expression" },
-                { "include": "#braced-expression" }
+                { "include": "#braced-expression" },
+                { "include": "#comment" }
             ]
         }
     }
