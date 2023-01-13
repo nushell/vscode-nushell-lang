@@ -141,7 +141,7 @@
             }
         },
         "variable-fields": {
-            "match" : "(?:\\.(?:[\\w-]+|\"[\\w\\- ]+\"))+",
+            "match" : "(?<=\\)|\\}|\\]|\\$\\w+)(?:\\.(?:[\\w-]+|\"[\\w\\- ]+\"))+",
             "name": "variable.other.nushell"
         },
         "internal-variables": {
