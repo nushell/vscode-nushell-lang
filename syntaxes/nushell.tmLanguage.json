@@ -125,7 +125,7 @@
             "name":"variable.parameter.nushell"
         },
         "variables": {
-            "match": "(\\$[a-zA-Z0-9_]+)((?:\\.\\w+)*)",
+            "match": "(\\$[a-zA-Z0-9_]+)",
             "captures": {
                 "1": {
                     "patterns": [
@@ -135,11 +135,12 @@
                             "name": "variable.other.nushell" 
                         }
                     ]
-                },
-                "2": {
-                    "name": "variable.other.nushell"
                 }
             }
+        },
+        "variable-fields": {
+            "match" : "(?:\\.(?:[\\w-]+|\"[\\w\\- ]+\"))+",
+            "name": "variable.other.nushell"
         },
         "internal-variables": {
             "match": "\\$(?:nu|env)",
@@ -442,6 +443,7 @@
         "inline-expression": {
             "patterns": [
                 { "include": "#variables" },
+                { "include": "#variable-fields" },
                 { "include": "#datetime" },
                 { "include": "#numbers" },
                 { "include": "#binary" },
