@@ -387,16 +387,25 @@
         },
 
         "command": {
-            "begin": "(?:(\\^)|(?![0-9]))(\\w+(?:\\-+\\w+)*)",
+            "begin": "(?:(\\^)|(?![0-9]))(\\w+(?:(?: (?!-)[\\w-]+|[\\w-]+))*)",
             "beginCaptures": {
                 "1": { "name": "keyword.operator.nushell" },
                 "2": { 
                     "patterns": [
                         { "include": "#control-keywords" },
+                        { "include": "#builtin-commands" },
                         { 
-                            "match": ".+",
-                            "name": "entity.name.function.nushell"
+                            "match": "^(\\w+(?:-\\w+)*) (.*)$",
+                            "captures": {
+                                "1": { "name": "entity.name.function.external.nushell" },
+                                "2": { 
+                                    "patterns": [
+                                        { "include": "#inline-expression" }
+                                    ]
+                                }
+                            }
                         }
+                        
                     ]
                     
                 }
