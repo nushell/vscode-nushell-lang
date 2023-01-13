@@ -447,6 +447,7 @@
             "patterns": [
                 { "include": "#variables" },
                 { "include": "#variable-fields" },
+                { "include": "#control-keywords" },
                 { "include": "#datetime" },
                 { "include": "#numbers" },
                 { "include": "#binary" },
