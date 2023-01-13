@@ -407,17 +407,18 @@
                     "patterns": [
                         { "include": "#control-keywords" },
                         { "include": "#builtin-commands" },
-                        { 
+                        {
                             "match": "^(\\w+(?:-\\w+)*) (.*)$",
                             "captures": {
                                 "1": { "name": "entity.name.function.external.nushell" },
                                 "2": { 
                                     "patterns": [
-                                        { "include": "#inline-expression" }
+                                        { "include": "#string-bare" }
                                     ]
                                 }
                             }
-                        }
+                        },
+                        { "include": "#string-bare" }
                         
                     ]
                     
