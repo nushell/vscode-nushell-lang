@@ -348,7 +348,7 @@
                         "1": { "name": "variable.other.nushell" },
                         "2": { "name": "punctuation.separator.nushell" }
                     },
-                    "end": "(?=,|\\s)",
+                    "end": "(?=,|\\s|\\})",
                     "name": "meta.record-entry.nushell",
                     "patterns": [
                         { "include": "#inline-expression" }
