@@ -66,6 +66,9 @@
 			},
             "name": "string.quoted.double.nushell",
             "patterns": [
+                {
+                    "match": "\\w+"
+                },
                 {"include": "#string-escape"}
             ]
         },
