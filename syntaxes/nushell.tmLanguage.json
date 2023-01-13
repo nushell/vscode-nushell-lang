@@ -103,8 +103,8 @@
             ]
         },
         "control-keywords" : {
-            "comment": "Generated using list-to-tree (https://github.com/glcraft/list-to-tree)",
-            "match": "\\b(?:alias|break|continue|def(?:-env)?|ex(?:port(?: (?:alias|def(?:-env)?|extern|use))?|tern)|for|hide|if|l(?:et|oop)|m(?:odule|ut)|overlay(?: (?:hide|new|use))?|re(?:gister|turn)|source|try|use|while)\\b",
+            "comment": "Regex generated with list-to-tree (https://github.com/glcraft/list-to-tree)",
+            "match": "(?<![0-9a-zA-Z_\\-.\\/:\\\\])(?:alias|break|continue|def(?:-env)?|e(?:lse(?: if)?|x(?:port(?: (?:alias|def(?:-env)?|extern|use))?|tern))|for|hide|if|l(?:et|oop)|m(?:odule|ut)|overlay(?: (?:hide|new|use))?|re(?:gister|turn)|source|try|use|while)(?![0-9a-zA-Z_\\-.\\/:\\\\])",
             "name": "keyword.control.nushell"
         },
         "builtin-commands" : {
