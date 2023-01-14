@@ -143,11 +143,11 @@
             "name":"variable.language.nushell"
         },
         "datetime": {
-            "match": "\\b\\d{4}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}(?:\\+\\d{2}:?\\d{2}|Z)?)?\\b",
+            "match": "\\b\\d{4}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}(?:.\\d{1,3})?(?:\\+\\d{2}:?\\d{2}|Z)?)?\\b",
             "name": "constant.numeric.nushell"
         },
         "numbers": {
-            "match": "(?<![\\w-])-?\\d+(?:\\.\\d*)?(?i:ns|us|ms|sec|min|hr|day|wk|b|kb|mb|gb|tb|pt|eb|zb|kib|mib|gib|tib|pit|eib|zib)?\\b",
+            "match": "(?<![\\w-])[-+]?\\d+(?:\\.\\d*)?(?i:ns|us|ms|sec|min|hr|day|wk|b|kb|mb|gb|tb|pt|eb|zb|kib|mib|gib|tib|pit|eib|zib)?(?![\\w.])",
             "name": "constant.numeric.nushell"
         },
         "ranges": {
@@ -169,16 +169,16 @@
                 { "match": "[0-9a-fA-F]{2}", "name": "constant.numeric.nushell" }
             ]
         },
-        "boolean": {
-            "match": "\\b(?:true|false)\\b",
+        "constant-keywords": {
+            "match": "\\b(?:true|false|null)\\b",
             "name": "constant.language.nushell"
         },
         "operators-word": {
-            "match": "(?<![\\w\\-])(?:mod|in|not-in|not|and|or|xor|bit-or|bit-and|bit-xor|bit-shl|bit-shr|starts-with|ends-with)(?![\\w\\-])",
+            "match": "(?<= |\\()(?:mod|in|not-in|not|and|or|xor|bit-or|bit-and|bit-xor|bit-shl|bit-shr|starts-with|ends-with)(?= |\\)",
             "name": "keyword.operator.nushell"
         },
         "operators-symbols": {
-            "match": "(?<![\\w\\-])(?:\\+|\\-|\\*|\\/|\\/\\/|\\*\\*|[<>!]?=[~=]?|&&|\\|\\||\\+\\+)(?![\\w\\-])",
+            "match": "(?<= )(?:\\+|\\-|\\*|\\/|\\/\\/|\\*\\*|[<>!]?=[~=]?|&&|\\|\\||\\+\\+)(?= )",
             "name": "keyword.operator.nushell"
         },
         "operators": {
@@ -507,7 +507,7 @@
                 { "include": "#binary" },
                 { "include": "#ranges" },
                 { "include": "#numbers" },
-                { "include": "#boolean" },
+                { "include": "#constant-keywords" },
                 { "include": "#table" },
                 { "include": "#parameters" },
                 { "include": "#operators" },
