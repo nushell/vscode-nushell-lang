@@ -150,6 +150,10 @@
             "match": "(?<![\\w-])-?\\d+(?:\\.\\d*)?(?i:ns|us|ms|sec|min|hr|day|wk|b|kb|mb|gb|tb|pt|eb|zb|kib|mib|gib|tib|pit|eib|zib)?\\b",
             "name": "constant.numeric.nushell"
         },
+        "ranges": {
+            "match": "(?<![\\w-])-?\\d+\\.\\.-?\\d+\\b",
+            "name": "constant.numeric.nushell"
+        },
         "binary": {
             "begin": "\\b(0x)(\\[)",
             "beginCaptures": {
@@ -487,6 +491,7 @@
                 { "include": "#control-keywords" },
                 { "include": "#datetime" },
                 { "include": "#binary" },
+                { "include": "#ranges" },
                 { "include": "#numbers" },
                 { "include": "#boolean" },
                 { "include": "#table" },
