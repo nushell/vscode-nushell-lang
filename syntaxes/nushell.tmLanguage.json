@@ -189,14 +189,31 @@
                 { "include": "#comment" }
             ]
         },
-        "function-parameter": {
-            "match": "(-{0,2}[\\w-]+|\\.{3})(?:\\s*(\\??:)\\s*(\\w+))?(?:\\s*=\\s*(.+))?",
+        "function-parameter-with-value": {
+            "begin": "(-{0,2}[\\w-]+|\\.{3})(?:\\s*(\\??:)\\s*(\\w+))?\\s*=\\s*",
             "captures": {
                 "1": { "name": "variable.parameter.nushell" },
                 "2": { "name": "keyword.operator.nushell" },
-                "3": { "name": "entity.name.type.nushell" },
-                "4": { "patterns": [{"include": "#value"}] }
+                "3": { "name": "entity.name.type.nushell" }
+            },
+            "end": "(?=\\])|,|$",
+            "patterns": [
+                { "include": "#value" }
+            ]
+        },
+        "function-parameter-without-value": {
+            "match": "(-{0,2}[\\w-]+|\\.{3})(?:\\s*(\\??:)\\s*(\\w+))?,?",
+            "captures": {
+                "1": { "name": "variable.parameter.nushell" },
+                "2": { "name": "keyword.operator.nushell" },
+                "3": { "name": "entity.name.type.nushell" }
             }
+        },
+        "function-parameter": {
+            "patterns": [
+                { "include": "#function-parameter-with-value" },
+                { "include": "#function-parameter-without-value" }
+            ]
         },
         "function-parameters": {
             "begin": "\\[",
