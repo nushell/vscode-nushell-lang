@@ -9,7 +9,6 @@
         { "include": "#extern" },
         { "include": "#module" },
         { "include": "#use-module" },
-        { "include": "#for-loop" },
         { "include": "#expression" },
         { "include": "#comment" }
     ],
@@ -463,6 +462,7 @@
         "expression": {
             "patterns": [
                 { "include": "#pre-command" },
+                { "include": "#for-loop" },
                 { "include": "#command" },
                 { "include": "#value" },
                 {
