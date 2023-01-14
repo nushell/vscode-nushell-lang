@@ -173,6 +173,20 @@
             "match": "\\b(?:true|false)\\b",
             "name": "constant.language.nushell"
         },
+        "operators-word": {
+            "match": "(?<![\\w\\-])(?:mod|in|not-in|not|and|or|xor|bit-or|bit-and|bit-xor|bit-shl|bit-shr|starts-with|ends-with)(?![\\w\\-])",
+            "name": "keyword.operator.nushell"
+        },
+        "operators-symbols": {
+            "match": "(?<![\\w\\-])(?:\\+|\\-|\\*|\\/|\\/\\/|\\*\\*|[<>!]?=[~=]?|&&|\\|\\||\\+\\+)(?![\\w\\-])",
+            "name": "keyword.operator.nushell"
+        },
+        "operators": {
+            "patterns": [
+                { "include": "#operators-word" },
+                { "include": "#operators-symbols" }
+            ]
+        },
         "table": {
             "begin": "\\[",
             "beginCaptures": {
@@ -496,6 +510,7 @@
                 { "include": "#boolean" },
                 { "include": "#table" },
                 { "include": "#parameters" },
+                { "include": "#operators" },
                 { "include": "#string" },
                 { "include": "#paren-expression" },
                 { "include": "#braced-expression" },
