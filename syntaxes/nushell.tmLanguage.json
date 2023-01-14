@@ -188,30 +188,33 @@
                 { "include": "#comment" }
             ]
         },
-        "function-parameter-with-value": {
-            "begin": "(-{0,2}[\\w-]+|\\.{3})(?:\\s*(\\??:)\\s*(\\w+))?\\s*=\\s*",
+        "function-parameter-default-value": {
+            "begin": "=\\s*",
             "captures": {
                 "1": { "name": "variable.parameter.nushell" },
-                "2": { "name": "keyword.operator.nushell" },
-                "3": { "name": "entity.name.type.nushell" }
+                "2": { "name": "variable.parameter.nushell" },
+                "3": { "name": "keyword.operator.nushell" },
+                "4": { "name": "entity.name.type.nushell" }
             },
             "end": "(?=\\])|,|$",
             "patterns": [
                 { "include": "#value" }
             ]
         },
-        "function-parameter-without-value": {
-            "match": "(-{0,2}[\\w-]+|\\.{3})(?:\\s*(\\??:)\\s*(\\w+))?,?",
+        "function-parameter-declare": {
+            "match": "(-{0,2}[\\w-]+|\\.{3})(?:\\((-[\\w?])\\))?(?:\\s*(\\??:)\\s*(\\w+)(?:@((?:\"[^\"]+\")|(?:'[^']+')))?)?",
             "captures": {
                 "1": { "name": "variable.parameter.nushell" },
-                "2": { "name": "keyword.operator.nushell" },
-                "3": { "name": "entity.name.type.nushell" }
+                "2": { "name": "variable.parameter.nushell" },
+                "3": { "name": "keyword.operator.nushell" },
+                "4": { "name": "entity.name.type.nushell" },
+                "5": { "name": "string.quoted.nushell" }
             }
         },
         "function-parameter": {
             "patterns": [
-                { "include": "#function-parameter-with-value" },
-                { "include": "#function-parameter-without-value" }
+                { "include": "#function-parameter-declare" },
+                { "include": "#function-parameter-default-value" }
             ]
         },
         "function-parameters": {
