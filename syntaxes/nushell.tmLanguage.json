@@ -174,7 +174,7 @@
             "name": "constant.language.nushell"
         },
         "operators-word": {
-            "match": "(?<= |\\()(?:mod|in|not-in|not|and|or|xor|bit-or|bit-and|bit-xor|bit-shl|bit-shr|starts-with|ends-with)(?= |\\)",
+            "match": "(?<= |\\()(?:mod|in|not-in|not|and|or|xor|bit-or|bit-and|bit-xor|bit-shl|bit-shr|starts-with|ends-with)(?= |\\))",
             "name": "keyword.operator.nushell"
         },
         "operators-symbols": {
