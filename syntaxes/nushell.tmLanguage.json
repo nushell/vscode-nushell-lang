@@ -146,6 +146,10 @@
             "match": "\\b\\d{4}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}(?:.\\d{1,3})?(?:\\+\\d{2}:?\\d{2}|Z)?)?\\b",
             "name": "constant.numeric.nushell"
         },
+        "numbers-hexa": {
+            "match": "(?<![\\w-])0x[0-9a-fA-F]+(?![\\w.])",
+            "name": "constant.numeric.nushell"
+        },
         "numbers": {
             "match": "(?<![\\w-])[-+]?\\d+(?:\\.\\d*)?(?i:ns|us|ms|sec|min|hr|day|wk|b|kb|mb|gb|tb|pt|eb|zb|kib|mib|gib|tib|pit|eib|zib)?(?![\\w.])",
             "name": "constant.numeric.nushell"
@@ -507,6 +511,7 @@
                 { "include": "#datetime" },
                 { "include": "#binary" },
                 { "include": "#ranges" },
+                { "include": "#numbers-hexa" },
                 { "include": "#numbers" },
                 { "include": "#constant-keywords" },
                 { "include": "#table" },
