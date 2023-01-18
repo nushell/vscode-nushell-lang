@@ -490,6 +490,7 @@
             "patterns": [
                 { "include": "#pre-command" },
                 { "include": "#for-loop" },
+                { "include": "#operators" },
                 { "include": "#command" },
                 { "include": "#value" },
                 {
