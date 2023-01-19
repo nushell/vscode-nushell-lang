@@ -410,22 +410,34 @@
             "captures": {
                 "1": { "name": "keyword.other.nushell" },
                 "2": { "name": "variable.other.nushell" },
-                "3": { "name": "keyword.operator.nushell" }
+                "3": { 
+                    "patterns": [
+                        { "include": "#operators" }
+                    ] 
+                }
             }
         },
         "define-alias": {
             "match": "((?:export )?alias)\\s+([\\w-]+)\\s*(=)",
             "captures": {
-                "1": { "name": "keyword.other.nushell" },
-                "2": { "name": "entity.name.function" },
-                "3": { "name": "keyword.operator.nushell" }
+                "1": { "name": "entity.name.function.nushell" },
+                "2": { "name": "entity.name.type.nushell" },
+                "3": { 
+                    "patterns": [
+                        { "include": "#operators" }
+                    ] 
+                }
             }
         },
         "pre-command": {
             "begin": "(\\w+)(=)",
             "beginCaptures": {
                 "1": { "name": "variable.other.nushell" },
-                "2": { "name": "keyword.operator.nushell" }
+                "2": { 
+                    "patterns": [
+                        { "include": "#operators" }
+                    ] 
+                }
             },
             "end": "(?=\\s+)",
             "patterns": [
