@@ -151,8 +151,8 @@
             "name": "constant.numeric.nushell"
         },
         "ranges": {
-            "match": "(?<![\\w-])-?\\d+\\.\\.-?\\d+\\b",
-            "name": "constant.numeric.nushell"
+            "match": "\\.\\.",
+            "name": "keyword.operator.nushell"
         },
         "binary": {
             "begin": "\\b(0x)(\\[)",
