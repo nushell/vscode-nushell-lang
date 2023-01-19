@@ -24,7 +24,7 @@
             ]
         },
         "string-escape": {
-            "match": "\\\\(?:[bfrnt\\'\"/]|u[0-9a-fA-F]{4})",
+            "match": "\\\\(?:[bfrnt\\\\'\"/]|u[0-9a-fA-F]{4})",
             "name": "constant.character.escape.nushell"
         },
         "string-bare": {
