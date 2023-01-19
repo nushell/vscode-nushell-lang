@@ -418,7 +418,7 @@
             }
         },
         "define-alias": {
-            "match": "((?:export )?alias)\\s+([\\w-]+)\\s*(=)",
+            "match": "((?:export )?alias)\\s+([\\w-!]+)\\s*(=)",
             "captures": {
                 "1": { "name": "keyword.other.nushell" },
                 "2": { "name": "entity.name.function" },
