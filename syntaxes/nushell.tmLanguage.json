@@ -139,7 +139,7 @@
             "name": "variable.other.nushell"
         },
         "internal-variables": {
-            "match": "\\$(?:nu|env)",
+            "match": "\\$(?:nu|env)\\b",
             "name":"variable.language.nushell"
         },
         "datetime": {
