@@ -175,11 +175,11 @@
         },
         "operators-word": {
             "match": "(?<= |\\()(?:mod|in|not-in|not|and|or|xor|bit-or|bit-and|bit-xor|bit-shl|bit-shr|starts-with|ends-with)(?= |\\))",
-            "name": "keyword.operator.nushell"
+            "name": "keyword.control.nushell"
         },
         "operators-symbols": {
             "match": "(?<= )(?:\\+|\\-|\\*|\\/|\\/\\/|\\*\\*|!=|[<>=]=?|[!=]~|&&|\\|\\||\\+\\+|\\.\\.)(?= )",
-            "name": "keyword.operator.nushell"
+            "name": "keyword.control.nushell"
         },
         "operators": {
             "patterns": [
@@ -318,7 +318,7 @@
         "module": {
             "begin": "(module)\\s+([\\w\\-]+)\\s*\\{",
             "beginCaptures": {
-                "1": { "name": "keyword.other.nushell" },
+                "1": { "name": "entity.name.function.nushell" },
                 "2": { "name": "entity.name.namespace.nushell" }
             },
             "end": "\\}",
@@ -333,9 +333,9 @@
         "use-module": {
             "match": "((?:export )?use)\\s+([\\w\\-]+)(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"))?;?",
             "captures": {
-                "1": { "name": "keyword.other.nushell" },
+                "1": { "name": "entity.name.function.nushell" },
                 "2": { "name": "entity.name.namespace.nushell" },
-                "3": { "name": "entity.name.function.nushell" }
+                "3": { "name": "keyword.other.nushell" }
             }
         },
         "for-loop": {
