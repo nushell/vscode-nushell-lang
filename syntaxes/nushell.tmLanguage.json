@@ -28,7 +28,7 @@
             "name": "constant.character.escape.nushell"
         },
         "string-bare": {
-            "match": "[\\w\\-.\\/:\\\\*=]+",
+            "match": "[^$\\[{(\"',|# ][^\\[\\]{}() #,]*",
             "name": "string.bare.nushell"
         },
         "string-single-quote": {
@@ -517,9 +517,9 @@
                 { "include": "#table" },
                 { "include": "#parameters" },
                 { "include": "#operators" },
-                { "include": "#string" },
                 { "include": "#paren-expression" },
                 { "include": "#braced-expression" },
+                { "include": "#string" },
                 { "include": "#comment" }
             ]
         }
