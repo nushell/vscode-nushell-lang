@@ -256,14 +256,14 @@
             "name": "meta.function.parameters.nushell"
         },
         "define-function": {
-            "match": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
+            "match": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-!]+|\"[\\w\\-! ]+\")",
             "captures": {
                 "1": { "name": "entity.name.function.nushell" },
                 "2": { "name": "entity.name.type.nushell" }
             }
         },
         "define-extern": {
-            "match": "((?:export\\s+)?extern)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
+            "match": "((?:export\\s+)?extern)\\s+([\\w\\-!]+|\"[\\w\\-! ]+\")",
             "captures": {
                 "1": { "name": "entity.name.function.nushell" },
                 "2": { "name": "entity.name.type.nushell" }
