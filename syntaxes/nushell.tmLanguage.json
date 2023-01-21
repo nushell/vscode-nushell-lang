@@ -169,13 +169,13 @@
                 { "match": "[0-9a-fA-F]{2}", "name": "constant.numeric.nushell" }
             ]
         },
-        "ranges": {
-            "match": "\\.\\.<?",
-            "name": "keyword.operator.nushell"
-        },
         "constant-keywords": {
             "match": "\\b(?:true|false|null)\\b",
             "name": "constant.language.nushell"
+        },
+        "ranges": {
+            "match": "\\.\\.<?",
+            "name": "keyword.operator.nushell"
         },
         "operators-word": {
             "match": "(?<= |\\()(?:mod|in|not-in|not|and|or|xor|bit-or|bit-and|bit-xor|bit-shl|bit-shr|starts-with|ends-with)(?= |\\)|$)",
