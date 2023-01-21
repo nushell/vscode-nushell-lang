@@ -191,7 +191,7 @@
             "name": "keyword.control.nushell"
         },
         "operators-symbols": {
-            "match": "(?<= )(?:\\+|\\-|\\*|\\/|\\/\\/|\\*\\*|!=|[<>=]=?|[!=]~|&&|\\|\\||\\+\\+|\\.\\.)(?= |$)",
+            "match": "(?<= )(?:\\+|\\-|\\*|\\/|\\/\\/|\\*\\*|!=|[<>=]=?|[!=]~|&&|\\|\\||\\||\\+\\+)(?= |$)",
             "name": "keyword.control.nushell"
         },
         "operators": {
@@ -528,11 +528,7 @@
                 { "include": "#for-loop" },
                 { "include": "#operators" },
                 { "include": "#command" },
-                { "include": "#value" },
-                {
-                    "match": "\\|",
-                    "name": "keyword.operator.nushell"
-                }
+                { "include": "#value" }
             ]
         },
         "value": {
