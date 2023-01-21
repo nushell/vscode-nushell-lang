@@ -28,7 +28,7 @@
             "name": "constant.character.escape.nushell"
         },
         "string-bare": {
-            "match": "[^$\\[{(\"',|#\\s|][^\\[\\]{}()\\s#,|]*",
+            "match": "[^$\\[{(\"',|#\\s|][^\\[\\]{}()\"'\\s#,|]*",
             "name": "string.bare.nushell"
         },
         "string-single-quote": {
