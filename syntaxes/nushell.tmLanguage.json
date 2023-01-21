@@ -174,7 +174,7 @@
             "name": "constant.language.nushell"
         },
         "ranges": {
-            "match": "\\.\\.<?",
+            "match": "\\.\\.<?|:",
             "name": "keyword.control.nushell"
         },
         "operators-word": {
