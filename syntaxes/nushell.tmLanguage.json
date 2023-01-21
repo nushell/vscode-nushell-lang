@@ -151,12 +151,8 @@
             "name": "constant.numeric.nushell"
         },
         "numbers": {
-            "match": "(?<![\\w-])[-+]?\\d+(?:\\.\\d*)?(?i:ns|us|ms|sec|min|hr|day|wk|b|kb|mb|gb|tb|pt|eb|zb|kib|mib|gib|tib|pit|eib|zib)?(?![\\w.])",
+            "match": "(?<![\\w-])[-+]?\\d+(?:\\.\\d*)?(?i:ns|us|ms|sec|min|hr|day|wk|b|kb|mb|gb|tb|pt|eb|zb|kib|mib|gib|tib|pit|eib|zib)?(?:(?![\\w.])|(?=\\.\\.))",
             "name": "constant.numeric.nushell"
-        },
-        "ranges": {
-            "match": "\\.\\.",
-            "name": "keyword.operator.nushell"
         },
         "binary": {
             "begin": "\\b(0x)(\\[)",
@@ -173,6 +169,10 @@
                 { "match": "[0-9a-fA-F]{2}", "name": "constant.numeric.nushell" }
             ]
         },
+        "ranges": {
+            "match": "\\.\\.",
+            "name": "keyword.operator.nushell"
+        },
         "constant-keywords": {
             "match": "\\b(?:true|false|null)\\b",
             "name": "constant.language.nushell"
@@ -188,7 +188,8 @@
         "operators": {
             "patterns": [
                 { "include": "#operators-word" },
-                { "include": "#operators-symbols" }
+                { "include": "#operators-symbols" },
+                { "include": "#ranges" }
             ]
         },
         "table": {
@@ -522,7 +523,6 @@
                 { "include": "#control-keywords" },
                 { "include": "#datetime" },
                 { "include": "#binary" },
-                { "include": "#ranges" },
                 { "include": "#numbers-hexa" },
                 { "include": "#numbers" },
                 { "include": "#constant-keywords" },
