@@ -396,10 +396,15 @@
             "name": "meta.expression.braced.nushell",
             "patterns": [
                 { 
-                    "begin": "((?:\\w+|\"[\\w ]+\")(?:\\.(?:\\w+|\"[\\w ]+\"))*)\\s*(:)\\s*",
+                    "begin": "((?:\\w+|\\$?(?:\"[^\"]+\"|'[^']+'))(?:\\.(?:\\w+|\"[\\w ]+\"|'[^']+'))*)\\s*(:)\\s*",
                     "beginCaptures": {
-                        "1": { "name": "variable.other.nushell" },
-                        "2": { "name": "punctuation.separator.nushell" }
+                        "1": { 
+                            "name": "variable.other.nushell",
+                            "patterns": [
+                                { "include": "#paren-expression" }
+                            ]
+                        },
+                        "2": { "patterns": [{"include": "#operators"}] }
                     },
                     "end": "(?=,|\\s|\\})",
                     "name": "meta.record-entry.nushell",
