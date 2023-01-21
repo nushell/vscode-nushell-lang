@@ -170,7 +170,7 @@
             ]
         },
         "ranges": {
-            "match": "\\.\\.",
+            "match": "\\.\\.<?",
             "name": "keyword.operator.nushell"
         },
         "constant-keywords": {
