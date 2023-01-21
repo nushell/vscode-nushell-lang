@@ -527,6 +527,8 @@
                 { "include": "#pre-command" },
                 { "include": "#for-loop" },
                 { "include": "#operators" },
+                { "include": "#control-keywords" },
+                { "include": "#constant-value" },
                 { "include": "#command" },
                 { "include": "#value" }
             ]
