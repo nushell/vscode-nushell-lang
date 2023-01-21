@@ -173,6 +173,15 @@
             "match": "\\b(?:true|false|null)\\b",
             "name": "constant.language.nushell"
         },
+        "constant-value": {
+            "patterns": [
+                { "include": "#constant-keywords" },
+                { "include": "#numbers" },
+                { "include": "#numbers-hexa" },
+                { "include": "#datetime" },
+                { "include": "#binary" }
+            ]
+        },
         "ranges": {
             "match": "\\.\\.<?|:",
             "name": "keyword.control.nushell"
@@ -531,11 +540,7 @@
                 { "include": "#variables" },
                 { "include": "#variable-fields" },
                 { "include": "#control-keywords" },
-                { "include": "#datetime" },
-                { "include": "#binary" },
-                { "include": "#numbers-hexa" },
-                { "include": "#numbers" },
-                { "include": "#constant-keywords" },
+                { "include": "#constant-value" },
                 { "include": "#table" },
                 { "include": "#parameters" },
                 { "include": "#operators" },
