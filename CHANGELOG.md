@@ -112,4 +112,5 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - update generate-example.nu to include all samples
   - update generate-patterns.nu to support the new language features
   - update language syntax to support new nushell 0.72 features (break, continue, return, loop, try, catch, mut, while, err>, out>, err+out>, out+err>)
-
+- 1.0.0
+  - Thanks to Gabin Lefranc (@glcraft) for a total rewrite of the textmate grammar for nushell!!
