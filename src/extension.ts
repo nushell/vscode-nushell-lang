@@ -28,6 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
                 // c:\programdata\scoop unless SCOOP_GLOBAL env var is set
                 // scoop install location
                 '~/scoop/apps/nu/*/nu.exe',
+                '~/scoop/shims/nu.exe',
 
                 // chocolatey install location - same as winget
                 // 'c:\\program files\\nu\\bin\\nu.exe',
