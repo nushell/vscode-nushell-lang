@@ -67,6 +67,10 @@
         "extensions": [
           ".nu"
         ],
+        "icon": {
+          "light": "assets/nu.svg",
+          "dark": "assets/nu.svg"
+        },
         "configuration": "./language-configuration.json"
       }
     ],
