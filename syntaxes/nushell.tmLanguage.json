@@ -347,7 +347,7 @@
         "use-module": {
             "patterns": [
                 {
-                    "match": "^\\s*((?:export )?use)\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+')\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+'|\\*)?\\s*;?$",
+                    "match": "^\\s*((?:export )?use)\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+')(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+'|\\*))?\\s*;?$",
                     "captures": {
                         "1": { "name": "entity.name.function.nushell" },
                         "2": { "name": "entity.name.namespace.nushell" },
