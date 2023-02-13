@@ -375,6 +375,12 @@
                             "include": "#comment"
                         }
                     ]
+                },
+                {
+                    "match": "(?:export )?use",
+                    "captures": {
+                        "0": { "name": "entity.name.function.nushell" }
+                    }
                 }
             ]
         },
