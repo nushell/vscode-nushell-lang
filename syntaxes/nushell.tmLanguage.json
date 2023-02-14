@@ -366,9 +366,9 @@
                     },
                     "patterns": [
                         {
-                            "match" : "[\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*",
+                            "match" : "([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*),?",
                             "captures": {
-                                "0": { "name": "keyword.other.nushell" }
+                                "1": { "name": "keyword.other.nushell" }
                             }
                         },
                         {
@@ -416,7 +416,7 @@
                     },
                     "patterns": [
                         {
-                            "match" : "[\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*",
+                            "match" : "([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*),?",
                             "captures": {
                                 "0": { "name": "keyword.other.nushell" }
                             }
