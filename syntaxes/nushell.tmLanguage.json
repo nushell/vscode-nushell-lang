@@ -345,12 +345,94 @@
             ]
         },
         "use-module": {
-            "match": "((?:export )?use)\\s+([\\w\\-]+)(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"|\\*))?;?",
-            "captures": {
-                "1": { "name": "entity.name.function.nushell" },
-                "2": { "name": "entity.name.namespace.nushell" },
-                "3": { "name": "keyword.other.nushell" }
-            }
+            "patterns": [
+                {
+                    "match": "^\\s*((?:export )?use)\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+')(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*))?\\s*;?$",
+                    "captures": {
+                        "1": { "name": "entity.name.function.nushell" },
+                        "2": { "name": "entity.name.namespace.nushell" },
+                        "3": { "name": "keyword.other.nushell" }
+                    }
+                },
+                {
+                    "begin": "^\\s*((?:export )?use)\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+')\\s*\\[",
+                    "beginCaptures": {
+                        "1": { "name": "entity.name.function.nushell" },
+                        "2": { "name": "entity.name.namespace.nushell" }
+                    },
+                    "end": "(\\])\\s*;?\\s*$",
+                    "endCaptures": {
+                        "1": { "name": "meta.brace.square.end.nushell" }
+                    },
+                    "patterns": [
+                        {
+                            "match" : "([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*),?",
+                            "captures": {
+                                "1": { "name": "keyword.other.nushell" }
+                            }
+                        },
+                        {
+                            "include": "#comment"
+                        }
+                    ]
+                },
+                {
+                    "match": "(?<path>(?:/|\\\\|~[\\/\\\\]|\\.\\.?[\\/\\\\])?(?:[^\\/\\\\]+[\\/\\\\])*[\\w\\- ]+(?:\\.nu)?){0}^\\s*((?:export )?use)\\s+(\"\\g<path>\"|'\\g<path>\\'|(?![\"'])\\g<path>)(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+'|\\*))?\\s*;?$",
+                    "captures": {
+                        "2": { "name": "entity.name.function.nushell" },
+                        "3": { 
+                            "name": "string.bare.nushell",
+                            "patterns": [
+                                {
+                                    "match": "([\\w\\- ]+)(?:\\.nu)?(?=$|\"|')",
+                                    "captures": {
+                                        "1": {"name": "entity.name.namespace.nushell"}
+                                    }
+                                }
+                            ]
+                        },
+                        "4": { "name": "keyword.other.nushell" }
+                    }
+                },
+                {
+                    "begin": "(?<path>(?:/|\\\\|~[\\/\\\\]|\\.\\.?[\\/\\\\])?(?:[^\\/\\\\]+[\\/\\\\])*[\\w\\- ]+(?:\\.nu)?){0}^\\s*((?:export )?use)\\s+(\"\\g<path>\"|'\\g<path>\\'|(?![\"'])\\g<path>)\\s+\\[",
+                    "beginCaptures": {
+                        "2": { "name": "entity.name.function.nushell" },
+                        "3": { 
+                            "name": "string.bare.nushell",
+                            "patterns": [
+                                {
+                                    "match": "([\\w\\- ]+)(?:\\.nu)?(?=$|\"|')",
+                                    "captures": {
+                                        "1": {"name": "entity.name.namespace.nushell"}
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "end": "(\\])\\s*;?\\s*$",
+                    "endCaptures": {
+                        "1": { "name": "meta.brace.square.end.nushell" }
+                    },
+                    "patterns": [
+                        {
+                            "match" : "([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*),?",
+                            "captures": {
+                                "0": { "name": "keyword.other.nushell" }
+                            }
+                        },
+                        {
+                            "include": "#comment"
+                        }
+                    ]
+                },
+                {
+                    "match": "^\\s*(?:export )?use",
+                    "captures": {
+                        "0": { "name": "entity.name.function.nushell" }
+                    }
+                }
+            ]
         },
         "for-loop": {
             "begin": "(for)\\s+(\\$?\\w+)\\s+(in)\\s+(.+)\\s*(\\{)",
