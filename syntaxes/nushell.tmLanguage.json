@@ -384,7 +384,7 @@
                             "name": "string.bare.nushell",
                             "patterns": [
                                 {
-                                    "match": "([\\w-]+)\\.nu",
+                                    "match": "([\\w\\- ]+)(?:\\.nu)?(?=$|\"|')",
                                     "captures": {
                                         "1": {"name": "entity.name.namespace.nushell"}
                                     }
@@ -402,7 +402,7 @@
                             "name": "string.bare.nushell",
                             "patterns": [
                                 {
-                                    "match": "([\\w-]+)\\.nu",
+                                    "match": "([\\w\\- ]+)(?:\\.nu)?(?=$|\"|')",
                                     "captures": {
                                         "1": {"name": "entity.name.namespace.nushell"}
                                     }
