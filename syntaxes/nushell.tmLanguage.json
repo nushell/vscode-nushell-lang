@@ -347,7 +347,7 @@
         "use-module": {
             "patterns": [
                 {
-                    "match": "^\\s*((?:export )?use)\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+')(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+'|\\*))?\\s*;?$",
+                    "match": "^\\s*((?:export )?use)\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+')(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*))?\\s*;?$",
                     "captures": {
                         "1": { "name": "entity.name.function.nushell" },
                         "2": { "name": "entity.name.namespace.nushell" },
@@ -355,7 +355,7 @@
                     }
                 },
                 {
-                    "begin": "^\\s*((?:export )?use)\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+')\\s*\\[",
+                    "begin": "^\\s*((?:export )?use)\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+')\\s*\\[",
                     "beginCaptures": {
                         "1": { "name": "entity.name.function.nushell" },
                         "2": { "name": "entity.name.namespace.nushell" }
@@ -366,7 +366,7 @@
                     },
                     "patterns": [
                         {
-                            "match" : "[\\w\\-]+|\"[\\w\\- ]+\"|'[^']+'|\\*",
+                            "match" : "[\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*",
                             "captures": {
                                 "0": { "name": "keyword.other.nushell" }
                             }
@@ -416,7 +416,7 @@
                     },
                     "patterns": [
                         {
-                            "match" : "[\\w\\-]+|\"[\\w\\- ]+\"|'[^']+'|\\*",
+                            "match" : "[\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*",
                             "captures": {
                                 "0": { "name": "keyword.other.nushell" }
                             }
