@@ -43,6 +43,9 @@ export function activate(context: vscode.ExtensionContext) {
                 '/usr/local/bin/nu',
                 // arm
                 '/opt/homebrew/bin/nu',
+                
+                 // native package manager install location
+                '/usr/bin/nu',
             ];
 
             let found_nushell_path = "";
