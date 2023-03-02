@@ -10,6 +10,9 @@ export function activate(context: vscode.ExtensionContext) {
             const os = require('os');
 
             const pathsToCheck = [
+                // native package manager install location
+                '/usr/bin/nu',
+
                 // cargo install location
                 '~/.cargo/bin/nu',
                 '~/.cargo/bin/nu.exe',
