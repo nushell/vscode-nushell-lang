@@ -10,9 +10,6 @@ export function activate(context: vscode.ExtensionContext) {
             const os = require('os');
 
             const pathsToCheck = [
-                // native package manager install location
-                '/usr/bin/nu',
-
                 // cargo install location
                 '~/.cargo/bin/nu',
                 '~/.cargo/bin/nu.exe',
@@ -46,6 +43,9 @@ export function activate(context: vscode.ExtensionContext) {
                 '/usr/local/bin/nu',
                 // arm
                 '/opt/homebrew/bin/nu',
+                
+                 // native package manager install location
+                '/usr/bin/nu',
             ];
 
             let found_nushell_path = "";
