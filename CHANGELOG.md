@@ -121,4 +121,7 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Added nu icon [#77](https://github.com/nushell/vscode-nushell-lang/pull/77)
   - Added additional scoop location [#75](https://github.com/nushell/vscode-nushell-lang/pull/75)
 
+## [Release]
 
+- 1.2.0
+  - No longer a preview release
