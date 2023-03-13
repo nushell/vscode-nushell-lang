@@ -114,3 +114,11 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - update language syntax to support new nushell 0.72 features (break, continue, return, loop, try, catch, mut, while, err>, out>, err+out>, out+err>)
 - 1.0.0
   - Thanks to Gabin Lefranc (@glcraft) for a total rewrite of the textmate grammar for nushell!!
+- 1.1.0
+  - Updated syntax to match nushell 0.77.0
+  - Added a new path to search for nu [#82](https://github.com/nushell/vscode-nushell-lang/pull/82)
+  - Fixed `use` syntax highlighting [#79](https://github.com/nushell/vscode-nushell-lang/pull/79)
+  - Added nu icon [#77](https://github.com/nushell/vscode-nushell-lang/pull/77)
+  - Added additional scoop location [#75](https://github.com/nushell/vscode-nushell-lang/pull/75)
+
+
