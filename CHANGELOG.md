@@ -125,3 +125,4 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 
 - 1.2.0
   - No longer a preview release
+  - Fix `use` coloring when used in variable naming

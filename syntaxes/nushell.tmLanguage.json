@@ -427,7 +427,7 @@
                     ]
                 },
                 {
-                    "match": "^\\s*(?:export )?use",
+                    "match": "^\\s*(?:export )?use\\b",
                     "captures": {
                         "0": { "name": "entity.name.function.nushell" }
                     }
