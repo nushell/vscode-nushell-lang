@@ -3,8 +3,12 @@
 **/*.ts
 **/*.map
 .gitignore
-vsc-extension-quickstart.md
 node_modules/
+client/node_modules/
+client/out/test/
+server/node_modules/
+src/test/
+testFixture/
 **/tsconfig.json
 **/tsconfig.base.json
 contributing.md
