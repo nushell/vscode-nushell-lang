@@ -23,6 +23,9 @@
     "Programming Languages",
     "Snippets"
   ],
+  "activationEvents": [
+    "onTerminalProfile:nushell_default"
+  ],
   "main": "./client/out/extension",
   "contributes": {
     "languages": [
