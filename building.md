@@ -23,6 +23,18 @@ To summarize, the steps were:
 
 If you have all these tools already installed, you should be able to clone this repo and just run `vsce package` to get a `.vsix` file that you can install in vscode.
 
+## Build for Development
+
+1. Clone this repo
+2. In repo folder `npm install`
+3. Hit F5 to start debugging (or Run->Start Debugging menu item)
+4. Go to settings with `Ctrl ,` or `Cmd ,`
+5. In the settings tree on the left, go to Extensions->Nushell LSP and make sure `Nushell Executable Path` is pointing at where you have nu/nu.exe installed. (It must be version 0.78.1 or greater)
+6. Open a nushell script and in a moment you should see inlays and see the full functionality
+7. To see the Language Server debug messages hit `Ctrl ~`
+8. Go to the output tab
+9. In the combo box on the right, choose `Nushell Language Server`. You should now see debug messaging when you use any of the LSP functionality
+
 ## Regex Engine
 
 TIL - VSCode uses regexes for language syntax highlighting in \*.tmLanguage.json files. Those regexes and json are based on Textmate, which uses (and here is the secret-sauce) `oniguruma` flavor of syntax. See the cheat-sheet for the [syntax here](https://github.com/kkos/oniguruma/blob/master/doc/RE). Also there's a rust-crate called `onig` or `rust-onig` if we wanted to write something to help create compatible regular expressions.

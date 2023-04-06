@@ -4,3 +4,11 @@ dist
 .DS_Store
 # ignore the git mailmap file
 .mailmap
+client/out
+client/testFixture/completion.txt
+client/testFixture/diagnostics.txt
+client/tsconfig.tsbuildinfo
+.vscode-test
+out/
+server/tsconfig.tsbuildinfo
+tsconfig.tsbuildinfo
