@@ -6,7 +6,7 @@
 node_modules/
 client/node_modules/
 client/out/test/
-server/node_modules/
+# server/node_modules/ # commenting this causes the server to not be found
 src/test/
 testFixture/
 **/tsconfig.json
