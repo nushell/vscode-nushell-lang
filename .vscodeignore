@@ -1,5 +1,28 @@
 .vscode/**
 .vscode-test/**
+**/*.ts
+**/*.map
 .gitignore
-vsc-extension-quickstart.md
-node_modules/
+node_modules/**
+client/out/test/**
+# server/node_modules/ # commenting this causes the server to not be found
+src/test/**
+testFixture/**
+**/tsconfig.json
+**/tsconfig.base.json
+contributing.md
+.travis.yml
+client/node_modules/**
+# !client/node_modules/vscode-jsonrpc/**
+# !client/node_modules/vscode-languageclient/**
+# !client/node_modules/vscode-languageserver-protocol/**
+# !client/node_modules/vscode-languageserver-types/**
+# !client/node_modules/{minimatch,brace-expansion,concat-map,balanced-match}/**
+# !client/node_modules/{semver,lru-cache,yallist}/**
+server/node_modules/**
+# !server/node_modules/vscode-jsonrpc/**
+# !server/node_modules/vscode-languageclient/**
+# !server/node_modules/vscode-languageserver-protocol/**
+# !server/node_modules/vscode-languageserver-types/**
+# !server/node_modules/{minimatch,brace-expansion,concat-map,balanced-match}/**
+# !server/node_modules/{semver,lru-cache,yallist}/**

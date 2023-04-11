@@ -2,7 +2,7 @@
 
 All notable changes to the "vscode-nushell-lang" extension will be documented in this file.
 
-## [Pre-Release]
+## Pre-Release
 
 - Initial release 0.0.1
   - proof of concept release
@@ -121,8 +121,14 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Added nu icon [#77](https://github.com/nushell/vscode-nushell-lang/pull/77)
   - Added additional scoop location [#75](https://github.com/nushell/vscode-nushell-lang/pull/75)
 
-## [Release]
+## Release
 
 - 1.2.0
   - No longer a preview release
   - Fix `use` coloring when used in variable naming
+  - Goto Definition
+  - Inlays
+  - Hover
+  - Error squigglys
+  - Autocomplete
+  - Settings to help with LSP-like features
