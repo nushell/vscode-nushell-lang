@@ -221,7 +221,12 @@ async function validateTextDocument(
 
       const lineBreaks = findLineBreaks(text);
 
-      const stdout = await runCompiler(text, "--ide-check", settings);
+      const stdout = await runCompiler(
+        text,
+        "--ide-check",
+        settings,
+        textDocument.uri
+      );
 
       textDocument.nuInlayHints = [];
 
@@ -360,6 +365,7 @@ async function runCompiler(
   text: string,
   flags: string,
   settings: NushellLSPSettings,
+  uri: string,
   options: { allowErrors?: boolean } = {}
 ): Promise<string> {
   const allowErrors =
@@ -377,8 +383,10 @@ async function runCompiler(
     connection.console.log(
       "running: " + `${settings.nushellExecutablePath} ${flags} ${tmpFile.name}`
     );
+
+    const script_path_flag = includeFlagForPath(uri);
     const output = await exec(
-      `${settings.nushellExecutablePath} ${flags} ${tmpFile.name}`,
+      `${settings.nushellExecutablePath} ${flags} ${script_path_flag} ${tmpFile.name}`,
       {
         timeout: settings.maxNushellInvocationTime,
       }
@@ -417,10 +425,9 @@ connection.onHover(async (request: HoverParams) => {
   // connection.console.log("index: " + convertPosition(request.position, text));
   const stdout = await runCompiler(
     text,
-    "--ide-hover " +
-      convertPosition(request.position, text) +
-      includeFlagForPath(request.textDocument.uri),
-    settings
+    "--ide-hover " + convertPosition(request.position, text),
+    settings,
+    request.textDocument.uri
   );
 
   const lines = stdout.split("\n").filter((l) => l.length > 0);
@@ -477,10 +484,9 @@ connection.onCompletion(
       // connection.console.log("index: " + index);
       const stdout = await runCompiler(
         text,
-        "--ide-complete " +
-          index +
-          includeFlagForPath(request.textDocument.uri),
-        settings
+        "--ide-complete " + index,
+        settings,
+        request.textDocument.uri
       );
       // connection.console.log("got: " + stdout);
 
@@ -522,10 +528,9 @@ connection.onDefinition(async (request) => {
   // connection.console.log("index: " + convertPosition(request.position, text));
   const stdout = await runCompiler(
     text,
-    "--ide-goto-def " +
-      convertPosition(request.position, text) +
-      includeFlagForPath(request.textDocument.uri),
-    settings
+    "--ide-goto-def " + convertPosition(request.position, text),
+    settings,
+    request.textDocument.uri
   );
   return goToDefinition(document, stdout);
 });
