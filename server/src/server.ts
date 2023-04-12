@@ -57,6 +57,14 @@ let hasConfigurationCapability = false;
 let hasWorkspaceFolderCapability = false;
 let hasDiagnosticRelatedInformationCapability = false;
 
+function includeFlagForPath(file_path: string): string {
+  if (file_path.startsWith("file://")) {
+    file_path = decodeURI(file_path);
+    return " -I " + path.dirname(fileURLToPath(file_path));
+  }
+  return " -I " + file_path;
+}
+
 connection.onInitialize((params: InitializeParams) => {
   const capabilities = params.capabilities;
 
@@ -409,7 +417,9 @@ connection.onHover(async (request: HoverParams) => {
   // connection.console.log("index: " + convertPosition(request.position, text));
   const stdout = await runCompiler(
     text,
-    "--ide-hover " + convertPosition(request.position, text),
+    "--ide-hover " +
+      convertPosition(request.position, text) +
+      includeFlagForPath(request.textDocument.uri),
     settings
   );
 
@@ -467,7 +477,9 @@ connection.onCompletion(
       // connection.console.log("index: " + index);
       const stdout = await runCompiler(
         text,
-        "--ide-complete " + index, //+ includeFlagForPath(request.textDocument.uri),
+        "--ide-complete " +
+          index +
+          includeFlagForPath(request.textDocument.uri),
         settings
       );
       // connection.console.log("got: " + stdout);
@@ -510,7 +522,9 @@ connection.onDefinition(async (request) => {
   // connection.console.log("index: " + convertPosition(request.position, text));
   const stdout = await runCompiler(
     text,
-    "--ide-goto-def " + convertPosition(request.position, text),
+    "--ide-goto-def " +
+      convertPosition(request.position, text) +
+      includeFlagForPath(request.textDocument.uri),
     settings
   );
   return goToDefinition(document, stdout);
