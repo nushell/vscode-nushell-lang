@@ -60,9 +60,9 @@ let hasDiagnosticRelatedInformationCapability = false;
 function includeFlagForPath(file_path: string): string {
   if (file_path.startsWith("file://")) {
     file_path = decodeURI(file_path);
-    return " -I " + path.dirname(fileURLToPath(file_path));
+    return " -I " + '"' + path.dirname(fileURLToPath(file_path));
   }
-  return " -I " + file_path;
+  return " -I " + '"' + file_path;
 }
 
 connection.onInitialize((params: InitializeParams) => {
@@ -136,7 +136,7 @@ connection.onInitialized(() => {
   }
 });
 
-// The example settings
+// The nushell settings
 interface NushellLSPSettings {
   maxNumberOfProblems: number;
   hints: {
@@ -144,6 +144,7 @@ interface NushellLSPSettings {
   };
   nushellExecutablePath: string;
   maxNushellInvocationTime: number;
+  includeDirs: string[];
 }
 
 // The global settings, used when the `workspace/configuration` request is not supported by the client.
@@ -154,6 +155,7 @@ const defaultSettings: NushellLSPSettings = {
   hints: { showInferredTypes: true },
   nushellExecutablePath: "nu",
   maxNushellInvocationTime: 10000000,
+  includeDirs: [],
 };
 let globalSettings: NushellLSPSettings = defaultSettings;
 
@@ -380,11 +382,14 @@ async function runCompiler(
 
   let stdout = "";
   try {
+    const script_path_flag =
+      includeFlagForPath(uri) + ";" + settings.includeDirs.join(";") + '"';
+
     connection.console.log(
-      "running: " + `${settings.nushellExecutablePath} ${flags} ${tmpFile.name}`
+      "running: " +
+        `${settings.nushellExecutablePath} ${flags} ${script_path_flag} ${tmpFile.name}`
     );
 
-    const script_path_flag = includeFlagForPath(uri);
     const output = await exec(
       `${settings.nushellExecutablePath} ${flags} ${script_path_flag} ${tmpFile.name}`,
       {
@@ -393,8 +398,6 @@ async function runCompiler(
     );
     stdout = output.stdout;
     console.log("stdout: " + stdout);
-    connection.console.log("stdout: " + stdout);
-    process.stdout.write("stdout: " + stdout);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     stdout = e.stdout;
