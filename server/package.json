@@ -1,24 +1,25 @@
 {
-	"name": "lsp-sample-server",
-	"description": "Example implementation of a language server in node.",
-	"version": "0.20.0",
-	"author": "Nushell Maintainers",
-	"license": "MIT",
-	"engines": {
-		"node": "*"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Microsoft/vscode-extension-samples"
-	},
-	"dependencies": {
-		"@types/vscode": "^1.67.0",
-		"vscode-languageserver": "^8.1.0",
-		"vscode-languageserver-textdocument": "^1.0.8",
-		"tmp": "^0.2.1"
-	},
-	"devDependencies": {
-		"@types/tmp": "^0.2.3"
-	},
-	"scripts": {}
+  "name": "nushell-lsp-server",
+  "description": "Implementation of the nushell language server in node.",
+  "author": "Nushell Maintainers",
+  "license": "MIT",
+  "version": "1.2.0",
+  "publisher": "TheNuProjectContributors",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nushell/vscode-nushell-lang"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {
+    "@types/vscode": "^1.67.0",
+    "vscode-languageserver": "^8.1.0",
+    "vscode-languageserver-textdocument": "^1.0.8",
+    "tmp": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/tmp": "^0.2.3"
+  },
+  "scripts": {}
 }
