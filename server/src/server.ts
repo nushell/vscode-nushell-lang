@@ -60,9 +60,9 @@ let hasDiagnosticRelatedInformationCapability = false;
 function includeFlagForPath(file_path: string): string {
   if (file_path.startsWith("file://")) {
     file_path = decodeURI(file_path);
-    return " -I " + '"' + path.dirname(fileURLToPath(file_path));
+    return "-I " + '"' + path.dirname(fileURLToPath(file_path));
   }
-  return " -I " + '"' + file_path;
+  return "-I " + '"' + file_path;
 }
 
 connection.onInitialize((params: InitializeParams) => {
@@ -364,7 +364,7 @@ function convertPosition(position: Position, text: string): number {
 }
 
 async function runCompiler(
-  text: string,
+  text: string, // this is the script or the snippet of nushell code
   flags: string,
   settings: NushellLSPSettings,
   uri: string,
@@ -384,6 +384,15 @@ async function runCompiler(
   try {
     const script_path_flag =
       includeFlagForPath(uri) + ":" + settings.includeDirs.join(":") + '"';
+    const max_errors = settings.maxNumberOfProblems;
+
+    if (flags.includes("ide-check")) {
+      // console.log(
+      //   "flags: [" + flags + "] [" + max_errors + "] uri: [" + uri + "]"
+      // );
+
+      flags = flags + " " + max_errors;
+    }
 
     connection.console.log(
       "running: " +
