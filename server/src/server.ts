@@ -65,6 +65,10 @@ function includeFlagForPath(file_path: string): string {
   return "-I " + '"' + file_path;
 }
 
+connection.onExit(() => {
+  tmpFile.removeCallback();
+});
+
 connection.onInitialize((params: InitializeParams) => {
   const capabilities = params.capabilities;
 
