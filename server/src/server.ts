@@ -278,7 +278,7 @@ async function validateTextDocument(
             // connection.console.log(diagnostic.message);
 
             diagnostics.push(diagnostic);
-          } else if (obj.type == "hint") {
+          } else if (obj.type == "hint" && settings.hints.showInferredTypes) {
             if (!seenTypeHintPositions.has(obj.position)) {
               seenTypeHintPositions.add(obj.position);
               const position = convertSpan(obj.position.end, lineBreaks);
