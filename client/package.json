@@ -1,13 +1,13 @@
 {
-  "name": "lsp-sample-client",
-  "description": "VSCode part of a language server",
-  "author": "Microsoft Corporation",
+  "name": "nushell-lsp-client",
+  "description": "VSCode part of the nushell language server",
+  "author": "Nushell Maintainers",
   "license": "MIT",
-  "version": "0.0.1",
-  "publisher": "vscode",
+  "version": "1.2.0",
+  "publisher": "TheNuProjectContributors",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/vscode-extension-samples"
+    "url": "https://github.com/nushell/vscode-nushell-lang"
   },
   "engines": {
     "vscode": "^1.75.0"
