@@ -383,7 +383,7 @@ async function runCompiler(
   let stdout = "";
   try {
     const script_path_flag =
-      includeFlagForPath(uri) + ";" + settings.includeDirs.join(";") + '"';
+      includeFlagForPath(uri) + ":" + settings.includeDirs.join(":") + '"';
 
     connection.console.log(
       "running: " +
