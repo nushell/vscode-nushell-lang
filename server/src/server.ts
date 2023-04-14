@@ -459,6 +459,11 @@ connection.onHover(async (request: HoverParams) => {
       language: "nushell",
     };
 
+    // From the server side, this is the key to sending a message to the client
+    // Here we're sending the parsed content to the client, json-style
+    // Note that we're sending a notification named 'echo' with the contents
+    connection.sendNotification("echo", JSON.stringify(contents, null, 2));
+
     if (obj.hover != "") {
       if (obj.span) {
         const lineBreaks = findLineBreaks(

@@ -156,7 +156,19 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   // Start the client. This will also launch the server
-  client.start();
+  client.start().then(() => {
+    // From the client side, this is the key. We're subscribing to a method string named 'echo'
+    // and if we receive it, we process it as the 'message' parameter
+    client.onNotification("echo", (message) => {
+      // This log will appear in the debugger 'Debug output' window on vscode, not the client
+      console.log("Got message: " + message);
+      // This log will appear in the client 'Nushell Client Log' window on vscode
+      info.appendLine("Got message: " + message);
+    });
+  });
+
+  // Start the client. This will also launch the server
+  // client.start();
 }
 
 export function deactivate(): Thenable<void> | undefined {
@@ -165,3 +177,25 @@ export function deactivate(): Thenable<void> | undefined {
   }
   return client.stop();
 }
+
+// This is the client side receiver of the hover request
+// I'm not sure yet how to pass the message received from the server here
+const disposable = vscode.languages.registerHoverProvider("nushell", {
+  provideHover(document, position) {
+    const doc = JSON.stringify(document, null, 2);
+    const pos = JSON.stringify(position, null, 2);
+    // info.appendLine("Hovering: document " + doc + " position " + pos);
+    const codeBlock = `# 1 Heading\n## 2 Heading\n ### 3 Heading\n<code><span style="color:#f00;background-color:#fff;">const</span> a = 12</code>`;
+
+    const markdown = new vscode.MarkdownString();
+    // markdown.appendCodeblock(codeBlock, "javascript");
+
+    markdown.appendMarkdown(codeBlock);
+    markdown.supportHtml = true;
+    markdown.isTrusted = true;
+
+    return new vscode.Hover(markdown, new vscode.Range(position, position));
+  },
+});
+// create a channel so we can watch the logged output
+export const info = vscode.window.createOutputChannel("Nushell Client Log");
