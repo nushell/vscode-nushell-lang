@@ -202,14 +202,14 @@ documents.onDidClose((e) => {
   documentSettings.delete(e.document.uri);
 });
 
-function debounce(func, wait, immediate) {
-  let timeout;
+function debounce(func: any, wait: number, immediate: boolean) {
+  let timeout: any;
 
-  return function executedFunction(this: any) {
+  return function executedFunction(this: any, ...args: any[]) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this;
     // eslint-disable-next-line prefer-rest-params
-    const args = arguments;
+    // const args = arguments;
 
     const later = function () {
       timeout = null;
@@ -233,6 +233,7 @@ documents.onDidChangeContent(
       500,
       false
     );
+
     return (change) => {
       throttledValidateTextDocument(change.document);
     };
