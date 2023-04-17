@@ -200,11 +200,44 @@ documents.onDidClose((e) => {
   documentSettings.delete(e.document.uri);
 });
 
+function throttle(fn: (...args: any) => void, delay: number) {
+  let shouldWait = false;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let waitingArgs: any | null;
+  const timeoutFunc = () => {
+    if (waitingArgs == null) {
+      shouldWait = false;
+    } else {
+      fn(...waitingArgs);
+      waitingArgs = null;
+      setTimeout(timeoutFunc, delay);
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (...args: any) => {
+    if (shouldWait) {
+      waitingArgs = args;
+      return;
+    }
+
+    fn(...args);
+    shouldWait = true;
+
+    setTimeout(timeoutFunc, delay);
+  };
+}
+
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
-documents.onDidChangeContent((change) => {
-  validateTextDocument(change.document);
-});
+documents.onDidChangeContent(
+  (() => {
+    const throttledValidateTextDocument = throttle(validateTextDocument, 1500);
+    return (change) => {
+      throttledValidateTextDocument(change.document);
+    };
+  })()
+);
 
 async function validateTextDocument(
   textDocument: NuTextDocument
