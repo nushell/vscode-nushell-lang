@@ -205,8 +205,10 @@ documents.onDidClose((e) => {
 function debounce(func, wait, immediate) {
   let timeout;
 
-  return function executedFunction() {
+  return function executedFunction(this: any) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this;
+    // eslint-disable-next-line prefer-rest-params
     const args = arguments;
 
     const later = function () {
