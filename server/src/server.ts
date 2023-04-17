@@ -57,6 +57,8 @@ let hasConfigurationCapability = false;
 let hasWorkspaceFolderCapability = false;
 let hasDiagnosticRelatedInformationCapability = false;
 
+// let timerId: NodeJS.Timeout | undefined = undefined;
+
 function includeFlagForPath(file_path: string): string {
   if (file_path.startsWith("file://")) {
     file_path = decodeURI(file_path);
@@ -200,39 +202,35 @@ documents.onDidClose((e) => {
   documentSettings.delete(e.document.uri);
 });
 
-function throttle(fn: (...args: any) => void, delay: number) {
-  let shouldWait = false;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let waitingArgs: any | null;
-  const timeoutFunc = () => {
-    if (waitingArgs == null) {
-      shouldWait = false;
-    } else {
-      fn(...waitingArgs);
-      waitingArgs = null;
-      setTimeout(timeoutFunc, delay);
-    }
-  };
+function debounce(func, wait, immediate) {
+  let timeout;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (...args: any) => {
-    if (shouldWait) {
-      waitingArgs = args;
-      return;
-    }
+  return function executedFunction() {
+    const context = this;
+    const args = arguments;
 
-    fn(...args);
-    shouldWait = true;
+    const later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
 
-    setTimeout(timeoutFunc, delay);
+    const callNow = immediate && !timeout;
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(later, wait);
+
+    if (callNow) func.apply(context, args);
   };
 }
 
-// The content of a text document has changed. This event is emitted
-// when the text document first opened or when its content has changed.
 documents.onDidChangeContent(
   (() => {
-    const throttledValidateTextDocument = throttle(validateTextDocument, 1500);
+    const throttledValidateTextDocument = debounce(
+      validateTextDocument,
+      500,
+      false
+    );
     return (change) => {
       throttledValidateTextDocument(change.document);
     };
