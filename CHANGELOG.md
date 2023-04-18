@@ -123,12 +123,13 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 
 ## Release
 
-- 1.2.0
+- 1.5.0
   - No longer a preview release
   - Fix `use` coloring when used in variable naming
+  - Allow underscore separators in numbers
   - Goto Definition
-  - Inlays
+  - Inlays / Hints
   - Hover
   - Error squigglys
-  - Autocomplete
-  - Settings to help with LSP-like features
+  - Auto-complete
+  - Editor IDE Settings to help configure some features
