@@ -39,7 +39,7 @@ Hover over custom commands for help
 ![HoverCustom](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/150-hover-custom.png)
 
 Hover over variable
-![HoverVar](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/150-hover-var.png))
+![HoverVar](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/150-hover-var.png)
 
 Error & Validation support
 ![Error 1](https://raw.githubusercontent.com/nushell/vscode-nushell-lang/main/assets/150-error1.png)
