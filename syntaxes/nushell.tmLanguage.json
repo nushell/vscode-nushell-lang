@@ -151,7 +151,7 @@
             "name": "constant.numeric.nushell"
         },
         "numbers": {
-            "match": "(?<![\\w-])[-+]?\\d+(?:\\.\\d*)?(?i:ns|us|ms|sec|min|hr|day|wk|b|kb|mb|gb|tb|pt|eb|zb|kib|mib|gib|tib|pit|eib|zib)?(?:(?![\\w.])|(?=\\.\\.))",
+            "match": "(?<![\\w-])[-+]?(?:\\d+|\\d{1,3}(?:_\\d{3})*)(?:\\.\\d*)?(?i:ns|us|ms|sec|min|hr|day|wk|b|kb|mb|gb|tb|pt|eb|zb|kib|mib|gib|tib|pit|eib|zib)?(?:(?![\\w.])|(?=\\.\\.))",
             "name": "constant.numeric.nushell"
         },
         "binary": {
