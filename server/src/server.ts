@@ -200,11 +200,38 @@ documents.onDidClose((e) => {
   documentSettings.delete(e.document.uri);
 });
 
-// The content of a text document has changed. This event is emitted
-// when the text document first opened or when its content has changed.
-documents.onDidChangeContent((change) => {
-  validateTextDocument(change.document);
-});
+function debounce(func: any, wait: number, immediate: boolean) {
+  let timeout: any;
+
+  return function executedFunction(this: any, ...args: any[]) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this;
+
+    const later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+documents.onDidChangeContent(
+  (() => {
+    const throttledValidateTextDocument = debounce(
+      validateTextDocument,
+      500,
+      false
+    );
+
+    return (change) => {
+      throttledValidateTextDocument(change.document);
+    };
+  })()
+);
 
 async function validateTextDocument(
   textDocument: NuTextDocument
@@ -219,12 +246,11 @@ async function validateTextDocument(
         return;
       }
 
-      // // In this simple example we get the settings for every validate run.
+      // In this simple example we get the settings for every validate run.
       const settings = await getDocumentSettings(textDocument.uri);
 
       // The validator creates diagnostics for all uppercase words length 2 and more
       const text = textDocument.getText();
-
       const lineBreaks = findLineBreaks(text);
 
       const stdout = await runCompiler(
@@ -235,7 +261,6 @@ async function validateTextDocument(
       );
 
       textDocument.nuInlayHints = [];
-
       const diagnostics: Diagnostic[] = [];
 
       // FIXME: We use this to deduplicate type hints given by the compiler.
@@ -391,10 +416,6 @@ async function runCompiler(
     const max_errors = settings.maxNumberOfProblems;
 
     if (flags.includes("ide-check")) {
-      // console.log(
-      //   "flags: [" + flags + "] [" + max_errors + "] uri: [" + uri + "]"
-      // );
-
       flags = flags + " " + max_errors;
     }
 
@@ -579,7 +600,6 @@ async function goToDefinition(
         ? (await fs.promises.readFile(obj.file)).toString()
         : document.getText() ?? ""
     );
-    // const uri = obj.file ? "file://" + obj.file : document.uri;
 
     let uri = "";
     if (obj.file == tmpFile.name) {
