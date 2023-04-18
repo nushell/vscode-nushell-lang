@@ -141,7 +141,7 @@ connection.onInitialized(() => {
 });
 
 // The nushell settings
-interface NushellLSPSettings {
+interface NushellIDESettings {
   maxNumberOfProblems: number;
   hints: {
     showInferredTypes: boolean;
@@ -154,24 +154,24 @@ interface NushellLSPSettings {
 // The global settings, used when the `workspace/configuration` request is not supported by the client.
 // Please note that this is not the case when using this server with the client provided in this example
 // but could happen with other clients.
-const defaultSettings: NushellLSPSettings = {
+const defaultSettings: NushellIDESettings = {
   maxNumberOfProblems: 1000,
   hints: { showInferredTypes: true },
   nushellExecutablePath: "nu",
   maxNushellInvocationTime: 10000000,
   includeDirs: [],
 };
-let globalSettings: NushellLSPSettings = defaultSettings;
+let globalSettings: NushellIDESettings = defaultSettings;
 
 // Cache the settings of all open documents
-const documentSettings: Map<string, Thenable<NushellLSPSettings>> = new Map();
+const documentSettings: Map<string, Thenable<NushellIDESettings>> = new Map();
 
 connection.onDidChangeConfiguration((change) => {
   if (hasConfigurationCapability) {
     // Reset all cached document settings
     documentSettings.clear();
   } else {
-    globalSettings = <NushellLSPSettings>(
+    globalSettings = <NushellIDESettings>(
       (change.settings.nushellLanguageServer || defaultSettings)
     );
   }
@@ -180,7 +180,7 @@ connection.onDidChangeConfiguration((change) => {
   documents.all().forEach(validateTextDocument);
 });
 
-function getDocumentSettings(resource: string): Thenable<NushellLSPSettings> {
+function getDocumentSettings(resource: string): Thenable<NushellIDESettings> {
   if (!hasConfigurationCapability) {
     return Promise.resolve(globalSettings);
   }
@@ -395,7 +395,7 @@ function convertPosition(position: Position, text: string): number {
 async function runCompiler(
   text: string, // this is the script or the snippet of nushell code
   flags: string,
-  settings: NushellLSPSettings,
+  settings: NushellIDESettings,
   uri: string,
   options: { allowErrors?: boolean } = {}
 ): Promise<string> {

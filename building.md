@@ -29,11 +29,11 @@ If you have all these tools already installed, you should be able to clone this 
 2. In repo folder `npm install`
 3. Hit F5 to start debugging (or Run->Start Debugging menu item)
 4. Go to settings with `Ctrl ,` or `Cmd ,`
-5. In the settings tree on the left, go to Extensions->Nushell LSP and make sure `Nushell Executable Path` is pointing at where you have nu/nu.exe installed. (It must be version 0.78.1 or greater)
+5. In the settings tree on the left, go to Extensions->Nushell IDE Support and make sure `Nushell Executable Path` is pointing at where you have nu/nu.exe installed. (It must be version 0.79.0 or greater)
 6. Open a nushell script and in a moment you should see inlays and see the full functionality
 7. To see the Language Server debug messages hit `Ctrl ~`
 8. Go to the output tab
-9. In the combo box on the right, choose `Nushell Language Server`. You should now see debug messaging when you use any of the LSP functionality
+9. In the combo box on the right, choose `Nushell Language Server`. You should now see debug messaging as the client and server communicate
 
 ## Regex Engine
 
