@@ -412,7 +412,11 @@ async function runCompiler(
   let stdout = "";
   try {
     const script_path_flag =
-      includeFlagForPath(uri) + ":" + settings.includeDirs.join(":") + '"';
+      includeFlagForPath(uri) +
+      "\x1e" + // \x1e is the record separator character (a character that is unlikely to appear in a path)
+      settings.includeDirs.join("\x1e") +
+      '"';
+
     const max_errors = settings.maxNumberOfProblems;
 
     if (flags.includes("ide-check")) {
