@@ -11,6 +11,11 @@
     ["[", "]"],
     ["(", ")"]
   ],
+  "colorizedBracketPairs": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"]
+  ],
   // symbols that are auto closed when typing
   "autoClosingPairs": [
     { "open": "{", "close": "}" },
@@ -32,8 +37,8 @@
   ],
   "folding": {
     "markers": {
-      "start": "^def\\b",
-      "end": "^\\}"
+      "start": "^\\s*# region:",
+      "end": "^\\s*# endregion"
     }
   },
   "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
