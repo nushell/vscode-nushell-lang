@@ -18,6 +18,11 @@ import {
   HoverParams,
   Definition,
   HandlerResult,
+  SemanticTokensParams,
+  SemanticTokensBuilder,
+  SemanticTokensClientCapabilities,
+  SemanticTokensRegistrationOptions,
+  SemanticTokensRegistrationType,
 } from "vscode-languageserver/node";
 
 import {
@@ -32,6 +37,7 @@ import { TextDocument } from "vscode-languageserver-textdocument";
 
 interface NuTextDocument extends TextDocument {
   nuInlayHints?: InlayHint[];
+  nuSemanticTokens?: string[];
 }
 import fs = require("fs");
 import tmp = require("tmp");
@@ -40,6 +46,7 @@ import path = require("path");
 import util = require("node:util");
 import { TextEncoder } from "node:util";
 import { fileURLToPath } from "node:url";
+import { SemanticTokensLegend } from "vscode";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const exec = util.promisify(require("node:child_process").exec);
@@ -69,6 +76,80 @@ connection.onExit(() => {
   tmpFile.removeCallback();
 });
 
+enum TokenTypes {
+  comment = 0,
+  string = 1,
+  keyword = 2,
+  number = 3,
+  regexp = 4,
+  operator = 5,
+  namespace = 6,
+  type = 7,
+  struct = 8,
+  class = 9,
+  interface = 10,
+  enum = 11,
+  typeParameter = 12,
+  function = 13,
+  method = 14,
+  decorator = 15,
+  macro = 16,
+  variable = 17,
+  parameter = 18,
+  property = 19,
+  label = 20,
+  _ = 21,
+}
+
+enum TokenModifiers {
+  declaration = 0,
+  documentation = 1,
+  readonly = 2,
+  static = 3,
+  abstract = 4,
+  deprecated = 5,
+  modification = 6,
+  async = 7,
+  _ = 8,
+}
+
+let semanticTokensLegend: SemanticTokensLegend;
+function computeLegend(
+  capability: SemanticTokensClientCapabilities
+): SemanticTokensLegend {
+  const clientTokenTypes = new Set<string>(capability.tokenTypes);
+  const clientTokenModifiers = new Set<string>(capability.tokenModifiers);
+
+  const tokenTypes: string[] = [];
+  for (let i = 0; i < TokenTypes._; i++) {
+    const str = TokenTypes[i];
+    if (clientTokenTypes.has(str)) {
+      tokenTypes.push(str);
+    } else {
+      if (str === "lambdaFunction") {
+        tokenTypes.push("function");
+      } else {
+        tokenTypes.push("type");
+      }
+    }
+  }
+
+  const tokenModifiers: string[] = [];
+  for (let i = 0; i < TokenModifiers._; i++) {
+    const str = TokenModifiers[i];
+    if (clientTokenModifiers.has(str)) {
+      tokenModifiers.push(str);
+    }
+  }
+  connection.console.log(
+    "tokenTypes: " +
+      JSON.stringify(tokenTypes) +
+      " tokenModifiers: " +
+      JSON.stringify(tokenModifiers)
+  );
+  return { tokenTypes, tokenModifiers };
+}
+
 connection.onInitialize((params: InitializeParams) => {
   const capabilities = params.capabilities;
 
@@ -84,6 +165,10 @@ connection.onInitialize((params: InitializeParams) => {
     capabilities.textDocument &&
     capabilities.textDocument.publishDiagnostics &&
     capabilities.textDocument.publishDiagnostics.relatedInformation
+  );
+
+  semanticTokensLegend = computeLegend(
+    params.capabilities.textDocument!.semanticTokens!
   );
 
   const result: InitializeResult = {
@@ -138,6 +223,18 @@ connection.onInitialized(() => {
       connection.console.log("Workspace folder change event received.");
     });
   }
+  const registrationOptions: SemanticTokensRegistrationOptions = {
+    documentSelector: ["nushell"],
+    legend: semanticTokensLegend,
+    range: false,
+    full: {
+      delta: true,
+    },
+  };
+  void connection.client.register(
+    SemanticTokensRegistrationType.type,
+    registrationOptions
+  );
 });
 
 // The nushell settings
@@ -644,3 +741,100 @@ documents.listen(connection);
 
 // Listen on the connection
 connection.listen();
+
+const tokenBuilders: Map<string, SemanticTokensBuilder> = new Map();
+documents.onDidClose((event) => {
+  connection.console.log("documents.OnDidClose");
+  tokenBuilders.delete(event.document.uri);
+});
+
+function getTokenBuilder(document: TextDocument): SemanticTokensBuilder {
+  connection.console.log("getTokenBuilder");
+
+  let result = tokenBuilders.get(document.uri);
+  if (result !== undefined) {
+    return result;
+  }
+  result = new SemanticTokensBuilder();
+  connection.console.log("SemanticTokensBuilder " + result);
+  tokenBuilders.set(document.uri, result);
+  return result;
+}
+
+function buildTokens(builder: SemanticTokensBuilder, document: TextDocument) {
+  const text = document.getText();
+  const regexp = /\w+/g;
+  let match: RegExpMatchArray;
+  let tokenCounter = 0;
+  let modifierCounter = 0;
+  while ((match = regexp.exec(text)) !== null) {
+    const word = match[0];
+    const position = document.positionAt(match.index);
+    const tokenType = tokenCounter % TokenTypes._;
+    const tokenModifier = 1 << modifierCounter % TokenModifiers._;
+    connection.console.log(
+      "word " +
+        word +
+        " position " +
+        JSON.stringify(position) +
+        " tokenType " +
+        tokenType +
+        " (" +
+        TokenTypes[tokenType] +
+        ") " +
+        " tokenModifier " +
+        tokenModifier +
+        " (" +
+        TokenModifiers[tokenModifier] +
+        ") " +
+        " tokenCounter " +
+        tokenCounter +
+        " modifierCounter " +
+        modifierCounter
+    );
+    builder.push(
+      position.line,
+      position.character,
+      word.length,
+      tokenType,
+      tokenModifier
+    );
+    tokenCounter++;
+    modifierCounter++;
+  }
+}
+
+connection.languages.semanticTokens.on((params) => {
+  connection.console.log("semanticTokens.on " + JSON.stringify(params));
+
+  const document = documents.get(params.textDocument.uri);
+  if (document === undefined) {
+    connection.console.log("semanticTokens.on undefined");
+    return { data: [] };
+  }
+  const builder = getTokenBuilder(document);
+  buildTokens(builder, document);
+  connection.console.log(
+    "semanticTokens.on buildTokens " + JSON.stringify(builder)
+  );
+  return builder.build();
+});
+
+connection.languages.semanticTokens.onDelta((params) => {
+  connection.console.log("semanticTokens.onRange " + JSON.stringify(params));
+
+  const document = documents.get(params.textDocument.uri);
+  if (document === undefined) {
+    return { edits: [] };
+  }
+  const builder = getTokenBuilder(document);
+  builder.previousResult(params.previousResultId);
+  buildTokens(builder, document);
+  return builder.buildEdits();
+});
+
+connection.languages.semanticTokens.onRange((params) => {
+  connection.console.log("semanticTokens.onRange " + JSON.stringify(params));
+
+  return { data: [] };
+});
