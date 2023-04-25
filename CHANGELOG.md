@@ -134,3 +134,4 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Auto-complete
   - Editor IDE Settings to help configure some features
   - Added folding regions with `# region:` and `# endregion`
+  - Update syntax regexes to match nushell v0.79.0
