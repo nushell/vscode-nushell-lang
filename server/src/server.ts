@@ -47,6 +47,7 @@ import util = require("node:util");
 import { TextEncoder } from "node:util";
 import { fileURLToPath } from "node:url";
 import { SemanticTokensLegend } from "vscode";
+import { connect } from "http2";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const exec = util.promisify(require("node:child_process").exec);
@@ -76,31 +77,107 @@ connection.onExit(() => {
   tmpFile.removeCallback();
 });
 
+// Standard Token Types
+// https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#standard-token-types-and-modifiers
+// ID	            Description
+// namespace	    For identifiers that declare or reference a namespace, module, or package.
+// class	        For identifiers that declare or reference a class type.
+// enum	          For identifiers that declare or reference an enumeration type.
+// interface	    For identifiers that declare or reference an interface type.
+// struct	        For identifiers that declare or reference a struct type.
+// typeParameter	For identifiers that declare or reference a type parameter.
+// type	          For identifiers that declare or reference a type that is not covered above.
+// parameter	    For identifiers that declare or reference a function or method parameters.
+// variable	      For identifiers that declare or reference a local or global variable.
+// property	      For identifiers that declare or reference a member property, member field, or member variable.
+// enumMember	    For identifiers that declare or reference an enumeration property, constant, or member.
+// decorator	    For identifiers that declare or reference decorators and annotations.
+// event	        For identifiers that declare an event property.
+// function	      For identifiers that declare a function.
+// method	        For identifiers that declare a member function or method.
+// macro	        For identifiers that declare a macro.
+// label	        For identifiers that declare a label.
+// comment	      For tokens that represent a comment.
+// string	        For tokens that represent a string literal.
+// keyword	      For tokens that represent a language keyword.
+// number	        For tokens that represent a number literal.
+// regexp	        For tokens that represent a regular expression literal.
+// operator	      For tokens that represent an operator.
 enum TokenTypes {
-  comment = 0,
-  string = 1,
-  keyword = 2,
-  number = 3,
-  regexp = 4,
-  operator = 5,
-  namespace = 6,
-  type = 7,
-  struct = 8,
-  class = 9,
-  interface = 10,
-  enum = 11,
-  typeParameter = 12,
-  function = 13,
-  method = 14,
-  decorator = 15,
-  macro = 16,
-  variable = 17,
-  parameter = 18,
-  property = 19,
-  label = 20,
-  _ = 21,
+  shape_and = 0,
+  shape_binary = 1,
+  shape_block = 2,
+  shape_bool = 3,
+  shape_closure = 4,
+  shape_custom = 5,
+  shape_datetime = 6,
+  shape_directory = 7,
+  shape_external = 8,
+  shape_externalarg = 9,
+  shape_filepath = 10,
+  shape_flag = 11,
+  shape_float = 12,
+  shape_garbage = 13,
+  shape_globpattern = 14,
+  shape_int = 15,
+  shape_internalcall = 16,
+  shape_keyword = 17,
+  shape_list = 18,
+  shape_literal = 19,
+  shape_match_pattern = 20,
+  shape_nothing = 21,
+  shape_operator = 22,
+  shape_or = 23,
+  shape_pipe = 24,
+  shape_range = 25,
+  shape_record = 26,
+  shape_redirection = 27,
+  shape_signature = 28,
+  shape_string = 29,
+  shape_string_interpolation = 30,
+  shape_table = 31,
+  shape_variable = 32,
+  shape_vardecl = 33,
+  _ = 34,
 }
 
+// enum TokenTypes {
+//   comment = 0,
+//   string = 1,
+//   keyword = 2,
+//   number = 3,
+//   regexp = 4,
+//   operator = 5,
+//   namespace = 6,
+//   type = 7,
+//   struct = 8,
+//   class = 9,
+//   interface = 10,
+//   enum = 11,
+//   typeParameter = 12,
+//   function = 13,
+//   method = 14,
+//   decorator = 15,
+//   macro = 16,
+//   variable = 17,
+//   parameter = 18,
+//   property = 19,
+//   label = 20,
+//   _ = 21,
+// }
+
+// Standard Token Modifiers
+// ID	            Description
+// declaration	  For declarations of symbols.
+// definition	    For definitions of symbols, for example, in header files.
+// readonly	      For readonly variables and member fields (constants).
+// static	        For class members (static members).
+// deprecated	    For symbols that should no longer be used.
+// abstract	      For types and member functions that are abstract.
+// async	        For functions that are marked async.
+// modification	  For variable references where the variable is assigned to.
+// documentation	For occurrences of symbols in documentation.
+// defaultLibrary	For symbols that are part of the standard library.
 enum TokenModifiers {
   declaration = 0,
   documentation = 1,
@@ -126,11 +203,118 @@ function computeLegend(
     if (clientTokenTypes.has(str)) {
       tokenTypes.push(str);
     } else {
-      if (str === "lambdaFunction") {
-        tokenTypes.push("function");
-      } else {
-        tokenTypes.push("type");
+      switch (str) {
+        case "shape_and":
+          tokenTypes.push("operator");
+          break;
+        case "shape_binary":
+          tokenTypes.push("operator");
+          break;
+        case "shape_block":
+          tokenTypes.push("operator");
+          break;
+        case "shape_bool":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_closure":
+          tokenTypes.push("operator");
+          break;
+        case "shape_custom":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_datetime":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_directory":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_external":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_externalarg":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_filepath":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_flag":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_float":
+          tokenTypes.push("number");
+          break;
+        case "shape_garbage":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_globpattern":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_int":
+          tokenTypes.push("number");
+          break;
+        case "shape_internalcall":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_keyword":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_list":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_literal":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_match_pattern":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_nothing":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_operator":
+          tokenTypes.push("operator");
+          break;
+        case "shape_or":
+          tokenTypes.push("operator");
+          break;
+        case "shape_pipe":
+          tokenTypes.push("operator");
+          break;
+        case "shape_range":
+          tokenTypes.push("operator");
+          break;
+        case "shape_record":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_redirection":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_signature":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_string":
+          tokenTypes.push("string");
+          break;
+        case "shape_string_interpolation":
+          tokenTypes.push("string");
+          break;
+        case "shape_table":
+          tokenTypes.push("keyword");
+          break;
+        case "shape_variable":
+          tokenTypes.push("variable");
+          break;
+        case "shape_vardecl":
+          tokenTypes.push("variable");
+          break;
+        default:
+          tokenTypes.push("variable");
+          break;
       }
+      // if (str === "lambdaFunction") {
+      //   tokenTypes.push("function");
+      // } else {
+      //   tokenTypes.push("type");
+      // }
     }
   }
 
@@ -761,47 +945,104 @@ function getTokenBuilder(document: TextDocument): SemanticTokensBuilder {
   return result;
 }
 
-function buildTokens(builder: SemanticTokensBuilder, document: TextDocument) {
-  const text = document.getText();
-  const regexp = /\w+/g;
-  let match: RegExpMatchArray;
-  let tokenCounter = 0;
-  let modifierCounter = 0;
-  while ((match = regexp.exec(text)) !== null) {
-    const word = match[0];
-    const position = document.positionAt(match.index);
-    const tokenType = tokenCounter % TokenTypes._;
-    const tokenModifier = 1 << modifierCounter % TokenModifiers._;
-    connection.console.log(
-      "word " +
-        word +
-        " position " +
-        JSON.stringify(position) +
-        " tokenType " +
-        tokenType +
-        " (" +
-        TokenTypes[tokenType] +
-        ") " +
-        " tokenModifier " +
-        tokenModifier +
-        " (" +
-        TokenModifiers[tokenModifier] +
-        ") " +
-        " tokenCounter " +
-        tokenCounter +
-        " modifierCounter " +
-        modifierCounter
-    );
-    builder.push(
-      position.line,
-      position.character,
-      word.length,
-      tokenType,
-      tokenModifier
-    );
-    tokenCounter++;
-    modifierCounter++;
+async function buildTokens(
+  builder: SemanticTokensBuilder,
+  textDocument: NuTextDocument
+) {
+  const settings = await getDocumentSettings(textDocument.uri);
+  const text = textDocument.getText();
+  const lineBreaks = findLineBreaks(text);
+  const stdout = await runCompiler(
+    text,
+    "--ide-ast",
+    settings,
+    textDocument.uri
+  );
+  const lines = stdout.split("\n").filter((l) => l.length > 0);
+  for (const line of lines) {
+    // connection.console.log("ast_line: " + line);
+    try {
+      const obj = JSON.parse(line);
+      // connection.console.log("json_obj: " + JSON.stringify(obj));
+      // connection.console.log("stringify obj[0]: " + JSON.stringify(obj[0]));
+      for (const node of obj) {
+        if (node.type === "ast") {
+          connection.console.log("node: " + JSON.stringify(node));
+          // connection.console.log("node.type: " + node.type);
+          // connection.console.log("node.shape: " + node.shape);
+          connection.console.log("node.span.start: " + node.span.start);
+          connection.console.log("node.span.end: " + node.span.end);
+          connection.console.log("lineBreaks: " + lineBreaks);
+          const position_start = convertSpan(node.span.start, lineBreaks);
+          const position_end = convertSpan(node.span.end, lineBreaks);
+          const tokenType = Object.keys(TokenTypes).indexOf(node.shape);
+          const tokenModifiers = Object.keys(TokenModifiers).indexOf(
+            node.modifiers
+          );
+          // connection.console.log(
+          //   "tokenType: " + tokenType + " tokenModifiers: " + tokenModifiers
+          // );
+          connection.console.log(
+            "line#: " +
+              position_start.line +
+              " character#: " +
+              position_start.character +
+              " length: " +
+              (position_end.character - position_start.character)
+          );
+          builder.push(
+            position_start.line,
+            position_start.character,
+            position_end.character - position_start.character,
+            tokenType,
+            tokenModifiers
+          );
+        }
+      }
+    } catch (e) {
+      connection.console.log("error: " + e);
+    }
   }
+
+  // const regexp = /\w+/g;
+  // let match: RegExpMatchArray;
+  // let tokenCounter = 0;
+  // let modifierCounter = 0;
+  // while ((match = regexp.exec(text)) !== null) {
+  //   const word = match[0];
+  //   const position = document.positionAt(match.index);
+  //   const tokenType = tokenCounter % TokenTypes._;
+  //   const tokenModifier = 1 << modifierCounter % TokenModifiers._;
+  //   connection.console.log(
+  //     "word " +
+  //       word +
+  //       " position " +
+  //       JSON.stringify(position) +
+  //       " tokenType " +
+  //       tokenType +
+  //       " (" +
+  //       TokenTypes[tokenType] +
+  //       ") " +
+  //       " tokenModifier " +
+  //       tokenModifier +
+  //       " (" +
+  //       TokenModifiers[tokenModifier] +
+  //       ") " +
+  //       " tokenCounter " +
+  //       tokenCounter +
+  //       " modifierCounter " +
+  //       modifierCounter
+  //   );
+  //   builder.push(
+  //     position.line,
+  //     position.character,
+  //     word.length,
+  //     tokenType,
+  //     tokenModifier
+  //   );
+  //   tokenCounter++;
+  //   modifierCounter++;
+  // }
 }
 
 connection.languages.semanticTokens.on((params) => {
