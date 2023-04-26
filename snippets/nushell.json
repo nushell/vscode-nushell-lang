@@ -299,13 +299,5 @@
             "}"
         ],
         "description": "Example: Write a custom command with a switch"
-    },
-    "Create an Alias": {
-        "prefix": "alias",
-        "body": [
-            "# Documentation for ${1:Alias_Name}",
-            "alias ${1:Alias_Name} = ${2}"
-        ],
-        "description": "Create an alias"
     }
 }
