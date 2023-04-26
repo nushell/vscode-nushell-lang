@@ -79,6 +79,46 @@
         "description": "\"bits xor\" invocation",
         "body": "${1:command} | bits xor ${2:value}"
     },
+    "bytes add builtin": {
+        "prefix": "bytes-add",
+        "description": "\"bytes add\" invocation",
+        "body": "${1:command} | bytes add ${2:value}"
+    },
+    "bytes at builtin": {
+        "prefix": "bytes-at",
+        "description": "\"bytes at\" invocation",
+        "body": "${1:command} | bytes at ${2:from}..${3:to}"
+    },
+    "bytes collect builtin": {
+        "prefix": "bytes-collect",
+        "description": "\"bytes collect\" invocation",
+        "body": "${1:command} | bytes collect ${2:separator}"
+    },
+    "bytes ends-with builtin": {
+        "prefix": "bytes-ends-with",
+        "description": "\"bytes ends-with\" invocation",
+        "body": "${1:command} | bytes ends-with ${2:pattern}"
+    },
+    "bytes index-of builtin": {
+        "prefix": "bytes-index-of",
+        "description": "\"bytes index-of\" invocation",
+        "body": "${1:command} | bytes index-of ${2:pattern}"
+    },
+    "bytes remove builtin": {
+        "prefix": "bytes-remove",
+        "description": "\"bytes remove\" invocation",
+        "body": "${1:command} | bytes remove ${2:pattern}"
+    },
+    "bytes replace builtin": {
+        "prefix": "bytes-replace",
+        "description": "\"bytes replace\" invocation",
+        "body": "${1:command} | bytes replace ${2:search} ${3:replacement}"
+    },
+    "bytes starts-with builtin": {
+        "prefix": "bytes-starts-with",
+        "description": "\"bytes starts-with\" invocation",
+        "body": "${1:command} | bytes starts-with ${2:pattern}"
+    },
     "Create Custom Command": {
         "prefix": "def",
         "body": [
