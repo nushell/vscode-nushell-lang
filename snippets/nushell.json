@@ -7,7 +7,7 @@
     "all builtin": {
         "prefix": "all",
         "description": "\"all\" invocation",
-        "body": "all {|${1:el}| ${2:predicate} }"
+        "body": "${1:command} | all {|${2:el}| ${3:predicate} }"
     },
     "ansi builtin": {
         "prefix": "ansi",
@@ -27,12 +27,12 @@
     "any builtin": {
         "prefix": "any",
         "description": "\"any\" invocation",
-        "body": "any {|${1:el}| ${2:predicate} }"
+        "body": "${1:command} | any {|${2:el}| ${3:predicate} }"
     },
     "append builtin": {
         "prefix": "append",
         "description": "\"append\" invocation",
-        "body": "append ${1:row}"
+        "body": "${1:command} | append ${2:row}"
     },
     "ast builtin": {
         "prefix": "ast",
