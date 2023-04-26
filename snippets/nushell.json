@@ -39,6 +39,46 @@
         "description": "\"ast\" invocation",
         "body": "ast ${1:pipeline}"
     },
+    "bits and builtin": {
+        "prefix": "bits-and",
+        "description": "\"bits and\" invocation",
+        "body": "${1:command} | bits and ${2:value}"
+    },
+    "bits not builtin": {
+        "prefix": "bits-not",
+        "description": "\"bits not\" invocation",
+        "body": "${1:command} | bits not"
+    },
+    "bits or builtin": {
+        "prefix": "bits-or",
+        "description": "\"bits or\" invocation",
+        "body": "${1:command} | bits or ${2:value}"
+    },
+    "bits rol builtin": {
+        "prefix": "bits-rol",
+        "description": "\"bits rol\" invocation",
+        "body": "${1:command} | bits rol ${2:value}"
+    },
+    "bits ror builtin": {
+        "prefix": "bits-ror",
+        "description": "\"bits ror\" invocation",
+        "body": "${1:command} | bits ror ${2:value}"
+    },
+    "bits shl builtin": {
+        "prefix": "bits-shl",
+        "description": "\"bits shl\" invocation",
+        "body": "${1:command} | bits shl ${2:value}"
+    },
+    "bits shr builtin": {
+        "prefix": "bits-shr",
+        "description": "\"bits shr\" invocation",
+        "body": "${1:command} | bits shr ${2:value}"
+    },
+    "bits xor builtin": {
+        "prefix": "bits-xor",
+        "description": "\"bits xor\" invocation",
+        "body": "${1:command} | bits xor ${2:value}"
+    },
     "Create Custom Command": {
         "prefix": "def",
         "body": [
