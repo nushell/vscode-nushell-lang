@@ -205,6 +205,51 @@
         "description": "\"bytes starts-with\" invocation",
         "body": "${1:command} | bytes starts-with ${2:pattern}"
     },
+    "cd builtin": {
+        "prefix": "cd",
+        "description": "\"cd\" invocation",
+        "body": "cd ${1:path/to/directory}"
+    },
+    "char builtin": {
+        "prefix": "char",
+        "description": "\"char\" invocation",
+        "body": "char ${1|newline,enter,nl,line_feed,lf,carriage_return,cr,crlf,tab,sp,space,pipe,left_brace,lbrace,right_brace,rbrace,left_paren,lp,lparen,right_paren,rparen,rp,left_bracket,lbracket,right_bracket,rbracket,single_quote,squote,sq,double_quote,dquote,dq,path_sep,psep,separator,esep,env_sep,tilde,twiddle,squiggly,home,hash,hashtag,pound_sign,sharp,root,nf_branch,nf_segment,nf_left_segment,nf_left_segment_thin,nf_right_segment,nf_right_segment_thin,nf_git,nf_git_branch,nf_folder1,nf_folder2,nf_house1,nf_house2,identical_to,hamburger,not_identical_to,branch_untracked,strictly_equivalent_to,branch_identical,upwards_arrow,branch_ahead,downwards_arrow,branch_behind,up_down_arrow,branch_ahead_behind,black_right_pointing_triangle,prompt,vector_or_cross_product,failed,high_voltage_sign,elevated,sun,sunny,sunrise,moon,cloudy,cloud,clouds,rainy,rain,foggy,fog,mist,haze,snowy,snow,thunderstorm,thunder,bel,backspace,file_separator,file_sep,fs,group_separator,group_sep,gs,record_separator,record_sep,rs,unit_separator,unit_sep,us|}"
+    },
+    "collect builtin": {
+        "prefix": "collect",
+        "description": "\"collect\" invocation",
+        "body": "${1:command} | collect {|${2:el}| ${3:closure} }"
+    },
+    "commandline builtin": {
+        "prefix": "commandline",
+        "description": "\"commandline\" invocation",
+        "body": "commandline ${1:command}"
+    },
+    "complete builtin": {
+        "prefix": "complete",
+        "description": "\"complete\" invocation",
+        "body": "^${1:command} | complete"
+    },
+    "compact builtin": {
+        "prefix": "compact",
+        "description": "\"compact\" invocation",
+        "body": "${1:command} | compact"
+    },
+    "config builtin": {
+        "prefix": "config",
+        "description": "\"config\" invocation",
+        "body": "config ${1|env,nu,reset|}"
+    },
+    "const builtin": {
+        "prefix": "const",
+        "description": "\"const\" invocation",
+        "body": "const ${1:name} = ${2:value}"
+    },
+    "cp builtin": {
+        "prefix": "cp",
+        "description": "\"cp\" invocation",
+        "body": "cp ${1:path/to/from} ${2:path/to/to}"
+    },
     "Create Custom Command": {
         "prefix": "def",
         "body": [
