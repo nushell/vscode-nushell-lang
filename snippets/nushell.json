@@ -1,4 +1,9 @@
 {
+    "shebang": {
+        "prefix": "shebang",
+        "description": "shebang",
+        "body": "#!/usr/bin/env nu"
+    },
     "hexadecimal": {
         "prefix": [
             "hexadecimal",
