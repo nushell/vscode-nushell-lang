@@ -17,3 +17,12 @@ Naming convention for `prefix`:
   (e.g. `bits-or`)
 - for shebang it's `shebang`
 - for anything else it's any string
+
+Snippets are only created for commands those satisfy at least one condition:
+
+- read data from stdin
+- have at least one mandatory or optional argument (not `...rest`)
+  Here by argument positional argument or argument for an option is meant.
+
+If there are options available for command or a subcommand then there is no
+restriction about what options to pick to put in snippet definition.
