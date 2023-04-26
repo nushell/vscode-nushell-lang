@@ -1,4 +1,90 @@
 {
+    "hexadecimal": {
+        "prefix": [
+            "hexadecimal",
+            "0x"
+        ],
+        "description": "hexadecimal",
+        "body": "0x[${1:ff}]"
+    },
+    "binary": {
+        "prefix": [
+            "binary",
+            "0b"
+        ],
+        "description": "binary",
+        "body": "0b[${1:1}]"
+    },
+    "octal": {
+        "prefix": [
+            "octal",
+            "0o"
+        ],
+        "description": "octal",
+        "body": "0o[${1:1}]"
+    },
+    "duration": {
+        "prefix": [
+            "ns",
+            "us",
+            "ms",
+            "sec",
+            "min",
+            "hr",
+            "day",
+            "wk",
+            "duration"
+        ],
+        "description": "duration",
+        "body": "${1:value}${2|ns,us,ms,sec,min,hr,day,wk|}"
+    },
+    "size": {
+        "prefix": [
+            "b",
+            "kb",
+            "mb",
+            "gb",
+            "tb",
+            "pb",
+            "eb",
+            "zb",
+            "kib",
+            "mib",
+            "gib",
+            "tib",
+            "pib",
+            "eib",
+            "zib",
+            "size"
+        ],
+        "description": "size",
+        "body": "${1:value}${2|b,kb,mb,gb,tb,pb,eb,zb,kib,mib,gib,tib,pib,eib,zib|}"
+    },
+    "range": {
+        "prefix": "range",
+        "description": "range",
+        "body": "${1:from}..${2:to}"
+    },
+    "record": {
+        "prefix": "record",
+        "description": "record",
+        "body": "{${1:key}: ${2:value}${3:, }}"
+    },
+    "pair": {
+        "prefix": "pair",
+        "description": "pair",
+        "body": "{${1:key}: ${2:value}, ${3:key}: ${4:value}}"
+    },
+    "list": {
+        "prefix": "list",
+        "description": "list",
+        "body": "[${1:value}${2: }]"
+    },
+    "table": {
+        "prefix": "table",
+        "description": "table",
+        "body": "[[${1:key}: ${2:value}${3:, }]${4:; }]"
+    },
     "alias builtin": {
         "prefix": "alias",
         "description": "\"alias\" invocation",
