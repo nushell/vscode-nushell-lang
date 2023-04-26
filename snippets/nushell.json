@@ -85,6 +85,16 @@
         "description": "table",
         "body": "[[${1:key}: ${2:value}${3:, }]${4:; }]"
     },
+    "in": {
+        "prefix": "in",
+        "description": "\"in\" operator",
+        "body": "${1:value} in ${2:list}"
+    },
+    "not-in": {
+        "prefix": "not-in",
+        "description": "\"not-in\" operator",
+        "body": "${1:value} not-in ${2:list}"
+    },
     "alias builtin": {
         "prefix": "alias",
         "description": "\"alias\" invocation",
