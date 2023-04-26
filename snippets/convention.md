@@ -18,6 +18,9 @@ Naming convention for `prefix`:
 - for shebang it's `shebang`
 - for anything else it's any string
 
+If snippet contains a documenting comment than prefix should begin with at `@`
+symbol.
+
 Snippets are only created for commands those satisfy at least one condition:
 
 - read data from stdin

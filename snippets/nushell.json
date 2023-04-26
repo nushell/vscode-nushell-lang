@@ -78,6 +78,14 @@
         "description": "\"alias\" invocation",
         "body": "alias ${1:name} = ${2:value}"
     },
+    "@alias builtin": {
+        "prefix": "@alias",
+        "description": "\"alias\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "alias ${2:name} = ${3:value}"
+        ]
+    },
     "all builtin": {
         "prefix": "all",
         "description": "\"all\" invocation",
@@ -232,6 +240,14 @@
         "prefix": "const",
         "description": "\"const\" invocation",
         "body": "const ${1:name} = ${2:value}"
+    },
+    "@const builtin": {
+        "prefix": "@const",
+        "description": "\"const\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "const ${2:name} = ${3:value}"
+        ]
     },
     "cp builtin": {
         "prefix": "cp",
