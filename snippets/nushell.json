@@ -209,7 +209,7 @@
     "char builtin": {
         "prefix": "char",
         "description": "\"char\" invocation",
-        "body": "char ${1|newline,enter,nl,line_feed,lf,carriage_return,cr,crlf,tab,sp,space,pipe,left_brace,lbrace,right_brace,rbrace,left_paren,lp,lparen,right_paren,rparen,rp,left_bracket,lbracket,right_bracket,rbracket,single_quote,squote,sq,double_quote,dquote,dq,path_sep,psep,separator,esep,env_sep,tilde,twiddle,squiggly,home,hash,hashtag,pound_sign,sharp,root,nf_branch,nf_segment,nf_left_segment,nf_left_segment_thin,nf_right_segment,nf_right_segment_thin,nf_git,nf_git_branch,nf_folder1,nf_folder2,nf_house1,nf_house2,identical_to,hamburger,not_identical_to,branch_untracked,strictly_equivalent_to,branch_identical,upwards_arrow,branch_ahead,downwards_arrow,branch_behind,up_down_arrow,branch_ahead_behind,black_right_pointing_triangle,prompt,vector_or_cross_product,failed,high_voltage_sign,elevated,sun,sunny,sunrise,moon,cloudy,cloud,clouds,rainy,rain,foggy,fog,mist,haze,snowy,snow,thunderstorm,thunder,bel,backspace,file_separator,file_sep,fs,group_separator,group_sep,gs,record_separator,record_sep,rs,unit_separator,unit_sep,us|}"
+        "body": "char ${1|newline,enter,nl,line_feed,lf,carriage_return,cr,crlf,tab|}"
     },
     "collect builtin": {
         "prefix": "collect",
