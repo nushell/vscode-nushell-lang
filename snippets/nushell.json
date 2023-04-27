@@ -73,6 +73,14 @@
         "description": "\"not-in\" operator",
         "body": "${1:value} not-in ${2:list}"
     },
+    "flag": {
+        "prefix": [
+            "flag",
+            "--"
+        ],
+        "description": "flag",
+        "body": "--${1:long} (-${2:short}): ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}"
+    },
     "alias builtin": {
         "prefix": "alias",
         "description": "\"alias\" invocation",
