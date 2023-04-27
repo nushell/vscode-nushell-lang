@@ -81,6 +81,14 @@
         "description": "flag",
         "body": "--${1:long} (-${2:short}): ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}"
     },
+    "rest": {
+        "prefix": [
+            "rest",
+            "..."
+        ],
+        "description": "flag",
+        "body": "...${1:name}: ${2|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}"
+    },
     "alias builtin": {
         "prefix": "alias",
         "description": "\"alias\" invocation",
