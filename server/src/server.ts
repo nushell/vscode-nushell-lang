@@ -59,7 +59,9 @@ const tmpFile = tmp.fileSync({ prefix: "nushell", keep: false });
 const connection = createConnection(ProposedFeatures.all);
 
 // Create a simple text document manager.
-const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
+const documents: TextDocuments<NuTextDocument> = new TextDocuments(
+  TextDocument
+);
 
 let hasConfigurationCapability = false;
 let hasWorkspaceFolderCapability = false;
@@ -187,7 +189,9 @@ enum TokenModifiers {
   deprecated = 5,
   modification = 6,
   async = 7,
-  _ = 8,
+  definition = 8,
+  defaultLibrary = 9,
+  _ = 10,
 }
 
 let semanticTokensLegend: SemanticTokensLegend;
@@ -208,64 +212,64 @@ function computeLegend(
           tokenTypes.push("operator");
           break;
         case "shape_binary":
-          tokenTypes.push("operator");
+          tokenTypes.push("number");
           break;
         case "shape_block":
           tokenTypes.push("operator");
           break;
         case "shape_bool":
-          tokenTypes.push("keyword");
+          tokenTypes.push("type");
           break;
         case "shape_closure":
-          tokenTypes.push("operator");
+          tokenTypes.push("function");
           break;
         case "shape_custom":
-          tokenTypes.push("keyword");
+          tokenTypes.push("function");
           break;
         case "shape_datetime":
-          tokenTypes.push("keyword");
+          tokenTypes.push("type");
           break;
         case "shape_directory":
-          tokenTypes.push("keyword");
+          tokenTypes.push("string");
           break;
         case "shape_external":
-          tokenTypes.push("keyword");
+          tokenTypes.push("function");
           break;
         case "shape_externalarg":
-          tokenTypes.push("keyword");
+          tokenTypes.push("parameter");
           break;
         case "shape_filepath":
-          tokenTypes.push("keyword");
+          tokenTypes.push("string");
           break;
         case "shape_flag":
-          tokenTypes.push("keyword");
+          tokenTypes.push("parameter");
           break;
         case "shape_float":
           tokenTypes.push("number");
           break;
         case "shape_garbage":
-          tokenTypes.push("keyword");
+          tokenTypes.push("label");
           break;
         case "shape_globpattern":
-          tokenTypes.push("keyword");
+          tokenTypes.push("parameter");
           break;
         case "shape_int":
           tokenTypes.push("number");
           break;
         case "shape_internalcall":
-          tokenTypes.push("keyword");
+          tokenTypes.push("function");
           break;
         case "shape_keyword":
           tokenTypes.push("keyword");
           break;
         case "shape_list":
-          tokenTypes.push("keyword");
+          tokenTypes.push("type");
           break;
         case "shape_literal":
-          tokenTypes.push("keyword");
+          tokenTypes.push("type");
           break;
         case "shape_match_pattern":
-          tokenTypes.push("keyword");
+          tokenTypes.push("parameter");
           break;
         case "shape_nothing":
           tokenTypes.push("keyword");
@@ -280,16 +284,16 @@ function computeLegend(
           tokenTypes.push("operator");
           break;
         case "shape_range":
-          tokenTypes.push("operator");
+          tokenTypes.push("varaiable");
           break;
         case "shape_record":
-          tokenTypes.push("keyword");
+          tokenTypes.push("type");
           break;
         case "shape_redirection":
-          tokenTypes.push("keyword");
+          tokenTypes.push("parameter");
           break;
         case "shape_signature":
-          tokenTypes.push("keyword");
+          tokenTypes.push("interface");
           break;
         case "shape_string":
           tokenTypes.push("string");
@@ -310,11 +314,6 @@ function computeLegend(
           tokenTypes.push("variable");
           break;
       }
-      // if (str === "lambdaFunction") {
-      //   tokenTypes.push("function");
-      // } else {
-      //   tokenTypes.push("type");
-      // }
     }
   }
 
@@ -866,7 +865,7 @@ connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
 });
 
 async function goToDefinition(
-  document: TextDocument,
+  document: NuTextDocument,
   nushellOutput: string
 ): Promise<HandlerResult<Definition, void> | undefined> {
   const lines = nushellOutput.split("\n").filter((l) => l.length > 0);
@@ -932,7 +931,7 @@ documents.onDidClose((event) => {
   tokenBuilders.delete(event.document.uri);
 });
 
-function getTokenBuilder(document: TextDocument): SemanticTokensBuilder {
+function getTokenBuilder(document: NuTextDocument): SemanticTokensBuilder {
   connection.console.log("getTokenBuilder");
 
   let result = tokenBuilders.get(document.uri);
@@ -940,7 +939,7 @@ function getTokenBuilder(document: TextDocument): SemanticTokensBuilder {
     return result;
   }
   result = new SemanticTokensBuilder();
-  connection.console.log("SemanticTokensBuilder " + result);
+  connection.console.log("SemanticTokensBuilder " + JSON.stringify(result));
   tokenBuilders.set(document.uri, result);
   return result;
 }
@@ -970,25 +969,33 @@ async function buildTokens(
           connection.console.log("node: " + JSON.stringify(node));
           // connection.console.log("node.type: " + node.type);
           // connection.console.log("node.shape: " + node.shape);
-          connection.console.log("node.span.start: " + node.span.start);
-          connection.console.log("node.span.end: " + node.span.end);
-          connection.console.log("lineBreaks: " + lineBreaks);
+          // connection.console.log(
+          //   "node.span.start: " +
+          //     node.span.start +
+          //     " node.span.end: " +
+          //     node.span.end +
+          //     " linebreaks: " +
+          //     lineBreaks
+          // );
           const position_start = convertSpan(node.span.start, lineBreaks);
           const position_end = convertSpan(node.span.end, lineBreaks);
-          const tokenType = Object.keys(TokenTypes).indexOf(node.shape);
-          const tokenModifiers = Object.keys(TokenModifiers).indexOf(
-            node.modifiers
-          );
-          // connection.console.log(
-          //   "tokenType: " + tokenType + " tokenModifiers: " + tokenModifiers
-          // );
+          const tokenType = Number(TokenTypes[node.shape]);
+          const tokenModifiers = Number(TokenModifiers[node.modifiers]);
           connection.console.log(
             "line#: " +
               position_start.line +
               " character#: " +
               position_start.character +
               " length: " +
-              (position_end.character - position_start.character)
+              (position_end.character - position_start.character) +
+              " tokenType: " +
+              tokenType +
+              " tokenType shape: " +
+              node.shape +
+              " name: " +
+              TokenTypes[node.shape] +
+              " tokenModifiers: " +
+              tokenModifiers
           );
           builder.push(
             position_start.line,

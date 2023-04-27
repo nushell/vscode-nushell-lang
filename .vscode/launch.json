@@ -7,6 +7,7 @@
       "request": "launch",
       "name": "Launch Client",
       "runtimeExecutable": "${execPath}",
+      "autoAttachChildProcesses": true, //alows you to debug the server
       "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
       "preLaunchTask": {
         "type": "npm",
