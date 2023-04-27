@@ -357,6 +357,124 @@
         "description": "\"du\" invocation",
         "body": "du ${1:path/to/directory}"
     },
+    "each builtin": {
+        "prefix": "each",
+        "description": "\"each\" invocation",
+        "body": "${1:command} | each {|${2:el}| ${3:closure} }"
+    },
+    "each while builtin": {
+        "prefix": "each-while",
+        "description": "\"each while\" invocation",
+        "body": "${1:command} | each while {|${2:el}| ${3:closure} }"
+    },
+    "encode builtin": {
+        "prefix": "encode",
+        "description": "\"encode\" invocation",
+        "body": "${1:command} | encode ${2|big5,euc-jp,euc-kr,gbk,iso-8859-1,utf-16,cp1252,latin5|}"
+    },
+    "encode base64 builtin": {
+        "prefix": "encode-base64",
+        "description": "\"encode base64\" invocation",
+        "body": "${1:command} | encode base64"
+    },
+    "encode hex builtin": {
+        "prefix": "encode-hex",
+        "description": "\"encode hex\" invocation",
+        "body": "${1:command} | encode hex"
+    },
+    "enter builtin": {
+        "prefix": "enter",
+        "description": "\"enter\" invocation",
+        "body": "enter ${1:path/to/directory}"
+    },
+    "enumerate builtin": {
+        "prefix": "enumerate",
+        "description": "\"enumerate\" invocation",
+        "body": "${1:command} | enumerate"
+    },
+    "error make builtin": {
+        "prefix": "error-make",
+        "description": "\"error make\" invocation",
+        "body": "error make {${1:msg}: ${2:message}${3:, }}"
+    },
+    "every builtin": {
+        "prefix": "every",
+        "description": "\"every\" invocation",
+        "body": "${1:command} | every ${2:stride}"
+    },
+    "exec builtin": {
+        "prefix": "exec",
+        "description": "\"exec\" invocation",
+        "body": "exec ${1:command}"
+    },
+    "exit builtin": {
+        "prefix": "exit",
+        "description": "\"exit\" invocation",
+        "body": "exit ${1:code}"
+    },
+    "explain builtin": {
+        "prefix": "explain",
+        "description": "\"explain\" invocation",
+        "body": "explain {|| ${1:closure} }"
+    },
+    "explore builtin": {
+        "prefix": "explore",
+        "description": "\"explore\" invocation",
+        "body": "${1:command} | explore"
+    },
+    "export builtin": {
+        "prefix": "export",
+        "description": "\"export\" invocation",
+        "body": "export ${1:definition}"
+    },
+    "export alias builtin": {
+        "prefix": "export-alias",
+        "description": "\"export alias\" invocation",
+        "body": "export alias ${1:name} = ${2:value}"
+    },
+    "export def builtin": {
+        "prefix": "export-def",
+        "description": "\"export def\" invocation",
+        "body": [
+            "export def ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "export def-env builtin": {
+        "prefix": "export-def-env",
+        "description": "\"export def-env\" invocation",
+        "body": [
+            "export def-env ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "export extern builtin": {
+        "prefix": "export-extern",
+        "description": "\"export extern\" invocation",
+        "body": "export extern ${1:name} [${2:param}: string${3:, }]"
+    },
+    "export old-alias builtin": {
+        "prefix": "export-old-alias",
+        "description": "\"export old-alias\" invocation",
+        "body": "export old-alias ${1:name} = ${2:value}"
+    },
+    "export use builtin": {
+        "prefix": "export-use",
+        "description": "\"export use\" invocation",
+        "body": "export use ${1:module} ${2:members}"
+    },
+    "export env builtin": {
+        "prefix": "export-env",
+        "description": "\"export env\" invocation",
+        "body": "export env { ${1:block} }"
+    },
+    "extern builtin": {
+        "prefix": "extern",
+        "description": "\"extern\" invocation",
+        "body": "extern ${1:name} [${2:param}: string${3:, }]"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
