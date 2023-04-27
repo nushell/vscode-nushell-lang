@@ -39,7 +39,10 @@
         "body": "${1:value}${2|b,kb,mb,gb,tb,pb,eb,zb,kib,mib,gib,tib,pib,eib,zib|}"
     },
     "range": {
-        "prefix": "range",
+        "prefix": [
+            "range",
+            ".."
+        ],
         "description": "range",
         "body": "${1:from}..${2:to}"
     },
