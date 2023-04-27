@@ -1,5 +1,7 @@
 # Convention for snippets
 
+## Naming
+
 Naming convention for `description`:
 
 - for operators it's `"<operator>" operator` (e.g. `"in" operator`)
@@ -29,3 +31,14 @@ Snippets are only created for commands those satisfy at least one condition:
 
 If there are options available for command or a subcommand then there is no
 restriction about what options to pick to put in snippet definition.
+
+## Placeholders
+
+Placeholders by default should describe what kind of value is expected like
+`${1:path/to/directory}`. But when there is a format defined for placeholder
+then example value should be used like `${1:ff}`.
+
+Placeholders can not to list all available choices like
+`${1|big5,euc-jp,euc-kr,gbk,iso-8859-1,utf-16,cp1252,latin5|}`. When there are
+more then 8 alternatives, provide the most common ones in terms of usage
+frequency.
