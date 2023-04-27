@@ -41,4 +41,5 @@ then example value should be used like `${1:ff}`.
 Placeholders can not to list all available choices like
 `${1|big5,euc-jp,euc-kr,gbk,iso-8859-1,utf-16,cp1252,latin5|}`. When there are
 more then 8 alternatives, provide the most common ones in terms of usage
-frequency.
+frequency (it doesn't apply for `date` snippet and placeholders with data
+types).
