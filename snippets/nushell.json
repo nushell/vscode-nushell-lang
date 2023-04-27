@@ -254,31 +254,108 @@
         "description": "\"cp\" invocation",
         "body": "cp ${1:path/to/from} ${2:path/to/to}"
     },
-    "Create Custom Command": {
-        "prefix": "def",
-        "body": [
-            "# Documentation for ${1:Custom_Command_Name}",
-            "def ${1:Custom_Command_Name} [] {",
-            "\t# Write some code here",
-            "\t${2}",
-            "}"
-        ],
-        "description": "Example: Write a custom command"
+    "date format builtin": {
+        "prefix": "date-format",
+        "description": "\"date format\" invocation",
+        "body": "date format ${1:%Y-%m-%d %H:%M:%S}"
     },
-    "Custom Command With Parameter": {
-        "prefix": "defp",
+    "date humanize builtin": {
+        "prefix": "date-humanize",
+        "description": "\"date humanize\" invocation",
+        "body": "${1:command} | date humanize"
+    },
+    "decode builtin": {
+        "prefix": "decode",
+        "description": "\"decode\" invocation",
+        "body": "${1:command} | decode ${1|big5,euc-jp,euc-kr,gbk,iso-8859-1,utf-16,cp1252,latin5|}"
+    },
+    "decode base64 builtin": {
+        "prefix": "decode-base64",
+        "description": "\"decode base64\" invocation",
+        "body": "${1:command} | decode base64"
+    },
+    "decode hex builtin": {
+        "prefix": "decode-hex",
+        "description": "\"decode hex\" invocation",
+        "body": "${1:command} | decode hex"
+    },
+    "def builtin": {
+        "prefix": "def",
+        "description": "\"def\" invocation",
         "body": [
-            "# Documentation for ${1:Custom_Command_Name}",
-            "# Written on ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}",
-            "def ${1:Custom_Command_Name} [",
-            "\t ${2:Param_Name} # Docs for ${2:Param_Name}",
-            "\t] {",
-            "\t# Test the parameter",
-            "\techo \\$${2:Param_Name}",
-            "\t${3}",
+            "def ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "\t$0",
             "}"
-        ],
-        "description": "Example: Write a custom command with a parameter"
+        ]
+    },
+    "@def builtin": {
+        "prefix": "@def",
+        "description": "\"def\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "def ${2:name} [${3:param}: ${4|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${5:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "def-env builtin": {
+        "prefix": "def-env",
+        "description": "\"def-env\" invocation",
+        "body": [
+            "def-env ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "@def-env builtin": {
+        "prefix": "@def-env",
+        "description": "\"def-env\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "def-env ${2:name} [${3:param}: ${4|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${5:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "default builtin": {
+        "prefix": "default",
+        "description": "\"default\" invocation",
+        "body": "${1:command} | default ${2:default} ${3:column}"
+    },
+    "describe builtin": {
+        "prefix": "describe",
+        "description": "\"describe\" invocation",
+        "body": "${1:command} | describe"
+    },
+    "detect columns builtin": {
+        "prefix": "detect-columns",
+        "description": "\"detect columns\" invocation",
+        "body": "${1:command} | detect columns"
+    },
+    "do builtin": {
+        "prefix": "do",
+        "description": "\"do\" invocation",
+        "body": "do { ${1:closure} }"
+    },
+    "drop builtin": {
+        "prefix": "drop",
+        "description": "\"drop\" invocation",
+        "body": "${1:command} | drop ${2:rows}"
+    },
+    "drop columns builtin": {
+        "prefix": "drop-columns",
+        "description": "\"drop columns\" invocation",
+        "body": "${1:command} | drop columns ${2:numbers}"
+    },
+    "drop nth builtin": {
+        "prefix": "drop-nth",
+        "description": "\"drop nth\" invocation",
+        "body": "${1:command} | drop nth ${2:rows}"
+    },
+    "du builtin": {
+        "prefix": "du",
+        "description": "\"du\" invocation",
+        "body": "du ${1:path/to/directory}"
     },
     "Custom Command With Switch": {
         "prefix": "defs",
