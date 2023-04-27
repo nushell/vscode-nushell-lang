@@ -79,33 +79,6 @@ connection.onExit(() => {
   tmpFile.removeCallback();
 });
 
-// Standard Token Types
-// https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#standard-token-types-and-modifiers
-// ID	            Description
-// namespace	    For identifiers that declare or reference a namespace, module, or package.
-// class	        For identifiers that declare or reference a class type.
-// enum	          For identifiers that declare or reference an enumeration type.
-// interface	    For identifiers that declare or reference an interface type.
-// struct	        For identifiers that declare or reference a struct type.
-// typeParameter	For identifiers that declare or reference a type parameter.
-// type	          For identifiers that declare or reference a type that is not covered above.
-// parameter	    For identifiers that declare or reference a function or method parameters.
-// variable	      For identifiers that declare or reference a local or global variable.
-// property	      For identifiers that declare or reference a member property, member field, or member variable.
-// enumMember	    For identifiers that declare or reference an enumeration property, constant, or member.
-// decorator	    For identifiers that declare or reference decorators and annotations.
-// event	        For identifiers that declare an event property.
-// function	      For identifiers that declare a function.
-// method	        For identifiers that declare a member function or method.
-// macro	        For identifiers that declare a macro.
-// label	        For identifiers that declare a label.
-// comment	      For tokens that represent a comment.
-// string	        For tokens that represent a string literal.
-// keyword	      For tokens that represent a language keyword.
-// number	        For tokens that represent a number literal.
-// regexp	        For tokens that represent a regular expression literal.
-// operator	      For tokens that represent an operator.
-
 // enum TokenTypes {
 //   shape_and = 0,
 //   shape_binary = 1,
@@ -143,6 +116,33 @@ connection.onExit(() => {
 //   shape_vardecl = 33,
 //   _ = 34,
 // }
+
+// Standard Token Types
+// https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide#standard-token-types-and-modifiers
+// ID	            Description
+// namespace	    For identifiers that declare or reference a namespace, module, or package.
+// class	        For identifiers that declare or reference a class type.
+// enum	          For identifiers that declare or reference an enumeration type.
+// interface	    For identifiers that declare or reference an interface type.
+// struct	        For identifiers that declare or reference a struct type.
+// typeParameter	For identifiers that declare or reference a type parameter.
+// type	          For identifiers that declare or reference a type that is not covered above.
+// parameter	    For identifiers that declare or reference a function or method parameters.
+// variable	      For identifiers that declare or reference a local or global variable.
+// property	      For identifiers that declare or reference a member property, member field, or member variable.
+// enumMember	    For identifiers that declare or reference an enumeration property, constant, or member.
+// decorator	    For identifiers that declare or reference decorators and annotations.
+// event	        For identifiers that declare an event property.
+// function	      For identifiers that declare a function.
+// method	        For identifiers that declare a member function or method.
+// macro	        For identifiers that declare a macro.
+// label	        For identifiers that declare a label.
+// comment	      For tokens that represent a comment.
+// string	        For tokens that represent a string literal.
+// keyword	      For tokens that represent a language keyword.
+// number	        For tokens that represent a number literal.
+// regexp	        For tokens that represent a regular expression literal.
+// operator	      For tokens that represent an operator.
 
 enum TokenTypes {
   comment = 0,
@@ -1001,6 +1001,9 @@ function getTokenBuilder(document: NuTextDocument): SemanticTokensBuilder {
   }
   result = new SemanticTokensBuilder();
   connection.console.log("SemanticTokensBuilder " + JSON.stringify(result));
+  // first time through
+  // getTokenBuilder
+  // SemanticTokensBuilder {"_id":1682626045133,"_prevLine":0,"_prevChar":0,"_data":[],"_dataLen":0}
   tokenBuilders.set(document.uri, result);
   return result;
 }
@@ -1043,7 +1046,8 @@ async function buildTokens(
           const tokenNuToVSCode: string = tokenMap.get(node.shape) || "text";
           // const tokenType = Number(TokenTypes[node.shape]);
           const tokenType = TokenTypes[tokenNuToVSCode];
-          const tokenModifier = Number(TokenModifiers[node.modifiers]);
+          // const tokenModifier = Number(TokenModifiers[node.modifiers]);
+          const tokenModifier = TokenModifiers.defaultLibrary;
           const word = text.substring(node.span.start, node.span.end);
           const position = position_start;
           // connection.console.log(
@@ -1096,6 +1100,12 @@ async function buildTokens(
             // " modifierCounter " +
             // modifierCounter
           );
+          // as the push happens _data[] gets populated
+          // first time through
+          // 0, 0, 3, 0, 1 and _data is  [0,0,3,0,1]
+          // 0, 4, 4, 1, 2 and _data is  [0,0,3,0,1, 0,4,4,1,2]
+          // 0, 10, 3, 2, 4 and _data is [0,0,3,0,1, 0,4,4,1,2, 0,6,3,2,4]
+
           builder.push(
             position_start.line,
             position_start.character,
@@ -1167,7 +1177,10 @@ connection.languages.semanticTokens.on((params) => {
     return { data: [] };
   }
   const builder = getTokenBuilder(document);
+  // the builder _data array is empty
+
   buildTokens(builder, document);
+  // after buildtokens the _data array is populated
   //semanticTokens.on buildTokens {"_id":1682622283077,"_prevLine":3,"_prevChar":10,"_data":[0,0,3,0,1,0,4,4,1,2,0,6,3,2,4,1,2,5,3,8,0,7,3,4,16,1,2,3,5,32,0,4,1,6,64,0,2,2,7,128,0,4,3,8,1,0,4,1,9,2,0,2,2,10,4,1,4,4,11,8,0,6,1,12,16],"_dataLen":65}
   connection.console.log(
     "semanticTokens.on buildTokens " + JSON.stringify(builder)
