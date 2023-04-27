@@ -105,68 +105,71 @@ connection.onExit(() => {
 // number	        For tokens that represent a number literal.
 // regexp	        For tokens that represent a regular expression literal.
 // operator	      For tokens that represent an operator.
-enum TokenTypes {
-  shape_and = 0,
-  shape_binary = 1,
-  shape_block = 2,
-  shape_bool = 3,
-  shape_closure = 4,
-  shape_custom = 5,
-  shape_datetime = 6,
-  shape_directory = 7,
-  shape_external = 8,
-  shape_externalarg = 9,
-  shape_filepath = 10,
-  shape_flag = 11,
-  shape_float = 12,
-  shape_garbage = 13,
-  shape_globpattern = 14,
-  shape_int = 15,
-  shape_internalcall = 16,
-  shape_keyword = 17,
-  shape_list = 18,
-  shape_literal = 19,
-  shape_match_pattern = 20,
-  shape_nothing = 21,
-  shape_operator = 22,
-  shape_or = 23,
-  shape_pipe = 24,
-  shape_range = 25,
-  shape_record = 26,
-  shape_redirection = 27,
-  shape_signature = 28,
-  shape_string = 29,
-  shape_string_interpolation = 30,
-  shape_table = 31,
-  shape_variable = 32,
-  shape_vardecl = 33,
-  _ = 34,
-}
 
 // enum TokenTypes {
-//   comment = 0,
-//   string = 1,
-//   keyword = 2,
-//   number = 3,
-//   regexp = 4,
-//   operator = 5,
-//   namespace = 6,
-//   type = 7,
-//   struct = 8,
-//   class = 9,
-//   interface = 10,
-//   enum = 11,
-//   typeParameter = 12,
-//   function = 13,
-//   method = 14,
-//   decorator = 15,
-//   macro = 16,
-//   variable = 17,
-//   parameter = 18,
-//   property = 19,
-//   label = 20,
-//   _ = 21,
+//   shape_and = 0,
+//   shape_binary = 1,
+//   shape_block = 2,
+//   shape_bool = 3,
+//   shape_closure = 4,
+//   shape_custom = 5,
+//   shape_datetime = 6,
+//   shape_directory = 7,
+//   shape_external = 8,
+//   shape_externalarg = 9,
+//   shape_filepath = 10,
+//   shape_flag = 11,
+//   shape_float = 12,
+//   shape_garbage = 13,
+//   shape_globpattern = 14,
+//   shape_int = 15,
+//   shape_internalcall = 16,
+//   shape_keyword = 17,
+//   shape_list = 18,
+//   shape_literal = 19,
+//   shape_match_pattern = 20,
+//   shape_nothing = 21,
+//   shape_operator = 22,
+//   shape_or = 23,
+//   shape_pipe = 24,
+//   shape_range = 25,
+//   shape_record = 26,
+//   shape_redirection = 27,
+//   shape_signature = 28,
+//   shape_string = 29,
+//   shape_string_interpolation = 30,
+//   shape_table = 31,
+//   shape_variable = 32,
+//   shape_vardecl = 33,
+//   _ = 34,
 // }
+
+enum TokenTypes {
+  comment = 0,
+  string = 1,
+  keyword = 2,
+  number = 3,
+  regexp = 4,
+  operator = 5,
+  namespace = 6,
+  type = 7,
+  struct = 8,
+  class = 9,
+  interface = 10,
+  enum = 11,
+  typeParameter = 12,
+  function = 13,
+  method = 14,
+  decorator = 15,
+  macro = 16,
+  variable = 17,
+  parameter = 18,
+  property = 19,
+  label = 20,
+  enumMember = 21,
+  event = 22,
+  _ = 23,
+}
 
 // Standard Token Modifiers
 // ID	            Description
@@ -200,6 +203,12 @@ function computeLegend(
 ): SemanticTokensLegend {
   const clientTokenTypes = new Set<string>(capability.tokenTypes);
   const clientTokenModifiers = new Set<string>(capability.tokenModifiers);
+  connection.console.log(
+    "clientTokenTypes: " + JSON.stringify(clientTokenTypes)
+  );
+  connection.console.log(
+    "clientTokenModifiers: " + JSON.stringify(clientTokenModifiers)
+  );
 
   const tokenTypes: string[] = [];
   for (let i = 0; i < TokenTypes._; i++) {
@@ -207,115 +216,130 @@ function computeLegend(
     if (clientTokenTypes.has(str)) {
       tokenTypes.push(str);
     } else {
-      switch (str) {
-        case "shape_and":
-          tokenTypes.push("operator");
-          break;
-        case "shape_binary":
-          tokenTypes.push("number");
-          break;
-        case "shape_block":
-          tokenTypes.push("operator");
-          break;
-        case "shape_bool":
-          tokenTypes.push("type");
-          break;
-        case "shape_closure":
-          tokenTypes.push("function");
-          break;
-        case "shape_custom":
-          tokenTypes.push("function");
-          break;
-        case "shape_datetime":
-          tokenTypes.push("type");
-          break;
-        case "shape_directory":
-          tokenTypes.push("string");
-          break;
-        case "shape_external":
-          tokenTypes.push("function");
-          break;
-        case "shape_externalarg":
-          tokenTypes.push("parameter");
-          break;
-        case "shape_filepath":
-          tokenTypes.push("string");
-          break;
-        case "shape_flag":
-          tokenTypes.push("parameter");
-          break;
-        case "shape_float":
-          tokenTypes.push("number");
-          break;
-        case "shape_garbage":
-          tokenTypes.push("label");
-          break;
-        case "shape_globpattern":
-          tokenTypes.push("parameter");
-          break;
-        case "shape_int":
-          tokenTypes.push("number");
-          break;
-        case "shape_internalcall":
-          tokenTypes.push("function");
-          break;
-        case "shape_keyword":
-          tokenTypes.push("keyword");
-          break;
-        case "shape_list":
-          tokenTypes.push("type");
-          break;
-        case "shape_literal":
-          tokenTypes.push("type");
-          break;
-        case "shape_match_pattern":
-          tokenTypes.push("parameter");
-          break;
-        case "shape_nothing":
-          tokenTypes.push("keyword");
-          break;
-        case "shape_operator":
-          tokenTypes.push("operator");
-          break;
-        case "shape_or":
-          tokenTypes.push("operator");
-          break;
-        case "shape_pipe":
-          tokenTypes.push("operator");
-          break;
-        case "shape_range":
-          tokenTypes.push("varaiable");
-          break;
-        case "shape_record":
-          tokenTypes.push("type");
-          break;
-        case "shape_redirection":
-          tokenTypes.push("parameter");
-          break;
-        case "shape_signature":
-          tokenTypes.push("interface");
-          break;
-        case "shape_string":
-          tokenTypes.push("string");
-          break;
-        case "shape_string_interpolation":
-          tokenTypes.push("string");
-          break;
-        case "shape_table":
-          tokenTypes.push("keyword");
-          break;
-        case "shape_variable":
-          tokenTypes.push("variable");
-          break;
-        case "shape_vardecl":
-          tokenTypes.push("variable");
-          break;
-        default:
-          tokenTypes.push("variable");
-          break;
+      if (str === "lambdaFunction") {
+        tokenTypes.push("function");
+      } else {
+        tokenTypes.push("type");
       }
     }
   }
+
+  // const tokenTypes: string[] = [];
+  // for (let i = 0; i < TokenTypes._; i++) {
+  //   const str = TokenTypes[i];
+  //   connection.console.log("str: " + str);
+  //   if (clientTokenTypes.has(str)) {
+  //     tokenTypes.push(str);
+  //   } else {
+  //     switch (str) {
+  //       case "shape_and":
+  //         tokenTypes.push("operator");
+  //         break;
+  //       case "shape_binary":
+  //         tokenTypes.push("number");
+  //         break;
+  //       case "shape_block":
+  //         tokenTypes.push("operator");
+  //         break;
+  //       case "shape_bool":
+  //         tokenTypes.push("type");
+  //         break;
+  //       case "shape_closure":
+  //         tokenTypes.push("function");
+  //         break;
+  //       case "shape_custom":
+  //         tokenTypes.push("function");
+  //         break;
+  //       case "shape_datetime":
+  //         tokenTypes.push("type");
+  //         break;
+  //       case "shape_directory":
+  //         tokenTypes.push("string");
+  //         break;
+  //       case "shape_external":
+  //         tokenTypes.push("function");
+  //         break;
+  //       case "shape_externalarg":
+  //         tokenTypes.push("parameter");
+  //         break;
+  //       case "shape_filepath":
+  //         tokenTypes.push("string");
+  //         break;
+  //       case "shape_flag":
+  //         tokenTypes.push("parameter");
+  //         break;
+  //       case "shape_float":
+  //         tokenTypes.push("number");
+  //         break;
+  //       case "shape_garbage":
+  //         tokenTypes.push("label");
+  //         break;
+  //       case "shape_globpattern":
+  //         tokenTypes.push("parameter");
+  //         break;
+  //       case "shape_int":
+  //         tokenTypes.push("number");
+  //         break;
+  //       case "shape_internalcall":
+  //         tokenTypes.push("function");
+  //         break;
+  //       case "shape_keyword":
+  //         tokenTypes.push("keyword");
+  //         break;
+  //       case "shape_list":
+  //         tokenTypes.push("type");
+  //         break;
+  //       case "shape_literal":
+  //         tokenTypes.push("type");
+  //         break;
+  //       case "shape_match_pattern":
+  //         tokenTypes.push("parameter");
+  //         break;
+  //       case "shape_nothing":
+  //         tokenTypes.push("keyword");
+  //         break;
+  //       case "shape_operator":
+  //         tokenTypes.push("operator");
+  //         break;
+  //       case "shape_or":
+  //         tokenTypes.push("operator");
+  //         break;
+  //       case "shape_pipe":
+  //         tokenTypes.push("operator");
+  //         break;
+  //       case "shape_range":
+  //         tokenTypes.push("varaiable");
+  //         break;
+  //       case "shape_record":
+  //         tokenTypes.push("type");
+  //         break;
+  //       case "shape_redirection":
+  //         tokenTypes.push("parameter");
+  //         break;
+  //       case "shape_signature":
+  //         tokenTypes.push("interface");
+  //         break;
+  //       case "shape_string":
+  //         tokenTypes.push("string");
+  //         break;
+  //       case "shape_string_interpolation":
+  //         tokenTypes.push("string");
+  //         break;
+  //       case "shape_table":
+  //         tokenTypes.push("keyword");
+  //         break;
+  //       case "shape_variable":
+  //         tokenTypes.push("variable");
+  //         break;
+  //       case "shape_vardecl":
+  //         tokenTypes.push("variable");
+  //         break;
+  //       default:
+  //         tokenTypes.push("variable");
+  //         break;
+  //     }
+  //   }
+  // }
 
   const tokenModifiers: string[] = [];
   for (let i = 0; i < TokenModifiers._; i++) {
@@ -332,6 +356,43 @@ function computeLegend(
   );
   return { tokenTypes, tokenModifiers };
 }
+
+// This maps nushell ast tokens to vscode tokens
+const tokenMap: Map<string, string> = new Map();
+tokenMap.set("shape_and", "operator");
+tokenMap.set("shape_binary", "number");
+tokenMap.set("shape_block", "operator");
+tokenMap.set("shape_bool", "type");
+tokenMap.set("shape_closure", "function");
+tokenMap.set("shape_custom", "function");
+tokenMap.set("shape_datetime", "type");
+tokenMap.set("shape_directory", "string");
+tokenMap.set("shape_external", "function");
+tokenMap.set("shape_externalarg", "parameter");
+tokenMap.set("shape_filepath", "string");
+tokenMap.set("shape_flag", "parameter");
+tokenMap.set("shape_float", "number");
+tokenMap.set("shape_garbage", "label");
+tokenMap.set("shape_globpattern", "parameter");
+tokenMap.set("shape_int", "number");
+tokenMap.set("shape_internalcall", "function");
+tokenMap.set("shape_keyword", "keyword");
+tokenMap.set("shape_list", "type");
+tokenMap.set("shape_literal", "type");
+tokenMap.set("shape_match_pattern", "parameter");
+tokenMap.set("shape_nothing", "keyword");
+tokenMap.set("shape_operator", "operator");
+tokenMap.set("shape_or", "operator");
+tokenMap.set("shape_pipe", "operator");
+tokenMap.set("shape_range", "varaiable");
+tokenMap.set("shape_record", "type");
+tokenMap.set("shape_redirection", "parameter");
+tokenMap.set("shape_signature", "interface");
+tokenMap.set("shape_string", "string");
+tokenMap.set("shape_string_interpolation", "string");
+tokenMap.set("shape_table", "keyword");
+tokenMap.set("shape_variable", "variable");
+tokenMap.set("shape_vardecl", "variable");
 
 connection.onInitialize((params: InitializeParams) => {
   const capabilities = params.capabilities;
@@ -979,31 +1040,76 @@ async function buildTokens(
           // );
           const position_start = convertSpan(node.span.start, lineBreaks);
           const position_end = convertSpan(node.span.end, lineBreaks);
-          const tokenType = Number(TokenTypes[node.shape]);
-          const tokenModifiers = Number(TokenModifiers[node.modifiers]);
+          const tokenNuToVSCode: string = tokenMap.get(node.shape) || "text";
+          // const tokenType = Number(TokenTypes[node.shape]);
+          const tokenType = TokenTypes[tokenNuToVSCode];
+          const tokenModifier = Number(TokenModifiers[node.modifiers]);
+          const word = text.substring(node.span.start, node.span.end);
+          const position = position_start;
+          // connection.console.log(
+          //   "line#: " +
+          //     position_start.line +
+          //     " character#: " +
+          //     position_start.character +
+          //     " length: " +
+          //     (position_end.character - position_start.character) +
+          //     " tokenType: " +
+          //     tokenType +
+          //     " tokenType shape: " +
+          //     node.shape +
+          //     " name: " +
+          //     TokenTypes[node.shape] +
+          //     " tokenModifiers: " +
+          //     tokenModifiers
+          // );
+          // word def position {"line":0,"character":0} tokenType 0 (comment)  tokenModifier 1 (documentation)  tokenCounter 0 modifierCounter 0
+          // word test position {"line":0,"character":4} tokenType 1 (string)  tokenModifier 2 (readonly)  tokenCounter 1 modifierCounter 1
+          // word arg position {"line":0,"character":10} tokenType 2 (keyword)  tokenModifier 4 (abstract)  tokenCounter 2 modifierCounter 2
+          // word print position {"line":1,"character":2} tokenType 3 (number)  tokenModifier 8 (_)  tokenCounter 3 modifierCounter 3
+          // word arg position {"line":1,"character":9} tokenType 4 (regexp)  tokenModifier 16 (undefined)  tokenCounter 4 modifierCounter 4
+          // word for position {"line":2,"character":2} tokenType 5 (operator)  tokenModifier 32 (undefined)  tokenCounter 5 modifierCounter 5
+          // word i position {"line":2,"character":6} tokenType 6 (namespace)  tokenModifier 64 (undefined)  tokenCounter 6 modifierCounter 6
+          // word in position {"line":2,"character":8} tokenType 7 (type)  tokenModifier 128 (undefined)  tokenCounter 7 modifierCounter 7
+          // word seq position {"line":2,"character":12} tokenType 8 (struct)  tokenModifier 1 (documentation)  tokenCounter 8 modifierCounter 8
+          // word 1 position {"line":2,"character":16} tokenType 9 (class)  tokenModifier 2 (readonly)  tokenCounter 9 modifierCounter 9
+          // word 10 position {"line":2,"character":18} tokenType 10 (interface)  tokenModifier 4 (abstract)  tokenCounter 10 modifierCounter 10
+          // word echo position {"line":3,"character":4} tokenType 11 (enum)  tokenModifier 8 (_)  tokenCounter 11 modifierCounter 11
+          // word i position {"line":3,"character":10} tokenType 12 (typeParameter)  tokenModifier 16 (undefined)  tokenCounter 12 modifierCounter 12
+
           connection.console.log(
-            "line#: " +
-              position_start.line +
-              " character#: " +
-              position_start.character +
-              " length: " +
-              (position_end.character - position_start.character) +
-              " tokenType: " +
+            "word " +
+              word +
+              " position " +
+              JSON.stringify(position) +
+              " tokenType " +
               tokenType +
-              " tokenType shape: " +
-              node.shape +
-              " name: " +
-              TokenTypes[node.shape] +
-              " tokenModifiers: " +
-              tokenModifiers
+              " (" +
+              TokenTypes[tokenType] +
+              ") " +
+              " tokenModifier " +
+              tokenModifier +
+              " (" +
+              TokenModifiers[tokenModifier] +
+              ") " // +
+            // " tokenCounter " +
+            // tokenCounter +
+            // " modifierCounter " +
+            // modifierCounter
           );
           builder.push(
             position_start.line,
             position_start.character,
             position_end.character - position_start.character,
             tokenType,
-            tokenModifiers
+            tokenModifier
           );
+          //   builder.push(
+          //     position.line,
+          //     position.character,
+          //     word.length,
+          //     tokenType,
+          //     tokenModifier
+          //   );
         }
       }
     } catch (e) {
@@ -1062,6 +1168,7 @@ connection.languages.semanticTokens.on((params) => {
   }
   const builder = getTokenBuilder(document);
   buildTokens(builder, document);
+  //semanticTokens.on buildTokens {"_id":1682622283077,"_prevLine":3,"_prevChar":10,"_data":[0,0,3,0,1,0,4,4,1,2,0,6,3,2,4,1,2,5,3,8,0,7,3,4,16,1,2,3,5,32,0,4,1,6,64,0,2,2,7,128,0,4,3,8,1,0,4,1,9,2,0,2,2,10,4,1,4,4,11,8,0,6,1,12,16],"_dataLen":65}
   connection.console.log(
     "semanticTokens.on buildTokens " + JSON.stringify(builder)
   );
@@ -1086,3 +1193,8 @@ connection.languages.semanticTokens.onRange((params) => {
 
   return { data: [] };
 });
+
+// Debugger listening on ws://127.0.0.1:6009/8c9fabd4-ac14-4ccb-9a32-5ac5e76f24df
+// For help, see: https://nodejs.org/en/docs/inspector
+// Debugger attached.
+// tokenTypes: ["comment","string","keyword","number","regexp","operator","namespace","type","struct","class","interface","enum","typeParameter","function","method","decorator","macro","variable","parameter","property","type"] tokenModifiers: ["declaration","documentation","readonly","static","abstract","deprecated","modification","async"]
