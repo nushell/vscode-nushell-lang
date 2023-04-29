@@ -1,29 +1,503 @@
 {
-    "Create Custom Command": {
-        "prefix": "def",
-        "body": [
-            "# Documentation for ${1:Custom_Command_Name}",
-            "def ${1:Custom_Command_Name} [] {",
-            "\t# Write some code here",
-            "\t${2}",
-            "}"
-        ],
-        "description": "Example: Write a custom command"
+    "shebang": {
+        "prefix": "shebang",
+        "description": "shebang",
+        "body": "#!/usr/bin/env nu"
     },
-    "Custom Command With Parameter": {
-        "prefix": "defp",
-        "body": [
-            "# Documentation for ${1:Custom_Command_Name}",
-            "# Written on ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}",
-            "def ${1:Custom_Command_Name} [",
-            "\t ${2:Param_Name} # Docs for ${2:Param_Name}",
-            "\t] {",
-            "\t# Test the parameter",
-            "\techo \\$${2:Param_Name}",
-            "\t${3}",
-            "}"
+    "hexadecimal": {
+        "prefix": [
+            "hexadecimal",
+            "0x"
         ],
-        "description": "Example: Write a custom command with a parameter"
+        "description": "hexadecimal",
+        "body": "0x[${1:ff}]"
+    },
+    "binary": {
+        "prefix": [
+            "binary",
+            "0b"
+        ],
+        "description": "binary",
+        "body": "0b[${1:1}]"
+    },
+    "octal": {
+        "prefix": [
+            "octal",
+            "0o"
+        ],
+        "description": "octal",
+        "body": "0o[${1:1}]"
+    },
+    "date": {
+        "prefix": "date",
+        "description": "date",
+        "body": "${1:2000}-${2|01,02,03,04,05,06,07,08,09,10,11,12|}-${3|01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31|}"
+    },
+    "duration": {
+        "prefix": "duration",
+        "description": "duration",
+        "body": "${1:value}${2|ns,us,ms,sec,min,hr,day,wk|}"
+    },
+    "size": {
+        "prefix": "size",
+        "description": "size",
+        "body": "${1:value}${2|b,kb,mb,gb,tb,pb,eb,zb,kib,mib,gib,tib,pib,eib,zib|}"
+    },
+    "range": {
+        "prefix": [
+            "range",
+            ".."
+        ],
+        "description": "range",
+        "body": "${1:from}..${2:to}"
+    },
+    "record": {
+        "prefix": "record",
+        "description": "record",
+        "body": "{${1:key}: ${2:value}${3:, }}"
+    },
+    "pair": {
+        "prefix": "pair",
+        "description": "pair",
+        "body": "{${1:key}: ${2:value}, ${3:key}: ${4:value}}"
+    },
+    "list": {
+        "prefix": "list",
+        "description": "list",
+        "body": "[${1:value}${2: }]"
+    },
+    "table": {
+        "prefix": "table",
+        "description": "table",
+        "body": "[[${1:key}: ${2:value}${3:, }]${4:; }]"
+    },
+    "in": {
+        "prefix": "in",
+        "description": "\"in\" operator",
+        "body": "${1:value} in ${2:list}"
+    },
+    "not-in": {
+        "prefix": "not-in",
+        "description": "\"not-in\" operator",
+        "body": "${1:value} not-in ${2:list}"
+    },
+    "flag": {
+        "prefix": [
+            "flag",
+            "--"
+        ],
+        "description": "flag",
+        "body": "--${1:long} (-${2:short}): ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}"
+    },
+    "rest": {
+        "prefix": [
+            "rest",
+            "..."
+        ],
+        "description": "flag",
+        "body": "...${1:name}: ${2|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}"
+    },
+    "alias builtin": {
+        "prefix": "alias",
+        "description": "\"alias\" invocation",
+        "body": "alias ${1:name} = ${2:value}"
+    },
+    "@alias builtin": {
+        "prefix": "@alias",
+        "description": "\"alias\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "alias ${2:name} = ${3:value}"
+        ]
+    },
+    "all builtin": {
+        "prefix": "all",
+        "description": "\"all\" invocation",
+        "body": "${1:command} | all {|${2:el}| ${3:predicate} }"
+    },
+    "ansi builtin": {
+        "prefix": "ansi",
+        "description": "\"ansi\" invocation",
+        "body": "ansi ${3|black,red,green,yellow,blue,magenta,cyan,white,default,reset|}"
+    },
+    "ansi gradient builtin": {
+        "prefix": "ansi-gradient",
+        "description": "\"ansi gradient\" invocation",
+        "body": "ansi gradient --${1|fg,bg|}start ${2:0xffffff} --$1end ${3:0xffffff}"
+    },
+    "ansi link builtin": {
+        "prefix": "ansi-link",
+        "description": "\"ansi link\" invocation",
+        "body": "ansi link --text ${1:value}"
+    },
+    "any builtin": {
+        "prefix": "any",
+        "description": "\"any\" invocation",
+        "body": "${1:command} | any {|${2:el}| ${3:predicate} }"
+    },
+    "append builtin": {
+        "prefix": "append",
+        "description": "\"append\" invocation",
+        "body": "${1:command} | append ${2:row}"
+    },
+    "ast builtin": {
+        "prefix": "ast",
+        "description": "\"ast\" invocation",
+        "body": "ast ${1:pipeline}"
+    },
+    "bits and builtin": {
+        "prefix": "bits-and",
+        "description": "\"bits and\" invocation",
+        "body": "${1:command} | bits and ${2:value}"
+    },
+    "bits not builtin": {
+        "prefix": "bits-not",
+        "description": "\"bits not\" invocation",
+        "body": "${1:command} | bits not"
+    },
+    "bits or builtin": {
+        "prefix": "bits-or",
+        "description": "\"bits or\" invocation",
+        "body": "${1:command} | bits or ${2:value}"
+    },
+    "bits rol builtin": {
+        "prefix": "bits-rol",
+        "description": "\"bits rol\" invocation",
+        "body": "${1:command} | bits rol ${2:value}"
+    },
+    "bits ror builtin": {
+        "prefix": "bits-ror",
+        "description": "\"bits ror\" invocation",
+        "body": "${1:command} | bits ror ${2:value}"
+    },
+    "bits shl builtin": {
+        "prefix": "bits-shl",
+        "description": "\"bits shl\" invocation",
+        "body": "${1:command} | bits shl ${2:value}"
+    },
+    "bits shr builtin": {
+        "prefix": "bits-shr",
+        "description": "\"bits shr\" invocation",
+        "body": "${1:command} | bits shr ${2:value}"
+    },
+    "bits xor builtin": {
+        "prefix": "bits-xor",
+        "description": "\"bits xor\" invocation",
+        "body": "${1:command} | bits xor ${2:value}"
+    },
+    "bytes add builtin": {
+        "prefix": "bytes-add",
+        "description": "\"bytes add\" invocation",
+        "body": "${1:command} | bytes add ${2:value}"
+    },
+    "bytes at builtin": {
+        "prefix": "bytes-at",
+        "description": "\"bytes at\" invocation",
+        "body": "${1:command} | bytes at ${2:from}..${3:to}"
+    },
+    "bytes collect builtin": {
+        "prefix": "bytes-collect",
+        "description": "\"bytes collect\" invocation",
+        "body": "${1:command} | bytes collect ${2:separator}"
+    },
+    "bytes ends-with builtin": {
+        "prefix": "bytes-ends-with",
+        "description": "\"bytes ends-with\" invocation",
+        "body": "${1:command} | bytes ends-with ${2:pattern}"
+    },
+    "bytes index-of builtin": {
+        "prefix": "bytes-index-of",
+        "description": "\"bytes index-of\" invocation",
+        "body": "${1:command} | bytes index-of ${2:pattern}"
+    },
+    "bytes remove builtin": {
+        "prefix": "bytes-remove",
+        "description": "\"bytes remove\" invocation",
+        "body": "${1:command} | bytes remove ${2:pattern}"
+    },
+    "bytes replace builtin": {
+        "prefix": "bytes-replace",
+        "description": "\"bytes replace\" invocation",
+        "body": "${1:command} | bytes replace ${2:search} ${3:replacement}"
+    },
+    "bytes starts-with builtin": {
+        "prefix": "bytes-starts-with",
+        "description": "\"bytes starts-with\" invocation",
+        "body": "${1:command} | bytes starts-with ${2:pattern}"
+    },
+    "cd builtin": {
+        "prefix": "cd",
+        "description": "\"cd\" invocation",
+        "body": "cd ${1:path/to/directory}"
+    },
+    "char builtin": {
+        "prefix": "char",
+        "description": "\"char\" invocation",
+        "body": "char ${1|newline,enter,nl,line_feed,lf,carriage_return,cr,crlf,tab|}"
+    },
+    "collect builtin": {
+        "prefix": "collect",
+        "description": "\"collect\" invocation",
+        "body": "${1:command} | collect {|${2:el}| ${3:closure} }"
+    },
+    "commandline builtin": {
+        "prefix": "commandline",
+        "description": "\"commandline\" invocation",
+        "body": "commandline ${1:command}"
+    },
+    "complete builtin": {
+        "prefix": "complete",
+        "description": "\"complete\" invocation",
+        "body": "^${1:command} | complete"
+    },
+    "compact builtin": {
+        "prefix": "compact",
+        "description": "\"compact\" invocation",
+        "body": "${1:command} | compact"
+    },
+    "config builtin": {
+        "prefix": "config",
+        "description": "\"config\" invocation",
+        "body": "config ${1|env,nu,reset|}"
+    },
+    "const builtin": {
+        "prefix": "const",
+        "description": "\"const\" invocation",
+        "body": "const ${1:name} = ${2:value}"
+    },
+    "@const builtin": {
+        "prefix": "@const",
+        "description": "\"const\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "const ${2:name} = ${3:value}"
+        ]
+    },
+    "cp builtin": {
+        "prefix": "cp",
+        "description": "\"cp\" invocation",
+        "body": "cp ${1:path/to/from} ${2:path/to/to}"
+    },
+    "date format builtin": {
+        "prefix": "date-format",
+        "description": "\"date format\" invocation",
+        "body": "date format ${1:%Y-%m-%d %H:%M:%S}"
+    },
+    "date humanize builtin": {
+        "prefix": "date-humanize",
+        "description": "\"date humanize\" invocation",
+        "body": "${1:command} | date humanize"
+    },
+    "decode builtin": {
+        "prefix": "decode",
+        "description": "\"decode\" invocation",
+        "body": "${1:command} | decode ${1|big5,euc-jp,euc-kr,gbk,iso-8859-1,utf-16,cp1252,latin5|}"
+    },
+    "decode base64 builtin": {
+        "prefix": "decode-base64",
+        "description": "\"decode base64\" invocation",
+        "body": "${1:command} | decode base64"
+    },
+    "decode hex builtin": {
+        "prefix": "decode-hex",
+        "description": "\"decode hex\" invocation",
+        "body": "${1:command} | decode hex"
+    },
+    "def builtin": {
+        "prefix": "def",
+        "description": "\"def\" invocation",
+        "body": [
+            "def ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "@def builtin": {
+        "prefix": "@def",
+        "description": "\"def\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "def ${2:name} [${3:param}: ${4|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${5:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "def-env builtin": {
+        "prefix": "def-env",
+        "description": "\"def-env\" invocation",
+        "body": [
+            "def-env ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "@def-env builtin": {
+        "prefix": "@def-env",
+        "description": "\"def-env\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "def-env ${2:name} [${3:param}: ${4|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${5:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "default builtin": {
+        "prefix": "default",
+        "description": "\"default\" invocation",
+        "body": "${1:command} | default ${2:default} ${3:column}"
+    },
+    "describe builtin": {
+        "prefix": "describe",
+        "description": "\"describe\" invocation",
+        "body": "${1:command} | describe"
+    },
+    "detect columns builtin": {
+        "prefix": "detect-columns",
+        "description": "\"detect columns\" invocation",
+        "body": "${1:command} | detect columns"
+    },
+    "do builtin": {
+        "prefix": "do",
+        "description": "\"do\" invocation",
+        "body": "do { ${1:closure} }"
+    },
+    "drop builtin": {
+        "prefix": "drop",
+        "description": "\"drop\" invocation",
+        "body": "${1:command} | drop ${2:rows}"
+    },
+    "drop columns builtin": {
+        "prefix": "drop-columns",
+        "description": "\"drop columns\" invocation",
+        "body": "${1:command} | drop columns ${2:numbers}"
+    },
+    "drop nth builtin": {
+        "prefix": "drop-nth",
+        "description": "\"drop nth\" invocation",
+        "body": "${1:command} | drop nth ${2:rows}"
+    },
+    "du builtin": {
+        "prefix": "du",
+        "description": "\"du\" invocation",
+        "body": "du ${1:path/to/directory}"
+    },
+    "each builtin": {
+        "prefix": "each",
+        "description": "\"each\" invocation",
+        "body": "${1:command} | each {|${2:el}| ${3:closure} }"
+    },
+    "each while builtin": {
+        "prefix": "each-while",
+        "description": "\"each while\" invocation",
+        "body": "${1:command} | each while {|${2:el}| ${3:closure} }"
+    },
+    "encode builtin": {
+        "prefix": "encode",
+        "description": "\"encode\" invocation",
+        "body": "${1:command} | encode ${2|big5,euc-jp,euc-kr,gbk,iso-8859-1,utf-16,cp1252,latin5|}"
+    },
+    "encode base64 builtin": {
+        "prefix": "encode-base64",
+        "description": "\"encode base64\" invocation",
+        "body": "${1:command} | encode base64"
+    },
+    "encode hex builtin": {
+        "prefix": "encode-hex",
+        "description": "\"encode hex\" invocation",
+        "body": "${1:command} | encode hex"
+    },
+    "enter builtin": {
+        "prefix": "enter",
+        "description": "\"enter\" invocation",
+        "body": "enter ${1:path/to/directory}"
+    },
+    "enumerate builtin": {
+        "prefix": "enumerate",
+        "description": "\"enumerate\" invocation",
+        "body": "${1:command} | enumerate"
+    },
+    "error make builtin": {
+        "prefix": "error-make",
+        "description": "\"error make\" invocation",
+        "body": "error make {${1:msg}: ${2:message}${3:, }}"
+    },
+    "every builtin": {
+        "prefix": "every",
+        "description": "\"every\" invocation",
+        "body": "${1:command} | every ${2:stride}"
+    },
+    "exec builtin": {
+        "prefix": "exec",
+        "description": "\"exec\" invocation",
+        "body": "exec ${1:command}"
+    },
+    "exit builtin": {
+        "prefix": "exit",
+        "description": "\"exit\" invocation",
+        "body": "exit ${1:code}"
+    },
+    "explain builtin": {
+        "prefix": "explain",
+        "description": "\"explain\" invocation",
+        "body": "explain {|| ${1:closure} }"
+    },
+    "explore builtin": {
+        "prefix": "explore",
+        "description": "\"explore\" invocation",
+        "body": "${1:command} | explore"
+    },
+    "export builtin": {
+        "prefix": "export",
+        "description": "\"export\" invocation",
+        "body": "export ${1:definition}"
+    },
+    "export alias builtin": {
+        "prefix": "export-alias",
+        "description": "\"export alias\" invocation",
+        "body": "export alias ${1:name} = ${2:value}"
+    },
+    "export def builtin": {
+        "prefix": "export-def",
+        "description": "\"export def\" invocation",
+        "body": [
+            "export def ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "export def-env builtin": {
+        "prefix": "export-def-env",
+        "description": "\"export def-env\" invocation",
+        "body": [
+            "export def-env ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "export extern builtin": {
+        "prefix": "export-extern",
+        "description": "\"export extern\" invocation",
+        "body": "export extern ${1:name} [${2:param}: string${3:, }]"
+    },
+    "export old-alias builtin": {
+        "prefix": "export-old-alias",
+        "description": "\"export old-alias\" invocation",
+        "body": "export old-alias ${1:name} = ${2:value}"
+    },
+    "export use builtin": {
+        "prefix": "export-use",
+        "description": "\"export use\" invocation",
+        "body": "export use ${1:module} ${2:members}"
+    },
+    "export env builtin": {
+        "prefix": "export-env",
+        "description": "\"export env\" invocation",
+        "body": "export env { ${1:block} }"
+    },
+    "extern builtin": {
+        "prefix": "extern",
+        "description": "\"extern\" invocation",
+        "body": "extern ${1:name} [${2:param}: string${3:, }]"
     },
     "Custom Command With Switch": {
         "prefix": "defs",
@@ -44,13 +518,5 @@
             "}"
         ],
         "description": "Example: Write a custom command with a switch"
-    },
-    "Create an Alias": {
-        "prefix": "alias",
-        "body": [
-            "# Documentation for ${1:Alias_Name}",
-            "alias ${1:Alias_Name} = ${2}"
-        ],
-        "description": "Create an alias"
     }
 }
