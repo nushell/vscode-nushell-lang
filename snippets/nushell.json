@@ -699,6 +699,11 @@
         "description": "\"is-empty\" invocation",
         "body": "${1:command} | is-empty"
     },
+    "join builtin": {
+        "prefix": "join",
+        "description": "\"join\" invocation",
+        "body": "${1:command} | join ${2:table} ${3:column}"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
