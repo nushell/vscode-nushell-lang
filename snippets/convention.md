@@ -32,6 +32,8 @@ Snippets are only created for commands those satisfy at least one condition:
 If there are options available for command or a subcommand then there is no
 restriction about what options to pick to put in snippet definition.
 
+Always prefer pipes over direct argument passing.
+
 ## Placeholders
 
 Placeholders by default should describe what kind of value is expected like
