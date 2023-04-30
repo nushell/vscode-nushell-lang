@@ -856,6 +856,46 @@
         "description": "\"overlay use\" invocation",
         "body": "overlay use ${1:name}"
     },
+    "par-each builtin": {
+        "prefix": "par-each",
+        "description": "\"par-each\" invocation",
+        "body": "${1:command} | par-each {|${2:el}| ${3:closure} }"
+    },
+    "parse builtin": {
+        "prefix": "parse",
+        "description": "\"parse\" invocation",
+        "body": "${1:command} | parse ${2:pattern}"
+    },
+    "path builtin": {
+        "prefix": "path",
+        "description": "\"path\" invocation",
+        "body": "${1:command} | path ${2|basename,dirname,exists,expand,parse,split,type|}"
+    },
+    "path join builtin": {
+        "prefix": "path-join",
+        "description": "\"path-join\" invocation",
+        "body": "${1:command} | path join ${2:path/to/file}"
+    },
+    "path relative-to builtin": {
+        "prefix": "path-relative-to",
+        "description": "\"path-relative-to\" invocation",
+        "body": "${1:command} | path relative-to ${2:path/to/directory}"
+    },
+    "port builtin": {
+        "prefix": "port",
+        "description": "\"port\" invocation",
+        "body": "port ${1:from} ${2:to}"
+    },
+    "prepend builtin": {
+        "prefix": "prepend",
+        "description": "\"prepend\" invocation",
+        "body": "${1:command} | prepend ${2:row}"
+    },
+    "profile builtin": {
+        "prefix": "profile",
+        "description": "\"profile\" invocation",
+        "body": "profile {|| ${1:closure} }"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
