@@ -47,7 +47,8 @@ types, durations and subcommands).
 ## Grouping
 
 Always group snippets presenting different subcommands for the same command and
-sharing the same set of options via placeholders with alternatives. Write this:
+sharing the same set of options via placeholders with alternatives when there
+is no snippet for this command without subcommands. Write this:
 
 ```json
 {
