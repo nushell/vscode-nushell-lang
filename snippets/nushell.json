@@ -1170,5 +1170,40 @@
         "prefix": "view-span",
         "description": "\"view span\" invocation",
         "body": "view span ${1:from} ${2:to}"
+    },
+    "watch builtin": {
+        "prefix": "watch",
+        "description": "\"watch\" invocation",
+        "body": "watch ${1:path/to/directory} {|${2:op}, ${3:path}, ${4:new_path}| ${5:block} }"
+    },
+    "where builtin": {
+        "prefix": "where",
+        "description": "\"where\" invocation",
+        "body": "${1:command} | where ${2:condition}"
+    },
+    "which builtin": {
+        "prefix": "which",
+        "description": "\"which\" invocation",
+        "body": "which ${1:command}"
+    },
+    "while builtin": {
+        "prefix": "while",
+        "description": "\"while\" invocation",
+        "body": "while ${1:condition} { ${2:block} }"
+    },
+    "window builtin": {
+        "prefix": "window",
+        "description": "\"window\" invocation",
+        "body": "${1:command} | window ${1:count}"
+    },
+    "with-env builtin": {
+        "prefix": "with-env",
+        "description": "\"with-env\" invocation",
+        "body": "with-env ${1:variables} { ${2:block} }"
+    },
+    "wrap builtin": {
+        "prefix": "wrap",
+        "description": "\"wrap\" invocation",
+        "body": "${1:command} | wrap ${2:column}"
     }
 }
