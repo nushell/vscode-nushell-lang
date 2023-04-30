@@ -1155,5 +1155,20 @@
         "prefix": "use",
         "description": "\"use\" invocation",
         "body": "use ${2:module} ${3:members}"
+    },
+    "values builtin": {
+        "prefix": "values",
+        "description": "\"values\" invocation",
+        "body": "${1:command} | values"
+    },
+    "view source builtin": {
+        "prefix": "view-source",
+        "description": "\"view source\" invocation",
+        "body": "view source ${1:value}"
+    },
+    "view span builtin": {
+        "prefix": "view-span",
+        "description": "\"view span\" invocation",
+        "body": "view span ${1:from} ${2:to}"
     }
 }
