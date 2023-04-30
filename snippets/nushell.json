@@ -1065,5 +1065,60 @@
         "prefix": "str-replace",
         "description": "\"str-replace\" invocation",
         "body": "${1:command} | str replace ${2:search} ${3:replacement}"
+    },
+    "table builtin": {
+        "prefix": "table",
+        "description": "\"table\" invocation",
+        "body": "${1:command} | table"
+    },
+    "take builtin": {
+        "prefix": "take",
+        "description": "\"take\" invocation",
+        "body": "${1:command} | table ${2:count}"
+    },
+    "take until builtin": {
+        "prefix": "take-until",
+        "description": "\"take until\" invocation",
+        "body": "${1:command} | take until {|${2:el}| ${3:predicate} }"
+    },
+    "take while builtin": {
+        "prefix": "take-while",
+        "description": "\"take while\" invocation",
+        "body": "${1:command} | take while {|${2:el}| ${3:predicate} }"
+    },
+    "timeit builtin": {
+        "prefix": "timeit",
+        "description": "\"timeit\" invocation",
+        "body": "timeit { ${1:block} }"
+    },
+    "to builtin": {
+        "prefix": "to",
+        "description": "\"to\" invocation",
+        "body": "${1:command} | to ${2|csv,html,json,md,nuon,text,toml,tsv,xml,yaml|}"
+    },
+    "touch builtin": {
+        "prefix": "touch",
+        "description": "\"touch\" invocation",
+        "body": "touch ${1:path/to/file}"
+    },
+    "transpose builtin": {
+        "prefix": "transpose",
+        "description": "\"transpose\" invocation",
+        "body": "${1:command} | transpose"
+    },
+    "try builtin": {
+        "prefix": "try",
+        "description": "\"try\" invocation",
+        "body": "try { ${1:block} }"
+    },
+    "try catch builtin": {
+        "prefix": "try-catch",
+        "description": "\"try catch\" invocation",
+        "body": "try { ${1:block} } catch { ${2:block} }"
+    },
+    "tutor builtin": {
+        "prefix": "tutor",
+        "description": "\"tutor\" invocation",
+        "body": "tutor ${1:search}"
     }
 }
