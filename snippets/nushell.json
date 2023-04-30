@@ -920,5 +920,150 @@
         "prefix": "run-external",
         "description": "\"run-external\" invocation",
         "body": "run-external ${1:command}"
+    },
+    "save builtin": {
+        "prefix": "save",
+        "description": "\"save\" invocation",
+        "body": "${1:command} | save"
+    },
+    "schema builtin": {
+        "prefix": "schema",
+        "description": "\"schema\" invocation",
+        "body": "${1:command} | schema"
+    },
+    "select builtin": {
+        "prefix": "select",
+        "description": "\"select\" invocation",
+        "body": "${1:command} | select ${2:columns}"
+    },
+    "seq builtin": {
+        "prefix": "seq",
+        "description": "\"seq\" invocation",
+        "body": "seq ${1:from} ${2:to}"
+    },
+    "seq char builtin": {
+        "prefix": "seq-char",
+        "description": "\"seq char\" invocation",
+        "body": "seq char ${1:from} ${2:to}"
+    },
+    "seq date builtin": {
+        "prefix": "seq-date",
+        "description": "\"seq date\" invocation",
+        "body": "seq date --begin-date ${1:from} --end-date ${2:to}"
+    },
+    "shuffle builtin": {
+        "prefix": "shuffle",
+        "description": "\"shuffle\" invocation",
+        "body": "${1:command} | shuffle"
+    },
+    "size builtin": {
+        "prefix": "size",
+        "description": "\"size\" invocation",
+        "body": "${1:command} | size"
+    },
+    "skip builtin": {
+        "prefix": "skip",
+        "description": "\"skip\" invocation",
+        "body": "${1:command} | skip ${2:count}"
+    },
+    "skip until builtin": {
+        "prefix": "skip-until",
+        "description": "\"skip until\" invocation",
+        "body": "${1:command} | skip until {|${2:el}| ${3:predicate} }"
+    },
+    "skip while builtin": {
+        "prefix": "skip-while",
+        "description": "\"skip while\" invocation",
+        "body": "${1:command} | skip while {|${2:el}| ${3:predicate} }"
+    },
+    "sleep builtin": {
+        "prefix": "sleep",
+        "description": "\"sleep\" invocation",
+        "body": "sleep ${1:value}${2|ns,us,ms,sec,min,hr,day,wk|}"
+    },
+    "sort builtin": {
+        "prefix": "sort",
+        "description": "\"sort\" invocation",
+        "body": "${1:command} | sort"
+    },
+    "sort-by builtin": {
+        "prefix": "sort-by",
+        "description": "\"sort-by\" invocation",
+        "body": "${1:command} | sort-by ${2:column}"
+    },
+    "source builtin": {
+        "prefix": "source",
+        "description": "\"source\" invocation",
+        "body": "source ${1:path/to/script}"
+    },
+    "source-env builtin": {
+        "prefix": "source-env",
+        "description": "\"source-env\" invocation",
+        "body": "source-env ${1:path/to/script}"
+    },
+    "split builtin": {
+        "prefix": "split",
+        "description": "\"split\" invocation",
+        "body": "${1:command} | split ${2|chars,words|}"
+    },
+    "split column builtin": {
+        "prefix": "split-column",
+        "description": "\"split column\" invocation",
+        "body": "${1:command} | split column ${2:separator}"
+    },
+    "split list builtin": {
+        "prefix": "split-list",
+        "description": "\"split list\" invocation",
+        "body": "${1:command} | split list ${2:separator}"
+    },
+    "split row builtin": {
+        "prefix": "split-row",
+        "description": "\"split row\" invocation",
+        "body": "${1:command} | split row ${2:separator}"
+    },
+    "split-by builtin": {
+        "prefix": "split-by",
+        "description": "\"split-by\" invocation",
+        "body": "${1:command} | split-by ${2:separator}"
+    },
+    "start builtin": {
+        "prefix": "start",
+        "description": "\"start\" invocation",
+        "body": "start ${1:path/to/file}"
+    },
+    "str builtin": {
+        "prefix": "str",
+        "description": "\"str\" invocation",
+        "body": "${1:command} | str ${2|camel-case,capitalize,downcase,kebab-case,length,pascal-case,reverse,screaming-snake-case,snake-case,title-case,trim,upcase|}"
+    },
+    "str contains builtin": {
+        "prefix": "str-contains",
+        "description": "\"str-contains\" invocation",
+        "body": "${1:command} | str contains ${2:value}"
+    },
+    "str distance builtin": {
+        "prefix": "str-distance",
+        "description": "\"str-distance\" invocation",
+        "body": "${1:command} | str distance ${2:value}"
+    },
+    "str ends-with builtin": {
+        "prefix": "str-ends-with",
+        "description": "\"str-ends-with\" invocation",
+        "body": "${1:command} | str ends-with ${2:value}"
+    },
+    "str index-of builtin": {
+        "prefix": "str-index-of",
+        "description": "\"str-index-of\" invocation",
+        "body": "${1:command} | str index-of ${2:value}"
+    },
+    "str join builtin": {
+        "prefix": "str-join",
+        "description": "\"str-join\" invocation",
+        "body": "${1:command} | str join ${2:value}"
+    },
+    "str replace builtin": {
+        "prefix": "str-replace",
+        "description": "\"str-replace\" invocation",
+        "body": "${1:command} | str replace ${2:search} ${3:replacement}"
     }
 }
