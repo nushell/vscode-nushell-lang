@@ -43,3 +43,8 @@ Placeholders can not to list all available choices like
 more then 8 alternatives, provide the most common ones in terms of usage
 frequency (it doesn't apply for `date` snippet, placeholders with data
 types and durations).
+
+## Grouping
+
+Never group snippets presenting commands with subcommands and sharing the same
+set of options. Assume that later they can be extended with different options.
