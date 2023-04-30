@@ -825,5 +825,100 @@
         "prefix": "profile",
         "description": "\"profile\" invocation",
         "body": "profile {|| ${1:closure} }"
+    },
+    "query builtin": {
+        "prefix": "query",
+        "description": "\"query\" invocation",
+        "body": "${1:command} | query ${2|db,json,xml|} ${3:expression}"
+    },
+    "query web builtin": {
+        "prefix": "query-web",
+        "description": "\"query web\" invocation",
+        "body": "${1:command} | query web --query ${2:expression}"
+    },
+    "random bool builtin": {
+        "prefix": "random-bool",
+        "description": "\"random bool\" invocation",
+        "body": "random bool --bias ${1:value}"
+    },
+    "random chars builtin": {
+        "prefix": "random-chars",
+        "description": "\"random chars\" invocation",
+        "body": "random chars --length ${1:value}"
+    },
+    "random builtin": {
+        "prefix": "random",
+        "description": "\"random\" invocation",
+        "body": "random ${1|decimal,integer|} ${2:from}..${3:to}"
+    },
+    "random dice builtin": {
+        "prefix": "random-dice",
+        "description": "\"random dice\" invocation",
+        "body": "random dice"
+    },
+    "random uuid builtin": {
+        "prefix": "random-uuid",
+        "description": "\"random uuid\" invocation",
+        "body": "random uuid"
+    },
+    "range builtin": {
+        "prefix": "range",
+        "description": "\"range\" invocation",
+        "body": "${1:command} | range ${2:from}..${3:to}"
+    },
+    "reduce builtin": {
+        "prefix": "reduce",
+        "description": "\"reduce\" invocation",
+        "body": "${1:command} | reduce {|${2:el}, ${3:acc}| ${4:closure} }"
+    },
+    "register builtin": {
+        "prefix": "register",
+        "description": "\"register\" invocation",
+        "body": "register ${1:path/to/plugin}"
+    },
+    "registry query builtin": {
+        "prefix": "registry-query",
+        "description": "\"registry query\" invocation",
+        "body": "registry query ${1:path/to/key} ${2:value}"
+    },
+    "reject builtin": {
+        "prefix": "reject",
+        "description": "\"reject\" invocation",
+        "body": "${1:command} | reject ${2:columns}"
+    },
+    "rename builtin": {
+        "prefix": "rename",
+        "description": "\"rename\" invocation",
+        "body": "${1:command} | rename ${2:columns}"
+    },
+    "return builtin": {
+        "prefix": "return",
+        "description": "\"return\" invocation",
+        "body": "return ${1:value}"
+    },
+    "reverse builtin": {
+        "prefix": "reverse",
+        "description": "\"reverse\" invocation",
+        "body": "${1:command} | reverse"
+    },
+    "rm builtin": {
+        "prefix": "rm",
+        "description": "\"rm\" invocation",
+        "body": "rm ${1:path/to/file}"
+    },
+    "roll builtin": {
+        "prefix": "roll",
+        "description": "\"roll\" invocation",
+        "body": "${1:command} | roll ${2|down,left,right,up|}"
+    },
+    "rotate builtin": {
+        "prefix": "rotate",
+        "description": "\"rotate\" invocation",
+        "body": "${1:command} | rotate"
+    },
+    "run-external builtin": {
+        "prefix": "run-external",
+        "description": "\"run-external\" invocation",
+        "body": "run-external ${1:command}"
     }
 }
