@@ -46,5 +46,32 @@ types, durations and subcommands).
 
 ## Grouping
 
-Never group snippets presenting commands with subcommands and sharing the same
-set of options. Assume that later they can be extended with different options.
+Always group snippets presenting different subcommands for the same command and
+sharing the same set of options via placeholders with alternatives. Write this:
+
+```json
+{
+    "hash builtin": {
+        "prefix": "hash",
+        "description": "\"hash\" invocation",
+        "body": "${1:command} | hash ${2|md5,sha256|}"
+    }
+}
+```
+
+instead of:
+
+```json
+{
+    "hash md5 builtin": {
+        "prefix": "hash-md5",
+        "description": "\"hash md5\" invocation",
+        "body": "${1:command} | hash md5"
+    },
+    "hash sha256 builtin": {
+        "prefix": "hash-sha256",
+        "description": "\"hash sha256\" invocation",
+        "body": "${1:command} | hash sha256"
+    }
+}
+```
