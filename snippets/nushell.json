@@ -582,7 +582,7 @@
     "gstat builtin": {
         "prefix": "gstat",
         "description": "\"gstat\" invocation",
-        "body": "gstat ${1:path/to/repository}'"
+        "body": "gstat ${1:path/to/repository}"
     },
     "Custom Command With Switch": {
         "prefix": "defs",
