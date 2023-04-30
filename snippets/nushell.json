@@ -584,6 +584,71 @@
         "description": "\"gstat\" invocation",
         "body": "gstat ${1:path/to/repository}"
     },
+    "hash md5 builtin": {
+        "prefix": "hash-md5",
+        "description": "\"hash md5\" invocation",
+        "body": "${1:command} | hash md5"
+    },
+    "hash sha256 builtin": {
+        "prefix": "hash-sha256",
+        "description": "\"hash sha256\" invocation",
+        "body": "${1:command} | hash sha256"
+    },
+    "headers builtin": {
+        "prefix": "headers",
+        "description": "\"headers\" invocation",
+        "body": "${1:command} | headers"
+    },
+    "help builtin": {
+        "prefix": "help",
+        "description": "\"help\" invocation",
+        "body": "help ${1|aliases,commands,externs,modules,operators|}"
+    },
+    "hide builtin": {
+        "prefix": "hide",
+        "description": "\"hide\" invocation",
+        "body": "hide ${1:definitions}"
+    },
+    "hide-env builtin": {
+        "prefix": "hide-env",
+        "description": "\"hide-env\" invocation",
+        "body": "hide-env ${1:variables}"
+    },
+    "histogram builtin": {
+        "prefix": "histogram",
+        "description": "\"histogram\" invocation",
+        "body": "${1:command} | histogram ${2:column} ${3:frequency-column}"
+    },
+    "http delete builtin": {
+        "prefix": "http-delete",
+        "description": "\"http delete\" invocation",
+        "body": "http delete ${1:url}"
+    },
+    "http get builtin": {
+        "prefix": "http-get",
+        "description": "\"http get\" invocation",
+        "body": "http get ${1:url}"
+    },
+    "http head builtin": {
+        "prefix": "http-head",
+        "description": "\"http head\" invocation",
+        "body": "http head ${1:url}"
+    },
+    "http patch builtin": {
+        "prefix": "http-patch",
+        "description": "\"http patch\" invocation",
+        "body": "http patch ${1:url} ${2:data}"
+    },
+    "http post builtin": {
+        "prefix": "http-post",
+        "description": "\"http post\" invocation",
+        "body": "http post ${1:url} ${2:data}"
+    },
+    "http put builtin": {
+        "prefix": "http-put",
+        "description": "\"http put\" invocation",
+        "body": "http put ${1:url} ${2:data}"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
