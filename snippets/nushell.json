@@ -1205,5 +1205,10 @@
         "prefix": "wrap",
         "description": "\"wrap\" invocation",
         "body": "${1:command} | wrap ${2:column}"
+    },
+    "zip builtin": {
+        "prefix": "zip",
+        "description": "\"zip\" invocation",
+        "body": "${1:command} | zip ${2:list}"
     }
 }
