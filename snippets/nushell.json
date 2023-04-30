@@ -704,6 +704,11 @@
         "description": "\"join\" invocation",
         "body": "${1:command} | join ${2:table} ${3:column}"
     },
+    "kill builtin": {
+        "prefix": "kill",
+        "description": "\"kill\" invocation",
+        "body": "kill ${1:pid}"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
