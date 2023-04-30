@@ -642,7 +642,7 @@
     "last builtin": {
         "prefix": "last",
         "description": "\"last\" invocation",
-        "body": "${1:command} | last ${2:block}"
+        "body": "${1:command} | last ${2:count}"
     },
     "length builtin": {
         "prefix": "length",
