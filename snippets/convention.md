@@ -32,6 +32,8 @@ Snippets are only created for commands those satisfy at least one condition:
 If there are options available for command or a subcommand then there is no
 restriction about what options to pick to put in snippet definition.
 
+Always prefer pipes over direct argument passing.
+
 ## Placeholders
 
 Placeholders by default should describe what kind of value is expected like
@@ -41,5 +43,38 @@ then example value should be used like `${1:ff}`.
 Placeholders can not to list all available choices like
 `${1|big5,euc-jp,euc-kr,gbk,iso-8859-1,utf-16,cp1252,latin5|}`. When there are
 more then 8 alternatives, provide the most common ones in terms of usage
-frequency (it doesn't apply for `date` snippet and placeholders with data
-types).
+frequency (it doesn't apply for `date` snippet, data
+types, durations and subcommands).
+
+## Grouping
+
+Always group snippets presenting different subcommands for the same command and
+sharing the same set of options via placeholders with alternatives when there
+is no snippet for this command without subcommands. Write this:
+
+```json
+{
+    "hash builtin": {
+        "prefix": "hash",
+        "description": "\"hash\" invocation",
+        "body": "${1:command} | hash ${2|md5,sha256|}"
+    }
+}
+```
+
+instead of:
+
+```json
+{
+    "hash md5 builtin": {
+        "prefix": "hash-md5",
+        "description": "\"hash md5\" invocation",
+        "body": "${1:command} | hash md5"
+    },
+    "hash sha256 builtin": {
+        "prefix": "hash-sha256",
+        "description": "\"hash sha256\" invocation",
+        "body": "${1:command} | hash sha256"
+    }
+}
+```

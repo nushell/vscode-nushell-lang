@@ -38,7 +38,7 @@
         "description": "duration",
         "body": "${1:value}${2|ns,us,ms,sec,min,hr,day,wk|}"
     },
-    "size": {
+    "filesize": {
         "prefix": "size",
         "description": "size",
         "body": "${1:value}${2|b,kb,mb,gb,tb,pb,eb,zb,kib,mib,gib,tib,pib,eib,zib|}"
@@ -145,85 +145,30 @@
         "description": "\"ast\" invocation",
         "body": "ast ${1:pipeline}"
     },
-    "bits and builtin": {
-        "prefix": "bits-and",
-        "description": "\"bits and\" invocation",
-        "body": "${1:command} | bits and ${2:value}"
+    "bits builtin": {
+        "prefix": "bits",
+        "description": "\"bits\" invocation",
+        "body": "${1:command} | bits ${2|and,or,rol,ror,shl,shr,xor|} ${3:value}"
     },
     "bits not builtin": {
         "prefix": "bits-not",
         "description": "\"bits not\" invocation",
         "body": "${1:command} | bits not"
     },
-    "bits or builtin": {
-        "prefix": "bits-or",
-        "description": "\"bits or\" invocation",
-        "body": "${1:command} | bits or ${2:value}"
-    },
-    "bits rol builtin": {
-        "prefix": "bits-rol",
-        "description": "\"bits rol\" invocation",
-        "body": "${1:command} | bits rol ${2:value}"
-    },
-    "bits ror builtin": {
-        "prefix": "bits-ror",
-        "description": "\"bits ror\" invocation",
-        "body": "${1:command} | bits ror ${2:value}"
-    },
-    "bits shl builtin": {
-        "prefix": "bits-shl",
-        "description": "\"bits shl\" invocation",
-        "body": "${1:command} | bits shl ${2:value}"
-    },
-    "bits shr builtin": {
-        "prefix": "bits-shr",
-        "description": "\"bits shr\" invocation",
-        "body": "${1:command} | bits shr ${2:value}"
-    },
-    "bits xor builtin": {
-        "prefix": "bits-xor",
-        "description": "\"bits xor\" invocation",
-        "body": "${1:command} | bits xor ${2:value}"
-    },
-    "bytes add builtin": {
-        "prefix": "bytes-add",
-        "description": "\"bytes add\" invocation",
-        "body": "${1:command} | bytes add ${2:value}"
+    "bytes builtin": {
+        "prefix": "bytes",
+        "description": "\"bytes\" invocation",
+        "body": "${1:command} | bytes ${2|add,collect,ends-with,index-of,remove,starts-with|} ${3:value}"
     },
     "bytes at builtin": {
         "prefix": "bytes-at",
         "description": "\"bytes at\" invocation",
         "body": "${1:command} | bytes at ${2:from}..${3:to}"
     },
-    "bytes collect builtin": {
-        "prefix": "bytes-collect",
-        "description": "\"bytes collect\" invocation",
-        "body": "${1:command} | bytes collect ${2:separator}"
-    },
-    "bytes ends-with builtin": {
-        "prefix": "bytes-ends-with",
-        "description": "\"bytes ends-with\" invocation",
-        "body": "${1:command} | bytes ends-with ${2:pattern}"
-    },
-    "bytes index-of builtin": {
-        "prefix": "bytes-index-of",
-        "description": "\"bytes index-of\" invocation",
-        "body": "${1:command} | bytes index-of ${2:pattern}"
-    },
-    "bytes remove builtin": {
-        "prefix": "bytes-remove",
-        "description": "\"bytes remove\" invocation",
-        "body": "${1:command} | bytes remove ${2:pattern}"
-    },
     "bytes replace builtin": {
         "prefix": "bytes-replace",
         "description": "\"bytes replace\" invocation",
         "body": "${1:command} | bytes replace ${2:search} ${3:replacement}"
-    },
-    "bytes starts-with builtin": {
-        "prefix": "bytes-starts-with",
-        "description": "\"bytes starts-with\" invocation",
-        "body": "${1:command} | bytes starts-with ${2:pattern}"
     },
     "cd builtin": {
         "prefix": "cd",
@@ -499,24 +444,771 @@
         "description": "\"extern\" invocation",
         "body": "extern ${1:name} [${2:param}: string${3:, }]"
     },
-    "Custom Command With Switch": {
-        "prefix": "defs",
+    "fill builtin": {
+        "prefix": "fill",
+        "description": "\"fill\" invocation",
+        "body": "${1:command} | fill --width ${2:value}"
+    },
+    "filter builtin": {
+        "prefix": "filter",
+        "description": "\"filter\" invocation",
+        "body": "${1:command} | filter {|${2:el}| ${3:predicate} }"
+    },
+    "find builtin": {
+        "prefix": "find",
+        "description": "\"find\" invocation",
+        "body": "${1:command} | find"
+    },
+    "first builtin": {
+        "prefix": "first",
+        "description": "\"first\" invocation",
+        "body": "${1:command} | first ${2:count}"
+    },
+    "flatten builtin": {
+        "prefix": "flatten",
+        "description": "\"flatten\" invocation",
+        "body": "${1:command} | flatten"
+    },
+    "fmt builtin": {
+        "prefix": "fmt",
+        "description": "\"fmt\" invocation",
+        "body": "${1:command} | fmt"
+    },
+    "for builtin": {
+        "prefix": "for",
+        "description": "\"for\" invocation",
+        "body": "for ${1:variable} in ${2:list} { ${3:block} }"
+    },
+    "format builtin": {
+        "prefix": "format",
+        "description": "\"format\" invocation",
+        "body": "${1:command} | format ${2:value}"
+    },
+    "format filesize builtin": {
+        "prefix": "format-filesize",
+        "description": "\"format filesize\" invocation",
+        "body": "${1:command} | format filesize ${2|b,kb,mb,gb,tb,pb,eb,zb,kib,mib,gib,tib,pib,eib,zib|} ${3:column}"
+    },
+    "from builtin": {
+        "prefix": "from",
+        "description": "\"from\" invocation",
+        "body": "${1:command} | from ${2|csv,eml,ics,ini,json,nuon,ods,ssv,toml,tsc,url,vcf,xlsx,xml,yaml,yml|}"
+    },
+    "g builtin": {
+        "prefix": "g",
+        "description": "\"g\" invocation",
+        "body": "g ${1:shell}"
+    },
+    "get builtin": {
+        "prefix": "get",
+        "description": "\"get\" invocation",
+        "body": "${1:command} | get ${2:path/to/cell}"
+    },
+    "glob builtin": {
+        "prefix": "glob",
+        "description": "\"glob\" invocation",
+        "body": "glob ${1:pattern}"
+    },
+    "grid builtin": {
+        "prefix": "grid",
+        "description": "\"grid\" invocation",
+        "body": "${1:command} | grid"
+    },
+    "group builtin": {
+        "prefix": "group",
+        "description": "\"group\" invocation",
+        "body": "${1:command} | group ${2:count}"
+    },
+    "group-by builtin": {
+        "prefix": "group-by",
+        "description": "\"group-by\" invocation",
+        "body": "${1:command} | group-by ${2:grouper}"
+    },
+    "gstat builtin": {
+        "prefix": "gstat",
+        "description": "\"gstat\" invocation",
+        "body": "gstat ${1:path/to/repository}"
+    },
+    "hash builtin": {
+        "prefix": "hash",
+        "description": "\"hash\" invocation",
+        "body": "${1:command} | hash ${2|md5,sha256|}"
+    },
+    "headers builtin": {
+        "prefix": "headers",
+        "description": "\"headers\" invocation",
+        "body": "${1:command} | headers"
+    },
+    "help builtin": {
+        "prefix": "help",
+        "description": "\"help\" invocation",
+        "body": "help ${1|aliases,commands,externs,modules,operators|}"
+    },
+    "hide builtin": {
+        "prefix": "hide",
+        "description": "\"hide\" invocation",
+        "body": "hide ${1:definitions}"
+    },
+    "hide-env builtin": {
+        "prefix": "hide-env",
+        "description": "\"hide-env\" invocation",
+        "body": "hide-env ${1:variables}"
+    },
+    "histogram builtin": {
+        "prefix": "histogram",
+        "description": "\"histogram\" invocation",
+        "body": "${1:command} | histogram ${2:column} ${3:frequency-column}"
+    },
+    "http builtin": {
+        "prefix": "http",
+        "description": "\"http\" invocation",
+        "body": "http ${1|delete,get,head|} ${1:url}"
+    },
+    "http patch builtin": {
+        "prefix": "http-patch",
+        "description": "\"http patch\" invocation",
+        "body": "http patch ${1:url} ${2:data}"
+    },
+    "http post builtin": {
+        "prefix": "http-post",
+        "description": "\"http post\" invocation",
+        "body": "http post ${1:url} ${2:data}"
+    },
+    "http put builtin": {
+        "prefix": "http-put",
+        "description": "\"http put\" invocation",
+        "body": "http put ${1:url} ${2:data}"
+    },
+    "if builtin": {
+        "prefix": "if",
+        "description": "\"if\" invocation",
+        "body": "if ${1:condition} { ${2:block} }"
+    },
+    "if else builtin": {
+        "prefix": "if-else",
+        "description": "\"if\" invocation",
+        "body": "if ${1:condition} { ${2:block} } else { ${3:block} }"
+    },
+    "if else if else builtin": {
+        "prefix": "if-else-if-else",
+        "description": "\"if\" invocation",
+        "body": "if ${1:condition} { ${2:block} } else if { ${3:block} } else { ${4:block} }"
+    },
+    "ignore builtin": {
+        "prefix": "ignore",
+        "description": "\"ignore\" invocation",
+        "body": "${1:command} | ignore"
+    },
+    "inc builtin": {
+        "prefix": "inc",
+        "description": "\"inc\" invocation",
+        "body": "${1:command} | inc"
+    },
+    "input builtin": {
+        "prefix": "input",
+        "description": "\"input\" invocation",
+        "body": "input ${1:prompt}"
+    },
+    "insert builtin": {
+        "prefix": "insert",
+        "description": "\"insert\" invocation",
+        "body": "${1:command} | insert ${2:column} ${3:value}"
+    },
+    "inspect builtin": {
+        "prefix": "inspect",
+        "description": "\"inspect\" invocation",
+        "body": "${1:command} | inspect"
+    },
+    "into builtin": {
+        "prefix": "into",
+        "description": "\"into\" invocation",
+        "body": "${1:command} | into ${2|binary,bool,datetime,decimal,duration,filesize,int,record,sqlite,string|}"
+    },
+    "is-empty builtin": {
+        "prefix": "is-empty",
+        "description": "\"is-empty\" invocation",
+        "body": "${1:command} | is-empty"
+    },
+    "join builtin": {
+        "prefix": "join",
+        "description": "\"join\" invocation",
+        "body": "${1:command} | join ${2:table} ${3:column}"
+    },
+    "kill builtin": {
+        "prefix": "kill",
+        "description": "\"kill\" invocation",
+        "body": "kill ${1:pid}"
+    },
+    "last builtin": {
+        "prefix": "last",
+        "description": "\"last\" invocation",
+        "body": "${1:command} | last ${2:count}"
+    },
+    "length builtin": {
+        "prefix": "length",
+        "description": "\"length\" invocation",
+        "body": "${1:command} | length"
+    },
+    "let builtin": {
+        "prefix": "let",
+        "description": "\"let\" invocation",
+        "body": "let ${1:name} = ${2:value}"
+    },
+    "@let builtin": {
+        "prefix": "@let",
+        "description": "\"let\" invocation",
         "body": [
-            "# Documentation for ${1:Custom_Command_Name}",
-            "# Written on ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}",
-            "def ${1:Custom_Command_Name} [",
-            "\t--${2:Long_Switch}(-${3:Short_Switch}) # Docs for ${2:Long_Switch}",
-            "\t] {",
-            "\t\tlet is_${2:Long_Switch} = $(= \\$${2:Long_Switch} | empty?)\n",
-            "\t\tif \\$is_${2:Long_Switch} {",
-            "\t\t\techo \\$true",
-            "\t\t} {",
-            "\t\t\techo \\$false",
-            "\t\t}\n",
-            "\t# Write some code here",
-            "\t${4}",
-            "}"
-        ],
-        "description": "Example: Write a custom command with a switch"
+            "# ${1:documentation}",
+            "let ${2:name} = ${3:value}"
+        ]
+    },
+    "let-env builtin": {
+        "prefix": "let-env",
+        "description": "\"let-env\" invocation",
+        "body": "let-env ${1:name} = ${2:value}"
+    },
+    "@let-env builtin": {
+        "prefix": "@let-env",
+        "description": "\"let-env\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "let-env ${2:name} = ${3:value}"
+        ]
+    },
+    "loop builtin": {
+        "prefix": "loop",
+        "description": "\"loop\" invocation",
+        "body": "loop { ${1:block} }"
+    },
+    "ls builtin": {
+        "prefix": "ls",
+        "description": "\"ls\" invocation",
+        "body": "ls ${1:pattern}"
+    },
+    "lines builtin": {
+        "prefix": "lines",
+        "description": "\"lines\" invocation",
+        "body": "${1:command} | lines"
+    },
+    "match builtin": {
+        "prefix": "match",
+        "description": "\"match\" invocation",
+        "body": "match ${1:value} { ${2:pattern} => ${3:value}${4:, }, _ => ${5:value} }"
+    },
+    "math builtin": {
+        "prefix": "math",
+        "description": "\"math\" invocation",
+        "body": "${1:command} | math ${2|abs,arccos,arccosh,arcsin,arcsinh,arctan,arctanh,avg,ceil,cos,cosh,e,eval,exp,floor,ln,log,max,median,min,mode,pi,product,round,sin,sinh,sqrt,stddev,sum,tan,tanh,tau,variance|}"
+    },
+    "merge builtin": {
+        "prefix": "merge",
+        "description": "\"merge\" invocation",
+        "body": "${1:command} | merge ${2:value}"
+    },
+    "metadata builtin": {
+        "prefix": "metadata",
+        "description": "\"metadata\" invocation",
+        "body": "${1:command} | metadata"
+    },
+    "mkdir builtin": {
+        "prefix": "mkdir",
+        "description": "\"mkdir\" invocation",
+        "body": "mkdir ${1:path/to/directory}"
+    },
+    "module builtin": {
+        "prefix": "module",
+        "description": "\"module\" invocation",
+        "body": "module ${1:name} { ${1:block} }"
+    },
+    "move builtin": {
+        "prefix": "move",
+        "description": "\"move\" invocation",
+        "body": "${1:command} | move ${2:column} --${3|before,after|} ${4:column}"
+    },
+    "mut builtin": {
+        "prefix": "mut",
+        "description": "\"mut\" invocation",
+        "body": "mut ${1:name} = ${2:value}"
+    },
+    "@mut builtin": {
+        "prefix": "@mut",
+        "description": "\"mut\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "mut ${2:name} = ${3:value}"
+        ]
+    },
+    "mv builtin": {
+        "prefix": "mv",
+        "description": "\"mv\" invocation",
+        "body": "mv ${1:path/to/source} ${2:path/to/destination}"
+    },
+    "nu-check builtin": {
+        "prefix": "nu-check",
+        "description": "\"nu-check\" invocation",
+        "body": "${1:command} | nu-check"
+    },
+    "nu-highlight builtin": {
+        "prefix": "nu-highlight",
+        "description": "\"nu-highlight\" invocation",
+        "body": "${1:command} | nu-highlight"
+    },
+    "old-alias builtin": {
+        "prefix": "old-alias",
+        "description": "\"old-alias\" invocation",
+        "body": "old-alias ${1:name} = ${2:value}"
+    },
+    "@old-alias builtin": {
+        "prefix": "@old-alias",
+        "description": "\"old-alias\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "old-alias ${2:name} = ${3:value}"
+        ]
+    },
+    "open builtin": {
+        "prefix": "open",
+        "description": "\"open\" invocation",
+        "body": "${1:command} | open"
+    },
+    "overlay hide builtin": {
+        "prefix": "overlay-hide",
+        "description": "\"overlay hide\" invocation",
+        "body": "overlay hide ${1:name}"
+    },
+    "overlay new builtin": {
+        "prefix": "overlay-new",
+        "description": "\"overlay new\" invocation",
+        "body": "overlay new ${1:name}"
+    },
+    "overlay use builtin": {
+        "prefix": "overlay-use",
+        "description": "\"overlay use\" invocation",
+        "body": "overlay use ${1:name}"
+    },
+    "par-each builtin": {
+        "prefix": "par-each",
+        "description": "\"par-each\" invocation",
+        "body": "${1:command} | par-each {|${2:el}| ${3:closure} }"
+    },
+    "parse builtin": {
+        "prefix": "parse",
+        "description": "\"parse\" invocation",
+        "body": "${1:command} | parse ${2:pattern}"
+    },
+    "path builtin": {
+        "prefix": "path",
+        "description": "\"path\" invocation",
+        "body": "${1:command} | path ${2|basename,dirname,exists,expand,parse,split,type|}"
+    },
+    "path join builtin": {
+        "prefix": "path-join",
+        "description": "\"path-join\" invocation",
+        "body": "${1:command} | path join ${2:path/to/file}"
+    },
+    "path relative-to builtin": {
+        "prefix": "path-relative-to",
+        "description": "\"path-relative-to\" invocation",
+        "body": "${1:command} | path relative-to ${2:path/to/directory}"
+    },
+    "port builtin": {
+        "prefix": "port",
+        "description": "\"port\" invocation",
+        "body": "port ${1:from} ${2:to}"
+    },
+    "prepend builtin": {
+        "prefix": "prepend",
+        "description": "\"prepend\" invocation",
+        "body": "${1:command} | prepend ${2:row}"
+    },
+    "profile builtin": {
+        "prefix": "profile",
+        "description": "\"profile\" invocation",
+        "body": "profile {|| ${1:closure} }"
+    },
+    "query builtin": {
+        "prefix": "query",
+        "description": "\"query\" invocation",
+        "body": "${1:command} | query ${2|db,json,xml|} ${3:expression}"
+    },
+    "query web builtin": {
+        "prefix": "query-web",
+        "description": "\"query web\" invocation",
+        "body": "${1:command} | query web --query ${2:expression}"
+    },
+    "random bool builtin": {
+        "prefix": "random-bool",
+        "description": "\"random bool\" invocation",
+        "body": "random bool --bias ${1:value}"
+    },
+    "random chars builtin": {
+        "prefix": "random-chars",
+        "description": "\"random chars\" invocation",
+        "body": "random chars --length ${1:value}"
+    },
+    "random builtin": {
+        "prefix": "random",
+        "description": "\"random\" invocation",
+        "body": "random ${1|decimal,integer|} ${2:from}..${3:to}"
+    },
+    "random dice builtin": {
+        "prefix": "random-dice",
+        "description": "\"random dice\" invocation",
+        "body": "random dice"
+    },
+    "random uuid builtin": {
+        "prefix": "random-uuid",
+        "description": "\"random uuid\" invocation",
+        "body": "random uuid"
+    },
+    "range builtin": {
+        "prefix": "range",
+        "description": "\"range\" invocation",
+        "body": "${1:command} | range ${2:from}..${3:to}"
+    },
+    "reduce builtin": {
+        "prefix": "reduce",
+        "description": "\"reduce\" invocation",
+        "body": "${1:command} | reduce {|${2:el}, ${3:acc}| ${4:closure} }"
+    },
+    "register builtin": {
+        "prefix": "register",
+        "description": "\"register\" invocation",
+        "body": "register ${1:path/to/plugin}"
+    },
+    "registry query builtin": {
+        "prefix": "registry-query",
+        "description": "\"registry query\" invocation",
+        "body": "registry query ${1:path/to/key} ${2:value}"
+    },
+    "reject builtin": {
+        "prefix": "reject",
+        "description": "\"reject\" invocation",
+        "body": "${1:command} | reject ${2:columns}"
+    },
+    "rename builtin": {
+        "prefix": "rename",
+        "description": "\"rename\" invocation",
+        "body": "${1:command} | rename ${2:columns}"
+    },
+    "return builtin": {
+        "prefix": "return",
+        "description": "\"return\" invocation",
+        "body": "return ${1:value}"
+    },
+    "reverse builtin": {
+        "prefix": "reverse",
+        "description": "\"reverse\" invocation",
+        "body": "${1:command} | reverse"
+    },
+    "rm builtin": {
+        "prefix": "rm",
+        "description": "\"rm\" invocation",
+        "body": "rm ${1:path/to/file}"
+    },
+    "roll builtin": {
+        "prefix": "roll",
+        "description": "\"roll\" invocation",
+        "body": "${1:command} | roll ${2|down,left,right,up|}"
+    },
+    "rotate builtin": {
+        "prefix": "rotate",
+        "description": "\"rotate\" invocation",
+        "body": "${1:command} | rotate"
+    },
+    "run-external builtin": {
+        "prefix": "run-external",
+        "description": "\"run-external\" invocation",
+        "body": "run-external ${1:command}"
+    },
+    "save builtin": {
+        "prefix": "save",
+        "description": "\"save\" invocation",
+        "body": "${1:command} | save"
+    },
+    "schema builtin": {
+        "prefix": "schema",
+        "description": "\"schema\" invocation",
+        "body": "${1:command} | schema"
+    },
+    "select builtin": {
+        "prefix": "select",
+        "description": "\"select\" invocation",
+        "body": "${1:command} | select ${2:columns}"
+    },
+    "seq builtin": {
+        "prefix": "seq",
+        "description": "\"seq\" invocation",
+        "body": "seq ${1:from} ${2:to}"
+    },
+    "seq char builtin": {
+        "prefix": "seq-char",
+        "description": "\"seq char\" invocation",
+        "body": "seq char ${1:from} ${2:to}"
+    },
+    "seq date builtin": {
+        "prefix": "seq-date",
+        "description": "\"seq date\" invocation",
+        "body": "seq date --begin-date ${1:from} --end-date ${2:to}"
+    },
+    "shuffle builtin": {
+        "prefix": "shuffle",
+        "description": "\"shuffle\" invocation",
+        "body": "${1:command} | shuffle"
+    },
+    "size builtin": {
+        "prefix": "size",
+        "description": "\"size\" invocation",
+        "body": "${1:command} | size"
+    },
+    "skip builtin": {
+        "prefix": "skip",
+        "description": "\"skip\" invocation",
+        "body": "${1:command} | skip ${2:count}"
+    },
+    "skip until builtin": {
+        "prefix": "skip-until",
+        "description": "\"skip until\" invocation",
+        "body": "${1:command} | skip until {|${2:el}| ${3:predicate} }"
+    },
+    "skip while builtin": {
+        "prefix": "skip-while",
+        "description": "\"skip while\" invocation",
+        "body": "${1:command} | skip while {|${2:el}| ${3:predicate} }"
+    },
+    "sleep builtin": {
+        "prefix": "sleep",
+        "description": "\"sleep\" invocation",
+        "body": "sleep ${1:value}${2|ns,us,ms,sec,min,hr,day,wk|}"
+    },
+    "sort builtin": {
+        "prefix": "sort",
+        "description": "\"sort\" invocation",
+        "body": "${1:command} | sort"
+    },
+    "sort-by builtin": {
+        "prefix": "sort-by",
+        "description": "\"sort-by\" invocation",
+        "body": "${1:command} | sort-by ${2:column}"
+    },
+    "source builtin": {
+        "prefix": "source",
+        "description": "\"source\" invocation",
+        "body": "source ${1:path/to/script}"
+    },
+    "source-env builtin": {
+        "prefix": "source-env",
+        "description": "\"source-env\" invocation",
+        "body": "source-env ${1:path/to/script}"
+    },
+    "split builtin": {
+        "prefix": "split",
+        "description": "\"split\" invocation",
+        "body": "${1:command} | split ${2|chars,words|}"
+    },
+    "split column builtin": {
+        "prefix": "split-column",
+        "description": "\"split column\" invocation",
+        "body": "${1:command} | split column ${2:separator}"
+    },
+    "split list builtin": {
+        "prefix": "split-list",
+        "description": "\"split list\" invocation",
+        "body": "${1:command} | split list ${2:separator}"
+    },
+    "split row builtin": {
+        "prefix": "split-row",
+        "description": "\"split row\" invocation",
+        "body": "${1:command} | split row ${2:separator}"
+    },
+    "split-by builtin": {
+        "prefix": "split-by",
+        "description": "\"split-by\" invocation",
+        "body": "${1:command} | split-by ${2:separator}"
+    },
+    "start builtin": {
+        "prefix": "start",
+        "description": "\"start\" invocation",
+        "body": "start ${1:path/to/file}"
+    },
+    "str builtin": {
+        "prefix": "str",
+        "description": "\"str\" invocation",
+        "body": "${1:command} | str ${2|camel-case,capitalize,downcase,kebab-case,length,pascal-case,reverse,screaming-snake-case,snake-case,title-case,trim,upcase|}"
+    },
+    "str contains builtin": {
+        "prefix": "str-contains",
+        "description": "\"str-contains\" invocation",
+        "body": "${1:command} | str contains ${2:value}"
+    },
+    "str distance builtin": {
+        "prefix": "str-distance",
+        "description": "\"str-distance\" invocation",
+        "body": "${1:command} | str distance ${2:value}"
+    },
+    "str ends-with builtin": {
+        "prefix": "str-ends-with",
+        "description": "\"str-ends-with\" invocation",
+        "body": "${1:command} | str ends-with ${2:value}"
+    },
+    "str index-of builtin": {
+        "prefix": "str-index-of",
+        "description": "\"str-index-of\" invocation",
+        "body": "${1:command} | str index-of ${2:value}"
+    },
+    "str join builtin": {
+        "prefix": "str-join",
+        "description": "\"str-join\" invocation",
+        "body": "${1:command} | str join ${2:value}"
+    },
+    "str replace builtin": {
+        "prefix": "str-replace",
+        "description": "\"str-replace\" invocation",
+        "body": "${1:command} | str replace ${2:search} ${3:replacement}"
+    },
+    "table builtin": {
+        "prefix": "table",
+        "description": "\"table\" invocation",
+        "body": "${1:command} | table"
+    },
+    "take builtin": {
+        "prefix": "take",
+        "description": "\"take\" invocation",
+        "body": "${1:command} | table ${2:count}"
+    },
+    "take until builtin": {
+        "prefix": "take-until",
+        "description": "\"take until\" invocation",
+        "body": "${1:command} | take until {|${2:el}| ${3:predicate} }"
+    },
+    "take while builtin": {
+        "prefix": "take-while",
+        "description": "\"take while\" invocation",
+        "body": "${1:command} | take while {|${2:el}| ${3:predicate} }"
+    },
+    "timeit builtin": {
+        "prefix": "timeit",
+        "description": "\"timeit\" invocation",
+        "body": "timeit { ${1:block} }"
+    },
+    "to builtin": {
+        "prefix": "to",
+        "description": "\"to\" invocation",
+        "body": "${1:command} | to ${2|csv,html,json,md,nuon,text,toml,tsv,xml,yaml|}"
+    },
+    "touch builtin": {
+        "prefix": "touch",
+        "description": "\"touch\" invocation",
+        "body": "touch ${1:path/to/file}"
+    },
+    "transpose builtin": {
+        "prefix": "transpose",
+        "description": "\"transpose\" invocation",
+        "body": "${1:command} | transpose"
+    },
+    "try builtin": {
+        "prefix": "try",
+        "description": "\"try\" invocation",
+        "body": "try { ${1:block} }"
+    },
+    "try catch builtin": {
+        "prefix": "try-catch",
+        "description": "\"try catch\" invocation",
+        "body": "try { ${1:block} } catch { ${2:block} }"
+    },
+    "tutor builtin": {
+        "prefix": "tutor",
+        "description": "\"tutor\" invocation",
+        "body": "tutor ${1:search}"
+    },
+    "uniq builtin": {
+        "prefix": "uniq",
+        "description": "\"uniq\" invocation",
+        "body": "${1:command} | uniq"
+    },
+    "uniq-by builtin": {
+        "prefix": "uniq-by",
+        "description": "\"uniq-by\" invocation",
+        "body": "${1:command} | uniq-by ${2:columns}"
+    },
+    "update builtin": {
+        "prefix": "update",
+        "description": "\"update\" invocation",
+        "body": "${1:command} | update ${2:column} ${3:value}"
+    },
+    "update cells builtin": {
+        "prefix": "update-cells",
+        "description": "\"update cells\" invocation",
+        "body": "${1:command} | update cells {|${2:el}| ${3:closure} }"
+    },
+    "upsert builtin": {
+        "prefix": "upsert",
+        "description": "\"upsert\" invocation",
+        "body": "${1:command} | upsert ${2:column} ${3:value}"
+    },
+    "url builtin": {
+        "prefix": "url",
+        "description": "\"url\" invocation",
+        "body": "${1:command} | url ${2|build-query,encode,join,parse|}"
+    },
+    "use builtin": {
+        "prefix": "use",
+        "description": "\"use\" invocation",
+        "body": "use ${2:module} ${3:members}"
+    },
+    "values builtin": {
+        "prefix": "values",
+        "description": "\"values\" invocation",
+        "body": "${1:command} | values"
+    },
+    "view source builtin": {
+        "prefix": "view-source",
+        "description": "\"view source\" invocation",
+        "body": "view source ${1:value}"
+    },
+    "view span builtin": {
+        "prefix": "view-span",
+        "description": "\"view span\" invocation",
+        "body": "view span ${1:from} ${2:to}"
+    },
+    "watch builtin": {
+        "prefix": "watch",
+        "description": "\"watch\" invocation",
+        "body": "watch ${1:path/to/directory} {|${2:op}, ${3:path}, ${4:new_path}| ${5:block} }"
+    },
+    "where builtin": {
+        "prefix": "where",
+        "description": "\"where\" invocation",
+        "body": "${1:command} | where ${2:condition}"
+    },
+    "which builtin": {
+        "prefix": "which",
+        "description": "\"which\" invocation",
+        "body": "which ${1:command}"
+    },
+    "while builtin": {
+        "prefix": "while",
+        "description": "\"while\" invocation",
+        "body": "while ${1:condition} { ${2:block} }"
+    },
+    "window builtin": {
+        "prefix": "window",
+        "description": "\"window\" invocation",
+        "body": "${1:command} | window ${1:count}"
+    },
+    "with-env builtin": {
+        "prefix": "with-env",
+        "description": "\"with-env\" invocation",
+        "body": "with-env ${1:variables} { ${2:block} }"
+    },
+    "wrap builtin": {
+        "prefix": "wrap",
+        "description": "\"wrap\" invocation",
+        "body": "${1:command} | wrap ${2:column}"
+    },
+    "zip builtin": {
+        "prefix": "zip",
+        "description": "\"zip\" invocation",
+        "body": "${1:command} | zip ${2:list}"
     }
 }
