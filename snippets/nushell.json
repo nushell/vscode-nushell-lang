@@ -38,7 +38,7 @@
         "description": "duration",
         "body": "${1:value}${2|ns,us,ms,sec,min,hr,day,wk|}"
     },
-    "size": {
+    "filesize": {
         "prefix": "size",
         "description": "size",
         "body": "${1:value}${2|b,kb,mb,gb,tb,pb,eb,zb,kib,mib,gib,tib,pib,eib,zib|}"
