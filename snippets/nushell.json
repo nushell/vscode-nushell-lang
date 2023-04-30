@@ -709,6 +709,16 @@
         "description": "\"kill\" invocation",
         "body": "kill ${1:pid}"
     },
+    "loop builtin": {
+        "prefix": "loop",
+        "description": "\"loop\" invocation",
+        "body": "loop { ${1:block} }"
+    },
+    "ls builtin": {
+        "prefix": "ls",
+        "description": "\"ls\" invocation",
+        "body": "ls ${1:pattern}"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
