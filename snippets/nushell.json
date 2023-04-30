@@ -499,6 +499,56 @@
         "description": "\"extern\" invocation",
         "body": "extern ${1:name} [${2:param}: string${3:, }]"
     },
+    "fill builtin": {
+        "prefix": "fill",
+        "description": "\"fill\" invocation",
+        "body": "${1:command} | fill --width ${2:value}"
+    },
+    "filter builtin": {
+        "prefix": "filter",
+        "description": "\"filter\" invocation",
+        "body": "${1:command} | filter {|${2:el}| ${3:predicate} }"
+    },
+    "find builtin": {
+        "prefix": "find",
+        "description": "\"find\" invocation",
+        "body": "${1:command} | find"
+    },
+    "first builtin": {
+        "prefix": "first",
+        "description": "\"first\" invocation",
+        "body": "${1:command} | first ${2:count}"
+    },
+    "flatten builtin": {
+        "prefix": "flatten",
+        "description": "\"flatten\" invocation",
+        "body": "${1:command} | flatten"
+    },
+    "fmt builtin": {
+        "prefix": "fmt",
+        "description": "\"fmt\" invocation",
+        "body": "${1:command} | fmt"
+    },
+    "for builtin": {
+        "prefix": "for",
+        "description": "\"for\" invocation",
+        "body": "for ${1:variable} in ${2:list} { ${3:block} }"
+    },
+    "format builtin": {
+        "prefix": "format",
+        "description": "\"format\" invocation",
+        "body": "${1:command} | format ${2:value}"
+    },
+    "format filesize builtin": {
+        "prefix": "format-filesize",
+        "description": "\"format filesize\" invocation",
+        "body": "${1:command} | format filesize ${2|b,kb,mb,gb,tb,pb,eb,zb,kib,mib,gib,tib,pib,eib,zib|} ${3:column}"
+    },
+    "from builtin": {
+        "prefix": "from",
+        "description": "\"from\" invocation",
+        "body": "${1:command} | from ${2|csv,eml,ics,ini,json,nuon,ods,ssv,toml,tsc,url,vcf,xlsx,xml,yaml,yml|}"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
