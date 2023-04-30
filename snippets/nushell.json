@@ -813,6 +813,16 @@
         "description": "\"mv\" invocation",
         "body": "mv ${1:path/to/source} ${2:path/to/destination}"
     },
+    "nu-check builtin": {
+        "prefix": "nu-check",
+        "description": "\"nu-check\" invocation",
+        "body": "${1:command} | nu-check"
+    },
+    "nu-highlight builtin": {
+        "prefix": "nu-highlight",
+        "description": "\"nu-highlight\" invocation",
+        "body": "${1:command} | nu-highlight"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
