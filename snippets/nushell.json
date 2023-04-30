@@ -649,6 +649,56 @@
         "description": "\"http put\" invocation",
         "body": "http put ${1:url} ${2:data}"
     },
+    "if builtin": {
+        "prefix": "if",
+        "description": "\"if\" invocation",
+        "body": "if ${1:condition} { ${2:block} }"
+    },
+    "if else builtin": {
+        "prefix": "if-else",
+        "description": "\"if\" invocation",
+        "body": "if ${1:condition} { ${2:block} } else { ${3:block} }"
+    },
+    "if else if else builtin": {
+        "prefix": "if-else-if-else",
+        "description": "\"if\" invocation",
+        "body": "if ${1:condition} { ${2:block} } else if { ${3:block} } else { ${4:block} }"
+    },
+    "ignore builtin": {
+        "prefix": "ignore",
+        "description": "\"ignore\" invocation",
+        "body": "${1:command} | ignore"
+    },
+    "inc builtin": {
+        "prefix": "inc",
+        "description": "\"inc\" invocation",
+        "body": "${1:command} | inc"
+    },
+    "input builtin": {
+        "prefix": "input",
+        "description": "\"input\" invocation",
+        "body": "input ${1:prompt}"
+    },
+    "insert builtin": {
+        "prefix": "insert",
+        "description": "\"insert\" invocation",
+        "body": "${1:command} | insert ${2:column} ${3:value}"
+    },
+    "inspect builtin": {
+        "prefix": "inspect",
+        "description": "\"inspect\" invocation",
+        "body": "${1:command} | inspect"
+    },
+    "into builtin": {
+        "prefix": "into",
+        "description": "\"into\" invocation",
+        "body": "${1:command} | into ${2|binary,bool,datetime,decimal,duration,filesize,int,record,sqlite,string|}"
+    },
+    "is-empty builtin": {
+        "prefix": "is-empty",
+        "description": "\"is-empty\" invocation",
+        "body": "${1:command} | is-empty"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
