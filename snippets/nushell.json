@@ -719,6 +719,11 @@
         "description": "\"ls\" invocation",
         "body": "ls ${1:pattern}"
     },
+    "lines builtin": {
+        "prefix": "lines",
+        "description": "\"lines\" invocation",
+        "body": "${1:command} | lines"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
