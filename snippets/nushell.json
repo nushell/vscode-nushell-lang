@@ -549,6 +549,41 @@
         "description": "\"from\" invocation",
         "body": "${1:command} | from ${2|csv,eml,ics,ini,json,nuon,ods,ssv,toml,tsc,url,vcf,xlsx,xml,yaml,yml|}"
     },
+    "g builtin": {
+        "prefix": "g",
+        "description": "\"g\" invocation",
+        "body": "g ${1:shell}"
+    },
+    "get builtin": {
+        "prefix": "get",
+        "description": "\"get\" invocation",
+        "body": "${1:command} | get ${2:path/to/cell}"
+    },
+    "glob builtin": {
+        "prefix": "glob",
+        "description": "\"glob\" invocation",
+        "body": "glob ${1:pattern}"
+    },
+    "grid builtin": {
+        "prefix": "grid",
+        "description": "\"grid\" invocation",
+        "body": "${1:command} | grid"
+    },
+    "group builtin": {
+        "prefix": "group",
+        "description": "\"group\" invocation",
+        "body": "${1:command} | group ${2:count}"
+    },
+    "group-by builtin": {
+        "prefix": "group-by",
+        "description": "\"group-by\" invocation",
+        "body": "${1:command} | group-by ${2:grouper}"
+    },
+    "gstat builtin": {
+        "prefix": "gstat",
+        "description": "\"gstat\" invocation",
+        "body": "gstat ${1:path/to/repository}'"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
