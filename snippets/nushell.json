@@ -145,85 +145,30 @@
         "description": "\"ast\" invocation",
         "body": "ast ${1:pipeline}"
     },
-    "bits and builtin": {
-        "prefix": "bits-and",
-        "description": "\"bits and\" invocation",
-        "body": "${1:command} | bits and ${2:value}"
+    "bits builtin": {
+        "prefix": "bits",
+        "description": "\"bits\" invocation",
+        "body": "${1:command} | bits ${2|and,or,rol,ror,shl,shr,xor|} ${3:value}"
     },
     "bits not builtin": {
         "prefix": "bits-not",
         "description": "\"bits not\" invocation",
         "body": "${1:command} | bits not"
     },
-    "bits or builtin": {
-        "prefix": "bits-or",
-        "description": "\"bits or\" invocation",
-        "body": "${1:command} | bits or ${2:value}"
-    },
-    "bits rol builtin": {
-        "prefix": "bits-rol",
-        "description": "\"bits rol\" invocation",
-        "body": "${1:command} | bits rol ${2:value}"
-    },
-    "bits ror builtin": {
-        "prefix": "bits-ror",
-        "description": "\"bits ror\" invocation",
-        "body": "${1:command} | bits ror ${2:value}"
-    },
-    "bits shl builtin": {
-        "prefix": "bits-shl",
-        "description": "\"bits shl\" invocation",
-        "body": "${1:command} | bits shl ${2:value}"
-    },
-    "bits shr builtin": {
-        "prefix": "bits-shr",
-        "description": "\"bits shr\" invocation",
-        "body": "${1:command} | bits shr ${2:value}"
-    },
-    "bits xor builtin": {
-        "prefix": "bits-xor",
-        "description": "\"bits xor\" invocation",
-        "body": "${1:command} | bits xor ${2:value}"
-    },
-    "bytes add builtin": {
-        "prefix": "bytes-add",
-        "description": "\"bytes add\" invocation",
-        "body": "${1:command} | bytes add ${2:value}"
+    "bytes builtin": {
+        "prefix": "bytes",
+        "description": "\"bytes\" invocation",
+        "body": "${1:command} | bytes ${2|add,collect,ends-with,index-of,remove,starts-with|} ${3:value}"
     },
     "bytes at builtin": {
         "prefix": "bytes-at",
         "description": "\"bytes at\" invocation",
         "body": "${1:command} | bytes at ${2:from}..${3:to}"
     },
-    "bytes collect builtin": {
-        "prefix": "bytes-collect",
-        "description": "\"bytes collect\" invocation",
-        "body": "${1:command} | bytes collect ${2:separator}"
-    },
-    "bytes ends-with builtin": {
-        "prefix": "bytes-ends-with",
-        "description": "\"bytes ends-with\" invocation",
-        "body": "${1:command} | bytes ends-with ${2:pattern}"
-    },
-    "bytes index-of builtin": {
-        "prefix": "bytes-index-of",
-        "description": "\"bytes index-of\" invocation",
-        "body": "${1:command} | bytes index-of ${2:pattern}"
-    },
-    "bytes remove builtin": {
-        "prefix": "bytes-remove",
-        "description": "\"bytes remove\" invocation",
-        "body": "${1:command} | bytes remove ${2:pattern}"
-    },
     "bytes replace builtin": {
         "prefix": "bytes-replace",
         "description": "\"bytes replace\" invocation",
         "body": "${1:command} | bytes replace ${2:search} ${3:replacement}"
-    },
-    "bytes starts-with builtin": {
-        "prefix": "bytes-starts-with",
-        "description": "\"bytes starts-with\" invocation",
-        "body": "${1:command} | bytes starts-with ${2:pattern}"
     },
     "cd builtin": {
         "prefix": "cd",
@@ -584,15 +529,10 @@
         "description": "\"gstat\" invocation",
         "body": "gstat ${1:path/to/repository}"
     },
-    "hash md5 builtin": {
-        "prefix": "hash-md5",
-        "description": "\"hash md5\" invocation",
-        "body": "${1:command} | hash md5"
-    },
-    "hash sha256 builtin": {
-        "prefix": "hash-sha256",
-        "description": "\"hash sha256\" invocation",
-        "body": "${1:command} | hash sha256"
+    "hash builtin": {
+        "prefix": "hash",
+        "description": "\"hash\" invocation",
+        "body": "${1:command} | hash ${2|md5,sha256|}"
     },
     "headers builtin": {
         "prefix": "headers",
@@ -619,20 +559,10 @@
         "description": "\"histogram\" invocation",
         "body": "${1:command} | histogram ${2:column} ${3:frequency-column}"
     },
-    "http delete builtin": {
-        "prefix": "http-delete",
-        "description": "\"http delete\" invocation",
-        "body": "http delete ${1:url}"
-    },
-    "http get builtin": {
-        "prefix": "http-get",
-        "description": "\"http get\" invocation",
-        "body": "http get ${1:url}"
-    },
-    "http head builtin": {
-        "prefix": "http-head",
-        "description": "\"http head\" invocation",
-        "body": "http head ${1:url}"
+    "http builtin": {
+        "prefix": "http",
+        "description": "\"http\" invocation",
+        "body": "http ${1|delete,get,head|} ${1:url}"
     },
     "http patch builtin": {
         "prefix": "http-patch",
