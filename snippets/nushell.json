@@ -709,6 +709,42 @@
         "description": "\"kill\" invocation",
         "body": "kill ${1:pid}"
     },
+    "last builtin": {
+        "prefix": "last",
+        "description": "\"last\" invocation",
+        "body": "${1:command} | last ${2:block}"
+    },
+    "length builtin": {
+        "prefix": "length",
+        "description": "\"length\" invocation",
+        "body": "${1:command} | length"
+    },
+    "let builtin": {
+        "prefix": "let",
+        "description": "\"let\" invocation",
+        "body": "let ${1:name} = ${2:value}"
+    },
+    "@let builtin": {
+        "prefix": "@let",
+        "description": "\"let\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "let ${2:name} = ${3:value}"
+        ]
+    },
+    "let-env builtin": {
+        "prefix": "let-env",
+        "description": "\"let-env\" invocation",
+        "body": "let-env ${1:name} = ${2:value}"
+    },
+    "@let-env builtin": {
+        "prefix": "@let-env",
+        "description": "\"let-env\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "let-env ${2:name} = ${3:value}"
+        ]
+    },
     "loop builtin": {
         "prefix": "loop",
         "description": "\"loop\" invocation",
