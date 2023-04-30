@@ -823,6 +823,39 @@
         "description": "\"nu-highlight\" invocation",
         "body": "${1:command} | nu-highlight"
     },
+    "old-alias builtin": {
+        "prefix": "old-alias",
+        "description": "\"old-alias\" invocation",
+        "body": "old-alias ${1:name} = ${2:value}"
+    },
+    "@old-alias builtin": {
+        "prefix": "@old-alias",
+        "description": "\"old-alias\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "old-alias ${2:name} = ${3:value}"
+        ]
+    },
+    "open builtin": {
+        "prefix": "open",
+        "description": "\"open\" invocation",
+        "body": "open ${1:path/to/file}"
+    },
+    "overlay hide builtin": {
+        "prefix": "overlay-hide",
+        "description": "\"overlay hide\" invocation",
+        "body": "overlay hide ${1:name}"
+    },
+    "overlay new builtin": {
+        "prefix": "overlay-new",
+        "description": "\"overlay new\" invocation",
+        "body": "overlay new ${1:name}"
+    },
+    "overlay use builtin": {
+        "prefix": "overlay-use",
+        "description": "\"overlay use\" invocation",
+        "body": "overlay use ${1:name}"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
