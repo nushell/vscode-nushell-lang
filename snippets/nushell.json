@@ -760,6 +760,59 @@
         "description": "\"lines\" invocation",
         "body": "${1:command} | lines"
     },
+    "match builtin": {
+        "prefix": "match",
+        "description": "\"match\" invocation",
+        "body": "match ${1:value} { ${2:pattern} => ${3:value}${4:, }, _ => ${5:value} }"
+    },
+    "math builtin": {
+        "prefix": "math",
+        "description": "\"math\" invocation",
+        "body": "${1:command} | math ${2|abs,arccos,arccosh,arcsin,arcsinh,arctan,arctanh,avg,ceil,cos,cosh,e,eval,exp,floor,ln,log,max,median,min,mode,pi,product,round,sin,sinh,sqrt,stddev,sum,tan,tanh,tau,variance|}"
+    },
+    "merge builtin": {
+        "prefix": "merge",
+        "description": "\"merge\" invocation",
+        "body": "${1:command} | merge ${2:value}"
+    },
+    "metadata builtin": {
+        "prefix": "metadata",
+        "description": "\"metadata\" invocation",
+        "body": "${1:command} | metadata"
+    },
+    "mkdir builtin": {
+        "prefix": "mkdir",
+        "description": "\"mkdir\" invocation",
+        "body": "mkdir ${1:path/to/directory}"
+    },
+    "module builtin": {
+        "prefix": "module",
+        "description": "\"module\" invocation",
+        "body": "module ${1:name} { ${1:block} }"
+    },
+    "move builtin": {
+        "prefix": "move",
+        "description": "\"move\" invocation",
+        "body": "${1:command} | move ${2:column} --${3|before,after|} ${4:column}"
+    },
+    "mut builtin": {
+        "prefix": "mut",
+        "description": "\"mut\" invocation",
+        "body": "mut ${1:name} = ${2:value}"
+    },
+    "@mut builtin": {
+        "prefix": "@mut",
+        "description": "\"mut\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "mut ${2:name} = ${3:value}"
+        ]
+    },
+    "mv builtin": {
+        "prefix": "mv",
+        "description": "\"mv\" invocation",
+        "body": "mv ${1:path/to/source} ${2:path/to/destination}"
+    },
     "Custom Command With Switch": {
         "prefix": "defs",
         "body": [
