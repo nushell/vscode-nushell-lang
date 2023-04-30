@@ -769,7 +769,7 @@
     "open builtin": {
         "prefix": "open",
         "description": "\"open\" invocation",
-        "body": "open ${1:path/to/file}"
+        "body": "${1:path/to/file} | open"
     },
     "overlay hide builtin": {
         "prefix": "overlay-hide",
