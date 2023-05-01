@@ -127,6 +127,11 @@
         "description": "second",
         "body": "%S"
     },
+    "time": {
+        "prefix": "time",
+        "description": "time",
+        "body": "${1|%H-%M-%S,%H-%M,%H:%M:%S,%H:%M|}"
+    },
     "alias builtin": {
         "prefix": "alias",
         "description": "\"alias\" invocation",
