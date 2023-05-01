@@ -100,22 +100,27 @@
     "year": {
         "prefix": "year",
         "description": "year",
-        "body": "%${1|Y,y|}"
+        "body": "%${1|y,Y|}"
     },
     "month": {
         "prefix": "month",
         "description": "month",
-        "body": "%${1|h,m|}"
+        "body": "%${1|m,b,B|}"
     },
     "day": {
         "prefix": "day",
         "description": "day",
-        "body": "%${1|D,d|}"
+        "body": "%${1|d,j|}"
+    },
+    "weekday": {
+        "prefix": "weekday",
+        "description": "weekday",
+        "body": "%${1|a,A|}"
     },
     "hour": {
         "prefix": "hour",
         "description": "hour",
-        "body": "%H"
+        "body": "%${1|H,I,P,p|}"
     },
     "minute": {
         "prefix": "minute",
@@ -125,7 +130,7 @@
     "second": {
         "prefix": "second",
         "description": "second",
-        "body": "%S"
+        "body": "%${1|S,f|}"
     },
     "time": {
         "prefix": "time",
