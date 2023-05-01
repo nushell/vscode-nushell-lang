@@ -136,4 +136,4 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Added folding regions with `# region:` and `# endregion`
   - Update syntax regexes to match nushell v0.79.0
 - 1.5.1
-  - Awesome new snippets
+  - Awesome new snippets by @EmilySeville7cfg [#116](https://github.com/nushell/vscode-nushell-lang/pull/116) [#119](https://github.com/nushell/vscode-nushell-lang/pull/119) [#121](https://github.com/nushell/vscode-nushell-lang/pull/121)
