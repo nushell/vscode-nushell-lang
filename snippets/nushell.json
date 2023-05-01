@@ -97,6 +97,36 @@
         "description": "flag",
         "body": "...${1:name}: ${2|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}"
     },
+    "year": {
+        "prefix": "year",
+        "description": "year",
+        "body": "%${1|Y,y|}"
+    },
+    "month": {
+        "prefix": "month",
+        "description": "month",
+        "body": "%${1|h,m|}"
+    },
+    "day": {
+        "prefix": "day",
+        "description": "day",
+        "body": "%${1|D,d|}"
+    },
+    "hour": {
+        "prefix": "hour",
+        "description": "hour",
+        "body": "%H"
+    },
+    "minute": {
+        "prefix": "minute",
+        "description": "minute",
+        "body": "%M"
+    },
+    "second": {
+        "prefix": "second",
+        "description": "second",
+        "body": "%S"
+    },
     "alias builtin": {
         "prefix": "alias",
         "description": "\"alias\" invocation",
