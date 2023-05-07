@@ -1250,5 +1250,24 @@
         "prefix": "zip",
         "description": "\"zip\" invocation",
         "body": "${1:command} | zip ${2:list}"
+    },
+    "completion": {
+        "prefix": "completion",
+        "description": "completion",
+        "body": [
+            "def ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}@${4:complete}${5:, }] {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "@completion": {
+        "prefix": "@completion",
+        "description": "completion",
+        "body": [
+            "# ${1:documentation}",
+            "def ${2:name} [${3:param}: ${4|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}@${5:complete}${6:, }] {",
+            "\t$0",
+            "}"
+        ]
     }
 }
