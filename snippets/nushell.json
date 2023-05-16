@@ -1288,18 +1288,18 @@
             "# ${2:...}"
         ]
     },
-    "@note": {
-        "prefix": "note",
-        "description": "note",
+    "@info": {
+        "prefix": "info",
+        "description": "info",
         "body": [
-            "# **Note** ${1:note}"
+            "# > **Info** ${1:info}"
         ]
     },
     "@warning": {
         "prefix": "warning",
         "description": "warning",
         "body": [
-            "# **Warning** ${1:warning}"
+            "# > **Warning** ${1:warning}"
         ]
     }
 }
