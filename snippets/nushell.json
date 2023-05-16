@@ -1269,5 +1269,37 @@
             "\t$0",
             "}"
         ]
+    },
+    "@examples": {
+        "prefix": "examples",
+        "description": "examples",
+        "body": [
+            "# # Examples",
+            "# - ${1:example}",
+            "# ${2:...}"
+        ]
+    },
+    "@notes": {
+        "prefix": "notes",
+        "description": "notes",
+        "body": [
+            "# # Notes",
+            "# - ${1:notes}",
+            "# ${2:...}"
+        ]
+    },
+    "@note": {
+        "prefix": "note",
+        "description": "note",
+        "body": [
+            "# **Note** ${1:note}"
+        ]
+    },
+    "@warning": {
+        "prefix": "warning",
+        "description": "warning",
+        "body": [
+            "# **Warning** ${1:warning}"
+        ]
     }
 }
