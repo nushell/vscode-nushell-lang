@@ -1284,7 +1284,7 @@
         "description": "notes",
         "body": [
             "# # Notes",
-            "# - ${1:notes}",
+            "# - ${1:note}",
             "# ${2:...}"
         ]
     },
