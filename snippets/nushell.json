@@ -1274,7 +1274,7 @@
         "prefix": "examples",
         "description": "examples",
         "body": [
-            "# # Examples",
+            "# ### Examples",
             "# - ${1:example}",
             "# ${2:...}"
         ]
@@ -1283,7 +1283,7 @@
         "prefix": "notes",
         "description": "notes",
         "body": [
-            "# # Notes",
+            "# ### Notes",
             "# - ${1:note}",
             "# ${2:...}"
         ]
