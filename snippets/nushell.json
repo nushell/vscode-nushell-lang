@@ -137,6 +137,16 @@
         "description": "time",
         "body": "${1|%H-%M-%S,%H-%M,%H:%M:%S,%H:%M|}"
     },
+    "capture group": {
+        "prefix": "capture-group",
+        "description": "regex group",
+        "body": "(?<${1:name}>${2:value})"
+    },
+    "non-capturing group": {
+        "prefix": "non-capturing-group",
+        "description": "regex group",
+        "body": "(?:${1:value})"
+    },
     "alias builtin": {
         "prefix": "alias",
         "description": "\"alias\" invocation",
