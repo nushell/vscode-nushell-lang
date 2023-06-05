@@ -3,31 +3,33 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 import {
-  createConnection,
-  TextDocuments,
-  Diagnostic,
-  DiagnosticSeverity,
-  ProposedFeatures,
-  InitializeParams,
-  DidChangeConfigurationNotification,
   CompletionItem,
   CompletionItemKind,
+  Definition,
+  Diagnostic,
+  DiagnosticSeverity,
+  DidChangeConfigurationNotification,
+  HandlerResult,
+  HoverParams,
+  InitializeParams,
+  InitializeResult,
+  ProposedFeatures,
   TextDocumentPositionParams,
   TextDocumentSyncKind,
-  InitializeResult,
-  HoverParams,
-  Definition,
-  HandlerResult,
+  TextDocuments,
+  createConnection,
 } from "vscode-languageserver/node";
 
 import {
-  Position,
   InlayHint,
-  InlayHintParams,
-  InlayHintLabelPart,
   InlayHintKind,
+  InlayHintLabelPart,
+  InlayHintParams,
+  Position,
 } from "vscode-languageserver-protocol";
 
+import { fileURLToPath } from "node:url";
+import { TextEncoder } from "node:util";
 import { TextDocument } from "vscode-languageserver-textdocument";
 
 interface NuTextDocument extends TextDocument {
@@ -38,8 +40,6 @@ import tmp = require("tmp");
 import path = require("path");
 
 import util = require("node:util");
-import { TextEncoder } from "node:util";
-import { fileURLToPath } from "node:url";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const exec = util.promisify(require("node:child_process").exec);
@@ -110,11 +110,16 @@ connection.onInitialize((params: InitializeParams) => {
   return result;
 });
 
+let labelid = 0;
+function createLabel(name: string): string {
+  return `${name}#${labelid++}`;
+}
 async function durationLogWrapper<T>(
-  label: string,
+  name: string,
   fn: () => Promise<T>
 ): Promise<T> {
-  console.log("Triggered " + label + ": ...");
+  console.log("Triggered " + name + ": ...");
+  const label = createLabel(name);
   console.time(label);
   const result = await fn();
 
@@ -425,7 +430,7 @@ async function runCompiler(
 
     connection.console.log(
       "running: " +
-        `${settings.nushellExecutablePath} ${flags} ${script_path_flag} ${tmpFile.name}`
+      `${settings.nushellExecutablePath} ${flags} ${script_path_flag} ${tmpFile.name}`
     );
 
     const output = await exec(
