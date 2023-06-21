@@ -137,3 +137,10 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Update syntax regexes to match nushell v0.79.0
 - 1.5.1
   - Awesome new snippets by @EmilySeville7cfg [#116](https://github.com/nushell/vscode-nushell-lang/pull/116) [#119](https://github.com/nushell/vscode-nushell-lang/pull/119) [#121](https://github.com/nushell/vscode-nushell-lang/pull/121)
+- 1.6.0
+  - Snippets (completions) [#126](https://github.com/nushell/vscode-nushell-lang/pull/126)
+  - Snippets (markdown doc sections) [#127](https://github.com/nushell/vscode-nushell-lang/pull/127)
+  - Snippets (use H3 header) [#128](https://github.com/nushell/vscode-nushell-lang/pull/128)
+  - Snippets (support regex groups) [#130](https://github.com/nushell/vscode-nushell-lang/pull/130)
+  - Use unique labels for durationWrapper [#133](https://github.com/nushell/vscode-nushell-lang/pull/133)
+  - Fix TextMate regex that linguist discovered [#137](https://github.com/nushell/vscode-nushell-lang/pull/137)
