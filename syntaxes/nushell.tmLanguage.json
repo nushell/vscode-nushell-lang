@@ -177,9 +177,9 @@
     "constant-value": {
       "patterns": [
         { "include": "#constant-keywords" },
+        { "include": "#datetime" },
         { "include": "#numbers" },
         { "include": "#numbers-hexa" },
-        { "include": "#datetime" },
         { "include": "#binary" }
       ]
     },
