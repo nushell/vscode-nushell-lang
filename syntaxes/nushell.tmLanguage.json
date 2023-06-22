@@ -144,7 +144,7 @@
       "name": "variable.language.nushell"
     },
     "datetime": {
-      "match": "\\b\\d{4}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:\\+\\d{2}:?\\d{2}|Z)?)?\\b",
+      "match": "\\b\\d{4}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:\\+\\d{2}:?\\d{2}|Z)?)?\\b",
       "name": "constant.numeric.nushell"
     },
     "numbers-hexa": {
@@ -177,9 +177,9 @@
     "constant-value": {
       "patterns": [
         { "include": "#constant-keywords" },
+        { "include": "#datetime" },
         { "include": "#numbers" },
         { "include": "#numbers-hexa" },
-        { "include": "#datetime" },
         { "include": "#binary" }
       ]
     },
