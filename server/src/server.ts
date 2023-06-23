@@ -28,9 +28,10 @@ import {
   Position,
 } from "vscode-languageserver-protocol";
 
-import { fileURLToPath } from "node:url";
 import { TextEncoder } from "node:util";
 import { TextDocument } from "vscode-languageserver-textdocument";
+import { URI } from 'vscode-uri';
+
 
 interface NuTextDocument extends TextDocument {
   nuInlayHints?: InlayHint[];
@@ -58,9 +59,9 @@ let hasWorkspaceFolderCapability = false;
 let hasDiagnosticRelatedInformationCapability = false;
 
 function includeFlagForPath(file_path: string): string {
-  if (file_path.startsWith("file://")) {
-    file_path = decodeURI(file_path);
-    return "-I " + '"' + path.dirname(fileURLToPath(file_path));
+  const parsed = URI.parse(file_path);
+  if (parsed.scheme === "file") {
+    return "-I " + '"' + path.dirname(parsed.fsPath);
   }
   return "-I " + '"' + file_path;
 }
@@ -614,7 +615,7 @@ async function goToDefinition(
     if (obj.file == tmpFile.name) {
       uri = document.uri;
     } else {
-      uri = obj.file ? "file://" + obj.file : document.uri;
+      uri = obj.file ? URI.file(obj.file).toString() : document.uri;
     }
 
     // connection.console.log(uri);
