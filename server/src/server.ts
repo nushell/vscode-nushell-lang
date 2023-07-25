@@ -117,12 +117,12 @@ function createLabel(name: string): string {
 }
 async function durationLogWrapper<T>(
   name: string,
-  fn: () => Promise<T>
+  fn: (label: string) => Promise<T>
 ): Promise<T> {
   console.log("Triggered " + name + ": ...");
   const label = createLabel(name);
   console.time(label);
-  const result = await fn();
+  const result = await fn(label);
 
   // This purposefully has the same prefix length as the "Triggered " log above,
   // also does not add a newline at the end.
@@ -244,7 +244,7 @@ async function validateTextDocument(
 ): Promise<void> {
   return await durationLogWrapper(
     `validateTextDocument ${textDocument.uri}`,
-    async () => {
+    async (label) => {
       if (!hasDiagnosticRelatedInformationCapability) {
         console.error(
           "Trying to validate a document with no diagnostic capability"
@@ -263,7 +263,8 @@ async function validateTextDocument(
         text,
         "--ide-check",
         settings,
-        textDocument.uri
+        textDocument.uri,
+        { label: label }
       );
 
       textDocument.nuInlayHints = [];
@@ -403,7 +404,7 @@ async function runCompiler(
   flags: string,
   settings: NushellIDESettings,
   uri: string,
-  options: { allowErrors?: boolean } = {}
+  options: { allowErrors?: boolean, label: string } = { label: "runCompiler" },
 ): Promise<string> {
   const allowErrors =
     options.allowErrors === undefined ? true : options.allowErrors;
@@ -412,7 +413,7 @@ async function runCompiler(
     fs.writeFileSync(tmpFile.name, text);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
-    // connection.console.log(e);
+    connection.console.error(`[${options.label}] error writing to tmp file: ${e}`);
   }
 
   let stdout = "";
@@ -430,8 +431,7 @@ async function runCompiler(
     }
 
     connection.console.log(
-      "running: " +
-      `${settings.nushellExecutablePath} ${flags} ${script_path_flag} ${tmpFile.name}`
+      `[${options.label}] running: ${settings.nushellExecutablePath} ${flags} ${script_path_flag} ${tmpFile.name}`
     );
 
     const output = await exec(
@@ -441,17 +441,12 @@ async function runCompiler(
       }
     );
     stdout = output.stdout;
-    console.log("stdout: " + stdout);
+    console.log(`[${options.label}] stdout: ${stdout}`);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     stdout = e.stdout;
+    connection.console.log(`[${options.label}] compile failed: ` + e);
     if (!allowErrors) {
-      if (e.signal != null) {
-        connection.console.log("compile failed: ");
-        connection.console.log(e);
-      } else {
-        connection.console.log("Error:" + e);
-      }
       throw e;
     }
   }
@@ -568,21 +563,21 @@ connection.onCompletion(
 );
 
 connection.onDefinition(async (request) => {
-  return await durationLogWrapper(`onDefinition`, async () => {
+  return await durationLogWrapper(`onDefinition`, async (label) => {
     const document = documents.get(request.textDocument.uri);
     if (!document) return;
     const settings = await getDocumentSettings(request.textDocument.uri);
 
     const text = document.getText();
 
-    // connection.console.log("request: ");
-    // connection.console.log(request.textDocument.uri);
+    // connection.console.log(`[${label}] request: ${request.textDocument.uri}`);
     // connection.console.log("index: " + convertPosition(request.position, text));
     const stdout = await runCompiler(
       text,
       "--ide-goto-def " + convertPosition(request.position, text),
       settings,
-      request.textDocument.uri
+      request.textDocument.uri,
+      { label: label }
     );
     return goToDefinition(document, stdout);
   });
@@ -605,11 +600,19 @@ async function goToDefinition(
     // connection.console.log(obj);
     if (obj.file === "" || obj.file === "__prelude__") return;
 
-    const lineBreaks = findLineBreaks(
-      obj.file
-        ? (await fs.promises.readFile(obj.file)).toString()
-        : document.getText() ?? ""
-    );
+    let documentText: string;
+    if (obj.file) {
+      if (fs.existsSync(obj.file)) {
+        documentText = await fs.promises.readFile(obj.file).then((b) => b.toString());
+      } else {
+        connection.console.log(`File ${obj.file} does not exist`);
+        return;
+      }
+    } else {
+      documentText = document.getText();
+    }
+
+    const lineBreaks: number[] = findLineBreaks(documentText);
 
     let uri = "";
     if (obj.file == tmpFile.name) {
