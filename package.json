@@ -42,6 +42,7 @@
           "light": "assets/nu.svg",
           "dark": "assets/nu.svg"
         },
+        "firstLine": "^#!\\s*/?.*\\bnu\\b",
         "configuration": "./language-configuration.json"
       }
     ],
