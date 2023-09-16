@@ -74,21 +74,22 @@ export function activate(context: vscode.ExtensionContext) {
           path: pathsToCheck.join(path.delimiter),
         });
 
-        if (found_nushell_path != null) {
-          return {
-            options: {
-              name: "Nushell",
-              shellPath: found_nushell_path,
-              iconPath: vscode.Uri.joinPath(
-                context.extensionUri,
-                "assets/nu.svg"
-              ),
-            },
-          };
-        } else {
-          console.log("Nushell not found, returning undefined");
-          return undefined;
+        if (found_nushell_path == null) {
+          console.log(
+            "Nushell not found in env:PATH or any of the heuristic locations."
+          );
         }
+
+        return {
+          options: {
+            name: "Nushell",
+            shellPath: found_nushell_path || "nu",
+            iconPath: vscode.Uri.joinPath(
+              context.extensionUri,
+              "assets/nu.svg"
+            ),
+          },
+        };
       },
     })
   );
