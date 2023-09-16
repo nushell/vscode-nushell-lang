@@ -31,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
         const pathsToCheck = [
           PATH_FROM_ENV,
           // cargo install location
-          "~/.cargo/bin",
+          (process.env["CARGO_HOME"] || "~/.cargo") + "/bin",
 
           // winget on Windows install location
           "c:\\program files\\nu\\bin",
