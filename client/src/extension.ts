@@ -24,22 +24,21 @@ export function activate(context: vscode.ExtensionContext) {
       provideTerminalProfile(
         token: vscode.CancellationToken
       ): vscode.ProviderResult<vscode.TerminalProfile> {
+        const which = require("which");
         const path = require("path");
-        const fs = require("fs");
-        const glob = require("glob");
-        const os = require("os");
 
+        const PATH_FROM_ENV = process.env["PATH"];
         const pathsToCheck = [
+          PATH_FROM_ENV,
           // cargo install location
-          "~/.cargo/bin/nu",
-          "~/.cargo/bin/nu.exe",
+          "~/.cargo/bin",
 
           // winget on Windows install location
-          "c:\\program files\\nu\\bin\\nu.exe",
+          "c:\\program files\\nu\\bin",
           // just add a few other drives for fun
-          "d:\\program files\\nu\\bin\\nu.exe",
-          "e:\\program files\\nu\\bin\\nu.exe",
-          "f:\\program files\\nu\\bin\\nu.exe",
+          "d:\\program files\\nu\\bin",
+          "e:\\program files\\nu\\bin",
+          "f:\\program files\\nu\\bin",
 
           // SCOOP:TODO
           // all user installed programs and scoop itself install to
@@ -47,8 +46,9 @@ export function activate(context: vscode.ExtensionContext) {
           // globally installed programs go in
           // c:\programdata\scoop unless SCOOP_GLOBAL env var is set
           // scoop install location
-          "~/scoop/apps/nu/*/nu.exe",
-          "~/scoop/shims/nu.exe",
+          // SCOOP should already set up the correct `PATH` env var
+          //"~/scoop/apps/nu/*/nu.exe",
+          //"~/scoop/shims/nu.exe",
 
           // chocolatey install location - same as winget
           // 'c:\\program files\\nu\\bin\\nu.exe',
@@ -60,53 +60,29 @@ export function activate(context: vscode.ExtensionContext) {
 
           // brew install location mac
           // intel
-          "/usr/local/bin/nu",
+          "/usr/local/bin",
           // arm
-          "/opt/homebrew/bin/nu",
+          "/opt/homebrew/bin",
 
           // native package manager install location
-          "/usr/bin/nu",
+          // standard location should be in `PATH` env var
+          //"/usr/bin/nu",
         ];
 
-        let found_nushell_path = "";
-        const home = os.homedir();
+        const found_nushell_path = which.sync("nu", {
+          nothrow: true,
+          path: pathsToCheck.join(path.delimiter),
+        });
 
-        for (const cur_val of pathsToCheck) {
-          // console.log("Inspecting location: " + cur_val);
-          let constructed_file = "";
-          if (cur_val.startsWith("~/scoop")) {
-            // console.log("Found scoop: " + cur_val);
-            const p = path.join(home, cur_val.slice(1));
-            // console.log("Expanded ~: " + p);
-            const file = glob.sync(p, "debug").toString();
-            // console.log("Glob for files: " + file);
-
-            if (file) {
-              // console.log("Found some file: " + file);
-              // if there are slashes, reverse them to back slashes
-              constructed_file = file.replace(/\//g, "\\");
-            }
-          } else if (cur_val.startsWith("~")) {
-            constructed_file = path.join(home, cur_val.slice(1));
-            // console.log("Found ~, constructing path: " + constructed_file);
-          } else {
-            constructed_file = cur_val;
-          }
-
-          if (fs.existsSync(constructed_file)) {
-            // console.log("File exists, returning: " + constructed_file);
-            found_nushell_path = constructed_file;
-            break;
-          } else {
-            // console.log("File not found: " + constructed_file);
-          }
-        }
-
-        if (found_nushell_path.length > 0) {
+        if (found_nushell_path != null) {
           return {
             options: {
               name: "Nushell",
               shellPath: found_nushell_path,
+              iconPath: vscode.Uri.joinPath(
+                context.extensionUri,
+                "assets/nu.svg"
+              ),
             },
           };
         } else {
