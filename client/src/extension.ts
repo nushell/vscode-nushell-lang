@@ -97,7 +97,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
             // user has already seen error messages, but they didn't click through
             // return a promise that never resolve to supress the confusing error
-            return await new Promise(() => {});
+            return await new Promise(() => undefined);
           })();
         }
 
