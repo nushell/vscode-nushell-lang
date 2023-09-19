@@ -144,3 +144,12 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Snippets (support regex groups) [#130](https://github.com/nushell/vscode-nushell-lang/pull/130)
   - Use unique labels for durationWrapper [#133](https://github.com/nushell/vscode-nushell-lang/pull/133)
   - Fix TextMate regex that linguist discovered [#137](https://github.com/nushell/vscode-nushell-lang/pull/137)
+- 1.7.0
+  - Fix datetime parsing (@glcraft) [#140](https://github.com/nushell/vscode-nushell-lang/pull/140)
+  - Fix go-to definition on Windows (@gaetschwartz) [#141](https://github.com/nushell/vscode-nushell-lang/pull/141)
+  - Don't try to read if file doesn't exist (@gaetschwartz) [#143](https://github.com/nushell/vscode-nushell-lang/pull/143)
+  - Me forgetting to merge changes (@fdncred) [#145](https://github.com/nushell/vscode-nushell-lang/pull/145)
+  - npm audit fix (@fdncred) [#147](https://github.com/nushell/vscode-nushell-lang/pull/147)
+  - Update link (@balupton) [#149](https://github.com/nushell/vscode-nushell-lang/pull/149)
+  - Fix shebang detection (@adamcstephens) [#151](https://github.com/nushell/vscode-nushell-lang/pull/151)
+  - use `which` to find `nu` + add icon (@nerditation) [#153](https://github.com/nushell/vscode-nushell-lang/pull/153)
