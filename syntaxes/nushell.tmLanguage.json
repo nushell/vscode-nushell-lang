@@ -263,6 +263,32 @@
       ],
       "name": "meta.function.parameters.nushell"
     },
+    "inout": {
+      "match": "(\\w+|\\w+<\\w+>)\\s*->\\s*(\\w+|\\w+<\\w+>)\\s*(,)?\\s*",
+      "captures": {
+        "1": { "name": "entity.name.type.nushell" },
+        "2": { "name": "entity.name.type.nushell" },
+        "3": { "name": "punctuation.separator.nushell" }
+      }
+    },
+    "function-inout": {
+      "begin": "(?<=]\\s*)(:)\\s+(\\[)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.in-out.nushell" },
+        "2": { "name": "meta.brace.square.end.nushell" }
+      },
+      "end": "\\]",
+      "endCaptures": {
+        "0": { "name": "meta.brace.square.end.nushell" }
+      },
+      "patterns": [
+        { "include": "#inout" },
+        { 
+          "match": ",",
+          "name": "punctuation.separator.nushell"
+        }
+      ]
+    },
     "function-body": {
       "begin": "\\{",
       "beginCaptures": {
@@ -288,7 +314,9 @@
       },
       "patterns": [
         { "include": "#function-parameters" },
-        { "include": "#function-body" }
+        { "include": "#function-body" },
+        { "include": "#function-inout" },
+        { "include": "#inout" }
       ]
     },
     "extern": {
