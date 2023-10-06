@@ -263,20 +263,6 @@
       ],
       "name": "meta.function.parameters.nushell"
     },
-    "define-function": {
-      "match": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-!]+|\"[\\w\\-! ]+\")",
-      "captures": {
-        "1": { "name": "entity.name.function.nushell" },
-        "2": { "name": "entity.name.type.nushell" }
-      }
-    },
-    "define-extern": {
-      "match": "((?:export\\s+)?extern)\\s+([\\w\\-!]+|\"[\\w\\-! ]+\")",
-      "captures": {
-        "1": { "name": "entity.name.function.nushell" },
-        "2": { "name": "entity.name.type.nushell" }
-      }
-    },
     "function-body": {
       "begin": "\\{",
       "beginCaptures": {
@@ -292,12 +278,8 @@
     "function": {
       "begin": "((?:export\\s+)?def(?:-env)?)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
       "beginCaptures": {
-        "0": {
-          "patterns": [
-            { "include": "#define-function" },
-            { "include": "#define-extern" }
-          ]
-        }
+        "1": { "name": "entity.name.function.nushell" },
+        "2": { "name": "entity.name.type.nushell" },
       },
       "end": "(?<=\\})",
       "endCaptures": {
@@ -311,9 +293,8 @@
     "extern": {
       "begin": "((?:export\\s+)?extern)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
       "beginCaptures": {
-        "0": {
-          "patterns": [{ "include": "#define-extern" }]
-        }
+        "1": { "name": "entity.name.function.nushell" },
+        "2": { "name": "entity.name.type.nushell" }
       },
       "end": "(?<=\\])",
       "endCaptures": {
