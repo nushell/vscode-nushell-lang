@@ -47,7 +47,13 @@ jobs:
       - uses: lannonbr/vsce-action@master
         with:
           args: "package"
-  
+
+      - name: Publish to Open VSX Registry
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: ${{ secrets.OPEN_VSX_TOKEN }}
+          extensionFile: ./vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
