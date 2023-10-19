@@ -11,6 +11,7 @@ import {
   deactivate as deactivateNuLsp,
 } from "./nu-lsp";
 import { activate as activateNuls, deactivate as deactivateNuls } from "./nuls";
+import { LanguageClientOptions } from "vscode-languageclient";
 
 export function activate(context: vscode.ExtensionContext): void {
   console.log("Terminals: " + (<any>vscode.window).terminals.length);
@@ -107,17 +108,27 @@ export function activate(context: vscode.ExtensionContext): void {
     }),
   );
 
+  // Options to control the language client
+  const clientOptions: LanguageClientOptions = {
+    // Register the server for plain text documents
+    documentSelector: [{ scheme: "file", language: "nushell" }],
+    synchronize: {
+      // Notify the server about file changes to '.clientrc files contained in the workspace
+      fileEvents: vscode.workspace.createFileSystemWatcher("**/.clientrc"),
+    },
+  };
+
   const configuration = vscode.workspace.getConfiguration(
     "nushellLanguageServer",
     null,
   );
 
   if (configuration.implementation == "nu --lsp") {
-    activateNuLsp(context);
+    activateNuLsp(context, clientOptions);
   } else if (configuration.implementation == "nuls") {
-    activateNuls(context);
+    activateNuls(context, clientOptions);
   } else {
-    activateExtension(context);
+    activateExtension(context, clientOptions);
   }
 }
 

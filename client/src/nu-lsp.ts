@@ -1,5 +1,4 @@
 import { ExtensionContext, window } from "vscode";
-import * as vscode from "vscode";
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -8,20 +7,13 @@ import {
 
 let client: LanguageClient | null = null;
 
-async function startClient(_context: ExtensionContext) {
+async function startClient(
+  _context: ExtensionContext,
+  clientOptions: LanguageClientOptions,
+) {
   const serverOptions: ServerOptions = {
     command: "nu",
     args: ["--lsp"],
-  };
-
-  // Options to control the language client
-  const clientOptions: LanguageClientOptions = {
-    // Register the server for plain text documents
-    documentSelector: [{ scheme: "file", language: "nushell" }],
-    synchronize: {
-      // Notify the server about file changes to '.clientrc files contained in the workspace
-      fileEvents: vscode.workspace.createFileSystemWatcher("**/.clientrc"),
-    },
   };
 
   // Create the language client and start the client.
@@ -47,11 +39,14 @@ async function stopClient(): Promise<void> {
   client = null;
 }
 
-export async function activate(context: ExtensionContext) {
+export async function activate(
+  context: ExtensionContext,
+  clientOptions: LanguageClientOptions,
+) {
   // TODO: use configuration
   // const configuration = workspace.getConfiguration("nushellLanguageServer", null);
 
-  await startClient(context);
+  await startClient(context, clientOptions);
 }
 
 export function deactivate(): Thenable<void> {
