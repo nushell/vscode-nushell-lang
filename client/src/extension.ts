@@ -1,9 +1,16 @@
+import * as path from "path";
 import * as vscode from "vscode";
+import * as which from "which";
 
 import {
-  activate as activateLanguageServer,
-  deactivate as deactivateLanguageServer,
-} from "./language-server";
+  activate as activateExtension,
+  deactivate as deactivateExtension,
+} from "./nu-ide";
+import {
+  activate as activateNuLsp,
+  deactivate as deactivateNuLsp,
+} from "./nu-lsp";
+import { activate as activateNuls, deactivate as deactivateNuls } from "./nuls";
 
 export function activate(context: vscode.ExtensionContext): void {
   console.log("Terminals: " + (<any>vscode.window).terminals.length);
@@ -12,11 +19,6 @@ export function activate(context: vscode.ExtensionContext): void {
       provideTerminalProfile(
         token: vscode.CancellationToken,
       ): vscode.ProviderResult<vscode.TerminalProfile> {
-        /* eslint-disable @typescript-eslint/no-var-requires */
-        const which = require("which");
-        const path = require("path");
-        /* eslint-enable @typescript-eslint/no-var-requires */
-
         const PATH_FROM_ENV = process.env["PATH"];
         const pathsToCheck = [
           PATH_FROM_ENV,
@@ -105,9 +107,22 @@ export function activate(context: vscode.ExtensionContext): void {
     }),
   );
 
-  activateLanguageServer(context);
+  const configuration = vscode.workspace.getConfiguration(
+    "nushellLanguageServer",
+    null,
+  );
+
+  if (configuration.implementation == "nu --lsp") {
+    activateNuLsp(context);
+  } else if (configuration.implementation == "nuls") {
+    activateNuls(context);
+  } else {
+    activateExtension(context);
+  }
 }
 
 export function deactivate(): void {
-  deactivateLanguageServer();
+  deactivateExtension();
+  deactivateNuLsp();
+  deactivateNuls();
 }

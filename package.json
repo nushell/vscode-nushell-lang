@@ -19,25 +19,15 @@
     "vscode": "^1.75.0"
   },
   "icon": "assets/nushell.ico",
-  "categories": [
-    "Programming Languages",
-    "Snippets"
-  ],
-  "activationEvents": [
-    "onTerminalProfile:nushell_default"
-  ],
+  "categories": ["Programming Languages", "Snippets"],
+  "activationEvents": ["onTerminalProfile:nushell_default"],
   "main": "out/client/src/extension.js",
   "contributes": {
     "languages": [
       {
         "id": "nushell",
-        "aliases": [
-          "nushell",
-          "nu"
-        ],
-        "extensions": [
-          ".nu"
-        ],
+        "aliases": ["nushell", "nu"],
+        "extensions": [".nu"],
         "icon": {
           "light": "assets/nu.svg",
           "dark": "assets/nu.svg"
@@ -85,6 +75,13 @@
       "type": "object",
       "title": "Nushell IDE Support",
       "properties": {
+        "nushellLanguageServer.implementation": {
+          "scope": "window",
+          "type": "string",
+          "enum": ["extension", "nu --lsp", "nuls"],
+          "default": "extension",
+          "description": "Switch between different language server implementations (requires restarting Visual Studio Code to take effect)."
+        },
         "nushellLanguageServer.maxNumberOfProblems": {
           "scope": "resource",
           "type": "number",
@@ -94,11 +91,7 @@
         "nushellLanguageServer.trace.server": {
           "scope": "window",
           "type": "string",
-          "enum": [
-            "off",
-            "messages",
-            "verbose"
-          ],
+          "enum": ["off", "messages", "verbose"],
           "default": "off",
           "description": "Traces the communication between VS Code and the language server."
         },
@@ -163,12 +156,7 @@
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2"
   },
-  "keywords": [
-    "nushell",
-    "nu",
-    "shell",
-    "scripting"
-  ],
+  "keywords": ["nushell", "nu", "shell", "scripting"],
   "galleryBanner": {
     "color": "#008000",
     "theme": "light"
