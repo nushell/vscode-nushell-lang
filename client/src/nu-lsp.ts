@@ -1,4 +1,5 @@
 import { ExtensionContext, window } from "vscode";
+import * as vscode from "vscode";
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -11,8 +12,13 @@ async function startClient(
   _context: ExtensionContext,
   clientOptions: LanguageClientOptions,
 ) {
+  const configuration = vscode.workspace.getConfiguration(
+    "nushellLanguageServer",
+    null,
+  );
+
   const serverOptions: ServerOptions = {
-    command: "nu",
+    command: configuration.nushellExecutablePath,
     args: ["--lsp"],
   };
 
