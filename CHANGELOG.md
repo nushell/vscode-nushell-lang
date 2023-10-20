@@ -153,3 +153,6 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Update link (@balupton) [#149](https://github.com/nushell/vscode-nushell-lang/pull/149)
   - Fix shebang detection (@adamcstephens) [#151](https://github.com/nushell/vscode-nushell-lang/pull/151)
   - use `which` to find `nu` + add icon (@nerditation) [#153](https://github.com/nushell/vscode-nushell-lang/pull/153)
+- 1.7.1
+  - Update to nushell 0.85.0 (@fdncred) [#155](https://github.com/nushell/vscode-nushell-lang/pull/155)
+  - update textmate `def --env`, `def --wrapped`, input/output types (@glcraft) [#160](https://github.com/nushell/vscode-nushell-lang/pull/160)
