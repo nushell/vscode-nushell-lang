@@ -1,4 +1,4 @@
-import { ExtensionContext, window } from "vscode";
+import { window } from "vscode";
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -7,10 +7,7 @@ import {
 
 let client: LanguageClient | null = null;
 
-async function startClient(
-  _context: ExtensionContext,
-  clientOptions: LanguageClientOptions,
-) {
+async function startClient(clientOptions: LanguageClientOptions) {
   const serverOptions: ServerOptions = {
     command: "nuls",
     args: [],
@@ -39,11 +36,8 @@ async function stopClient(): Promise<void> {
   client = null;
 }
 
-export async function activate(
-  context: ExtensionContext,
-  clientOptions: LanguageClientOptions,
-) {
-  await startClient(context, clientOptions);
+export async function activate(clientOptions: LanguageClientOptions) {
+  await startClient(clientOptions);
 }
 
 export function deactivate(): Thenable<void> {

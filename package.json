@@ -80,7 +80,7 @@
           "type": "string",
           "enum": ["extension", "nu --lsp", "nuls"],
           "default": "extension",
-          "description": "Switch between different language server implementations (requires restarting Visual Studio Code to take effect)."
+          "description": "Switch between different language server implementations."
         },
         "nushellLanguageServer.maxNumberOfProblems": {
           "scope": "resource",

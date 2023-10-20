@@ -1,4 +1,4 @@
-import { ExtensionContext, window } from "vscode";
+import { window } from "vscode";
 import * as vscode from "vscode";
 import {
   LanguageClient,
@@ -8,10 +8,7 @@ import {
 
 let client: LanguageClient | null = null;
 
-async function startClient(
-  _context: ExtensionContext,
-  clientOptions: LanguageClientOptions,
-) {
+async function startClient(clientOptions: LanguageClientOptions) {
   const configuration = vscode.workspace.getConfiguration(
     "nushellLanguageServer",
     null,
@@ -45,14 +42,11 @@ async function stopClient(): Promise<void> {
   client = null;
 }
 
-export async function activate(
-  context: ExtensionContext,
-  clientOptions: LanguageClientOptions,
-) {
+export async function activate(clientOptions: LanguageClientOptions) {
   // TODO: use configuration
   // const configuration = workspace.getConfiguration("nushellLanguageServer", null);
 
-  await startClient(context, clientOptions);
+  await startClient(clientOptions);
 }
 
 export function deactivate(): Thenable<void> {
