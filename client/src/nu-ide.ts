@@ -41,9 +41,9 @@ async function startClient(
     clientOptions,
   );
 
-  return client.start().catch((reason) => {
+  return client.start().catch((reason: unknown) => {
     window.showWarningMessage(
-      `Failed to run Nushell Language Server (extension): ${reason}`,
+      `Failed to start Nushell Language Server (extension): ${reason}`,
     );
     client = null;
   });
@@ -51,7 +51,11 @@ async function startClient(
 
 async function stopClient(): Promise<void> {
   if (client) {
-    client.stop();
+    await client.stop().catch((reason: unknown) => {
+      window.showWarningMessage(
+        `Failed to stop Nushell Language Server (extension): ${reason}`,
+      );
+    });
   }
   client = null;
 }
@@ -63,6 +67,6 @@ export async function activate(
   await startClient(context, clientOptions);
 }
 
-export function deactivate(): Thenable<void> {
-  return stopClient();
+export async function deactivate(): Promise<void> {
+  await stopClient();
 }

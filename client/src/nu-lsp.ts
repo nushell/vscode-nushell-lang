@@ -27,9 +27,9 @@ async function startClient(clientOptions: LanguageClientOptions) {
     clientOptions,
   );
 
-  return client.start().catch((reason) => {
+  return client.start().catch((reason: unknown) => {
     window.showWarningMessage(
-      `Failed to run Nushell Language Server (nu --lsp): ${reason}`,
+      `Failed to start Nushell Language Server (nu --lsp): ${reason}`,
     );
     client = null;
   });
@@ -37,7 +37,11 @@ async function startClient(clientOptions: LanguageClientOptions) {
 
 async function stopClient(): Promise<void> {
   if (client) {
-    client.stop();
+    await client.stop().catch((reason: unknown) => {
+      window.showWarningMessage(
+        `Failed to stop Nushell Language Server (nu --lsp): ${reason}`,
+      );
+    });
   }
   client = null;
 }
@@ -49,6 +53,6 @@ export async function activate(clientOptions: LanguageClientOptions) {
   await startClient(clientOptions);
 }
 
-export function deactivate(): Thenable<void> {
-  return stopClient();
+export async function deactivate(): Promise<void> {
+  await stopClient();
 }

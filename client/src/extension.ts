@@ -14,7 +14,7 @@ import {
 } from "./nu-lsp";
 import { activate as activateNuls, deactivate as deactivateNuls } from "./nuls";
 
-function startLanguageServer(context: ExtensionContext) {
+async function startLanguageServer(context: ExtensionContext) {
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     // Register the server for plain text documents
@@ -31,23 +31,25 @@ function startLanguageServer(context: ExtensionContext) {
   );
 
   if (configuration.implementation == "nu --lsp") {
-    activateNuLsp(clientOptions);
+    await activateNuLsp(clientOptions);
   } else if (configuration.implementation == "nuls") {
-    activateNuls(clientOptions);
+    await activateNuls(clientOptions);
   } else {
-    activateExtension(context, clientOptions);
+    await activateExtension(context, clientOptions);
   }
 }
 
-function stopLanguageServers() {
-  deactivateExtension();
-  deactivateNuLsp();
-  deactivateNuls();
+async function stopLanguageServers() {
+  await Promise.all([
+    deactivateExtension(),
+    deactivateNuLsp(),
+    deactivateNuls(),
+  ]);
 }
 
-function handleDidChangeConfiguration(this: ExtensionContext) {
-  stopLanguageServers();
-  startLanguageServer(this);
+async function handleDidChangeConfiguration(this: ExtensionContext) {
+  await stopLanguageServers();
+  await startLanguageServer(this);
 }
 
 export function activate(context: vscode.ExtensionContext): void {
