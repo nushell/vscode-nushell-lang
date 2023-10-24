@@ -44,22 +44,18 @@ jobs:
         uses: myrotvorets/info-from-package-json-action@1.1.0
         id: ver
 
-      - uses: lannonbr/vsce-action@master
-        with:
-          args: "package"
-
       - name: Publish to Open VSX Registry
         uses: HaaLeo/publish-vscode-extension@v1
+        id: publishOpenVSX
         with:
           pat: ${{ secrets.OPEN_VSX_TOKEN }}
-          extensionFile: ./vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix
 
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
-          extensionFile: ./vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix
+          extensionFile: ${{ steps.publishOpenVSX.outputs.vsixPath }}
           
       - name: Create Release
         id: create_release
@@ -79,6 +75,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix # Need to get this version number dynamically
+          asset_path: ${{ steps.publishOpenVSX.outputs.vsixPath }} # Need to get this version number dynamically
           asset_name: vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix
           asset_content_type: application/vsix
