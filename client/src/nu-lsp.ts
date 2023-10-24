@@ -7,6 +7,7 @@ import {
 } from "vscode-languageclient/node";
 
 let client: LanguageClient | null = null;
+const name = "Nushell Language Server (nu --lsp)";
 
 async function startClient(clientOptions: LanguageClientOptions) {
   const configuration = vscode.workspace.getConfiguration(
@@ -21,16 +22,14 @@ async function startClient(clientOptions: LanguageClientOptions) {
 
   // Create the language client and start the client.
   client = new LanguageClient(
-    "nushellLanguageServer",
-    "Nushell Language Server",
+    "nushellLanguageServer-lsp",
+    name,
     serverOptions,
     clientOptions,
   );
 
   return client.start().catch((reason: unknown) => {
-    window.showWarningMessage(
-      `Failed to start Nushell Language Server (nu --lsp): ${reason}`,
-    );
+    window.showWarningMessage(`Failed to start ${name}: ${reason}`);
     client = null;
   });
 }
@@ -38,9 +37,7 @@ async function startClient(clientOptions: LanguageClientOptions) {
 async function stopClient(): Promise<void> {
   if (client) {
     await client.stop().catch((reason: unknown) => {
-      window.showWarningMessage(
-        `Failed to stop Nushell Language Server (nu --lsp): ${reason}`,
-      );
+      console.error(`Failed to stop ${name}: ${reason}`);
     });
   }
   client = null;

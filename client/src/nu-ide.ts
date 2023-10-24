@@ -8,6 +8,7 @@ import {
 } from "vscode-languageclient/node";
 
 let client: LanguageClient | null = null;
+const name = "Nushell Language Server (extension)";
 
 async function startClient(
   context: ExtensionContext,
@@ -35,16 +36,14 @@ async function startClient(
 
   // Create the language client and start the client.
   client = new LanguageClient(
-    "nushellLanguageServer",
-    "Nushell Language Server",
+    "nushellLanguageServer-ide",
+    name,
     serverOptions,
     clientOptions,
   );
 
   return client.start().catch((reason: unknown) => {
-    window.showWarningMessage(
-      `Failed to start Nushell Language Server (extension): ${reason}`,
-    );
+    window.showWarningMessage(`Failed to start ${name}: ${reason}`);
     client = null;
   });
 }
@@ -52,9 +51,7 @@ async function startClient(
 async function stopClient(): Promise<void> {
   if (client) {
     await client.stop().catch((reason: unknown) => {
-      window.showWarningMessage(
-        `Failed to stop Nushell Language Server (extension): ${reason}`,
-      );
+      console.error(`Failed to stop ${name}: ${reason}`);
     });
   }
   client = null;
