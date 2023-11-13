@@ -524,10 +524,41 @@
         "description": "\"fmt\" invocation",
         "body": "${1:command} | fmt"
     },
-    "for builtin": {
+    "for": {
         "prefix": "for",
-        "description": "\"for\" invocation",
-        "body": "for ${1:variable} in ${2:list} { ${3:block} }"
+        "description": "for operator",
+        "body": [
+            "for ${1:variable} in ${2:list} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "for-range": {
+        "prefix": "for-range",
+        "description": "for with range",
+        "body": [
+            "for ${1:item} in ${2:from}..${3:to} {",
+            "\t${4:command ...}",
+            "}"
+        ]
+    },
+    "for-stepped-range": {
+        "prefix": "for-stepped-range",
+        "description": "for with stepped range",
+        "body": [
+            "for ${1:item} in (seq ${2:from} ${3:step} ${4:to}) {",
+            "\t${5:command ...}",
+            "}"
+        ]
+    },
+    "for-files": {
+        "prefix": "for-files",
+        "description": "for with files",
+        "body": [
+            "for ${1:item} in (ls *.${2:extension})",
+            "\t${3:command ...}",
+            "}"
+        ]
     },
     "format builtin": {
         "prefix": "format",
