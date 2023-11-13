@@ -205,7 +205,7 @@
     "collect": {
         "prefix": "collect",
         "description": "\"collect\" invocation",
-        "body": "${1:command} | collect {|${2:el}| ${3:closure} }"
+        "body": "${1:command} | collect {|${2:el}| ${3:command ...} }"
     },
     "commandline": {
         "prefix": "commandline",
@@ -326,7 +326,7 @@
     "do": {
         "prefix": "do",
         "description": "\"do\" invocation",
-        "body": "do { ${1:closure} }"
+        "body": "do { ${1:command ...} }"
     },
     "drop": {
         "prefix": "drop",
@@ -351,12 +351,12 @@
     "each": {
         "prefix": "each",
         "description": "\"each\" invocation",
-        "body": "${1:command} | each {|${2:el}| ${3:closure} }"
+        "body": "${1:command} | each {|${2:el}| ${3:command ...} }"
     },
     "each while": {
         "prefix": "each-while",
         "description": "\"each while\" invocation",
-        "body": "${1:command} | each while {|${2:el}| ${3:closure} }"
+        "body": "${1:command} | each while {|${2:el}| ${3:command ...} }"
     },
     "encode": {
         "prefix": "encode",
@@ -406,7 +406,7 @@
     "explain": {
         "prefix": "explain",
         "description": "\"explain\" invocation",
-        "body": "explain {|| ${1:closure} }"
+        "body": "explain {|| ${1:command ...} }"
     },
     "explore": {
         "prefix": "explore",
@@ -459,7 +459,7 @@
     "export env": {
         "prefix": "export-env",
         "description": "\"export env\" invocation",
-        "body": "export env { ${1:block} }"
+        "body": "export env { ${1:command ...} }"
     },
     "extern": {
         "prefix": "extern",
@@ -803,7 +803,7 @@
     "loop": {
         "prefix": "loop",
         "description": "\"loop\" invocation",
-        "body": "loop { ${1:block} }"
+        "body": "loop { ${1:command ...} }"
     },
     "ls": {
         "prefix": "ls",
@@ -843,7 +843,7 @@
     "module": {
         "prefix": "module",
         "description": "\"module\" invocation",
-        "body": "module ${1:name} { ${1:block} }"
+        "body": "module ${1:name} { ${1:command ...} }"
     },
     "move": {
         "prefix": "move",
@@ -914,7 +914,7 @@
     "par-each": {
         "prefix": "par-each",
         "description": "\"par-each\" invocation",
-        "body": "${1:command} | par-each {|${2:el}| ${3:closure} }"
+        "body": "${1:command} | par-each {|${2:el}| ${3:command ...} }"
     },
     "parse": {
         "prefix": "parse",
@@ -949,7 +949,7 @@
     "profile": {
         "prefix": "profile",
         "description": "\"profile\" invocation",
-        "body": "profile {|| ${1:closure} }"
+        "body": "profile {|| ${1:command ...} }"
     },
     "query": {
         "prefix": "query",
@@ -994,7 +994,7 @@
     "reduce": {
         "prefix": "reduce",
         "description": "\"reduce\" invocation",
-        "body": "${1:command} | reduce {|${2:el}, ${3:acc}| ${4:closure} }"
+        "body": "${1:command} | reduce {|${2:el}, ${3:acc}| ${4:command ...} }"
     },
     "register": {
         "prefix": "register",
@@ -1214,7 +1214,7 @@
     "timeit": {
         "prefix": "timeit",
         "description": "\"timeit\" invocation",
-        "body": "timeit { ${1:block} }"
+        "body": "timeit { ${1:command ...} }"
     },
     "to": {
         "prefix": "to",
@@ -1234,12 +1234,12 @@
     "try": {
         "prefix": "try",
         "description": "\"try\" invocation",
-        "body": "try { ${1:block} }"
+        "body": "try { ${1:command ...} }"
     },
     "try catch": {
         "prefix": "try-catch",
         "description": "\"try catch\" invocation",
-        "body": "try { ${1:block} } catch { ${2:block} }"
+        "body": "try { ${1:command ...} } catch { ${2:command ...} }"
     },
     "tutor": {
         "prefix": "tutor",
@@ -1264,7 +1264,7 @@
     "update cells": {
         "prefix": "update-cells",
         "description": "\"update cells\" invocation",
-        "body": "${1:command} | update cells {|${2:el}| ${3:closure} }"
+        "body": "${1:command} | update cells {|${2:el}| ${3:command ...} }"
     },
     "upsert": {
         "prefix": "upsert",
@@ -1299,7 +1299,7 @@
     "watch": {
         "prefix": "watch",
         "description": "\"watch\" invocation",
-        "body": "watch ${1:path/to/directory} {|${2:op}, ${3:path}, ${4:new_path}| ${5:block} }"
+        "body": "watch ${1:path/to/directory} {|${2:op}, ${3:path}, ${4:new_path}| ${5:command ...} }"
     },
     "where": {
         "prefix": "where",
@@ -1382,7 +1382,7 @@
     "with-env": {
         "prefix": "with-env",
         "description": "\"with-env\" invocation",
-        "body": "with-env ${1:variables} { ${2:block} }"
+        "body": "with-env ${1:variables} { ${2:command ...} }"
     },
     "wrap": {
         "prefix": "wrap",
