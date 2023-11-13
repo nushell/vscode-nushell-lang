@@ -629,20 +629,92 @@
         "description": "\"http put\" invocation",
         "body": "http put ${1:url} ${2:data}"
     },
-    "if builtin": {
+    "if": {
         "prefix": "if",
-        "description": "\"if\" invocation",
-        "body": "if ${1:condition} { ${2:block} }"
+        "description": "if operator",
+        "body": [
+            "if ${1:condition} {",
+            "\t${2:command ...}",
+            "}"
+        ]
     },
-    "if else builtin": {
+    "if-else": {
         "prefix": "if-else",
-        "description": "\"if\" invocation",
-        "body": "if ${1:condition} { ${2:block} } else { ${3:block} }"
+        "description": "if-else operator",
+        "body": [
+            "if ${1:condition} {",
+            "\t${2:command ...}",
+            "} else {",
+            "\t${3:command ...}",
+            "}"
+        ]
     },
-    "if else if else builtin": {
-        "prefix": "if-else-if-else",
-        "description": "\"if\" invocation",
-        "body": "if ${1:condition} { ${2:block} } else if { ${3:block} } else { ${4:block} }"
+    "if else if else": {
+        "prefix": "if-else-if-else operator",
+        "description": "if-else-if-else operator",
+        "body": [
+            "if ${1:condition} {",
+            "\t${2:command ...}",
+            "} else if ${3:condition} {",
+            "\t${4:command ...}",
+            "} else {",
+            "\t${5:command ...}",
+            "}"
+        ]
+    },
+    "if-less": {
+        "prefix": "if-less",
+        "description": "if with comparison",
+        "body": [
+            "if ${1:first-expression} < ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "if-greater": {
+        "prefix": "if-greater",
+        "description": "if with comparison",
+        "body": [
+            "if ${1:first-expression} > ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "if-less-or-equal": {
+        "prefix": "if-less-or-equal",
+        "description": "if with comparison",
+        "body": [
+            "if ${1:first-expression} <= ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "if-greater-or-equal": {
+        "prefix": "if-greater-or-equal",
+        "description": "if with comparison",
+        "body": [
+            "if ${1:first-expression} >= ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "if-equal": {
+        "prefix": "if-equal",
+        "description": "if with comparison",
+        "body": [
+            "if ${1:first-expression} == ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "if-not-equal": {
+        "prefix": "if-not-equal",
+        "description": "if with comparison",
+        "body": [
+            "if ${1:first-expression} != ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
     },
     "ignore builtin": {
         "prefix": "ignore",
