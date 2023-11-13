@@ -308,6 +308,25 @@
             "}"
         ]
     },
+    "def-wrapped": {
+        "prefix": "def-wrapped",
+        "description": "\"def-wrapped\" invocation",
+        "body": [
+            "def --wrapped ${1:name} [...${2:rest}] {",
+            "\t${3:command ...}$0",
+            "}"
+        ]
+    },
+    "@def-wrapped": {
+        "prefix": "@def-wrapped",
+        "description": "\"def-wrapped\" invocation",
+        "body": [
+            "# ${1:documentation}",
+            "def --wrapped ${2:name} [...${3:rest}] {",
+            "\t${4:command ...}$0",
+            "}"
+        ]
+    },
     "default": {
         "prefix": "default",
         "description": "\"default\" invocation",
