@@ -518,7 +518,7 @@
         "prefix": "for-stepped-range",
         "description": "for with stepped range",
         "body": [
-            "for ${1:item} in (seq ${2:from} ${3:step} ${4:to}) {",
+            "for ${1:item} in ${2:from}..${3:step}..${4:to}) {",
             "\t${5:command ...}",
             "}"
         ]
