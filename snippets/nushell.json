@@ -1308,10 +1308,68 @@
         "description": "\"which\" invocation",
         "body": "which ${1:command}"
     },
-    "while builtin": {
+    "while": {
         "prefix": "while",
-        "description": "\"while\" invocation",
-        "body": "while ${1:condition} { ${2:block} }"
+        "description": "while operator",
+        "body": [
+            "while ${1:condition} {",
+            "\t${2:command ...}",
+            "}"
+        ]
+    },
+    "while-less": {
+        "prefix": "while-less",
+        "description": "while with comparison",
+        "body": [
+            "while ${1:first-expression} < ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "while-greater": {
+        "prefix": "while-greater",
+        "description": "while with comparison",
+        "body": [
+            "while ${1:first-expression} > ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "while-less-or-equal": {
+        "prefix": "while-less-or-equal",
+        "description": "while with comparison",
+        "body": [
+            "while ${1:first-expression} <= ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "while-greater-or-equal": {
+        "prefix": "while-greater-or-equal",
+        "description": "while with comparison",
+        "body": [
+            "while ${1:first-expression} >= ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "while-equal": {
+        "prefix": "while-equal",
+        "description": "while with comparison",
+        "body": [
+            "while ${1:first-expression} == ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
+    },
+    "while-not-equal": {
+        "prefix": "while-not-equal",
+        "description": "while with comparison",
+        "body": [
+            "while ${1:first-expression} != ${2:second-expression} {",
+            "\t${3:command ...}",
+            "}"
+        ]
     },
     "window builtin": {
         "prefix": "window",
