@@ -59,7 +59,7 @@
             "--"
         ],
         "description": "flag",
-        "body": "--${1:long} (-${2:short}): ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}"
+        "body": "--${1:long} (-${2:short}): ${3:type}"
     },
     "rest": {
         "prefix": [
@@ -67,7 +67,7 @@
             "..."
         ],
         "description": "flag",
-        "body": "...${1:name}: ${2|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}"
+        "body": "...${1:name}: ${2:type}"
     },
     "year": {
         "prefix": "year",
@@ -274,7 +274,7 @@
         "prefix": "def",
         "description": "\"def\" invocation",
         "body": [
-            "def ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "def ${1:name} [${2:param}: ${3:type}${4:, }] {",
             "\t${5:command ...}$0",
             "}"
         ]
@@ -284,7 +284,7 @@
         "description": "\"def\" invocation",
         "body": [
             "# ${1:documentation}",
-            "def ${2:name} [${3:param}: ${4|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${5:, }] {",
+            "def ${2:name} [${3:param}: ${4:type}${5:, }] {",
             "\t${6:command}$0",
             "}"
         ]
@@ -293,7 +293,7 @@
         "prefix": "def-env",
         "description": "\"def-env\" invocation",
         "body": [
-            "def --env ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "def --env ${1:name} [${2:param}: ${3:type}${4:, }] {",
             "\t${5:command ...}$0",
             "}"
         ]
@@ -303,7 +303,7 @@
         "description": "\"def-env\" invocation",
         "body": [
             "# ${1:documentation}",
-            "def --env ${2:name} [${3:param}: ${4|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${5:, }] {",
+            "def --env ${2:name} [${3:param}: ${4:type}${5:, }] {",
             "\t${6:command ...}$0",
             "}"
         ]
@@ -427,7 +427,7 @@
         "prefix": "export-def",
         "description": "\"export def\" invocation",
         "body": [
-            "export def ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "export def ${1:name} [${2:param}: ${3:type}${4:, }] {",
             "\t${5:command ...}",
             "}"
         ]
@@ -436,7 +436,7 @@
         "prefix": "export-def-env",
         "description": "\"export def-env\" invocation",
         "body": [
-            "export def --env ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}${4:, }] {",
+            "export def --env ${1:name} [${2:param}: ${3:type}${4:, }] {",
             "\t${5:command ...}",
             "}"
         ]
@@ -1398,7 +1398,7 @@
         "prefix": "completion",
         "description": "completion",
         "body": [
-            "def ${1:name} [${2:param}: ${3|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}@${4:complete}${5:, }] {",
+            "def ${1:name} [${2:param}: ${3:type}@${4:complete}${5:, }] {",
             "\t${6:completion ...}$0",
             "}"
         ]
@@ -1408,7 +1408,7 @@
         "description": "completion",
         "body": [
             "# ${1:documentation}",
-            "def ${2:name} [${3:param}: ${4|int,float,string,bool,date,duration,filesize,range,list<>,record<>,table<>,closure,null|}@${5:complete}${6:, }] {",
+            "def ${2:name} [${3:param}: ${4:type}@${5:complete}${6:, }] {",
             "\t${7:completion ...}$0",
             "}"
         ]
