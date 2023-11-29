@@ -332,7 +332,7 @@
       "patterns": [{ "include": "#function-parameters" }]
     },
     "module": {
-      "begin": "(module)\\s+([\\w\\-]+)\\s*\\{",
+      "begin": "((?:export\\s+)?module)\\s+([\\w\\-]+)\\s*\\{",
       "beginCaptures": {
         "1": { "name": "entity.name.function.nushell" },
         "2": { "name": "entity.name.namespace.nushell" }
