@@ -250,7 +250,7 @@
           ]
         },
         { 
-          "match": "\\b(binary|bool|closure|date|duration|filesize|float|int|list|record|string)\\b",
+          "match": "\\b(\\w+)\\b",
           "name": "entity.name.type.nushell"
         }
       ]
