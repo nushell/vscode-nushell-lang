@@ -265,7 +265,7 @@
     "function-parameter-declare": {
       "patterns": [
         {
-          "match": "(-{0,2}[\\w-]+|\\.{3})(?:\\((-[\\w?])\\))?",
+          "match": "((?:-{0,2}|\\.{3})[\\w-]+)(?:\\((-[\\w?])\\))?",
           "name": "variable.parameter.nushell"
         },
         {
