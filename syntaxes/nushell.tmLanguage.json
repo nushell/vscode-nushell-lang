@@ -257,12 +257,7 @@
         }
       ]
     },
-    "function-parameter-default-value": {
-      "begin": "=\\s*",
-      "end": "(?=\\])|,|$",
-      "patterns": [{ "include": "#value" }]
-    },
-    "function-parameter-declare": {
+    "function-parameter": {
       "patterns": [
         {
           "match": "((?:-{0,2}|\\.{3})[\\w-]+)(?:\\((-[\\w?])\\))?",
@@ -279,13 +274,13 @@
           "begin": "@(?=\"|')",
           "end": "(?<=\"|')",
           "patterns": [ {"include": "#string"} ]
+        },
+        {
+          "name": "default.value.nushell",
+          "begin": "=\\s*",
+          "end": "(?=(?:\\s+-{0,2}[\\w-]+)|(?:\\s*(?:,|\\]|#|$)))",
+          "patterns": [{ "include": "#value" }]
         }
-      ]
-    },
-    "function-parameter": {
-      "patterns": [
-        { "include": "#function-parameter-declare" },
-        { "include": "#function-parameter-default-value" }
       ]
     },
     "function-parameters": {
