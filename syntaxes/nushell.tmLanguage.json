@@ -301,31 +301,40 @@
       ],
       "name": "meta.function.parameters.nushell"
     },
-    "inout": {
+    "function-multiple-inout": {
+      "begin": "(?<=]\\s*)(:)\\s+(\\[)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.in-out.nushell" },
+            "2": { "name": "meta.brace.square.begin.nushell" }
+          },
+          "end": "\\]",
+          "endCaptures": {
+            "0": { "name": "meta.brace.square.end.nushell" }
+          },
+          "patterns": [
+            { "include": "#types" },
+            {
+              "match": "\\s*(,)\\s*",
+              "captures": {
+                "1": { "name": "punctuation.separator.nushell" }
+              }
+            },
+            {
+              "match": "\\s+(->)\\s+",
+              "captures": {
+                "1": { "name": "keyword.operator.nushell" }
+              }
+            }
+          ]
+    },
+    "function-inout": {
       "patterns": [
         { "include": "#types" },
         {
           "match": "->",
           "name": "keyword.operator.nushell"
-        }
-      ]
-    },
-    "function-inout": {
-      "begin": "(?<=]\\s*)(:)\\s+(\\[)",
-      "beginCaptures": {
-        "1": { "name": "punctuation.definition.in-out.nushell" },
-        "2": { "name": "meta.brace.square.end.nushell" }
-      },
-      "end": "\\]",
-      "endCaptures": {
-        "0": { "name": "meta.brace.square.end.nushell" }
-      },
-      "patterns": [
-        { "include": "#inout" },
-        { 
-          "match": ",",
-          "name": "punctuation.separator.nushell"
-        }
+        },
+        { "include": "#function-multiple-inout" }
       ]
     },
     "function-body": {
@@ -348,14 +357,10 @@
         "3": { "name": "entity.name.function.nushell" }
       },
       "end": "(?<=\\})",
-      "endCaptures": {
-        "0": { "name": "punctuation.definition.function.end.nushell" }
-      },
       "patterns": [
         { "include": "#function-parameters" },
         { "include": "#function-body" },
-        { "include": "#function-inout" },
-        { "include": "#inout" }
+        { "include": "#function-inout" }
       ]
     },
     "extern": {
