@@ -265,7 +265,7 @@
         },
         {
           "begin": "\\??:\\s*",
-          "end": "(?=(?:\\s+(?:-{0,2}|\\.{3})[\\w-]+)|(?:\\s*(?:,|\\]|@|=|#|$)))",
+          "end": "(?=(?:\\s+(?:-{0,2}|\\.{3})[\\w-]+)|(?:\\s*(?:,|\\]|\\||@|=|#|$)))",
           "patterns": [
             { "include": "#types" }
           ]
@@ -278,7 +278,7 @@
         {
           "name": "default.value.nushell",
           "begin": "=\\s*",
-          "end": "(?=(?:\\s+-{0,2}[\\w-]+)|(?:\\s*(?:,|\\]|#|$)))",
+          "end": "(?=(?:\\s+-{0,2}[\\w-]+)|(?:\\s*(?:,|\\]|\\||#|$)))",
           "patterns": [{ "include": "#value" }]
         }
       ]
@@ -504,20 +504,9 @@
       "patterns": [{ "include": "#expression" }]
     },
     "braced-expression": {
-      "begin": "(\\{)(?:\\s*\\|([\\w, ]*)\\|)?",
+      "begin": "\\{",
       "beginCaptures": {
-        "1": {
-          "name": "punctuation.section.block.begin.bracket.curly.nushell"
-        },
-        "2": {
-          "patterns": [
-            { "include": "#function-parameter" },
-            {
-              "match": ",",
-              "name": "punctuation.separator.nushell"
-            }
-          ]
-        }
+        "0": { "name": "punctuation.section.block.begin.bracket.curly.nushell" }
       },
       "end": "\\}",
       "endCaptures": {
@@ -525,6 +514,12 @@
       },
       "name": "meta.expression.braced.nushell",
       "patterns": [
+        {
+          "begin": "(?<=\\{)\\s*\\|",
+          "end": "\\|",
+          "name": "meta.closure.parameters.nushell",
+          "patterns": [{ "include": "#function-parameter" }]
+        },
         {
           "match": "(\\w+)\\s*(:)\\s*",
           "captures": {
