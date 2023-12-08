@@ -192,7 +192,7 @@
       "name": "keyword.control.nushell"
     },
     "operators-symbols": {
-      "match": "(?<= )(?:\\+|\\-|\\*|\\/|\\/\\/|\\*\\*|!=|[<>=]=?|[!=]~|&&|\\|\\||\\||\\+\\+=?)(?= |$)",
+      "match": "(?<= )(?:(?:\\+|\\-|\\*|\\/)=?|\\/\\/|\\*\\*|!=|[<>=]=?|[!=]~|\\+\\+=?)(?= |$)",
       "name": "keyword.control.nushell"
     },
     "operators": {
@@ -265,7 +265,7 @@
         },
         {
           "begin": "\\??:\\s*",
-          "end": "(?=(?:\\s+(?:-{0,2}|\\.{3})[\\w-]+)|(?:\\s*(?:,|\\]|@|=|#|$)))",
+          "end": "(?=(?:\\s+(?:-{0,2}|\\.{3})[\\w-]+)|(?:\\s*(?:,|\\]|\\||@|=|#|$)))",
           "patterns": [
             { "include": "#types" }
           ]
@@ -278,7 +278,7 @@
         {
           "name": "default.value.nushell",
           "begin": "=\\s*",
-          "end": "(?=(?:\\s+-{0,2}[\\w-]+)|(?:\\s*(?:,|\\]|#|$)))",
+          "end": "(?=(?:\\s+-{0,2}[\\w-]+)|(?:\\s*(?:,|\\]|\\||#|$)))",
           "patterns": [{ "include": "#value" }]
         }
       ]
@@ -504,20 +504,9 @@
       "patterns": [{ "include": "#expression" }]
     },
     "braced-expression": {
-      "begin": "(\\{)(?:\\s*\\|([\\w, ]*)\\|)?",
+      "begin": "\\{",
       "beginCaptures": {
-        "1": {
-          "name": "punctuation.section.block.begin.bracket.curly.nushell"
-        },
-        "2": {
-          "patterns": [
-            { "include": "#function-parameter" },
-            {
-              "match": ",",
-              "name": "punctuation.separator.nushell"
-            }
-          ]
-        }
+        "0": { "name": "punctuation.section.block.begin.bracket.curly.nushell" }
       },
       "end": "\\}",
       "endCaptures": {
@@ -526,23 +515,57 @@
       "name": "meta.expression.braced.nushell",
       "patterns": [
         {
-          "begin": "((?:(?:[^$\\(\\{\\[\"'#\\s][^\\(\\{\\[\"'#\\s]*)|\\$?(?:\"[^\"]+\"|'[^']+')))\\s*(:)\\s*",
-          "beginCaptures": {
-            "1": {
-              "name": "variable.other.nushell",
-              "patterns": [{ "include": "#paren-expression" }]
-            },
-            "2": { "patterns": [{ "include": "#operators" }] }
+          "begin": "(?<=\\{)\\s*\\|",
+          "end": "\\|",
+          "name": "meta.closure.parameters.nushell",
+          "patterns": [{ "include": "#function-parameter" }]
+        },
+        {
+          "match": "(\\w+)\\s*(:)\\s*",
+          "captures": {
+            "1": { "name": "variable.other.nushell" },
+            "2": { "name": "keyword.control.nushell" }
+          }
+        },
+        {
+          "match": "(\\$\"((?:[^\"\\\\]|\\\\.)*)\")\\s*(:)\\s*",
+          "captures": {
+            "1": { "name": "variable.other.nushell" },
+            "2": { "name": "variable.other.nushell", "patterns": [{ "include": "#paren-expression" }] },
+            "3": { "name": "keyword.control.nushell" }
           },
-          "end": "(?=,|\\s|\\})",
-          "name": "meta.record-entry.nushell",
-          "patterns": [{ "include": "#value" }]
+          "name": "meta.record-entry.nushell"
+        },
+        {
+          "match": "(\"(?:[^\"\\\\]|\\\\.)*\")\\s*(:)\\s*",
+          "captures": {
+            "1": { "name": "variable.other.nushell" },
+            "2": { "name": "keyword.control.nushell" }
+          },
+          "name": "meta.record-entry.nushell"
+        },
+        {
+          "match": "(\\$'([^']*)')\\s*(:)\\s*",
+          "captures": {
+            "1": { "name": "variable.other.nushell" },
+            "2": { "name": "variable.other.nushell", "patterns": [{ "include": "#paren-expression" }] },
+            "3": { "name": "keyword.control.nushell" }
+          },
+          "name": "meta.record-entry.nushell"
+        },
+        {
+          "match": "('[^']*')\\s*(:)\\s*",
+          "captures": {
+            "1": { "name": "variable.other.nushell" },
+            "2": { "name": "keyword.control.nushell" }
+          },
+          "name": "meta.record-entry.nushell"
         },
         { "include": "source.nushell" }
       ]
     },
     "define-variable": {
-      "match": "(let(?:-env)?|mut|const)\\s+(\\w+)\\s*(=)",
+      "match": "(let|mut|(?:export\\s+)?const)\\s+(\\w+)\\s+(=)",
       "captures": {
         "1": { "name": "keyword.other.nushell" },
         "2": { "name": "variable.other.nushell" },
@@ -627,6 +650,10 @@
         { "include": "#pre-command" },
         { "include": "#for-loop" },
         { "include": "#operators" },
+        { 
+          "match": "\\|",
+          "name": "keyword.control.nushell"
+        },
         { "include": "#control-keywords" },
         { "include": "#constant-value" },
         { "include": "#command" },
