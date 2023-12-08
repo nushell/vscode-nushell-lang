@@ -526,17 +526,45 @@
       "name": "meta.expression.braced.nushell",
       "patterns": [
         {
-          "begin": "((?:(?:[^$\\(\\{\\[\"'#\\s][^\\(\\{\\[\"'#\\s]*)|\\$?(?:\"[^\"]+\"|'[^']+')))\\s*(:)\\s*",
-          "beginCaptures": {
-            "1": {
-              "name": "variable.other.nushell",
-              "patterns": [{ "include": "#paren-expression" }]
-            },
-            "2": { "patterns": [{ "include": "#operators" }] }
+          "match": "(\\w+)\\s*(:)\\s*",
+          "captures": {
+            "1": { "name": "variable.other.nushell" },
+            "2": { "name": "keyword.control.nushell" }
+          }
+        },
+        {
+          "match": "(\\$\"((?:[^\"\\\\]|\\\\.)*)\")\\s*(:)\\s*",
+          "captures": {
+            "1": { "name": "variable.other.nushell" },
+            "2": { "name": "variable.other.nushell", "patterns": [{ "include": "#paren-expression" }] },
+            "3": { "name": "keyword.control.nushell" }
           },
-          "end": "(?=,|\\s|\\})",
-          "name": "meta.record-entry.nushell",
-          "patterns": [{ "include": "#value" }]
+          "name": "meta.record-entry.nushell"
+        },
+        {
+          "match": "(\"(?:[^\"\\\\]|\\\\.)*\")\\s*(:)\\s*",
+          "captures": {
+            "1": { "name": "variable.other.nushell" },
+            "2": { "name": "keyword.control.nushell" }
+          },
+          "name": "meta.record-entry.nushell"
+        },
+        {
+          "match": "(\\$'([^']*)')\\s*(:)\\s*",
+          "captures": {
+            "1": { "name": "variable.other.nushell" },
+            "2": { "name": "variable.other.nushell", "patterns": [{ "include": "#paren-expression" }] },
+            "3": { "name": "keyword.control.nushell" }
+          },
+          "name": "meta.record-entry.nushell"
+        },
+        {
+          "match": "('[^']*')\\s*(:)\\s*",
+          "captures": {
+            "1": { "name": "variable.other.nushell" },
+            "2": { "name": "keyword.control.nushell" }
+          },
+          "name": "meta.record-entry.nushell"
         },
         { "include": "source.nushell" }
       ]
