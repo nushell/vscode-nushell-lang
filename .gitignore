@@ -12,3 +12,4 @@ client/tsconfig.tsbuildinfo
 out/
 server/tsconfig.tsbuildinfo
 tsconfig.tsbuildinfo
+.pnpm-lock.yaml

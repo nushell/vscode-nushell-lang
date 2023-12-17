@@ -78,7 +78,7 @@
         "nushellLanguageServer.implementation": {
           "scope": "window",
           "type": "string",
-          "enum": ["extension", "nu --lsp", "nuls"],
+          "enum": ["extension", "nu --lsp"],
           "default": "extension",
           "description": "Switch between different language server implementations."
         },

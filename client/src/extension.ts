@@ -12,7 +12,6 @@ import {
   activate as activateNuLsp,
   deactivate as deactivateNuLsp,
 } from "./nu-lsp";
-import { activate as activateNuls, deactivate as deactivateNuls } from "./nuls";
 
 async function startLanguageServer(context: ExtensionContext) {
   // Options to control the language client
@@ -32,8 +31,6 @@ async function startLanguageServer(context: ExtensionContext) {
 
   if (configuration.implementation == "nu --lsp") {
     await activateNuLsp(clientOptions);
-  } else if (configuration.implementation == "nuls") {
-    await activateNuls(clientOptions);
   } else {
     await activateExtension(context, clientOptions);
   }
@@ -43,7 +40,6 @@ async function stopLanguageServers() {
   await Promise.all([
     deactivateExtension(),
     deactivateNuLsp(),
-    deactivateNuls(),
   ]);
 }
 
