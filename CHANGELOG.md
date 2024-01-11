@@ -156,3 +156,10 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 - 1.7.1
   - Update to nushell 0.85.0 (@fdncred) [#155](https://github.com/nushell/vscode-nushell-lang/pull/155)
   - update textmate `def --env`, `def --wrapped`, input/output types (@glcraft) [#160](https://github.com/nushell/vscode-nushell-lang/pull/160)
+- 1.8.0
+  - automatically publish extension to open vsx registry on release (@Yakiyo) [#161](https://github.com/nushell/vscode-nushell-lang/pull/161)
+  - More conditional and loop snippets (@EmilyGraceSeville7cf) [#165](https://github.com/nushell/vscode-nushell-lang/pull/165)
+  - Syntax highlight: add "export" to "module" (@glcraft) [#166](https://github.com/nushell/vscode-nushell-lang/pull/166)
+  - Improve type parsing in function def (@glcraft) [#167](https://github.com/nushell/vscode-nushell-lang/pull/167)
+  - Textmate improvements (@glcraft) [#168](https://github.com/nushell/vscode-nushell-lang/pull/168)
+  - Textmate: improvement on record entries and closure (@glcraft) [#169](https://github.com/nushell/vscode-nushell-lang/pull/169)
