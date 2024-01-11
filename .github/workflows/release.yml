@@ -50,12 +50,12 @@ jobs:
         with:
           pat: ${{ secrets.OPEN_VSX_TOKEN }}
 
-      - name: Publish to Visual Studio Marketplace
-        uses: HaaLeo/publish-vscode-extension@v1
-        with:
-          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
-          registryUrl: https://marketplace.visualstudio.com
-          extensionFile: ${{ steps.publishOpenVSX.outputs.vsixPath }}
+      #- name: Publish to Visual Studio Marketplace
+      #  uses: HaaLeo/publish-vscode-extension@v1
+      #  with:
+      #    pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+      #    registryUrl: https://marketplace.visualstudio.com
+      #    extensionFile: ${{ steps.publishOpenVSX.outputs.vsixPath }}
           
       - name: Create Release
         id: create_release
