@@ -44,12 +44,14 @@ jobs:
         uses: myrotvorets/info-from-package-json-action@1.1.0
         id: ver
 
-      - name: Publish to Open VSX Registry
-        uses: HaaLeo/publish-vscode-extension@v1
-        id: publishOpenVSX
-        with:
-          pat: ${{ secrets.OPEN_VSX_TOKEN }}
+      # Note: This works but you can't unpublish something so if the next thing fails, you're just stuck.
+      #- name: Publish to Open VSX Registry
+      #  uses: HaaLeo/publish-vscode-extension@v1
+      #  id: publishOpenVSX
+      #  with:
+      #    pat: ${{ secrets.OPEN_VSX_TOKEN }}
 
+      # Note: Probably should publish VS Marketplace first since, OpenVSX is proved working.
       #- name: Publish to Visual Studio Marketplace
       #  uses: HaaLeo/publish-vscode-extension@v1
       #  with:
