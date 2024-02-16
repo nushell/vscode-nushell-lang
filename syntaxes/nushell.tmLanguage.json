@@ -217,6 +217,7 @@
       },
       "name": "meta.table.nushell",
       "patterns": [
+        { "include": "#spread" },
         { "include": "#value" },
         {
           "match": ",",
@@ -648,7 +649,7 @@
       },
       "end": "(?=\\||\\)|\\}|;)|$",
       "name": "meta.command.nushell",
-      "patterns": [{ "include": "#value" }]
+      "patterns": [{ "include": "#spread" }, { "include": "#value" }]
     },
     "expression": {
       "patterns": [
@@ -673,7 +674,6 @@
         { "include": "#constant-value" },
         { "include": "#table" },
         { "include": "#parameters" },
-        { "include": "#spread" },
         { "include": "#operators" },
         { "include": "#paren-expression" },
         { "include": "#braced-expression" },
