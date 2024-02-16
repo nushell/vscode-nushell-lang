@@ -184,7 +184,7 @@
       ]
     },
     "spread": {
-      "match": "\\.\\.\\.(?=\\S)",
+      "match": "\\.\\.\\.(?=[^\\s\\]}])",
       "name": "keyword.control.nushell"
     },
     "ranges": {
