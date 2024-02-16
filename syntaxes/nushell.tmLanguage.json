@@ -217,13 +217,11 @@
       },
       "name": "meta.table.nushell",
       "patterns": [
-        { "include": "#spread" },
         { "include": "#value" },
         {
           "match": ",",
           "name": "punctuation.separator.nushell"
-        },
-        { "include": "#comment" }
+        }
       ]
     },
     "types": {
@@ -285,7 +283,8 @@
           "begin": "=\\s*",
           "end": "(?=(?:\\s+-{0,2}[\\w-]+)|(?:\\s*(?:,|\\]|\\||#|$)))",
           "patterns": [{ "include": "#value" }]
-        }
+        },
+        { "include": "#spread" }
       ]
     },
     "function-parameters": {
@@ -674,6 +673,7 @@
         { "include": "#constant-value" },
         { "include": "#table" },
         { "include": "#parameters" },
+        { "include": "#spread" },
         { "include": "#operators" },
         { "include": "#paren-expression" },
         { "include": "#braced-expression" },
