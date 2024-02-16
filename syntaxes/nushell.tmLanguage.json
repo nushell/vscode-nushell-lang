@@ -183,8 +183,12 @@
         { "include": "#binary" }
       ]
     },
+    "spread": {
+      "match": "\\.\\.\\.(?=\\S)",
+      "name": "keyword.control.nushell"
+    },
     "ranges": {
-      "match": "\\.\\.<?|:",
+      "match": "\\.\\.<?",
       "name": "keyword.control.nushell"
     },
     "operators-word": {
@@ -213,6 +217,7 @@
       },
       "name": "meta.table.nushell",
       "patterns": [
+        { "include": "#spread" },
         { "include": "#value" },
         {
           "match": ",",
@@ -223,7 +228,7 @@
     },
     "types": {
       "patterns": [
-        { 
+        {
           "name": "meta.list.nushell",
           "begin": "\\b(list)\\s*<",
           "beginCaptures": {
@@ -243,7 +248,7 @@
           "end": ">",
           "patterns": [
             {
-              "match": "([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+')\\s*:\\s*", 
+              "match": "([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+')\\s*:\\s*",
               "captures": {
                 "1": { "name": "variable.parameter.nushell" }
               }
@@ -251,7 +256,7 @@
             { "include": "#types" }
           ]
         },
-        { 
+        {
           "match": "\\b(\\w+)\\b",
           "name": "entity.name.type.nushell"
         }
@@ -561,6 +566,7 @@
           },
           "name": "meta.record-entry.nushell"
         },
+        { "include": "#spread" },
         { "include": "source.nushell" }
       ]
     },
@@ -650,7 +656,7 @@
         { "include": "#pre-command" },
         { "include": "#for-loop" },
         { "include": "#operators" },
-        { 
+        {
           "match": "\\|",
           "name": "keyword.control.nushell"
         },
