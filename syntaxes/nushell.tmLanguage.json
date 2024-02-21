@@ -264,7 +264,7 @@
     "function-parameter": {
       "patterns": [
         {
-          "match": "(?:-{0,2}|(\\.{3}))[\\w-]+(?:\\((-[\\w?])\\))?",
+          "match": "(-{0,2}|\\.{3})[\\w-]+(?:\\((-[\\w?])\\))?",
           "name": "variable.parameter.nushell",
           "captures": {
             "1": { "name": "keyword.control.nushell" }
@@ -651,7 +651,19 @@
       },
       "end": "(?=\\||\\)|\\}|;)|$",
       "name": "meta.command.nushell",
-      "patterns": [{ "include": "#spread" }, { "include": "#value" }]
+      "patterns": [
+        {
+          "match": "(-{1,2})(.+)",
+          "captures": {
+            "1": { "name": "keyword.control.nushell" },
+            "2": {
+              "patterns": [{ "include": "#string-bare" }]
+            }
+          }
+        },
+        { "include": "#spread" },
+        { "include": "#value" }
+      ]
     },
     "expression": {
       "patterns": [
