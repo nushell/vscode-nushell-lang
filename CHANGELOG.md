@@ -163,3 +163,7 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Improve type parsing in function def (@glcraft) [#167](https://github.com/nushell/vscode-nushell-lang/pull/167)
   - Textmate improvements (@glcraft) [#168](https://github.com/nushell/vscode-nushell-lang/pull/168)
   - Textmate: improvement on record entries and closure (@glcraft) [#169](https://github.com/nushell/vscode-nushell-lang/pull/169)
+- 1.9.0
+  - Add spread to syntax highlighting [#174](https://github.com/nushell/vscode-nushell-lang/pull/174)
+  - fix markdown formatting for hover lsp [#175](https://github.com/nushell/vscode-nushell-lang/pull/175)
+  - update grammar for nushell 0.91.0 [#177](https://github.com/nushell/vscode-nushell-lang/pull/177)

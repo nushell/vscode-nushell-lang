@@ -2,7 +2,7 @@
 
 #name: Release
 
-# Controls when the action will run. 
+# Controls when the action will run.
 #on:
   # Triggers the workflow on push or pull request events but only for the main branch
   #push:
@@ -34,7 +34,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - run: npm install
-      
+
       #- name: Current NPM Package Version
       #- uses: justincy/npm-version-action@2.1.0
       #  id: info
@@ -47,22 +47,7 @@ jobs:
       - uses: lannonbr/vsce-action@master
         with:
           args: "package"
-          
-      # Note: This works but you can't unpublish something so if the next thing fails, you're just stuck.
-      #- name: Publish to Open VSX Registry
-      #  uses: HaaLeo/publish-vscode-extension@v1
-      #  id: publishOpenVSX
-      #  with:
-      #    pat: ${{ secrets.OPEN_VSX_TOKEN }}
 
-      # Note: Probably should publish VS Marketplace first since, OpenVSX is proved working.
-      #- name: Publish to Visual Studio Marketplace
-      #  uses: HaaLeo/publish-vscode-extension@v1
-      #  with:
-      #    pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
-      #    registryUrl: https://marketplace.visualstudio.com
-      #    extensionFile: ${{ steps.publishOpenVSX.outputs.vsixPath }}
-          
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -73,15 +58,30 @@ jobs:
           release_name: ${{ steps.ver.outputs.packageVersion }} Release
           draft: true
           prerelease: true
-        
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           #asset_path: ${{ steps.publishOpenVSX.outputs.vsixPath }} # Need to get this version number dynamically
           asset_path: ./vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix # Need to get this version number dynamically
           asset_name: vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix
           asset_content_type: application/vsix
+
+      # Note: Probably should publish VS Marketplace first since, OpenVSX is proved working.
+      #- name: Publish to Visual Studio Marketplace
+      #  uses: HaaLeo/publish-vscode-extension@v1
+      #  with:
+      #    pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+      #    registryUrl: https://marketplace.visualstudio.com
+      #    extensionFile: ${{ steps.publishOpenVSX.outputs.vsixPath }}
+
+      # Note: This works but you can't unpublish something so if the next thing fails, you're just stuck.
+      - name: Publish to Open VSX Registry
+        uses: HaaLeo/publish-vscode-extension@v1
+        id: publishOpenVSX
+        with:
+          pat: ${{ secrets.OPEN_VSX_TOKEN }}
