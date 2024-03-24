@@ -23,9 +23,13 @@
       "runtimeExecutable": "${execPath}",
       "args": [
         "--extensionDevelopmentPath=${workspaceRoot}",
-        "--extensionTestsPath=${workspaceRoot}/out/client/test/index",
+        "--extensionTestsPath=${workspaceRoot}/client/out/test/index",
         "${workspaceRoot}/client/src/test/testFixture"
-      ]
+      ],
+      "preLaunchTask": {
+        "type": "npm",
+        "script": "compile:tests"
+      }
     }
   ]
 }

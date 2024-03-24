@@ -23,9 +23,7 @@
     "Programming Languages",
     "Snippets"
   ],
-  "activationEvents": [
-    "onTerminalProfile:nushell_default"
-  ],
+  "activationEvents": [],
   "main": "out/client/src/extension.js",
   "contributes": {
     "languages": [
