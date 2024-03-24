@@ -23,9 +23,7 @@
     "Programming Languages",
     "Snippets"
   ],
-  "activationEvents": [
-    "onTerminalProfile:nushell_default"
-  ],
+  "activationEvents": [],
   "main": "out/client/src/extension.js",
   "contributes": {
     "languages": [
@@ -139,6 +137,7 @@
     "install": "cd server && npm install && cd ../client && npm install && cd ..",
     "watch": "npm run esbuild-base -- --sourcemap --watch",
     "lint": "npx eslint ./client/src ./server/src --ext .ts,.tsx",
+    "compile:tests": "tsc -b",
     "test": "sh ./scripts/e2e.sh"
   },
   "dependencies": {
