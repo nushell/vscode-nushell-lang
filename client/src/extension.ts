@@ -1,8 +1,18 @@
 import * as path from "path";
-import { LanguageClientOptions } from "vscode-languageclient";
-import { ExtensionContext } from "vscode";
-import * as vscode from "vscode";
+import {
+  commands,
+  Uri,
+  env,
+  ExtensionContext,
+  workspace,
+  window,
+  ProviderResult,
+  TerminalProfile,
+  CancellationToken,
+} from "vscode";
+
 import * as which from "which";
+import { LanguageClientOptions } from "vscode-languageclient/node";
 
 import {
   activate as activateExtension,
@@ -20,11 +30,11 @@ async function startLanguageServer(context: ExtensionContext) {
     documentSelector: [{ scheme: "file", language: "nushell" }],
     synchronize: {
       // Notify the server about file changes to '.clientrc files contained in the workspace
-      fileEvents: vscode.workspace.createFileSystemWatcher("**/.clientrc"),
+      fileEvents: workspace.createFileSystemWatcher("**/.clientrc"),
     },
   };
 
-  const configuration = vscode.workspace.getConfiguration(
+  const configuration = workspace.getConfiguration(
     "nushellLanguageServer",
     null,
   );
@@ -37,10 +47,7 @@ async function startLanguageServer(context: ExtensionContext) {
 }
 
 async function stopLanguageServers() {
-  await Promise.all([
-    deactivateExtension(),
-    deactivateNuLsp(),
-  ]);
+  await Promise.all([deactivateExtension(), deactivateNuLsp()]);
 }
 
 async function handleDidChangeConfiguration(this: ExtensionContext) {
@@ -48,13 +55,13 @@ async function handleDidChangeConfiguration(this: ExtensionContext) {
   await startLanguageServer(this);
 }
 
-export function activate(context: vscode.ExtensionContext): void {
-  console.log("Terminals: " + (<any>vscode.window).terminals.length);
+export function activate(context: ExtensionContext): void {
+  console.log("Terminals: " + (<any>window).terminals.length);
   context.subscriptions.push(
-    vscode.window.registerTerminalProfileProvider("nushell_default", {
+    window.registerTerminalProfileProvider("nushell_default", {
       provideTerminalProfile(
-        token: vscode.CancellationToken,
-      ): vscode.ProviderResult<vscode.TerminalProfile> {
+        token: CancellationToken,
+      ): ProviderResult<TerminalProfile> {
         const PATH_FROM_ENV = process.env["PATH"];
         const pathsToCheck = [
           PATH_FROM_ENV,
@@ -109,19 +116,19 @@ export function activate(context: vscode.ExtensionContext): void {
           // use an async arrow funciton to use `await` inside
           return (async () => {
             if (
-              (await vscode.window.showErrorMessage(
+              (await window.showErrorMessage(
                 "We cannot find a nushell executable in your path or pre-defined locations",
                 "install from website",
               )) &&
-              (await vscode.env.openExternal(
-                vscode.Uri.parse("https://www.nushell.sh/"),
+              (await env.openExternal(
+                Uri.parse("https://www.nushell.sh/"),
               )) &&
-              (await vscode.window.showInformationMessage(
+              (await window.showInformationMessage(
                 "after you install nushell, you might need to reload vscode",
                 "reload now",
               ))
             ) {
-              vscode.commands.executeCommand("workbench.action.reloadWindow");
+              commands.executeCommand("workbench.action.reloadWindow");
             }
             // user has already seen error messages, but they didn't click through
             // return a promise that never resolve to supress the confusing error
@@ -133,7 +140,7 @@ export function activate(context: vscode.ExtensionContext): void {
           options: {
             name: "Nushell",
             shellPath: found_nushell_path,
-            iconPath: vscode.Uri.joinPath(
+            iconPath: Uri.joinPath(
               context.extensionUri,
               "assets/nu.svg",
             ),
@@ -144,7 +151,7 @@ export function activate(context: vscode.ExtensionContext): void {
   );
 
   startLanguageServer(context);
-  vscode.workspace.onDidChangeConfiguration(
+  workspace.onDidChangeConfiguration(
     handleDidChangeConfiguration,
     context,
     undefined,
