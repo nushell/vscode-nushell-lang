@@ -11,7 +11,7 @@ import {
   CancellationToken,
 } from "vscode";
 
-import * as which from "which";
+import {sync as which_sync} from "which";
 import { LanguageClientOptions } from "vscode-languageclient/node";
 
 import {
@@ -104,7 +104,7 @@ export function activate(context: ExtensionContext): void {
           //"/usr/bin/nu",
         ];
 
-        const found_nushell_path = which.sync("nu", {
+        const found_nushell_path = which_sync("nu", {
           nothrow: true,
           path: pathsToCheck.join(path.delimiter),
         });
