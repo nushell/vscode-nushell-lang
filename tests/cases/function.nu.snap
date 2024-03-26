@@ -1,0 +1,70 @@
+>def my-function [] {}
+#^^^ source.nushell entity.name.function.nushell
+#   ^ source.nushell
+#    ^^^^^^^^^^^ source.nushell entity.name.type.nushell
+#               ^ source.nushell
+#                ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                 ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+#                  ^ source.nushell
+#                   ^ source.nushell meta.function.body.nushell punctuation.definition.function.begin.nushell
+#                    ^ source.nushell meta.function.body.nushell punctuation.definition.function.end.nushell
+>
+>def "my function1" [] {}
+#^^^ source.nushell entity.name.function.nushell
+#   ^ source.nushell
+#    ^^^^^^^^^^^^^^ source.nushell entity.name.type.nushell
+#                  ^ source.nushell
+#                   ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                    ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+#                     ^ source.nushell
+#                      ^ source.nushell meta.function.body.nushell punctuation.definition.function.begin.nushell
+#                       ^ source.nushell meta.function.body.nushell punctuation.definition.function.end.nushell
+>
+>def 'my function2' [] {}
+#^^^ source.nushell meta.command.nushell keyword.other.builtin.nushell
+#   ^ source.nushell meta.command.nushell
+#    ^ source.nushell meta.command.nushell string.quoted.single.nushell punctuation.definition.string.begin.nushell
+#     ^^^^^^^^^^^^ source.nushell meta.command.nushell string.quoted.single.nushell
+#                 ^ source.nushell meta.command.nushell string.quoted.single.nushell punctuation.definition.string.end.nushell
+#                  ^ source.nushell meta.command.nushell
+#                   ^ source.nushell meta.command.nushell meta.table.nushell meta.brace.square.begin.nushell
+#                    ^ source.nushell meta.command.nushell meta.table.nushell meta.brace.square.end.nushell
+#                     ^ source.nushell meta.command.nushell
+#                      ^ source.nushell meta.command.nushell meta.expression.braced.nushell punctuation.section.block.begin.bracket.curly.nushell
+#                       ^ source.nushell meta.command.nushell meta.expression.braced.nushell punctuation.section.block.end.bracket.curly.nushell
+>
+>def my_function [] {}
+#^^^ source.nushell entity.name.function.nushell
+#   ^ source.nushell
+#    ^^^^^^^^^^^ source.nushell entity.name.type.nushell
+#               ^ source.nushell
+#                ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                 ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+#                  ^ source.nushell
+#                   ^ source.nushell meta.function.body.nushell punctuation.definition.function.begin.nushell
+#                    ^ source.nushell meta.function.body.nushell punctuation.definition.function.end.nushell
+>
+>def "my_function1" [] {}
+#^^^ source.nushell entity.name.function.nushell
+#   ^ source.nushell
+#    ^^^^^^^^^^^^^^ source.nushell entity.name.type.nushell
+#                  ^ source.nushell
+#                   ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                    ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+#                     ^ source.nushell
+#                      ^ source.nushell meta.function.body.nushell punctuation.definition.function.begin.nushell
+#                       ^ source.nushell meta.function.body.nushell punctuation.definition.function.end.nushell
+>
+>def 'my_function2' [] {}
+#^^^ source.nushell meta.command.nushell keyword.other.builtin.nushell
+#   ^ source.nushell meta.command.nushell
+#    ^ source.nushell meta.command.nushell string.quoted.single.nushell punctuation.definition.string.begin.nushell
+#     ^^^^^^^^^^^^ source.nushell meta.command.nushell string.quoted.single.nushell
+#                 ^ source.nushell meta.command.nushell string.quoted.single.nushell punctuation.definition.string.end.nushell
+#                  ^ source.nushell meta.command.nushell
+#                   ^ source.nushell meta.command.nushell meta.table.nushell meta.brace.square.begin.nushell
+#                    ^ source.nushell meta.command.nushell meta.table.nushell meta.brace.square.end.nushell
+#                     ^ source.nushell meta.command.nushell
+#                      ^ source.nushell meta.command.nushell meta.expression.braced.nushell punctuation.section.block.begin.bracket.curly.nushell
+#                       ^ source.nushell meta.command.nushell meta.expression.braced.nushell punctuation.section.block.end.bracket.curly.nushell
+>
