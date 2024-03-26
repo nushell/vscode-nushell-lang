@@ -139,25 +139,27 @@
     "install": "cd server && npm install && cd ../client && npm install && cd ..",
     "watch": "npm run esbuild-base -- --sourcemap --watch",
     "lint": "npx eslint ./client/src ./server/src --ext .ts,.tsx",
-    "test": "sh ./scripts/e2e.sh"
+    "test": "sh ./scripts/e2e.sh",
+    "fmt": "prettier . --write"
   },
   "dependencies": {
     "glob": "^7.2.0",
-    "os": "^0.1.2",
+    "nushell-lsp-client": "file:client",
     "nushell-lsp-server": "file:server",
-    "nushell-lsp-client": "file:client"
+    "os": "^0.1.2"
   },
   "devDependencies": {
     "@types/mocha": "^9.1.0",
     "@types/node": "^16.11.7",
-    "@types/vscode": "^1.65.0",
     "@types/tmp": "^0.2.3",
+    "@types/vscode": "^1.65.0",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "@vscode/vsce": "^2.15.0",
     "esbuild": "^0.14.42",
     "eslint": "^8.35.0",
     "mocha": "^9.2.1",
+    "prettier": "3.2.5",
     "ts-loader": "^9.2.8",
     "typescript": "^5.0.2",
     "webpack": "^5.70.0",
