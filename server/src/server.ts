@@ -484,7 +484,7 @@ connection.onHover(async (request: HoverParams) => {
       // getting runtime import errors to remove this deprecation warning.
       const contents = {
         value: obj.hover,
-        language: 'nushell',
+        kind: "markdown"
       };
 
       if (obj.hover != '') {

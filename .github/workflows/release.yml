@@ -45,22 +45,7 @@ jobs:
 
       - uses: lannonbr/vsce-action@master
         with:
-          args: 'package'
-
-      # Note: This works but you can't unpublish something so if the next thing fails, you're just stuck.
-      #- name: Publish to Open VSX Registry
-      #  uses: HaaLeo/publish-vscode-extension@v1
-      #  id: publishOpenVSX
-      #  with:
-      #    pat: ${{ secrets.OPEN_VSX_TOKEN }}
-
-      # Note: Probably should publish VS Marketplace first since, OpenVSX is proved working.
-      #- name: Publish to Visual Studio Marketplace
-      #  uses: HaaLeo/publish-vscode-extension@v1
-      #  with:
-      #    pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
-      #    registryUrl: https://marketplace.visualstudio.com
-      #    extensionFile: ${{ steps.publishOpenVSX.outputs.vsixPath }}
+          args: "package"
 
       - name: Create Release
         id: create_release
@@ -84,3 +69,18 @@ jobs:
           asset_path: ./vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix # Need to get this version number dynamically
           asset_name: vscode-nushell-lang-${{ steps.ver.outputs.packageVersion }}.vsix
           asset_content_type: application/vsix
+
+      # Note: Probably should publish VS Marketplace first since, OpenVSX is proved working.
+      #- name: Publish to Visual Studio Marketplace
+      #  uses: HaaLeo/publish-vscode-extension@v1
+      #  with:
+      #    pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+      #    registryUrl: https://marketplace.visualstudio.com
+      #    extensionFile: ${{ steps.publishOpenVSX.outputs.vsixPath }}
+
+      # Note: This works but you can't unpublish something so if the next thing fails, you're just stuck.
+      - name: Publish to Open VSX Registry
+        uses: HaaLeo/publish-vscode-extension@v1
+        id: publishOpenVSX
+        with:
+          pat: ${{ secrets.OPEN_VSX_TOKEN }}
