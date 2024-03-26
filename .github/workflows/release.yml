@@ -4,12 +4,11 @@
 
 # Controls when the action will run.
 #on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  #push:
-  #  branches: [ main ]
-  #pull_request:
-  #  branches: [ main ]
-
+# Triggers the workflow on push or pull request events but only for the main branch
+#push:
+#  branches: [ main ]
+#pull_request:
+#  branches: [ main ]
 
 name: Create And Upload Release Asset
 
@@ -17,7 +16,7 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -46,7 +45,7 @@ jobs:
 
       - uses: lannonbr/vsce-action@master
         with:
-          args: "package"
+          args: 'package'
 
       - name: Create Release
         id: create_release
