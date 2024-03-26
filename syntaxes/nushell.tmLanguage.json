@@ -237,9 +237,7 @@
             "1": { "name": "entity.name.type.nushell" }
           },
           "end": ">",
-          "patterns": [
-            { "include": "#types" }
-          ]
+          "patterns": [{ "include": "#types" }]
         },
         {
           "name": "meta.record.nushell",
@@ -276,14 +274,12 @@
         {
           "begin": "\\??:\\s*",
           "end": "(?=(?:\\s+(?:-{0,2}|\\.{3})[\\w-]+)|(?:\\s*(?:,|\\]|\\||@|=|#|$)))",
-          "patterns": [
-            { "include": "#types" }
-          ]
+          "patterns": [{ "include": "#types" }]
         },
         {
           "begin": "@(?=\"|')",
           "end": "(?<=\"|')",
-          "patterns": [ {"include": "#string"} ]
+          "patterns": [{ "include": "#string" }]
         },
         {
           "name": "default.value.nushell",
@@ -310,29 +306,29 @@
     },
     "function-multiple-inout": {
       "begin": "(?<=]\\s*)(:)\\s+(\\[)",
-          "beginCaptures": {
-            "1": { "name": "punctuation.definition.in-out.nushell" },
-            "2": { "name": "meta.brace.square.begin.nushell" }
-          },
-          "end": "\\]",
-          "endCaptures": {
-            "0": { "name": "meta.brace.square.end.nushell" }
-          },
-          "patterns": [
-            { "include": "#types" },
-            {
-              "match": "\\s*(,)\\s*",
-              "captures": {
-                "1": { "name": "punctuation.separator.nushell" }
-              }
-            },
-            {
-              "match": "\\s+(->)\\s+",
-              "captures": {
-                "1": { "name": "keyword.operator.nushell" }
-              }
-            }
-          ]
+      "beginCaptures": {
+        "1": { "name": "punctuation.definition.in-out.nushell" },
+        "2": { "name": "meta.brace.square.begin.nushell" }
+      },
+      "end": "\\]",
+      "endCaptures": {
+        "0": { "name": "meta.brace.square.end.nushell" }
+      },
+      "patterns": [
+        { "include": "#types" },
+        {
+          "match": "\\s*(,)\\s*",
+          "captures": {
+            "1": { "name": "punctuation.separator.nushell" }
+          }
+        },
+        {
+          "match": "\\s+(->)\\s+",
+          "captures": {
+            "1": { "name": "keyword.operator.nushell" }
+          }
+        }
+      ]
     },
     "function-inout": {
       "patterns": [
@@ -541,7 +537,10 @@
           "match": "(\\$\"((?:[^\"\\\\]|\\\\.)*)\")\\s*(:)\\s*",
           "captures": {
             "1": { "name": "variable.other.nushell" },
-            "2": { "name": "variable.other.nushell", "patterns": [{ "include": "#paren-expression" }] },
+            "2": {
+              "name": "variable.other.nushell",
+              "patterns": [{ "include": "#paren-expression" }]
+            },
             "3": { "name": "keyword.control.nushell" }
           },
           "name": "meta.record-entry.nushell"
@@ -558,7 +557,10 @@
           "match": "(\\$'([^']*)')\\s*(:)\\s*",
           "captures": {
             "1": { "name": "variable.other.nushell" },
-            "2": { "name": "variable.other.nushell", "patterns": [{ "include": "#paren-expression" }] },
+            "2": {
+              "name": "variable.other.nushell",
+              "patterns": [{ "include": "#paren-expression" }]
+            },
             "3": { "name": "keyword.control.nushell" }
           },
           "name": "meta.record-entry.nushell"

@@ -54,11 +54,11 @@ is no snippet for this command without subcommands. Write this:
 
 ```json
 {
-    "hash builtin": {
-        "prefix": "hash",
-        "description": "\"hash\" invocation",
-        "body": "${1:command} | hash ${2|md5,sha256|}"
-    }
+  "hash builtin": {
+    "prefix": "hash",
+    "description": "\"hash\" invocation",
+    "body": "${1:command} | hash ${2|md5,sha256|}"
+  }
 }
 ```
 
@@ -66,15 +66,15 @@ instead of:
 
 ```json
 {
-    "hash md5 builtin": {
-        "prefix": "hash-md5",
-        "description": "\"hash md5\" invocation",
-        "body": "${1:command} | hash md5"
-    },
-    "hash sha256 builtin": {
-        "prefix": "hash-sha256",
-        "description": "\"hash sha256\" invocation",
-        "body": "${1:command} | hash sha256"
-    }
+  "hash md5 builtin": {
+    "prefix": "hash-md5",
+    "description": "\"hash md5\" invocation",
+    "body": "${1:command} | hash md5"
+  },
+  "hash sha256 builtin": {
+    "prefix": "hash-sha256",
+    "description": "\"hash sha256\" invocation",
+    "body": "${1:command} | hash sha256"
+  }
 }
 ```
