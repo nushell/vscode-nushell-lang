@@ -139,7 +139,8 @@
     "install": "cd server && npm install && cd ../client && npm install && cd ..",
     "watch": "npm run esbuild-base -- --sourcemap --watch",
     "lint": "npx eslint ./client/src ./server/src --ext .ts,.tsx",
-    "test": "sh ./scripts/e2e.sh"
+    "test": "sh ./scripts/e2e.sh",
+    "test:grammar": "vscode-tmgrammar-snap tests/cases/*"
   },
   "dependencies": {
     "glob": "^7.2.0",

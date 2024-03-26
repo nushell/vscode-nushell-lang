@@ -1,11 +1,11 @@
-def my-function [] {}
+export def --env my-function --env [] {}
 
-def "my function1" [] {}
+export def --env "my function1" --env [] {}
 
-def 'my function2' [] {}
+export def --env 'my function2' --env [] {}
 
-def my_function [] {}
+export def --env  my_function --env [] {}
 
-def "my_function1" [] {}
+export def  --env "my_function1" --env [] {}
 
-def 'my_function2' [] {}
+export def --env 'my_function2' --env [] {}
