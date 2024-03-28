@@ -18,7 +18,7 @@ import {
   TextDocumentSyncKind,
   TextDocuments,
   createConnection,
-} from "vscode-languageserver/node";
+} from 'vscode-languageserver/node';
 
 import {
   InlayHint,
@@ -26,26 +26,25 @@ import {
   InlayHintLabelPart,
   InlayHintParams,
   Position,
-} from "vscode-languageserver-protocol";
+} from 'vscode-languageserver-protocol';
 
-import { TextEncoder } from "node:util";
-import { TextDocument } from "vscode-languageserver-textdocument";
+import { TextEncoder } from 'node:util';
+import { TextDocument } from 'vscode-languageserver-textdocument';
 import { URI } from 'vscode-uri';
-
 
 interface NuTextDocument extends TextDocument {
   nuInlayHints?: InlayHint[];
 }
-import fs = require("fs");
-import tmp = require("tmp");
-import path = require("path");
+import fs = require('fs');
+import tmp = require('tmp');
+import path = require('path');
 
-import util = require("node:util");
+import util = require('node:util');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const exec = util.promisify(require("node:child_process").exec);
+const exec = util.promisify(require('node:child_process').exec);
 
-const tmpFile = tmp.fileSync({ prefix: "nushell", keep: false });
+const tmpFile = tmp.fileSync({ prefix: 'nushell', keep: false });
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -60,10 +59,10 @@ let hasDiagnosticRelatedInformationCapability = false;
 
 function includeFlagForPath(file_path: string): string {
   const parsed = URI.parse(file_path);
-  if (parsed.scheme === "file") {
-    return "-I " + '"' + path.dirname(parsed.fsPath);
+  if (parsed.scheme === 'file') {
+    return '-I ' + '"' + path.dirname(parsed.fsPath);
   }
-  return "-I " + '"' + file_path;
+  return '-I ' + '"' + file_path;
 }
 
 connection.onExit(() => {
@@ -117,16 +116,16 @@ function createLabel(name: string): string {
 }
 async function durationLogWrapper<T>(
   name: string,
-  fn: (label: string) => Promise<T>
+  fn: (label: string) => Promise<T>,
 ): Promise<T> {
-  console.log("Triggered " + name + ": ...");
+  console.log('Triggered ' + name + ': ...');
   const label = createLabel(name);
   console.time(label);
   const result = await fn(label);
 
   // This purposefully has the same prefix length as the "Triggered " log above,
   // also does not add a newline at the end.
-  process.stdout.write("Finished  ");
+  process.stdout.write('Finished  ');
   console.timeEnd(label);
   return new Promise<T>((resolve) => resolve(result));
 }
@@ -136,12 +135,12 @@ connection.onInitialized(() => {
     // Register for all configuration changes.
     connection.client.register(
       DidChangeConfigurationNotification.type,
-      undefined
+      undefined,
     );
   }
   if (hasWorkspaceFolderCapability) {
     connection.workspace.onDidChangeWorkspaceFolders((_event) => {
-      connection.console.log("Workspace folder change event received.");
+      connection.console.log('Workspace folder change event received.');
     });
   }
 });
@@ -163,7 +162,7 @@ interface NushellIDESettings {
 const defaultSettings: NushellIDESettings = {
   maxNumberOfProblems: 1000,
   hints: { showInferredTypes: true },
-  nushellExecutablePath: "nu",
+  nushellExecutablePath: 'nu',
   maxNushellInvocationTime: 10000000,
   includeDirs: [],
 };
@@ -194,7 +193,7 @@ function getDocumentSettings(resource: string): Thenable<NushellIDESettings> {
   if (!result) {
     result = connection.workspace.getConfiguration({
       scopeUri: resource,
-      section: "nushellLanguageServer",
+      section: 'nushellLanguageServer',
     });
     documentSettings.set(resource, result);
   }
@@ -230,24 +229,24 @@ documents.onDidChangeContent(
     const throttledValidateTextDocument = debounce(
       validateTextDocument,
       500,
-      false
+      false,
     );
 
     return (change) => {
       throttledValidateTextDocument(change.document);
     };
-  })()
+  })(),
 );
 
 async function validateTextDocument(
-  textDocument: NuTextDocument
+  textDocument: NuTextDocument,
 ): Promise<void> {
   return await durationLogWrapper(
     `validateTextDocument ${textDocument.uri}`,
     async (label) => {
       if (!hasDiagnosticRelatedInformationCapability) {
         console.error(
-          "Trying to validate a document with no diagnostic capability"
+          'Trying to validate a document with no diagnostic capability',
         );
         return;
       }
@@ -261,10 +260,10 @@ async function validateTextDocument(
 
       const stdout = await runCompiler(
         text,
-        "--ide-check",
+        '--ide-check',
         settings,
         textDocument.uri,
-        { label: label }
+        { label: label },
       );
 
       textDocument.nuInlayHints = [];
@@ -274,26 +273,26 @@ async function validateTextDocument(
       //        It'd be nicer if it didn't give duplicate hints in the first place.
       const seenTypeHintPositions = new Set();
 
-      const lines = stdout.split("\n").filter((l) => l.length > 0);
+      const lines = stdout.split('\n').filter((l) => l.length > 0);
       for (const line of lines) {
-        connection.console.log("line: " + line);
+        connection.console.log('line: ' + line);
         try {
           const obj = JSON.parse(line);
 
-          if (obj.type == "diagnostic") {
+          if (obj.type == 'diagnostic') {
             let severity: DiagnosticSeverity = DiagnosticSeverity.Error;
 
             switch (obj.severity) {
-              case "Information":
+              case 'Information':
                 severity = DiagnosticSeverity.Information;
                 break;
-              case "Hint":
+              case 'Hint':
                 severity = DiagnosticSeverity.Hint;
                 break;
-              case "Warning":
+              case 'Warning':
                 severity = DiagnosticSeverity.Warning;
                 break;
-              case "Error":
+              case 'Error':
                 severity = DiagnosticSeverity.Error;
                 break;
             }
@@ -314,15 +313,15 @@ async function validateTextDocument(
             // connection.console.log(diagnostic.message);
 
             diagnostics.push(diagnostic);
-          } else if (obj.type == "hint" && settings.hints.showInferredTypes) {
+          } else if (obj.type == 'hint' && settings.hints.showInferredTypes) {
             if (!seenTypeHintPositions.has(obj.position)) {
               seenTypeHintPositions.add(obj.position);
               const position = convertSpan(obj.position.end, lineBreaks);
-              const hint_string = ": " + obj.typename;
+              const hint_string = ': ' + obj.typename;
               const hint = InlayHint.create(
                 position,
                 [InlayHintLabelPart.create(hint_string)],
-                InlayHintKind.Type
+                InlayHintKind.Type,
               );
 
               textDocument.nuInlayHints.push(hint);
@@ -335,13 +334,13 @@ async function validateTextDocument(
 
       // Send the computed diagnostics to VSCode.
       connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
-    }
+    },
   );
 }
 
 connection.onDidChangeWatchedFiles((_change) => {
   // Monitored files have change in VSCode
-  connection.console.log("We received an file change event");
+  connection.console.log('We received an file change event');
 });
 
 function lowerBoundBinarySearch(arr: number[], num: number): number {
@@ -404,7 +403,7 @@ async function runCompiler(
   flags: string,
   settings: NushellIDESettings,
   uri: string,
-  options: { allowErrors?: boolean, label: string } = { label: "runCompiler" },
+  options: { allowErrors?: boolean; label: string } = { label: 'runCompiler' },
 ): Promise<string> {
   const allowErrors =
     options.allowErrors === undefined ? true : options.allowErrors;
@@ -413,32 +412,34 @@ async function runCompiler(
     fs.writeFileSync(tmpFile.name, text);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
-    connection.console.error(`[${options.label}] error writing to tmp file: ${e}`);
+    connection.console.error(
+      `[${options.label}] error writing to tmp file: ${e}`,
+    );
   }
 
-  let stdout = "";
+  let stdout = '';
   try {
     const script_path_flag =
       includeFlagForPath(uri) +
-      "\x1e" + // \x1e is the record separator character (a character that is unlikely to appear in a path)
-      settings.includeDirs.join("\x1e") +
+      '\x1e' + // \x1e is the record separator character (a character that is unlikely to appear in a path)
+      settings.includeDirs.join('\x1e') +
       '"';
 
     const max_errors = settings.maxNumberOfProblems;
 
-    if (flags.includes("ide-check")) {
-      flags = flags + " " + max_errors;
+    if (flags.includes('ide-check')) {
+      flags = flags + ' ' + max_errors;
     }
 
     connection.console.log(
-      `[${options.label}] running: ${settings.nushellExecutablePath} ${flags} ${script_path_flag} ${tmpFile.name}`
+      `[${options.label}] running: ${settings.nushellExecutablePath} ${flags} ${script_path_flag} ${tmpFile.name}`,
     );
 
     const output = await exec(
       `${settings.nushellExecutablePath} ${flags} ${script_path_flag} ${tmpFile.name}`,
       {
         timeout: settings.maxNushellInvocationTime,
-      }
+      },
     );
     stdout = output.stdout;
     console.log(`[${options.label}] stdout: ${stdout}`);
@@ -461,19 +462,19 @@ connection.onHover(async (request: HoverParams) => {
 
     const text = document?.getText();
 
-    if (!(typeof text == "string")) return null;
+    if (!(typeof text == 'string')) return null;
 
     // connection.console.log("request: ");
     // connection.console.log(request.textDocument.uri);
     // connection.console.log("index: " + convertPosition(request.position, text));
     const stdout = await runCompiler(
       text,
-      "--ide-hover " + convertPosition(request.position, text),
+      '--ide-hover ' + convertPosition(request.position, text),
       settings,
-      request.textDocument.uri
+      request.textDocument.uri,
     );
 
-    const lines = stdout.split("\n").filter((l) => l.length > 0);
+    const lines = stdout.split('\n').filter((l) => l.length > 0);
     for (const line of lines) {
       const obj = JSON.parse(line);
       // connection.console.log("hovering");
@@ -486,12 +487,12 @@ connection.onHover(async (request: HoverParams) => {
         kind: "markdown"
       };
 
-      if (obj.hover != "") {
+      if (obj.hover != '') {
         if (obj.span) {
           const lineBreaks = findLineBreaks(
             obj.file
               ? (await fs.promises.readFile(obj.file)).toString()
-              : document?.getText() ?? ""
+              : document?.getText() ?? '',
           );
 
           return {
@@ -522,20 +523,20 @@ connection.onCompletion(
 
       const text = document?.getText();
 
-      if (typeof text == "string") {
+      if (typeof text == 'string') {
         // connection.console.log("completion request: ");
         // connection.console.log(request.textDocument.uri);
         const index = convertPosition(request.position, text);
         // connection.console.log("index: " + index);
         const stdout = await runCompiler(
           text,
-          "--ide-complete " + index,
+          '--ide-complete ' + index,
           settings,
-          request.textDocument.uri
+          request.textDocument.uri,
         );
         // connection.console.log("got: " + stdout);
 
-        const lines = stdout.split("\n").filter((l) => l.length > 0);
+        const lines = stdout.split('\n').filter((l) => l.length > 0);
         for (const line of lines) {
           const obj = JSON.parse(line);
           // connection.console.log("completions");
@@ -546,7 +547,7 @@ connection.onCompletion(
           for (const completion of obj.completions) {
             output.push({
               label: completion,
-              kind: completion.includes("(")
+              kind: completion.includes('(')
                 ? CompletionItemKind.Function
                 : CompletionItemKind.Field,
               data: index,
@@ -559,7 +560,7 @@ connection.onCompletion(
 
       return [];
     });
-  }
+  },
 );
 
 connection.onDefinition(async (request) => {
@@ -574,10 +575,10 @@ connection.onDefinition(async (request) => {
     // connection.console.log("index: " + convertPosition(request.position, text));
     const stdout = await runCompiler(
       text,
-      "--ide-goto-def " + convertPosition(request.position, text),
+      '--ide-goto-def ' + convertPosition(request.position, text),
       settings,
       request.textDocument.uri,
-      { label: label }
+      { label: label },
     );
     return goToDefinition(document, stdout);
   });
@@ -591,19 +592,21 @@ connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
 
 async function goToDefinition(
   document: TextDocument,
-  nushellOutput: string
+  nushellOutput: string,
 ): Promise<HandlerResult<Definition, void> | undefined> {
-  const lines = nushellOutput.split("\n").filter((l) => l.length > 0);
+  const lines = nushellOutput.split('\n').filter((l) => l.length > 0);
   for (const line of lines) {
     const obj = JSON.parse(line);
     // connection.console.log("going to type definition");
     // connection.console.log(obj);
-    if (obj.file === "" || obj.file === "__prelude__") return;
+    if (obj.file === '' || obj.file === '__prelude__') return;
 
     let documentText: string;
     if (obj.file) {
       if (fs.existsSync(obj.file)) {
-        documentText = await fs.promises.readFile(obj.file).then((b) => b.toString());
+        documentText = await fs.promises
+          .readFile(obj.file)
+          .then((b) => b.toString());
       } else {
         connection.console.log(`File ${obj.file} does not exist`);
         return;
@@ -614,7 +617,7 @@ async function goToDefinition(
 
     const lineBreaks: number[] = findLineBreaks(documentText);
 
-    let uri = "";
+    let uri = '';
     if (obj.file == tmpFile.name) {
       uri = document.uri;
     } else {
