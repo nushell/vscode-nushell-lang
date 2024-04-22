@@ -45,7 +45,7 @@ jobs:
 
       - uses: lannonbr/vsce-action@master
         with:
-          args: "package"
+          args: 'package'
 
       - name: Create Release
         id: create_release

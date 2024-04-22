@@ -144,8 +144,8 @@ export function activate(context: vscode.ExtensionContext) {
       fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc'),
     },
     markdown: {
-      isTrusted: true
-    }
+      isTrusted: true,
+    },
   };
 
   // Create the language client and start the client.
