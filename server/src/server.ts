@@ -35,14 +35,21 @@ import { URI } from 'vscode-uri';
 interface NuTextDocument extends TextDocument {
   nuInlayHints?: InlayHint[];
 }
-import fs = require('fs');
-import tmp = require('tmp');
-import path = require('path');
 
-import util = require('node:util');
+// import fs = require('fs');
+import * as fs from 'fs';
+// import tmp = require('tmp');
+import * as tmp from 'tmp';
+// import path = require('path');
+import * as path from 'path';
+
+// import util = require('node:util');
+import * as util from 'node:util';
+import * as child_process from 'node:child_process';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const exec = util.promisify(require('node:child_process').exec);
+// const exec = util.promisify(require('node:child_process').exec);
+const exec = util.promisify(child_process.exec);
 
 const tmpFile = tmp.fileSync({ prefix: 'nushell', keep: false });
 
@@ -492,7 +499,7 @@ connection.onHover(async (request: HoverParams) => {
           const lineBreaks = findLineBreaks(
             obj.file
               ? (await fs.promises.readFile(obj.file)).toString()
-              : document?.getText() ?? '',
+              : (document?.getText() ?? ''),
           );
 
           return {
