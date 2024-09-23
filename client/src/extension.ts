@@ -7,6 +7,7 @@
 import * as path from 'path';
 // import { workspace, ExtensionContext } from "vscode";
 import * as vscode from 'vscode';
+import * as which from 'which';
 
 import {
   LanguageClient,
@@ -24,8 +25,8 @@ export function activate(context: vscode.ExtensionContext) {
       provideTerminalProfile(
         token: vscode.CancellationToken,
       ): vscode.ProviderResult<vscode.TerminalProfile> {
-        const which = require('which');
-        const path = require('path');
+        // const which = require('which');
+        // const path = require('path');
 
         const PATH_FROM_ENV = process.env['PATH'];
         const pathsToCheck = [

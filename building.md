@@ -44,8 +44,8 @@ TIL - VSCode uses regexes for language syntax highlighting in \*.tmLanguage.json
 glcraft wrote a fancy program to create regexes for the extension. Here's the steps to use it.
 
 1. clone and cargo install the tool. https://github.com/glcraft/list-to-tree
-2. on windows create a set of commands. `scope commands | where is_builtin == true and is_custom == false | get name | to text | save win-cmds_20230919.txt`
-3. on linux create a set of commands. `scope commands | where is_builtin == true and is_custom == false | get name | to text | save lin-cmds_20230919.txt`
+2. on windows create a set of commands. `scope commands | where type == built-in or type == keyword or type == plugin | get name | to text | save win-cmds_20240923.txt`
+3. on linux create a set of commands. `scope commands | where type == built-in or type == keyword or type == plugin | get name | to text | save lin-cmds_20240923.txt`
 4. combine these two files, sort, and uniq them. `open win-cmds_20230919.txt | lines | append (open lin-cmds_20230919.txt | lines) | sort | uniq | save cmds_20230919.txt`
 5. run list-to-tree `list-to-tree --input cmds_20230919.txt --format regex`
 6. copy-n-paste the results to the `nushell.tmLanguage.json` file in the appropriate place (search for "list-to-tree"). Be careful, this can be tricky.

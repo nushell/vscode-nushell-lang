@@ -167,3 +167,7 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Add spread to syntax highlighting [#174](https://github.com/nushell/vscode-nushell-lang/pull/174)
   - fix markdown formatting for hover lsp [#175](https://github.com/nushell/vscode-nushell-lang/pull/175)
   - update grammar for nushell 0.91.0 [#177](https://github.com/nushell/vscode-nushell-lang/pull/177)
+- 1.10.0
+  - Remove / and \ from wordPattern [#186](https://github.com/nushell/vscode-nushell-lang/pull/186)
+  - Add support for def my-function syntax highlighting and add tests to it [#182](https://github.com/nushell/vscode-nushell-lang/pull/182)
+  - add prettier to dev deps [#181](https://github.com/nushell/vscode-nushell-lang/pull/181)
