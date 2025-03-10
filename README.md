@@ -8,7 +8,7 @@ This [extension for VSCode](https://marketplace.visualstudio.com/items?itemName=
 
 ## Features
 
-- Syntax highlighting grammar for Nushell scripts (`.nu` files)
+- Syntax highlighting grammar for Nushell scripts (`.nu` files) and ``nushell`` codeblocks in Markdown files
 - Goto definition
 - Hover support
 - Validation (errors with red squiggly lines)
