@@ -20,8 +20,8 @@
         { "include": "#string-double-quote" },
         { "include": "#string-interpolated-double" },
         { "include": "#string-interpolated-single" },
-        { "include": "#string-bare" },
-        { "include": "#string-raw" }
+        { "include": "#string-raw" },
+        { "include": "#string-bare" }
       ]
     },
     "string-escape": {
@@ -29,11 +29,11 @@
       "name": "constant.character.escape.nushell"
     },
     "string-bare": {
-      "match": "[^$\\[{(\"',|#\\s|][^\\[\\]{}()\"'\\s#,|]*",
+      "match": "[^$\\[{(\"',|#\\s|;][^\\[\\]{}()\"'\\s,|;]*",
       "name": "string.bare.nushell"
     },
     "string-raw": {
-      "begin": "(?<=r)(#+)'",
+      "begin": "r(#+)'",
       "beginCaptures": {
         "0": { "name": "punctuation.definition.string.begin.nushell" }
       },
@@ -685,6 +685,7 @@
         },
         { "include": "#control-keywords" },
         { "include": "#constant-value" },
+        { "include": "#string-raw" },
         { "include": "#command" },
         { "include": "#value" }
       ]
