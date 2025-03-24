@@ -51,6 +51,16 @@
         "language": "nushell",
         "scopeName": "source.nushell",
         "path": "./syntaxes/nushell.tmLanguage.json"
+      },
+      {
+        "scopeName": "markdown.nushell.codeblock",
+        "path": "./syntaxes/codeblock.json",
+        "injectTo": [
+          "text.html.markdown"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.nushell": "nushell"
+        }
       }
     ],
     "keybindings": [
