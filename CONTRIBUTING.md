@@ -1,11 +1,13 @@
-# Building
+# Contributing
+
+Thank you for considering contributing!
 
 ## Regex Engine
 
 VSCode uses a regular expressions engine that is based on Ruby for syntax highlighting.
 [This Rubular site is good site](https://rubular.com/) to test and try out these regular expressions because it uses Ruby which supports `oniguruma` flavor of regular expressions.
 
-## Build Process
+## Original Build Process
 
 We pretty much followed [these instructions](https://code.visualstudio.com/api/get-started/your-first-extension) for building this extension.
 And [this link](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) for packaging the extension.
@@ -34,6 +36,8 @@ If you have all these tools already installed, you should be able to clone this 
 7. To see the Language Server debug messages hit `Ctrl ~`
 8. Go to the output tab
 9. In the combo box on the right, choose `Nushell Language Server`. You should now see debug messaging as the client and server communicate
+
+Instead of using VS Code, you can run `npm run compile` manually.
 
 ## Regex Engine
 
