@@ -207,7 +207,7 @@
       "name": "keyword.control.nushell"
     },
     "operators-word": {
-      "match": "(?<= |\\()(?:mod|in|not-in|not|and|or|xor|bit-or|bit-and|bit-xor|bit-shl|bit-shr|starts-with|ends-with|like|not-like)(?= |\\)|$)",
+      "match": "(?<= |\\()(?:mod|in|not-(?:in|like|has)|not|and|or|xor|bit-(?:or|and|xor|shl|shr)|starts-with|ends-with|like|has)(?= |\\)|$)",
       "name": "keyword.control.nushell"
     },
     "operators-symbols": {
