@@ -4,8 +4,6 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 
-import * as path from 'path';
-// import { workspace, ExtensionContext } from "vscode";
 import * as vscode from 'vscode';
 import * as which from 'which';
 
@@ -13,68 +11,46 @@ import {
   LanguageClient,
   LanguageClientOptions,
   ServerOptions,
-  TransportKind,
 } from 'vscode-languageclient/node';
 
 let client: LanguageClient;
 
+function findNushellExecutable(): string | null {
+  try {
+    // Get the configured executable path from VSCode settings
+    // Use null for resource to get global/workspace settings
+    const config = vscode.workspace.getConfiguration('nushellLanguageServer', null);
+    const configuredPath = config.get<string>('nushellExecutablePath', 'nu');
+    
+    // If user configured a specific path, try to find it
+    if (configuredPath && configuredPath !== 'nu') {
+      // User specified a custom path
+      try {
+        // Test if the configured path works
+        return which.sync(configuredPath, { nothrow: true });
+      } catch {
+        // Fall back to searching PATH for 'nu'
+      }
+    }
+    
+    // Fall back to searching PATH for 'nu'
+    return which.sync('nu', { nothrow: true });
+  } catch (error) {
+    return null;
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
   console.log('Terminals: ' + (<any>vscode.window).terminals.length);
+  
+  // Find Nushell executable once and reuse it
+  const found_nushell_path = findNushellExecutable();
+  
   context.subscriptions.push(
     vscode.window.registerTerminalProfileProvider('nushell_default', {
       provideTerminalProfile(
         token: vscode.CancellationToken,
       ): vscode.ProviderResult<vscode.TerminalProfile> {
-        // const which = require('which');
-        // const path = require('path');
-
-        const PATH_FROM_ENV = process.env['PATH'];
-        const pathsToCheck = [
-          PATH_FROM_ENV,
-          // cargo install location
-          (process.env['CARGO_HOME'] || '~/.cargo') + '/bin',
-
-          // winget on Windows install location
-          'c:\\program files\\nu\\bin',
-          // just add a few other drives for fun
-          'd:\\program files\\nu\\bin',
-          'e:\\program files\\nu\\bin',
-          'f:\\program files\\nu\\bin',
-
-          // SCOOP:TODO
-          // all user installed programs and scoop itself install to
-          // c:\users\<user>\scoop\ unless SCOOP env var is set
-          // globally installed programs go in
-          // c:\programdata\scoop unless SCOOP_GLOBAL env var is set
-          // scoop install location
-          // SCOOP should already set up the correct `PATH` env var
-          //"~/scoop/apps/nu/*/nu.exe",
-          //"~/scoop/shims/nu.exe",
-
-          // chocolatey install location - same as winget
-          // 'c:\\program files\\nu\\bin\\nu.exe',
-
-          // macos dmg install
-          // we currentl don't have a dmg install
-
-          // linux and mac zips can be put anywhere so it's hard to guess
-
-          // brew install location mac
-          // intel
-          '/usr/local/bin',
-          // arm
-          '/opt/homebrew/bin',
-
-          // native package manager install location
-          // standard location should be in `PATH` env var
-          //"/usr/bin/nu",
-        ];
-
-        const found_nushell_path = which.sync('nu', {
-          nothrow: true,
-          path: pathsToCheck.join(path.delimiter),
-        });
-
         if (found_nushell_path == null) {
           console.log(
             'Nushell not found in env:PATH or any of the heuristic locations.',
@@ -116,37 +92,39 @@ export function activate(context: vscode.ExtensionContext) {
     }),
   );
 
-  // The server is implemented in node
-  const serverModule = context.asAbsolutePath(
-    path.join('out', 'server', 'src', 'server.js'),
-  );
+  // Check if Nushell was found for LSP server
+  if (!found_nushell_path) {
+    vscode.window.showErrorMessage(
+      'Nushell executable not found. Please install Nushell and restart VSCode.',
+      'Install from website'
+    ).then((selection) => {
+      if (selection) {
+        vscode.env.openExternal(vscode.Uri.parse('https://www.nushell.sh/'));
+      }
+    });
+    return;
+  }
 
-  // The debug options for the server
-  // --inspect=6009: runs the server in Node's Inspector mode so VS Code can attach to the server for debugging
-  const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
-
-  // If the extension is launched in debug mode then the debug server options are used
-  // Otherwise the run options are used
+  // Use Nushell's native LSP server
   const serverOptions: ServerOptions = {
-    run: { module: serverModule, transport: TransportKind.ipc },
-    debug: {
-      module: serverModule,
-      transport: TransportKind.ipc,
-      options: debugOptions,
+    run: { 
+      command: found_nushell_path, 
+      args: ['--lsp']
+    },
+    debug: { 
+      command: found_nushell_path, 
+      args: ['--lsp']
     },
   };
 
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
-    // Register the server for plain text documents
+    // Register the server for nushell files
     documentSelector: [{ scheme: 'file', language: 'nushell' }],
     synchronize: {
-      // Notify the server about file changes to '.clientrc files contained in the workspace
-      fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc'),
-    },
-    markdown: {
-      isTrusted: true,
-    },
+      // Notify the server about file changes to nushell files
+      fileEvents: vscode.workspace.createFileSystemWatcher('**/*.nu'),
+    }
   };
 
   // Create the language client and start the client.
@@ -158,7 +136,9 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   // Start the client. This will also launch the server
-  client.start();
+  client.start().catch((error) => {
+    vscode.window.showErrorMessage(`Failed to start Nushell language server: ${error.message}`);
+  });
 }
 
 export function deactivate(): Thenable<void> | undefined {
