@@ -3,21 +3,21 @@
   "description": "VSCode part of the nushell language server",
   "author": "Nushell Maintainers",
   "license": "MIT",
-  "version": "1.2.0",
+  "version": "2.0.0-pre-release",
   "publisher": "TheNuProjectContributors",
   "repository": {
     "type": "git",
     "url": "https://github.com/nushell/vscode-nushell-lang"
   },
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.93.0"
   },
   "dependencies": {
-    "vscode-languageclient": "^8.1.0",
-    "which": "^4.0.0"
+    "vscode-languageclient": "9.0.1",
+    "which": "5.0.0"
   },
   "devDependencies": {
-    "@types/vscode": "^1.75.1",
-    "@vscode/test-electron": "^2.2.3"
+    "@types/vscode": "1.103.0",
+    "@vscode/test-electron": "2.5.2"
   }
 }

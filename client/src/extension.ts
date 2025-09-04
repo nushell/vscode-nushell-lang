@@ -12,6 +12,7 @@ import {
   LanguageClientOptions,
   ServerOptions,
 } from 'vscode-languageclient/node';
+import { time } from 'console';
 
 let client: LanguageClient;
 
@@ -19,9 +20,12 @@ function findNushellExecutable(): string | null {
   try {
     // Get the configured executable path from VSCode settings
     // Use null for resource to get global/workspace settings
-    const config = vscode.workspace.getConfiguration('nushellLanguageServer', null);
+    const config = vscode.workspace.getConfiguration(
+      'nushellLanguageServer',
+      null,
+    );
     const configuredPath = config.get<string>('nushellExecutablePath', 'nu');
-    
+
     // If user configured a specific path, try to find it
     if (configuredPath && configuredPath !== 'nu') {
       // User specified a custom path
@@ -32,7 +36,7 @@ function findNushellExecutable(): string | null {
         // Fall back to searching PATH for 'nu'
       }
     }
-    
+
     // Fall back to searching PATH for 'nu'
     return which.sync('nu', { nothrow: true });
   } catch (error) {
@@ -42,10 +46,10 @@ function findNushellExecutable(): string | null {
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('Terminals: ' + (<any>vscode.window).terminals.length);
-  
+
   // Find Nushell executable once and reuse it
   const found_nushell_path = findNushellExecutable();
-  
+
   context.subscriptions.push(
     vscode.window.registerTerminalProfileProvider('nushell_default', {
       provideTerminalProfile(
@@ -94,37 +98,42 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Check if Nushell was found for LSP server
   if (!found_nushell_path) {
-    vscode.window.showErrorMessage(
-      'Nushell executable not found. Please install Nushell and restart VSCode.',
-      'Install from website'
-    ).then((selection) => {
-      if (selection) {
-        vscode.env.openExternal(vscode.Uri.parse('https://www.nushell.sh/'));
-      }
-    });
+    vscode.window
+      .showErrorMessage(
+        'Nushell executable not found. Please install Nushell and restart VSCode.',
+        'Install from website',
+      )
+      .then((selection) => {
+        if (selection) {
+          vscode.env.openExternal(vscode.Uri.parse('https://www.nushell.sh/'));
+        }
+      });
     return;
   }
 
   // Use Nushell's native LSP server
   const serverOptions: ServerOptions = {
-    run: { 
-      command: found_nushell_path, 
-      args: ['--lsp']
+    run: {
+      command: found_nushell_path,
+      args: ['--lsp'],
     },
-    debug: { 
-      command: found_nushell_path, 
-      args: ['--lsp']
+    debug: {
+      command: found_nushell_path,
+      args: ['--lsp'],
     },
   };
 
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
+    initializationOptions: {
+      timeout: 10000, // 10 seconds
+    },
     // Register the server for nushell files
     documentSelector: [{ scheme: 'file', language: 'nushell' }],
     synchronize: {
       // Notify the server about file changes to nushell files
       fileEvents: vscode.workspace.createFileSystemWatcher('**/*.nu'),
-    }
+    },
   };
 
   // Create the language client and start the client.
@@ -137,7 +146,9 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Start the client. This will also launch the server
   client.start().catch((error) => {
-    vscode.window.showErrorMessage(`Failed to start Nushell language server: ${error.message}`);
+    vscode.window.showErrorMessage(
+      `Failed to start Nushell language server: ${error.message}`,
+    );
   });
 }
 
