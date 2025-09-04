@@ -3,7 +3,7 @@
   "description": "VSCode part of the nushell language server",
   "author": "Nushell Maintainers",
   "license": "MIT",
-  "version": "2.0.0-pre-release",
+  "version": "2.0.1",
   "publisher": "TheNuProjectContributors",
   "repository": {
     "type": "git",
