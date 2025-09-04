@@ -3,7 +3,7 @@
   "displayName": "vscode-nushell-lang",
   "description": "nushell language for vscode",
   "author": "The Nushell Project Developers",
-  "version": "2.0.0-pre-release",
+  "version": "2.0.0",
   "preview": false,
   "license": "MIT",
   "publisher": "TheNuProjectContributors",
