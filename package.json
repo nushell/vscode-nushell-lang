@@ -139,7 +139,17 @@
           "scope": "window"
         }
       }
-    }
+    },
+    "commands": [
+      {
+        "command": "nushell.stopLanguageServer",
+        "title": "Nushell: Stop Language Server"
+      },
+      {
+        "command": "nushell.startLanguageServer",
+        "title": "Nushell: Start Language Server"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run lint && npm run compile",
