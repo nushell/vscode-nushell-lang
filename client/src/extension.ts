@@ -44,6 +44,63 @@ function findNushellExecutable(): string | null {
   }
 }
 
+function startLanguageServer(
+  context: vscode.ExtensionContext,
+  found_nushell_path: string,
+): void {
+  // Use Nushell's native LSP server
+  const serverOptions: ServerOptions = {
+    run: {
+      command: found_nushell_path,
+      args: ['--lsp'],
+    },
+    debug: {
+      command: found_nushell_path,
+      args: ['--lsp'],
+    },
+  };
+
+  // Options to control the language client
+  const clientOptions: LanguageClientOptions = {
+    initializationOptions: {
+      timeout: 10000, // 10 seconds
+    },
+    // Register the server for nushell files
+    documentSelector: [{ scheme: 'file', language: 'nushell' }],
+    synchronize: {
+      // Notify the server about file changes to nushell files
+      fileEvents: vscode.workspace.createFileSystemWatcher('**/*.nu'),
+    },
+  };
+
+  // Create the language client and start the client.
+  client = new LanguageClient(
+    'nushellLanguageServer',
+    'Nushell Language Server',
+    serverOptions,
+    clientOptions,
+  );
+
+  // Start the language client and register a disposable that stops it when disposed
+  client.start().catch((error) => {
+    vscode.window.showErrorMessage(
+      `Failed to start Nushell language server: ${error.message}`,
+    );
+  });
+
+  const disposable = new vscode.Disposable(() => {
+    if (client) {
+      client.stop().catch((error) => {
+        console.error(
+          'Failed to stop Nushell Language Server on dispose:',
+          error,
+        );
+      });
+    }
+  });
+  context.subscriptions.push(disposable);
+}
+
 export function activate(context: vscode.ExtensionContext) {
   console.log('Terminals: ' + (<any>vscode.window).terminals.length);
 
@@ -111,45 +168,47 @@ export function activate(context: vscode.ExtensionContext) {
     return;
   }
 
-  // Use Nushell's native LSP server
-  const serverOptions: ServerOptions = {
-    run: {
-      command: found_nushell_path,
-      args: ['--lsp'],
-    },
-    debug: {
-      command: found_nushell_path,
-      args: ['--lsp'],
-    },
-  };
+  // Start the language server when the extension is activated
+  startLanguageServer(context, found_nushell_path);
 
-  // Options to control the language client
-  const clientOptions: LanguageClientOptions = {
-    initializationOptions: {
-      timeout: 10000, // 10 seconds
+  // Register a command to stop the language server
+  const stopCommand = vscode.commands.registerCommand(
+    'nushell.stopLanguageServer',
+    async () => {
+      if (client) {
+        try {
+          await client.stop();
+          client = undefined;
+          vscode.window.showInformationMessage(
+            'Nushell Language Server stopped.',
+          );
+        } catch (error) {
+          vscode.window.showErrorMessage(
+            `Failed to stop Nushell Language Server: ${error}`,
+          );
+        }
+      } else {
+        vscode.window.showInformationMessage(
+          'Nushell Language Server is not running.',
+        );
+      }
     },
-    // Register the server for nushell files
-    documentSelector: [{ scheme: 'file', language: 'nushell' }],
-    synchronize: {
-      // Notify the server about file changes to nushell files
-      fileEvents: vscode.workspace.createFileSystemWatcher('**/*.nu'),
-    },
-  };
-
-  // Create the language client and start the client.
-  client = new LanguageClient(
-    'nushellLanguageServer',
-    'Nushell Language Server',
-    serverOptions,
-    clientOptions,
   );
+  context.subscriptions.push(stopCommand);
 
-  // Start the client. This will also launch the server
-  client.start().catch((error) => {
-    vscode.window.showErrorMessage(
-      `Failed to start Nushell language server: ${error.message}`,
-    );
-  });
+  // Register a command to start the language server
+  const startCommand = vscode.commands.registerCommand(
+    'nushell.startLanguageServer',
+    () => {
+      startLanguageServer(context, found_nushell_path);
+      if (client) {
+        vscode.window.showInformationMessage(
+          'Nushell Language Server started.',
+        );
+      }
+    },
+  );
+  context.subscriptions.push(startCommand);
 }
 
 export function deactivate(): Thenable<void> | undefined {
