@@ -6,6 +6,7 @@
 
 import * as vscode from 'vscode';
 import * as which from 'which';
+import { window, type OutputChannel } from 'vscode';
 
 import {
   LanguageClient,
@@ -15,6 +16,7 @@ import {
 import { time } from 'console';
 
 let client: LanguageClient;
+let outputChannel: OutputChannel;
 
 function findNushellExecutable(): string | null {
   try {
@@ -48,6 +50,8 @@ function startLanguageServer(
   context: vscode.ExtensionContext,
   found_nushell_path: string,
 ): void {
+  outputChannel = window.createOutputChannel('Nushell LSP Output', 'log');
+
   // Use Nushell's native LSP server
   const serverOptions: ServerOptions = {
     run: {
@@ -62,6 +66,11 @@ function startLanguageServer(
 
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
+    outputChannelName: 'Nushell Language Server',
+    markdown: {
+      isTrusted: true,
+      supportHtml: true,
+    },
     initializationOptions: {
       timeout: 10000, // 10 seconds
     },
@@ -167,6 +176,10 @@ export function activate(context: vscode.ExtensionContext) {
       });
     return;
   }
+
+  context.subscriptions.push(outputChannel);
+  console.log(`Found nushell executable at: ${found_nushell_path}`);
+  console.log('Activating Nushell Language Server extension.');
 
   // Start the language server when the extension is activated
   startLanguageServer(context, found_nushell_path);
