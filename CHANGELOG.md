@@ -183,5 +183,5 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Use LSP instead of legacy --ide-\* parameters [#207](https://github.com/nushell/vscode-nushell-lang/pull/207)
 - 2.0.3 Pre-Release
   - Add ability to start and stop lsp [#210](https://github.com/nushell/vscode-nushell-lang/pull/210)
-  - Better JSONRPC logging [#211]((https://github.com/nushell/vscode-nushell-lang/pull/211)
-  - Fix some lints [#213]((https://github.com/nushell/vscode-nushell-lang/pull/213)
+  - Better JSONRPC logging [#211](https://github.com/nushell/vscode-nushell-lang/pull/211)
+  - Fix some lints [#213](https://github.com/nushell/vscode-nushell-lang/pull/213)
