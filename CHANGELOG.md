@@ -171,7 +171,7 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Remove / and \ from wordPattern [#186](https://github.com/nushell/vscode-nushell-lang/pull/186)
   - Add support for def my-function syntax highlighting and add tests to it [#182](https://github.com/nushell/vscode-nushell-lang/pull/182)
   - add prettier to dev deps [#181](https://github.com/nushell/vscode-nushell-lang/pull/181)
-- 2.0-pre-release
+- 2.0.0 Pre-Release
   - Syntax highlighting in markdown code blocks [#195](https://github.com/nushell/vscode-nushell-lang/pull/195)
   - Fix vulnerabilities detected by npm audit [#193](https://github.com/nushell/vscode-nushell-lang/pull/193)
   - Add CONTRIBUTING.md [#194](https://github.com/nushell/vscode-nushell-lang/pull/194)
@@ -181,3 +181,7 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - Add operators 'has' & 'has-not', and shorten operators-word regex [#201](https://github.com/nushell/vscode-nushell-lang/pull/201)
   - Support floats, binary & octal literals (with underscores) [#200](https://github.com/nushell/vscode-nushell-lang/pull/200)
   - Use LSP instead of legacy --ide-\* parameters [#207](https://github.com/nushell/vscode-nushell-lang/pull/207)
+- 2.0.3 Pre-Release
+  - Add ability to start and stop lsp [#210](https://github.com/nushell/vscode-nushell-lang/pull/210)
+  - Better JSONRPC logging [#211]((https://github.com/nushell/vscode-nushell-lang/pull/211)
+  - Fix some lints [#213]((https://github.com/nushell/vscode-nushell-lang/pull/213)
