@@ -6,15 +6,18 @@
 
 import * as vscode from 'vscode';
 import * as which from 'which';
+import { window, type OutputChannel } from 'vscode';
 
 import {
   LanguageClient,
   LanguageClientOptions,
   ServerOptions,
+  Trace,
 } from 'vscode-languageclient/node';
-import { time } from 'console';
 
 let client: LanguageClient;
+let outputChannel: OutputChannel; // Trace channel
+let serverOutputChannel: OutputChannel; // Server logs channel (single instance)
 
 function findNushellExecutable(): string | null {
   try {
@@ -48,6 +51,24 @@ function startLanguageServer(
   context: vscode.ExtensionContext,
   found_nushell_path: string,
 ): void {
+  // Prevent duplicate clients/channels
+  if (client) {
+    vscode.window.showInformationMessage(
+      'Nushell Language Server is already running.',
+    );
+    return;
+  }
+  // Channel to receive detailed JSON-RPC trace between VS Code and the LSP server
+  if (outputChannel) {
+    try {
+      outputChannel.dispose();
+    } catch {
+      // ignore
+    }
+  }
+  outputChannel = window.createOutputChannel('Nushell LSP Trace');
+  context.subscriptions.push(outputChannel);
+
   // Use Nushell's native LSP server
   const serverOptions: ServerOptions = {
     run: {
@@ -60,8 +81,22 @@ function startLanguageServer(
     },
   };
 
+  // Ensure a single server output channel exists and is reused
+  if (!serverOutputChannel) {
+    serverOutputChannel = window.createOutputChannel('Nushell Language Server');
+    context.subscriptions.push(serverOutputChannel);
+  }
+
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
+    // Route general server logs to a single, reusable channel
+    outputChannel: serverOutputChannel,
+    // Send JSON-RPC trace to a dedicated channel visible in the Output panel
+    traceOutputChannel: outputChannel,
+    markdown: {
+      isTrusted: true,
+      supportHtml: true,
+    },
     initializationOptions: {
       timeout: 10000, // 10 seconds
     },
@@ -80,6 +115,43 @@ function startLanguageServer(
     serverOptions,
     clientOptions,
   );
+
+  // Initialize trace level from settings and react to changes
+  const applyTraceFromConfig = () => {
+    const configured = vscode.workspace
+      .getConfiguration('nushellLanguageServer')
+      .get<'off' | 'messages' | 'verbose'>('trace.server');
+    const level: 'off' | 'messages' | 'verbose' = configured ?? 'messages';
+    const map: Record<'off' | 'messages' | 'verbose', Trace> = {
+      off: Trace.Off,
+      messages: Trace.Messages,
+      verbose: Trace.Verbose,
+    };
+    client.setTrace(map[level]);
+    try {
+      outputChannel.appendLine(`[Nushell] JSON-RPC tracing set to: ${level}`);
+      if (level !== 'off') {
+        outputChannel.show(true);
+      }
+    } catch {
+      // ignore
+    }
+  };
+  applyTraceFromConfig();
+  const cfgDisp = vscode.workspace.onDidChangeConfiguration((e) => {
+    if (e.affectsConfiguration('nushellLanguageServer.trace.server')) {
+      applyTraceFromConfig();
+    }
+  });
+  context.subscriptions.push(cfgDisp);
+  // Log client lifecycle
+  client.onDidChangeState((e) => {
+    try {
+      outputChannel.appendLine(`[Nushell] Client state changed: ${e.newState}`);
+    } catch {
+      // ignore
+    }
+  });
 
   // Start the language client and register a disposable that stops it when disposed
   client.start().catch((error) => {
@@ -167,6 +239,9 @@ export function activate(context: vscode.ExtensionContext) {
       });
     return;
   }
+
+  console.log(`Found nushell executable at: ${found_nushell_path}`);
+  console.log('Activating Nushell Language Server extension.');
 
   // Start the language server when the extension is activated
   startLanguageServer(context, found_nushell_path);
