@@ -109,7 +109,7 @@
             "messages",
             "verbose"
           ],
-          "default": "off",
+          "default": "messages",
           "description": "Traces the communication between VS Code and the language server."
         },
         "nushellLanguageServer.hints.showInferredTypes": {
