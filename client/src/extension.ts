@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* --------------------------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
@@ -42,7 +41,7 @@ function findNushellExecutable(): string | null {
 
     // Fall back to searching PATH for 'nu'
     return which.sync('nu', { nothrow: true });
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -184,6 +183,8 @@ export function activate(context: vscode.ExtensionContext) {
       provideTerminalProfile(
         token: vscode.CancellationToken,
       ): vscode.ProviderResult<vscode.TerminalProfile> {
+        // Consume token to satisfy no-unused-vars without changing behavior
+        void token;
         if (found_nushell_path == null) {
           console.log(
             'Nushell not found in env:PATH or any of the heuristic locations.',
