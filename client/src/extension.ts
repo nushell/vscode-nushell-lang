@@ -3,16 +3,17 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 
+import * as fs from 'fs/promises';
 import * as vscode from 'vscode';
-import * as which from 'which';
-import { window, type OutputChannel } from 'vscode';
-
+import { type OutputChannel, window } from 'vscode';
 import {
+  type Executable,
   LanguageClient,
-  LanguageClientOptions,
-  ServerOptions,
+  type LanguageClientOptions,
+  type ServerOptions,
   Trace,
 } from 'vscode-languageclient/node';
+import * as which from 'which';
 
 let client: LanguageClient;
 let outputChannel: OutputChannel; // Trace channel
@@ -46,10 +47,197 @@ function findNushellExecutable(): string | null {
   }
 }
 
-function startLanguageServer(
+import { executeBinary, maybe, maybeAsync, writeTempFileText } from './util';
+
+/**
+ * Interface for the JSON structure returned by `$nu | to json`
+ */
+interface NuJson {
+  'default-config-dir': string;
+  'config-path': string;
+  'env-path': string;
+  'history-path': string;
+  'loginshell-path': string;
+  'plugin-path': string;
+  'home-path': string;
+  'data-dir': string;
+  'cache-dir': string;
+  'vendor-autoload-dirs': string[];
+  'user-autoload-dirs': string[];
+  'temp-path': string;
+  pid: number;
+  'os-info': {
+    name: string;
+    arch: string;
+    family: string;
+    kernel_version: string;
+  };
+  'startup-time': number;
+  'is-interactive': boolean;
+  'is-login': boolean;
+  'history-enabled': boolean;
+  'current-exe': string;
+}
+
+/**
+ * Get the Nushell commands to shadow `print` and `inspect`, preventing them from leaking to STDOUT.
+ * These shadowed custom commands check if they are in "LSP Mode" before printing, by checking if the environment variable `NUSHELL_LSP` is
+ * set to one of: [ 1, `1`, true, `true` ]. If that environment variable exists and is one of those values, we consider to be in "LSP Mode",
+ * and therefore do not do any printing.
+ *
+ * @returns The Nushell commands to shadow `print` and `inspect`
+ */
+function getShadowedCustomCommands() {
+  const shadowedText = `
+		alias 'core-print' = print;
+		alias 'core-inspect' = inspect;
+		
+		def 'is-lsp' []: [
+			any -> bool
+		] {
+			($env | get -o NUSHELL_LSP) in [ 1, '1', true, 'true' ]
+		}
+			
+		def 'print' [
+			--no-newline(-n) # print without inserting a newline for the line ending
+			--stderr(-e) # print to stderr instead of stdout
+			--raw(-r) # print without formatting (including binary data)
+			--always-print(-p) # always print, regardless of whether in lsp mode
+			...rest: any # the values to print
+		]: [
+			any -> nothing
+			nothing -> nothing
+		] {
+			if $always_print or not (is-lsp) {
+				core-print --no-newline=($no_newline) --stderr=($stderr) --raw=($raw) ...$rest
+			}
+		}
+			
+		def 'inspect' [
+			--always-print(-p)
+			--label(-l): string
+		]: [
+			any -> any
+		] {
+			if $always_print or not (is-lsp) {
+				if $label != null {
+					{ label: $label, value: $in } | core-inspect | get value
+				} else {
+					core-inspect
+				}
+			} else {}
+		}`;
+
+  // Fix indentation and return
+
+  return shadowedText
+    .split(/[\r\n]+/gim)
+    .map((line) => line.replace(/^(?: {4}|\t{2})/, ''))
+    .join('\n')
+    .trim();
+}
+
+/**
+ * Read the user's real `env.nu` file by asking nushell where it is, and then reading that file.
+ * This is necessary because the location of `env.nu` can vary based on OS and user configuration.
+ *
+ * @param found_nushell_path The path to the nushell executable
+ * @returns The contents of the user's real `env.nu` file
+ * @throws If the nushell executable cannot be executed, or if the env.nu file cannot be read
+ */
+async function getRealEnvFileText(found_nushell_path: string) {
+  const nuOutput = await executeBinary(found_nushell_path, [
+    '--commands',
+    '$nu | select -o env-path | to json -r',
+  ]);
+
+  const [nuJson, nuJsonError] = maybe<Pick<NuJson, 'env-path'>>(() =>
+    JSON.parse(nuOutput.stdout),
+  );
+  if (nuJsonError) {
+    throw new Error(`Could not get $nu info: ${nuJsonError}`);
+  }
+
+  const envPath = nuJson['env-path'];
+  const [envText, envTextError] = await maybeAsync<string>(() =>
+    fs.readFile(envPath, 'utf8'),
+  );
+  if (envTextError) {
+    throw new Error(
+      `Could not read nushell env file at ${envPath}: ${envTextError}`,
+    );
+  }
+
+  return envText;
+}
+
+/**
+ * Get the server options for the language client, including setting up a temporary env.nu file
+ * with shadowed print/inspect commands to prevent them from leaking to STDOUT.
+ *
+ * This is a bit of a hack, but it provides a solution for the problem of `print` and `inspect` commands leaking to STDOUT
+ * and thus being interpreted as LSP messages.
+ *
+ * @param found_nushell_path The path to the nushell executable
+ * @returns The server options for the language client
+ */
+async function getServerOptions(
+  found_nushell_path: string,
+): Promise<ServerOptions> {
+  const getExecutable = (...args: string[]): Executable => {
+    return {
+      command: found_nushell_path,
+      args: args,
+      options: {
+        env: {
+          ...process.env,
+          NUSHELL_LSP: '1',
+        },
+      },
+    };
+  };
+
+  const defaultOptions: ServerOptions = {
+    run: getExecutable('--lsp'),
+    debug: getExecutable('--lsp'),
+  };
+
+  // Read the user's real `env.nu` file, so we can use it as a base for our temporary env file.
+  const [envText, envTextError] = await maybeAsync<string>(() =>
+    getRealEnvFileText(found_nushell_path),
+  );
+  if (envTextError) {
+    await vscode.window.showErrorMessage(
+      `Could not get nushell env file text`,
+      envTextError,
+    );
+    return defaultOptions;
+  }
+
+  // Create a temp file with the user's real env.nu contents, plus our shadowed commands at the top.
+  const [envTempFile, envTempFileError] = await maybeAsync<string>(() =>
+    writeTempFileText(`${getShadowedCustomCommands()}\n\n${envText}`, `.nu`),
+  );
+  if (envTempFileError) {
+    await vscode.window.showErrorMessage(
+      `Failed to create temporary env file: ${envTempFileError}`,
+    );
+    return defaultOptions;
+  }
+
+  // Pass the `--env-config` argument to nushell to load our temp env file instead of the user's real one. This is
+  // a bit of a hack, but it provides a solution for the problem of `print` and `inspect` commands leaking to STDOUT
+  // and thus being interpreted as LSP messages.
+  return {
+    run: getExecutable('--env-config', envTempFile, '--lsp'),
+    debug: getExecutable('--env-config', envTempFile, '--lsp'),
+  };
+}
+
+async function startLanguageServer(
   context: vscode.ExtensionContext,
   found_nushell_path: string,
-): void {
+): Promise<void> {
   // Prevent duplicate clients/channels
   if (client) {
     vscode.window.showInformationMessage(
@@ -69,16 +257,7 @@ function startLanguageServer(
   context.subscriptions.push(outputChannel);
 
   // Use Nushell's native LSP server
-  const serverOptions: ServerOptions = {
-    run: {
-      command: found_nushell_path,
-      args: ['--lsp'],
-    },
-    debug: {
-      command: found_nushell_path,
-      args: ['--lsp'],
-    },
-  };
+  const serverOptions = await getServerOptions(found_nushell_path);
 
   // Ensure a single server output channel exists and is reused
   if (!serverOutputChannel) {
@@ -172,7 +351,7 @@ function startLanguageServer(
   context.subscriptions.push(disposable);
 }
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   console.log('Terminals: ' + (<any>vscode.window).terminals.length);
 
   // Find Nushell executable once and reuse it
@@ -245,7 +424,7 @@ export function activate(context: vscode.ExtensionContext) {
   console.log('Activating Nushell Language Server extension.');
 
   // Start the language server when the extension is activated
-  startLanguageServer(context, found_nushell_path);
+  await startLanguageServer(context, found_nushell_path);
 
   // Register a command to stop the language server
   const stopCommand = vscode.commands.registerCommand(
@@ -275,8 +454,8 @@ export function activate(context: vscode.ExtensionContext) {
   // Register a command to start the language server
   const startCommand = vscode.commands.registerCommand(
     'nushell.startLanguageServer',
-    () => {
-      startLanguageServer(context, found_nushell_path);
+    async () => {
+      await startLanguageServer(context, found_nushell_path);
       if (client) {
         vscode.window.showInformationMessage(
           'Nushell Language Server started.',
