@@ -198,8 +198,8 @@ async function getServerOptions(
   };
 
   const defaultOptions: ServerOptions = {
-    run: getExecutable('--no-history', '--lsp'),
-    debug: getExecutable('--no-history', '--lsp'),
+    run: getExecutable('--lsp'),
+    debug: getExecutable('--lsp'),
   };
 
   // Read the user's real `env.nu` file, so we can use it as a base for our temporary env file.
@@ -229,8 +229,8 @@ async function getServerOptions(
   // a bit of a hack, but it provides a solution for the problem of `print` and `inspect` commands leaking to STDOUT
   // and thus being interpreted as LSP messages.
   return {
-    run: getExecutable('--no-history', '--env-config', envTempFile, '--lsp'),
-    debug: getExecutable('--no-history', '--env-config', envTempFile, '--lsp'),
+    run: getExecutable('--env-config', envTempFile, '--lsp'),
+    debug: getExecutable('--env-config', envTempFile, '--lsp'),
   };
 }
 
