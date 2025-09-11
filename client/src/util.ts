@@ -1,16 +1,26 @@
-import * as fs from 'node:fs/promises';
-import * as path from 'node:path';
-import * as os from 'node:os';
-import * as crypto from 'node:crypto';
-import * as vscode from 'vscode';
 import { spawn } from 'node:child_process';
+import * as crypto from 'node:crypto';
+import * as fs from 'node:fs/promises';
+import * as os from 'node:os';
+import * as path from 'node:path';
+import * as vscode from 'vscode';
 
+/**
+ * The result of executing a binary, including the exit code, stdout, and stderr.
+ */
 export interface ExecutionResult {
   code: number | null;
   stdout: string;
   stderr: string;
 }
 
+/**
+ * Executes a binary with the given arguments and captures its output.
+ * @param binaryPath The path to the binary to execute.
+ * @param args The arguments to pass to the binary.
+ * @return A promise that resolves to an object containing the exit code, stdout, and stderr.
+ * @throws If the binary cannot be executed.
+ */
 export async function executeBinary(
   binaryPath: string,
   args: string[],
@@ -38,6 +48,13 @@ export async function executeBinary(
   });
 }
 
+/**
+ * A utility function that executes a callback and captures any thrown errors.
+ * If the callback executes successfully, it returns a tuple with the result and null error.
+ * If an error is thrown, it returns a tuple with undefined data and the caught error.
+ * @param callback The function to execute.
+ * @return A tuple containing either the result and null error, or undefined data and the caught error.
+ */
 export function maybe<T>(
   callback: () => T,
 ): [data: T, error: null] | [data: undefined, error: unknown] {
@@ -49,6 +66,19 @@ export function maybe<T>(
   }
 }
 
+/**
+ * A utility function that executes an asynchronous callback and captures any thrown errors.
+ * If the callback executes successfully, it returns a tuple with the result and null error.
+ * If an error is thrown, it returns a tuple with undefined data and the caught error.
+ * If `showError` is provided and evaluates to true or a string, an error message will be displayed to the user.
+ * @param callback The asynchronous function to execute.
+ * @param showError Optional parameter to control error message display. Can be:
+ * - `undefined`: No error message will be shown.
+ * - `boolean`: If true, a generic error message will be shown.
+ * - `string`: A custom error message to display.
+ * - `function`: A function that takes the error as an argument and returns a boolean or string to control error message display.
+ * @return A promise that resolves to a tuple containing either the result and null error, or undefined data and the caught error.
+ */
 export async function maybeAsync<T>(
   callback: () => Promise<T>,
   showError?:
@@ -82,6 +112,15 @@ export async function maybeAsync<T>(
   }
 }
 
+/**
+ * Writes the given text content to a temporary file with the specified extension.
+ * The file is created in the system's temporary directory.
+ *
+ * @param content The text content to write to the temporary file.
+ * @param extension The file extension to use for the temporary file (default is '.txt').
+ * @return A promise that resolves to the path of the created temporary file.
+ * @throws If the file cannot be created or written to.
+ */
 export async function writeTempFileText(
   content: string,
   extension: string = '.txt',

@@ -5,17 +5,15 @@
 
 import * as fs from 'fs/promises';
 import * as vscode from 'vscode';
-import { window, type OutputChannel } from 'vscode';
-import * as which from 'which';
-
-import { safeHtml } from 'common-tags';
+import { type OutputChannel, window } from 'vscode';
 import {
-  LanguageClient,
-  LanguageClientOptions,
-  ServerOptions,
-  Trace,
   type Executable,
+  LanguageClient,
+  type LanguageClientOptions,
+  type ServerOptions,
+  Trace,
 } from 'vscode-languageclient/node';
+import * as which from 'which';
 
 let client: LanguageClient;
 let outputChannel: OutputChannel; // Trace channel
@@ -51,6 +49,9 @@ function findNushellExecutable(): string | null {
 
 import { executeBinary, maybe, maybeAsync, writeTempFileText } from './util';
 
+/**
+ * Interface for the JSON structure returned by `$nu | to json`
+ */
 interface NuJson {
   'default-config-dir': string;
   'config-path': string;
@@ -78,8 +79,16 @@ interface NuJson {
   'current-exe': string;
 }
 
-const get_prepend_env_string = () => {
-  const str = safeHtml(`
+/**
+ * Get the Nushell commands to shadow `print` and `inspect`, preventing them from leaking to STDOUT.
+ * These shadowed custom commands check if they are in "LSP Mode" before printing, by checking if the environment variable `NUSHELL_LSP` is
+ * set to one of: [ 1, `1`, true, `true` ]. If that environment variable exists and is one of those values, we consider to be in "LSP Mode",
+ * and therefore do not do any printing.
+ *
+ * @returns The Nushell commands to shadow `print` and `inspect`
+ */
+function getShadowedCustomCommands() {
+  const shadowedText = `
 		alias 'core-print' = print;
 		alias 'core-inspect' = inspect;
 		
@@ -117,97 +126,112 @@ const get_prepend_env_string = () => {
 					core-inspect
 				}
 			} else {}
-		}
-	`);
+		}`;
 
-  return str;
-};
+  // Fix indentation and return
 
-async function getServerOptions(
-  found_nushell_path: string,
-  options?: {
-    useCommands?: boolean;
-    useExecute?: boolean;
-  },
-): Promise<ServerOptions> {
-  const prepend_env = get_prepend_env_string();
+  return shadowedText
+    .split(/[\r\n]+/gim)
+    .map((line) => line.replace(/^(?: {4}|\t{2})/, ''))
+    .join('\n')
+    .trim();
+}
 
-  let executable: Executable = {
-    command: found_nushell_path,
-    args: ['--no-history', '--lsp'],
-    options: {
-      env: {
-        ...process.env,
-        NUSHELL_LSP: '1',
-      },
-    },
-  };
-
-  const serverOptions = (): ServerOptions => {
-    return {
-      run: executable,
-      debug: executable,
-    };
-  };
-
-  if (options?.useCommands) {
-    executable.args = [
-      '--no-history',
-      '--commands',
-      `"${prepend_env}"`,
-      '--lsp',
-    ];
-    return serverOptions();
-  } else if (options?.useExecute) {
-    executable.args = [
-      '--no-history',
-      '--execute',
-      `"${prepend_env}"`,
-      '--lsp',
-    ];
-    return serverOptions();
-  }
-
-  const nu_output = await executeBinary(found_nushell_path, [
-    `--commands`,
-    `$nu | to json -r`,
+/**
+ * Read the user's real `env.nu` file by asking nushell where it is, and then reading that file.
+ * This is necessary because the location of `env.nu` can vary based on OS and user configuration.
+ *
+ * @param found_nushell_path The path to the nushell executable
+ * @returns The contents of the user's real `env.nu` file
+ * @throws If the nushell executable cannot be executed, or if the env.nu file cannot be read
+ */
+async function getRealEnvFileText(found_nushell_path: string) {
+  const nuOutput = await executeBinary(found_nushell_path, [
+    '--commands',
+    '$nu | select -o env-path | to json -r',
   ]);
 
-  const [nuJson, nuJsonError] = maybe<NuJson>(() =>
-    JSON.parse(nu_output.stdout),
+  const [nuJson, nuJsonError] = maybe<Pick<NuJson, 'env-path'>>(() =>
+    JSON.parse(nuOutput.stdout),
   );
   if (nuJsonError) {
-    await vscode.window.showErrorMessage(
-      `Could not get $nu info: ${nuJsonError}`,
-    );
-    return serverOptions();
+    throw new Error(`Could not get $nu info: ${nuJsonError}`);
   }
 
   const envPath = nuJson['env-path'];
-
   const [envText, envTextError] = await maybeAsync<string>(() =>
     fs.readFile(envPath, 'utf8'),
   );
   if (envTextError) {
-    await vscode.window.showErrorMessage(
+    throw new Error(
       `Could not read nushell env file at ${envPath}: ${envTextError}`,
     );
-    return serverOptions();
   }
 
+  return envText;
+}
+
+/**
+ * Get the server options for the language client, including setting up a temporary env.nu file
+ * with shadowed print/inspect commands to prevent them from leaking to STDOUT.
+ *
+ * This is a bit of a hack, but it provides a solution for the problem of `print` and `inspect` commands leaking to STDOUT
+ * and thus being interpreted as LSP messages.
+ *
+ * @param found_nushell_path The path to the nushell executable
+ * @returns The server options for the language client
+ */
+async function getServerOptions(
+  found_nushell_path: string,
+): Promise<ServerOptions> {
+  const getExecutable = (...args: string[]): Executable => {
+    return {
+      command: found_nushell_path,
+      args: args,
+      options: {
+        env: {
+          ...process.env,
+          NUSHELL_LSP: '1',
+        },
+      },
+    };
+  };
+
+  const defaultOptions: ServerOptions = {
+    run: getExecutable('--no-history', '--lsp'),
+    debug: getExecutable('--no-history', '--lsp'),
+  };
+
+  // Read the user's real `env.nu` file, so we can use it as a base for our temporary env file.
+  const [envText, envTextError] = await maybeAsync<string>(() =>
+    getRealEnvFileText(found_nushell_path),
+  );
+  if (envTextError) {
+    await vscode.window.showErrorMessage(
+      `Could not get nushell env file text`,
+      envTextError,
+    );
+    return defaultOptions;
+  }
+
+  // Create a temp file with the user's real env.nu contents, plus our shadowed commands at the top.
   const [envTempFile, envTempFileError] = await maybeAsync<string>(() =>
-    writeTempFileText(`${prepend_env}\n\n${envText}`, `.nu`),
+    writeTempFileText(`${getShadowedCustomCommands()}\n\n${envText}`, `.nu`),
   );
   if (envTempFileError) {
     await vscode.window.showErrorMessage(
       `Failed to create temporary env file: ${envTempFileError}`,
     );
-    return serverOptions();
+    return defaultOptions;
   }
 
-  executable.args = ['--no-history', '--env-config', envTempFile, '--lsp'];
-
-  return serverOptions();
+  // Pass the `--env-config` argument to nushell to load our temp env file instead of the user's real one. This is
+  // a bit of a hack, but it provides a solution for the problem of `print` and `inspect` commands leaking to STDOUT
+  // and thus being interpreted as LSP messages.
+  return {
+    run: getExecutable('--no-history', '--env-config', envTempFile, '--lsp'),
+    debug: getExecutable('--no-history', '--env-config', envTempFile, '--lsp'),
+  };
 }
 
 async function startLanguageServer(
