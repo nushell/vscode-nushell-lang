@@ -12,6 +12,7 @@ import {
   LanguageClientOptions,
   ServerOptions,
   Trace,
+  RevealOutputChannelOn,
 } from 'vscode-languageclient/node';
 
 let client: LanguageClient;
@@ -90,6 +91,8 @@ function startLanguageServer(
   const clientOptions: LanguageClientOptions = {
     // Route general server logs to a single, reusable channel
     outputChannel: serverOutputChannel,
+    // Never auto-reveal the server output channel
+    revealOutputChannelOn: RevealOutputChannelOn.Never,
     // Send JSON-RPC trace to a dedicated channel visible in the Output panel
     traceOutputChannel: outputChannel,
     markdown: {
@@ -129,9 +132,6 @@ function startLanguageServer(
     client.setTrace(map[level]);
     try {
       outputChannel.appendLine(`[Nushell] JSON-RPC tracing set to: ${level}`);
-      if (level !== 'off') {
-        outputChannel.show(true);
-      }
     } catch {
       // ignore
     }
