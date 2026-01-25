@@ -17,7 +17,9 @@
     ["(", ")"]
   ],
   // symbols that are auto closed when typing
+  // https://code.visualstudio.com/api/language-extensions/language-configuration-guide#autoclosing
   "autoClosingPairs": [
+    { "open": "<", "close": ">" },
     { "open": "{", "close": "}" },
     { "open": "[", "close": "]" },
     { "open": "(", "close": ")" },
