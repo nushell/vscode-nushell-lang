@@ -377,10 +377,10 @@
     "function": {
       "begin": "((?:export\\s+)?def)(?:\\s+((?:--\\w+(?:\\s+--\\w+)*)))?\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|`[\\w\\- ]+`)(?:\\s+((?:--\\w+(?:\\s+--\\w+)*)))?",
       "beginCaptures": {
-        "1": { "name": "entity.name.function.nushell" },
-        "2": { "name": "entity.name.function.nushell" },
-        "3": { "name": "entity.name.type.nushell" },
-        "4": { "name": "entity.name.function.nushell" }
+        "1": { "name": "storage.type.function.nushell" },
+        "2": { "name": "storage.modifier.nushell" },
+        "3": { "name": "entity.name.function.nushell" },
+        "4": { "name": "storage.modifier.nushell" }
       },
       "end": "(?<=\\})",
       "patterns": [
@@ -392,8 +392,8 @@
     "extern": {
       "begin": "((?:export\\s+)?extern)\\s+([\\w\\-]+|\"[\\w\\- ]+\")",
       "beginCaptures": {
-        "1": { "name": "entity.name.function.nushell" },
-        "2": { "name": "entity.name.type.nushell" }
+        "1": { "name": "storage.type.function.nushell" },
+        "2": { "name": "entity.name.function.nushell" }
       },
       "end": "(?<=\\])",
       "endCaptures": {
@@ -404,7 +404,7 @@
     "module": {
       "begin": "((?:export\\s+)?module)\\s+([\\w\\-]+)\\s*\\{",
       "beginCaptures": {
-        "1": { "name": "entity.name.function.nushell" },
+        "1": { "name": "storage.type.module.nushell" },
         "2": { "name": "entity.name.namespace.nushell" }
       },
       "end": "\\}",
@@ -419,7 +419,7 @@
         {
           "match": "^\\s*((?:export )?use)\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+')(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+'|\\*))?\\s*;?$",
           "captures": {
-            "1": { "name": "entity.name.function.nushell" },
+            "1": { "name": "keyword.control.import.nushell" },
             "2": { "name": "entity.name.namespace.nushell" },
             "3": { "name": "keyword.other.nushell" }
           }
@@ -427,7 +427,7 @@
         {
           "begin": "^\\s*((?:export )?use)\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[\\w\\- ]+')\\s*\\[",
           "beginCaptures": {
-            "1": { "name": "entity.name.function.nushell" },
+            "1": { "name": "keyword.control.import.nushell" },
             "2": { "name": "entity.name.namespace.nushell" }
           },
           "end": "(\\])\\s*;?\\s*$",
@@ -449,7 +449,7 @@
         {
           "match": "(?<path>(?:/|\\\\|~[\\/\\\\]|\\.\\.?[\\/\\\\])?(?:[^\\/\\\\]+[\\/\\\\])*[\\w\\- ]+(?:\\.nu)?){0}^\\s*((?:export )?use)\\s+(\"\\g<path>\"|'\\g<path>\\'|(?![\"'])\\g<path>)(?:\\s+([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+'|\\*))?\\s*;?$",
           "captures": {
-            "2": { "name": "entity.name.function.nushell" },
+            "2": { "name": "keyword.control.import.nushell" },
             "3": {
               "name": "string.bare.nushell",
               "patterns": [
@@ -467,7 +467,7 @@
         {
           "begin": "(?<path>(?:/|\\\\|~[\\/\\\\]|\\.\\.?[\\/\\\\])?(?:[^\\/\\\\]+[\\/\\\\])*[\\w\\- ]+(?:\\.nu)?){0}^\\s*((?:export )?use)\\s+(\"\\g<path>\"|'\\g<path>\\'|(?![\"'])\\g<path>)\\s+\\[",
           "beginCaptures": {
-            "2": { "name": "entity.name.function.nushell" },
+            "2": { "name": "keyword.control.import.nushell" },
             "3": {
               "name": "string.bare.nushell",
               "patterns": [
@@ -499,7 +499,7 @@
         {
           "match": "^\\s*(?:export )?use\\b",
           "captures": {
-            "0": { "name": "entity.name.function.nushell" }
+            "0": { "name": "keyword.control.import.nushell" }
           }
         }
       ]
@@ -613,8 +613,8 @@
     "define-alias": {
       "match": "((?:export )?alias)\\s+([\\w\\-!]+)\\s*(=)",
       "captures": {
-        "1": { "name": "entity.name.function.nushell" },
-        "2": { "name": "entity.name.type.nushell" },
+        "1": { "name": "storage.type.alias.nushell" },
+        "2": { "name": "entity.name.function.nushell" },
         "3": {
           "patterns": [{ "include": "#operators" }]
         }

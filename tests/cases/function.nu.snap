@@ -1,7 +1,12 @@
 >export def --env my-function --env [] {}
-#^^^^^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#^^^^^^^^^^ source.nushell storage.type.function.nushell
+#          ^ source.nushell
+#           ^^^^^ source.nushell storage.modifier.nushell
 #                ^ source.nushell
-#                 ^^^^^^^^^^^^^^^^^^ source.nushell entity.name.type.nushell entity.name.type.nushell
+#                 ^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#                            ^ source.nushell
+#                             ^^^^^ source.nushell storage.modifier.nushell
+#                                  ^ source.nushell
 #                                   ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
 #                                    ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
 #                                     ^ source.nushell
@@ -9,12 +14,13 @@
 #                                       ^ source.nushell meta.function.body.nushell punctuation.definition.function.end.nushell
 >
 >export def --env "my function1" --env [] {}
-#^^^^^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#^^^^^^^^^^ source.nushell storage.type.function.nushell
+#          ^ source.nushell
+#           ^^^^^ source.nushell storage.modifier.nushell
 #                ^ source.nushell
-#                 ^ source.nushell entity.name.type.nushell
-#                  ^^^^^^^^^^^^ source.nushell entity.name.type.nushell entity.name.type.nushell
-#                              ^ source.nushell entity.name.type.nushell
-#                               ^^^^^^ source.nushell entity.name.type.nushell
+#                 ^^^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#                               ^ source.nushell
+#                                ^^^^^ source.nushell storage.modifier.nushell
 #                                     ^ source.nushell
 #                                      ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
 #                                       ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
@@ -23,12 +29,13 @@
 #                                          ^ source.nushell meta.function.body.nushell punctuation.definition.function.end.nushell
 >
 >export def --env 'my function2' --env [] {}
-#^^^^^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#^^^^^^^^^^ source.nushell storage.type.function.nushell
+#          ^ source.nushell
+#           ^^^^^ source.nushell storage.modifier.nushell
 #                ^ source.nushell
-#                 ^ source.nushell entity.name.type.nushell
-#                  ^^^^^^^^^^^^ source.nushell entity.name.type.nushell entity.name.type.nushell
-#                              ^ source.nushell entity.name.type.nushell
-#                               ^^^^^^ source.nushell entity.name.type.nushell
+#                 ^^^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#                               ^ source.nushell
+#                                ^^^^^ source.nushell storage.modifier.nushell
 #                                     ^ source.nushell
 #                                      ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
 #                                       ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
@@ -37,9 +44,14 @@
 #                                          ^ source.nushell meta.function.body.nushell punctuation.definition.function.end.nushell
 >
 >export def --env  my_function --env [] {}
-#^^^^^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#^^^^^^^^^^ source.nushell storage.type.function.nushell
+#          ^ source.nushell
+#           ^^^^^ source.nushell storage.modifier.nushell
 #                ^^ source.nushell
-#                  ^^^^^^^^^^^^^^^^^^ source.nushell entity.name.type.nushell entity.name.type.nushell
+#                  ^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#                             ^ source.nushell
+#                              ^^^^^ source.nushell storage.modifier.nushell
+#                                   ^ source.nushell
 #                                    ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
 #                                     ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
 #                                      ^ source.nushell
@@ -47,12 +59,13 @@
 #                                        ^ source.nushell meta.function.body.nushell punctuation.definition.function.end.nushell
 >
 >export def  --env "my_function1" --env [] {}
-#^^^^^^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#^^^^^^^^^^ source.nushell storage.type.function.nushell
+#          ^^ source.nushell
+#            ^^^^^ source.nushell storage.modifier.nushell
 #                 ^ source.nushell
-#                  ^ source.nushell entity.name.type.nushell
-#                   ^^^^^^^^^^^^ source.nushell entity.name.type.nushell entity.name.type.nushell
-#                               ^ source.nushell entity.name.type.nushell
-#                                ^^^^^^ source.nushell entity.name.type.nushell
+#                  ^^^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#                                ^ source.nushell
+#                                 ^^^^^ source.nushell storage.modifier.nushell
 #                                      ^ source.nushell
 #                                       ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
 #                                        ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
@@ -61,12 +74,13 @@
 #                                           ^ source.nushell meta.function.body.nushell punctuation.definition.function.end.nushell
 >
 >export def --env 'my_function2' --env [] {}
-#^^^^^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#^^^^^^^^^^ source.nushell storage.type.function.nushell
+#          ^ source.nushell
+#           ^^^^^ source.nushell storage.modifier.nushell
 #                ^ source.nushell
-#                 ^ source.nushell entity.name.type.nushell
-#                  ^^^^^^^^^^^^ source.nushell entity.name.type.nushell entity.name.type.nushell
-#                              ^ source.nushell entity.name.type.nushell
-#                               ^^^^^^ source.nushell entity.name.type.nushell
+#                 ^^^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#                               ^ source.nushell
+#                                ^^^^^ source.nushell storage.modifier.nushell
 #                                     ^ source.nushell
 #                                      ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
 #                                       ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
