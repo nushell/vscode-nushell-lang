@@ -2,32 +2,159 @@
 
 All notable changes to the "vscode-nushell-lang" extension will be documented in this file.
 
+## Release
+
+- 2.0.5 Release
+  - Update `def` syntax [#222](https://github.com/nushell/vscode-nushell-lang/pull/222)
+  - add `<>` to `autoClosingPairs` [#227](https://github.com/nushell/vscode-nushell-lang/pull/227)
+  - correct TextMate scopes for keywords vs identifiers [#228](https://github.com/nushell/vscode-nushell-lang/pull/228)
+- 2.0.4 Pre-Release
+  - Don't auto-reveal output panel [#219](https://github.com/nushell/vscode-nushell-lang/pull/219)
+- 2.0.3 Pre-Release
+  - Add ability to start and stop lsp [#210](https://github.com/nushell/vscode-nushell-lang/pull/210)
+  - Better JSONRPC logging [#211](https://github.com/nushell/vscode-nushell-lang/pull/211)
+  - Fix some lints [#213](https://github.com/nushell/vscode-nushell-lang/pull/213)
+- 2.0.0 Pre-Release
+  - Syntax highlighting in markdown code blocks [#195](https://github.com/nushell/vscode-nushell-lang/pull/195)
+  - Fix vulnerabilities detected by npm audit [#193](https://github.com/nushell/vscode-nushell-lang/pull/193)
+  - Add CONTRIBUTING.md [#194](https://github.com/nushell/vscode-nushell-lang/pull/194)
+  - Support raw strings [#197](https://github.com/nushell/vscode-nushell-lang/pull/197)
+  - Remove irrelevant autoClosingPair /\*\* [#198](https://github.com/nushell/vscode-nushell-lang/pull/198)
+  - Improve highlighting of bare and raw strings, and add missing unit & operator [#199](https://github.com/nushell/vscode-nushell-lang/pull/199)
+  - Add operators 'has' & 'has-not', and shorten operators-word regex [#201](https://github.com/nushell/vscode-nushell-lang/pull/201)
+  - Support floats, binary & octal literals (with underscores) [#200](https://github.com/nushell/vscode-nushell-lang/pull/200)
+  - Use LSP instead of legacy --ide-\* parameters [#207](https://github.com/nushell/vscode-nushell-lang/pull/207)
+- 1.10.0
+  - Remove / and \ from wordPattern [#186](https://github.com/nushell/vscode-nushell-lang/pull/186)
+  - Add support for def my-function syntax highlighting and add tests to it [#182](https://github.com/nushell/vscode-nushell-lang/pull/182)
+  - add prettier to dev deps [#181](https://github.com/nushell/vscode-nushell-lang/pull/181)
+- 1.9.0
+  - Add spread to syntax highlighting [#174](https://github.com/nushell/vscode-nushell-lang/pull/174)
+  - fix markdown formatting for hover lsp [#175](https://github.com/nushell/vscode-nushell-lang/pull/175)
+  - update grammar for nushell 0.91.0 [#177](https://github.com/nushell/vscode-nushell-lang/pull/177)
+- 1.8.0
+  - automatically publish extension to open vsx registry on release (@Yakiyo) [#161](https://github.com/nushell/vscode-nushell-lang/pull/161)
+  - More conditional and loop snippets (@EmilyGraceSeville7cf) [#165](https://github.com/nushell/vscode-nushell-lang/pull/165)
+  - Syntax highlight: add "export" to "module" (@glcraft) [#166](https://github.com/nushell/vscode-nushell-lang/pull/166)
+  - Improve type parsing in function def (@glcraft) [#167](https://github.com/nushell/vscode-nushell-lang/pull/167)
+  - Textmate improvements (@glcraft) [#168](https://github.com/nushell/vscode-nushell-lang/pull/168)
+  - Textmate: improvement on record entries and closure (@glcraft) [#169](https://github.com/nushell/vscode-nushell-lang/pull/169)
+- 1.7.1
+  - Update to nushell 0.85.0 (@fdncred) [#155](https://github.com/nushell/vscode-nushell-lang/pull/155)
+  - update textmate `def --env`, `def --wrapped`, input/output types (@glcraft) [#160](https://github.com/nushell/vscode-nushell-lang/pull/160)
+- 1.7.0
+  - Fix datetime parsing (@glcraft) [#140](https://github.com/nushell/vscode-nushell-lang/pull/140)
+  - Fix go-to definition on Windows (@gaetschwartz) [#141](https://github.com/nushell/vscode-nushell-lang/pull/141)
+  - Don't try to read if file doesn't exist (@gaetschwartz) [#143](https://github.com/nushell/vscode-nushell-lang/pull/143)
+  - Me forgetting to merge changes (@fdncred) [#145](https://github.com/nushell/vscode-nushell-lang/pull/145)
+  - npm audit fix (@fdncred) [#147](https://github.com/nushell/vscode-nushell-lang/pull/147)
+  - Update link (@balupton) [#149](https://github.com/nushell/vscode-nushell-lang/pull/149)
+  - Fix shebang detection (@adamcstephens) [#151](https://github.com/nushell/vscode-nushell-lang/pull/151)
+  - use `which` to find `nu` + add icon (@nerditation) [#153](https://github.com/nushell/vscode-nushell-lang/pull/153)
+- 1.6.0
+  - Snippets (completions) [#126](https://github.com/nushell/vscode-nushell-lang/pull/126)
+  - Snippets (markdown doc sections) [#127](https://github.com/nushell/vscode-nushell-lang/pull/127)
+  - Snippets (use H3 header) [#128](https://github.com/nushell/vscode-nushell-lang/pull/128)
+  - Snippets (support regex groups) [#130](https://github.com/nushell/vscode-nushell-lang/pull/130)
+  - Use unique labels for durationWrapper [#133](https://github.com/nushell/vscode-nushell-lang/pull/133)
+  - Fix TextMate regex that linguist discovered [#137](https://github.com/nushell/vscode-nushell-lang/pull/137)
+- 1.5.1
+  - Awesome new snippets by @EmilySeville7cfg [#116](https://github.com/nushell/vscode-nushell-lang/pull/116) [#119](https://github.com/nushell/vscode-nushell-lang/pull/119) [#121](https://github.com/nushell/vscode-nushell-lang/pull/121)
+- - 1.5.0
+  - No longer a preview release
+  - Fix `use` coloring when used in variable naming
+  - Allow underscore separators in numbers
+  - Goto Definition
+  - Inlays / Hints
+  - Hover
+  - Error squigglys
+  - Auto-complete
+  - Editor IDE Settings to help configure some features
+  - Added folding regions with `# region:` and `# endregion`
+  - Update syntax regexes to match nushell v0.79.0
+
 ## Pre-Release
 
-- Initial release 0.0.1
-  - proof of concept release
-- 0.0.2
-  - tweak sytnax highlighting
-- 0.0.3
-  - changed `set` to `let` since the language changed
-- 0.0.4
-  - changed line comment from `//` to `#`
-  - updated readme screenshot and issue link
-  - added all current nushell keywords
-  - added all current nushell sub commands
-  - fixed `[$var` bug
-  - fixed `foo-bar` bug
-- 0.0.5
-  - updated screenshot with different themes
-  - reorganized code a bit
-- 0.0.6
-  - fixed `my-ls` highlighting bug
-  - added build ci and release pipeline
-  - readme updates from `waldyrious` ty!
-  - moved assets to a folder
-- 0.0.7
-  - made release work dynamically with versions
-  - added icon
+- 1.1.0
+  - Updated syntax to match nushell 0.77.0
+  - Added a new path to search for nu [#82](https://github.com/nushell/vscode-nushell-lang/pull/82)
+  - Fixed `use` syntax highlighting [#79](https://github.com/nushell/vscode-nushell-lang/pull/79)
+  - Added nu icon [#77](https://github.com/nushell/vscode-nushell-lang/pull/77)
+  - Added additional scoop location [#75](https://github.com/nushell/vscode-nushell-lang/pull/75)
+- 1.0.0
+  - Thanks to Gabin Lefranc (@glcraft) for a total rewrite of the textmate grammar for nushell!!
+- 0.8.0
+  - added path for arm brew @melMass
+  - update readme screenshots
+  - add the old dark and light themes to repo for anyone who wants to use them
+  - update example.nu for testing
+  - update generate-example.nu to include all samples
+  - update generate-patterns.nu to support the new language features
+  - update language syntax to support new nushell 0.72 features (break, continue, return, loop, try, catch, mut, while, err>, out>, err+out>, out+err>)
+- 0.7.0
+  - better automatic syntax from @Yethal
+  - better block variable highlighting
+  - remove themes + some cleanup
+  - tweak auto-generated syntax
+- 0.6.0
+  - Thanks to @Yethal we have a new syntax generating script to help making releases easier
+  - Another item @Yethal contributed was a script to generate examples to test the syntax on
+  - Other general cleanup
+  - Supports most recent nushell syntax as of 0.66.4
+  - @schuelermine fixed a type-o
+- 0.5.3
+  - updated language punctuation recognition
+  - added the ability to recognize block parameters as variables
+  - split out part of the readme.md into building.md
+- 0.5.2
+  - add `true`, `false`, and `null` as pseudo keywords
+  - changed the indentation rules
+- 0.5.1
+  - add `not-in` as a pseudo keyword to go with `in` and `else`
+  - update screenshots showing else keyword
+  - add `on-Enter` rules
+  - fixed a bug with variable syntax coloring
+- 0.5.0
+  - updated language to support 0.60.0 new keywords
+  - fixed some bugs with highlighting
+  - separated keywords for easier regex debugging
+  - updated dependency versions
+- 0.4.2
+  - added contribute custom terminal feature it is easier to use nushell as a terminal in vscode
+- 0.4.1
+  - syntax changed to allow optional `$` in variable name
+  - syntax changed to allow space after custom command parameters
+  - added `in` to go with `for`
+- 0.4.0
+  - updated commands to support all commands in nushell 0.34.1
+  - disabled intellisense completions
+- 0.3.0
+  - updated commands to support all commands in nushell 0.32.0
+  - updated intellisense to support all commands in nushell 0.32.0
+  - added block parameter syntax highlighting
+- 0.2.2
+  - fixed a regression in syntax highlighting (thanks yume-chan)
+- 0.2.1
+  - tweaked the dark theme colors a tiny bit
+  - updated commands and keywords
+- 0.2.0
+  - added intellisense aka auto-complete for commands and subcommands
+- 0.1.2
+  - added search keywords in package.json
+  - added publisher name
+  - updated screenshots
+- 0.1.1
+  - added def snippet for custom command
+  - added defp snippet for custom command with a parameter
+  - added defs snippet for custom command with a switch
+  - added alias snippet for alias creation
+- 0.1.0
+  - tweaked some dark colors
+  - added source color for dark color
+  - changed double quote regex
+- 0.0.9
+  - renamed dark theme to Nushell-Dark
+  - added light theme named Nushell-Light
 - 0.0.8
   - added ansi strip
   - added term size
@@ -40,150 +167,27 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
   - added format
   - added $it.item
   - added $it.index
-- 0.0.9
-  - renamed dark theme to Nushell-Dark
-  - added light theme named Nushell-Light
-- 0.1.0
-  - tweaked some dark colors
-  - added source color for dark color
-  - changed double quote regex
-- 0.1.1
-  - added def snippet for custom command
-  - added defp snippet for custom command with a parameter
-  - added defs snippet for custom command with a switch
-  - added alias snippet for alias creation
-- 0.1.2
-  - added search keywords in package.json
-  - added publisher name
-  - updated screenshots
-- 0.2.0
-  - added intellisense aka auto-complete for commands and subcommands
-- 0.2.1
-  - tweaked the dark theme colors a tiny bit
-  - updated commands and keywords
-- 0.2.2
-  - fixed a regression in syntax highlighting (thanks yume-chan)
-- 0.3.0
-  - updated commands to support all commands in nushell 0.32.0
-  - updated intellisense to support all commands in nushell 0.32.0
-  - added block parameter syntax highlighting
-- 0.4.0
-  - updated commands to support all commands in nushell 0.34.1
-  - disabled intellisense completions
-- 0.4.1
-  - syntax changed to allow optional `$` in variable name
-  - syntax changed to allow space after custom command parameters
-  - added `in` to go with `for`
-- 0.4.2
-  - added contribute custom terminal feature it is easier to use nushell as a terminal in vscode
-- 0.5.0
-  - updated language to support 0.60.0 new keywords
-  - fixed some bugs with highlighting
-  - separated keywords for easier regex debugging
-  - updated dependency versions
-- 0.5.1
-  - add `not-in` as a pseudo keyword to go with `in` and `else`
-  - update screenshots showing else keyword
-  - add `on-Enter` rules
-  - fixed a bug with variable syntax coloring
-- 0.5.2
-  - add `true`, `false`, and `null` as pseudo keywords
-  - changed the indentation rules
-- 0.5.3
-  - updated language punctuation recognition
-  - added the ability to recognize block parameters as variables
-  - split out part of the readme.md into building.md
-- 0.6.0
-  - Thanks to @Yethal we have a new syntax generating script to help making releases easier
-  - Another item @Yethal contributed was a script to generate examples to test the syntax on
-  - Other general cleanup
-  - Supports most recent nushell syntax as of 0.66.4
-  - @schuelermine fixed a type-o
-- 0.7.0
-  - better automatic syntax from @Yethal
-  - better block variable highlighting
-  - remove themes + some cleanup
-  - tweak auto-generated syntax
-- 0.8.0
-  - added path for arm brew @melMass
-  - update readme screenshots
-  - add the old dark and light themes to repo for anyone who wants to use them
-  - update example.nu for testing
-  - update generate-example.nu to include all samples
-  - update generate-patterns.nu to support the new language features
-  - update language syntax to support new nushell 0.72 features (break, continue, return, loop, try, catch, mut, while, err>, out>, err+out>, out+err>)
-- 1.0.0
-  - Thanks to Gabin Lefranc (@glcraft) for a total rewrite of the textmate grammar for nushell!!
-- 1.1.0
-  - Updated syntax to match nushell 0.77.0
-  - Added a new path to search for nu [#82](https://github.com/nushell/vscode-nushell-lang/pull/82)
-  - Fixed `use` syntax highlighting [#79](https://github.com/nushell/vscode-nushell-lang/pull/79)
-  - Added nu icon [#77](https://github.com/nushell/vscode-nushell-lang/pull/77)
-  - Added additional scoop location [#75](https://github.com/nushell/vscode-nushell-lang/pull/75)
-
-## Release
-
-- 1.5.0
-  - No longer a preview release
-  - Fix `use` coloring when used in variable naming
-  - Allow underscore separators in numbers
-  - Goto Definition
-  - Inlays / Hints
-  - Hover
-  - Error squigglys
-  - Auto-complete
-  - Editor IDE Settings to help configure some features
-  - Added folding regions with `# region:` and `# endregion`
-  - Update syntax regexes to match nushell v0.79.0
-- 1.5.1
-  - Awesome new snippets by @EmilySeville7cfg [#116](https://github.com/nushell/vscode-nushell-lang/pull/116) [#119](https://github.com/nushell/vscode-nushell-lang/pull/119) [#121](https://github.com/nushell/vscode-nushell-lang/pull/121)
-- 1.6.0
-  - Snippets (completions) [#126](https://github.com/nushell/vscode-nushell-lang/pull/126)
-  - Snippets (markdown doc sections) [#127](https://github.com/nushell/vscode-nushell-lang/pull/127)
-  - Snippets (use H3 header) [#128](https://github.com/nushell/vscode-nushell-lang/pull/128)
-  - Snippets (support regex groups) [#130](https://github.com/nushell/vscode-nushell-lang/pull/130)
-  - Use unique labels for durationWrapper [#133](https://github.com/nushell/vscode-nushell-lang/pull/133)
-  - Fix TextMate regex that linguist discovered [#137](https://github.com/nushell/vscode-nushell-lang/pull/137)
-- 1.7.0
-  - Fix datetime parsing (@glcraft) [#140](https://github.com/nushell/vscode-nushell-lang/pull/140)
-  - Fix go-to definition on Windows (@gaetschwartz) [#141](https://github.com/nushell/vscode-nushell-lang/pull/141)
-  - Don't try to read if file doesn't exist (@gaetschwartz) [#143](https://github.com/nushell/vscode-nushell-lang/pull/143)
-  - Me forgetting to merge changes (@fdncred) [#145](https://github.com/nushell/vscode-nushell-lang/pull/145)
-  - npm audit fix (@fdncred) [#147](https://github.com/nushell/vscode-nushell-lang/pull/147)
-  - Update link (@balupton) [#149](https://github.com/nushell/vscode-nushell-lang/pull/149)
-  - Fix shebang detection (@adamcstephens) [#151](https://github.com/nushell/vscode-nushell-lang/pull/151)
-  - use `which` to find `nu` + add icon (@nerditation) [#153](https://github.com/nushell/vscode-nushell-lang/pull/153)
-- 1.7.1
-  - Update to nushell 0.85.0 (@fdncred) [#155](https://github.com/nushell/vscode-nushell-lang/pull/155)
-  - update textmate `def --env`, `def --wrapped`, input/output types (@glcraft) [#160](https://github.com/nushell/vscode-nushell-lang/pull/160)
-- 1.8.0
-  - automatically publish extension to open vsx registry on release (@Yakiyo) [#161](https://github.com/nushell/vscode-nushell-lang/pull/161)
-  - More conditional and loop snippets (@EmilyGraceSeville7cf) [#165](https://github.com/nushell/vscode-nushell-lang/pull/165)
-  - Syntax highlight: add "export" to "module" (@glcraft) [#166](https://github.com/nushell/vscode-nushell-lang/pull/166)
-  - Improve type parsing in function def (@glcraft) [#167](https://github.com/nushell/vscode-nushell-lang/pull/167)
-  - Textmate improvements (@glcraft) [#168](https://github.com/nushell/vscode-nushell-lang/pull/168)
-  - Textmate: improvement on record entries and closure (@glcraft) [#169](https://github.com/nushell/vscode-nushell-lang/pull/169)
-- 1.9.0
-  - Add spread to syntax highlighting [#174](https://github.com/nushell/vscode-nushell-lang/pull/174)
-  - fix markdown formatting for hover lsp [#175](https://github.com/nushell/vscode-nushell-lang/pull/175)
-  - update grammar for nushell 0.91.0 [#177](https://github.com/nushell/vscode-nushell-lang/pull/177)
-- 1.10.0
-  - Remove / and \ from wordPattern [#186](https://github.com/nushell/vscode-nushell-lang/pull/186)
-  - Add support for def my-function syntax highlighting and add tests to it [#182](https://github.com/nushell/vscode-nushell-lang/pull/182)
-  - add prettier to dev deps [#181](https://github.com/nushell/vscode-nushell-lang/pull/181)
-- 2.0.0 Pre-Release
-  - Syntax highlighting in markdown code blocks [#195](https://github.com/nushell/vscode-nushell-lang/pull/195)
-  - Fix vulnerabilities detected by npm audit [#193](https://github.com/nushell/vscode-nushell-lang/pull/193)
-  - Add CONTRIBUTING.md [#194](https://github.com/nushell/vscode-nushell-lang/pull/194)
-  - Support raw strings [#197](https://github.com/nushell/vscode-nushell-lang/pull/197)
-  - Remove irrelevant autoClosingPair /\*\* [#198](https://github.com/nushell/vscode-nushell-lang/pull/198)
-  - Improve highlighting of bare and raw strings, and add missing unit & operator [#199](https://github.com/nushell/vscode-nushell-lang/pull/199)
-  - Add operators 'has' & 'has-not', and shorten operators-word regex [#201](https://github.com/nushell/vscode-nushell-lang/pull/201)
-  - Support floats, binary & octal literals (with underscores) [#200](https://github.com/nushell/vscode-nushell-lang/pull/200)
-  - Use LSP instead of legacy --ide-\* parameters [#207](https://github.com/nushell/vscode-nushell-lang/pull/207)
-- 2.0.3 Pre-Release
-  - Add ability to start and stop lsp [#210](https://github.com/nushell/vscode-nushell-lang/pull/210)
-  - Better JSONRPC logging [#211](https://github.com/nushell/vscode-nushell-lang/pull/211)
-  - Fix some lints [#213](https://github.com/nushell/vscode-nushell-lang/pull/213)
-- 2.0.4 Pre-Release
-  - Don't auto-reveal output panel [#219](https://github.com/nushell/vscode-nushell-lang/pull/219)
+- 0.0.7
+  - made release work dynamically with versions
+  - added icon
+- 0.0.6
+  - fixed `my-ls` highlighting bug
+  - added build ci and release pipeline
+  - readme updates from `waldyrious` ty!
+  - moved assets to a folder
+- 0.0.5
+  - updated screenshot with different themes
+  - reorganized code a bit
+- 0.0.4
+  - changed line comment from `//` to `#`
+  - updated readme screenshot and issue link
+  - added all current nushell keywords
+  - added all current nushell sub commands
+  - fixed `[$var` bug
+  - fixed `foo-bar` bug
+- 0.0.3
+  - changed `set` to `let` since the language changed
+- 0.0.2
+  - tweak sytnax highlighting
+- Initial release 0.0.1
+  - proof of concept release

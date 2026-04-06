@@ -4,12 +4,12 @@
     "target": "es2020",
     "lib": ["es2020"],
     "outDir": "out",
-    "rootDir": "src",
+    "rootDir": "client/src",
     "sourceMap": true,
     "strict": true,
     "composite": true
   },
-  "include": ["src"],
+  "include": ["client/src"],
   "exclude": ["node_modules", ".vscode-test"],
-  "references": [{ "path": "./client" }, { "path": "./server" }]
+  "references": [{ "path": "./client" }]
 }
