@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 
-export CODE_TESTS_PATH="$(pwd)/client/out/test"
-export CODE_TESTS_WORKSPACE="$(pwd)/client/testFixture"
-
-node "$(pwd)/client/out/test/runTest"
+# Use the cross-platform Node-based test runner so the same flow works on all hosts.
+node "$(dirname "$0")/e2e.js"

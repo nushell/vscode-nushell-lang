@@ -3,7 +3,7 @@
   "displayName": "vscode-nushell-lang",
   "description": "nushell language for vscode",
   "author": "The Nushell Project Developers",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "preview": false,
   "license": "MIT",
   "publisher": "TheNuProjectContributors",
@@ -16,15 +16,12 @@
     "url": "https://github.com/nushell/vscode-nushell-lang/issues"
   },
   "engines": {
-    "vscode": "^1.93.0"
+    "vscode": "^1.110.0"
   },
   "icon": "assets/nushell.ico",
   "categories": [
     "Programming Languages",
     "Snippets"
-  ],
-  "activationEvents": [
-    "onTerminalProfile:nushell_default"
   ],
   "main": "out/extension.js",
   "contributes": {
@@ -65,12 +62,13 @@
     ],
     "keybindings": [
       {
-        "command": "start https://www.nushell.sh/book/",
+        "command": "nushell.openDocs",
         "key": "ctrl+f1",
         "when": "editorTextFocus && editorLangId == 'nushell'"
       },
       {
         "command": "editor.action.insertSnippet",
+        "key": "ctrl+alt+j",
         "when": "editorTextFocus && editorLangId == 'nushell'",
         "mac": "cmd+alt+j",
         "win": "ctrl+alt+j",
@@ -142,6 +140,10 @@
     },
     "commands": [
       {
+        "command": "nushell.openDocs",
+        "title": "Nushell: Open Documentation"
+      },
+      {
         "command": "nushell.stopLanguageServer",
         "title": "Nushell: Stop Language Server"
       },
@@ -159,32 +161,27 @@
     "install": "cd client && npm install && cd ..",
     "watch": "npm run esbuild-base -- --sourcemap --watch",
     "lint": "npx eslint ./client/src/extension.ts",
-    "test": "sh ./scripts/e2e.sh",
+    "test": "node ./scripts/e2e.js",
     "test:grammar": "vscode-tmgrammar-snap tests/cases/*",
     "fmt": "prettier . --write"
   },
   "dependencies": {
-    "glob": "11.0.3",
-    "nushell-lsp-client": "file:client",
-    "os": "0.1.2"
+    "nushell-lsp-client": "file:client"
   },
   "devDependencies": {
     "@types/mocha": "10.0.10",
-    "@types/node": "24.3.0",
+    "@types/node": "25.5.2",
     "@types/tmp": "0.2.6",
-    "@types/vscode": "^1.93.0",
-    "@typescript-eslint/eslint-plugin": "^8.42.0",
-    "@typescript-eslint/parser": "^8.42.0",
-    "@vscode/vsce": "3.6.0",
-    "esbuild": "0.25.9",
-    "eslint": "^9.34.0",
-    "mocha": "11.7.2",
-    "prettier": "3.6.2",
-    "ts-loader": "9.5.4",
-    "typescript": "5.9.2",
-    "vscode-tmgrammar-test": "0.1.3",
-    "webpack": "5.101.3",
-    "webpack-cli": "6.0.1"
+    "@types/vscode": "1.110.0",
+    "@typescript-eslint/eslint-plugin": "8.58.0",
+    "@typescript-eslint/parser": "8.58.0",
+    "@vscode/vsce": "3.7.1",
+    "esbuild": "0.28.0",
+    "eslint": "^10.2.0",
+    "mocha": "11.3.0",
+    "prettier": "3.8.1",
+    "typescript": "6.0.2",
+    "vscode-tmgrammar-test": "0.1.3"
   },
   "keywords": [
     "nushell",

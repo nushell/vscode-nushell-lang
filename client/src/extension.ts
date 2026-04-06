@@ -15,9 +15,8 @@ import {
   RevealOutputChannelOn,
 } from 'vscode-languageclient/node';
 
-let client: LanguageClient;
-let outputChannel: OutputChannel; // Trace channel
-let serverOutputChannel: OutputChannel; // Server logs channel (single instance)
+let client: LanguageClient | undefined;
+let outputChannel: OutputChannel | undefined; // Single output channel for server logs and trace
 
 function findNushellExecutable(): string | null {
   try {
@@ -58,7 +57,7 @@ function startLanguageServer(
     );
     return;
   }
-  // Channel to receive detailed JSON-RPC trace between VS Code and the LSP server
+  // Channel to receive both server logs and JSON-RPC trace between VS Code and the LSP server
   if (outputChannel) {
     try {
       outputChannel.dispose();
@@ -66,7 +65,7 @@ function startLanguageServer(
       // ignore
     }
   }
-  outputChannel = window.createOutputChannel('Nushell LSP Trace');
+  outputChannel = window.createOutputChannel('Nushell Language Server');
   context.subscriptions.push(outputChannel);
 
   // Use Nushell's native LSP server
@@ -81,19 +80,13 @@ function startLanguageServer(
     },
   };
 
-  // Ensure a single server output channel exists and is reused
-  if (!serverOutputChannel) {
-    serverOutputChannel = window.createOutputChannel('Nushell Language Server');
-    context.subscriptions.push(serverOutputChannel);
-  }
-
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
-    // Route general server logs to a single, reusable channel
-    outputChannel: serverOutputChannel,
+    // Route general server logs to a single channel
+    outputChannel: outputChannel,
     // Never auto-reveal the server output channel
     revealOutputChannelOn: RevealOutputChannelOn.Never,
-    // Send JSON-RPC trace to a dedicated channel visible in the Output panel
+    // Send JSON-RPC trace to the same channel as server logs
     traceOutputChannel: outputChannel,
     markdown: {
       isTrusted: true,
@@ -103,7 +96,10 @@ function startLanguageServer(
       timeout: 10000, // 10 seconds
     },
     // Register the server for nushell files
-    documentSelector: [{ scheme: 'file', language: 'nushell' }],
+    documentSelector: [
+      { scheme: 'file', language: 'nushell' },
+      { scheme: 'untitled', language: 'nushell' },
+    ],
     synchronize: {
       // Notify the server about file changes to nushell files
       fileEvents: vscode.workspace.createFileSystemWatcher('**/*.nu'),
@@ -129,7 +125,7 @@ function startLanguageServer(
       messages: Trace.Messages,
       verbose: Trace.Verbose,
     };
-    client.setTrace(map[level]);
+    client?.setTrace(map[level]);
     try {
       outputChannel.appendLine(`[Nushell] JSON-RPC tracing set to: ${level}`);
     } catch {
@@ -173,8 +169,6 @@ function startLanguageServer(
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Terminals: ' + (<any>vscode.window).terminals.length);
-
   // Find Nushell executable once and reuse it
   const found_nushell_path = findNushellExecutable();
 
@@ -185,31 +179,11 @@ export function activate(context: vscode.ExtensionContext) {
       ): vscode.ProviderResult<vscode.TerminalProfile> {
         // Consume token to satisfy no-unused-vars without changing behavior
         void token;
-        if (found_nushell_path == null) {
-          console.log(
-            'Nushell not found in env:PATH or any of the heuristic locations.',
+        if (!found_nushell_path) {
+          void vscode.window.showErrorMessage(
+            'Nushell executable not found in your PATH or configured location.',
           );
-          // use an async arrow funciton to use `await` inside
-          return (async () => {
-            if (
-              (await vscode.window.showErrorMessage(
-                'We cannot find a nushell executable in your path or pre-defined locations',
-                'install from website',
-              )) &&
-              (await vscode.env.openExternal(
-                vscode.Uri.parse('https://www.nushell.sh/'),
-              )) &&
-              (await vscode.window.showInformationMessage(
-                'after you install nushell, you might need to reload vscode',
-                'reload now',
-              ))
-            ) {
-              vscode.commands.executeCommand('workbench.action.reloadWindow');
-            }
-            // user has already seen error messages, but they didn't click through
-            // return a promise that never resolve to supress the confusing error
-            return await new Promise(() => undefined);
-          })();
+          return undefined;
         }
 
         return {
@@ -271,6 +245,17 @@ export function activate(context: vscode.ExtensionContext) {
     },
   );
   context.subscriptions.push(stopCommand);
+
+  // Register a command to open documentation
+  const openDocsCommand = vscode.commands.registerCommand(
+    'nushell.openDocs',
+    async () => {
+      await vscode.env.openExternal(
+        vscode.Uri.parse('https://www.nushell.sh/book/'),
+      );
+    },
+  );
+  context.subscriptions.push(openDocsCommand);
 
   // Register a command to start the language server
   const startCommand = vscode.commands.registerCommand(
