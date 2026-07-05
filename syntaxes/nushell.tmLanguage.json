@@ -601,11 +601,15 @@
       ]
     },
     "define-variable": {
-      "match": "(let|mut|(?:export\\s+)?const)\\s+(\\w+)\\s+(=)",
+      "match": "(let|mut|(?:export\\s+)?const)\\s+(\\w+)(?:\\s*(:)\\s*([^=]+?))?\\s+(=)",
       "captures": {
         "1": { "name": "keyword.other.nushell" },
         "2": { "name": "variable.other.nushell" },
-        "3": {
+        "3": { "name": "punctuation.separator.nushell" },
+        "4": {
+          "patterns": [{ "include": "#types" }]
+        },
+        "5": {
           "patterns": [{ "include": "#operators" }]
         }
       }
