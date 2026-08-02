@@ -557,7 +557,7 @@
           },
           "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
           "name": "meta.record-entry.nushell",
-          "patterns": [{ "include": "#value" }]
+          "patterns": [{ "include": "#record-value" }]
         },
         {
           "begin": "(\\$\"((?:[^\"\\\\]|\\\\.)*)\")\\s*(:)\\s*",
@@ -571,7 +571,7 @@
           },
           "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
           "name": "meta.record-entry.nushell",
-          "patterns": [{ "include": "#value" }]
+          "patterns": [{ "include": "#record-value" }]
         },
         {
           "begin": "(\"(?:[^\"\\\\]|\\\\.)*\")\\s*(:)\\s*",
@@ -581,7 +581,7 @@
           },
           "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
           "name": "meta.record-entry.nushell",
-          "patterns": [{ "include": "#value" }]
+          "patterns": [{ "include": "#record-value" }]
         },
         {
           "begin": "(\\$'([^']*)')\\s*(:)\\s*",
@@ -595,7 +595,7 @@
           },
           "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
           "name": "meta.record-entry.nushell",
-          "patterns": [{ "include": "#value" }]
+          "patterns": [{ "include": "#record-value" }]
         },
         {
           "begin": "('[^']*')\\s*(:)\\s*",
@@ -605,7 +605,7 @@
           },
           "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
           "name": "meta.record-entry.nushell",
-          "patterns": [{ "include": "#value" }]
+          "patterns": [{ "include": "#record-value" }]
         },
         { "include": "#spread" },
         { "include": "source.nushell" }
@@ -724,6 +724,20 @@
         { "include": "#constant-value" },
         { "include": "#table" },
         { "include": "#operators" },
+        { "include": "#paren-expression" },
+        { "include": "#braced-expression" },
+        { "include": "#string" },
+        { "include": "#comment" }
+      ]
+    },
+    "record-value": {
+      "patterns": [
+        { "include": "#variables" },
+        { "include": "#variable-fields" },
+        { "include": "#constant-value" },
+        { "include": "#table" },
+        { "include": "#spread" },
+        { "include": "#ranges" },
         { "include": "#paren-expression" },
         { "include": "#braced-expression" },
         { "include": "#string" },
