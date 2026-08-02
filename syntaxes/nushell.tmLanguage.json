@@ -550,9 +550,9 @@
           "patterns": [{ "include": "#function-parameter" }]
         },
         {
-          "begin": "(\\w+)\\s*(:)\\s*",
+          "begin": "(?!\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2})([^\\s:,|;(){}\\[\"'$#][^\\s:,|;(){}\\[\"']*)\\s*(:)\\s*",
           "beginCaptures": {
-            "1": { "name": "variable.other.nushell" },
+            "1": { "name": "string.bare.nushell variable.other.nushell" },
             "2": { "name": "keyword.control.nushell" }
           },
           "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
