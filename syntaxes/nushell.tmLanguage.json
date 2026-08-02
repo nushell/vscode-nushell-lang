@@ -550,15 +550,18 @@
           "patterns": [{ "include": "#function-parameter" }]
         },
         {
-          "match": "(\\w+)\\s*(:)\\s*",
-          "captures": {
+          "begin": "(\\w+)\\s*(:)\\s*",
+          "beginCaptures": {
             "1": { "name": "variable.other.nushell" },
             "2": { "name": "keyword.control.nushell" }
-          }
+          },
+          "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
+          "name": "meta.record-entry.nushell",
+          "patterns": [{ "include": "#value" }]
         },
         {
-          "match": "(\\$\"((?:[^\"\\\\]|\\\\.)*)\")\\s*(:)\\s*",
-          "captures": {
+          "begin": "(\\$\"((?:[^\"\\\\]|\\\\.)*)\")\\s*(:)\\s*",
+          "beginCaptures": {
             "1": { "name": "variable.other.nushell" },
             "2": {
               "name": "variable.other.nushell",
@@ -566,19 +569,23 @@
             },
             "3": { "name": "keyword.control.nushell" }
           },
-          "name": "meta.record-entry.nushell"
+          "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
+          "name": "meta.record-entry.nushell",
+          "patterns": [{ "include": "#value" }]
         },
         {
-          "match": "(\"(?:[^\"\\\\]|\\\\.)*\")\\s*(:)\\s*",
-          "captures": {
+          "begin": "(\"(?:[^\"\\\\]|\\\\.)*\")\\s*(:)\\s*",
+          "beginCaptures": {
             "1": { "name": "string.quoted.double.nushell variable.other.nushell" },
             "2": { "name": "keyword.control.nushell" }
           },
-          "name": "meta.record-entry.nushell"
+          "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
+          "name": "meta.record-entry.nushell",
+          "patterns": [{ "include": "#value" }]
         },
         {
-          "match": "(\\$'([^']*)')\\s*(:)\\s*",
-          "captures": {
+          "begin": "(\\$'([^']*)')\\s*(:)\\s*",
+          "beginCaptures": {
             "1": { "name": "variable.other.nushell" },
             "2": {
               "name": "variable.other.nushell",
@@ -586,15 +593,19 @@
             },
             "3": { "name": "keyword.control.nushell" }
           },
-          "name": "meta.record-entry.nushell"
+          "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
+          "name": "meta.record-entry.nushell",
+          "patterns": [{ "include": "#value" }]
         },
         {
-          "match": "('[^']*')\\s*(:)\\s*",
-          "captures": {
+          "begin": "('[^']*')\\s*(:)\\s*",
+          "beginCaptures": {
             "1": { "name": "string.quoted.single.nushell variable.other.nushell" },
             "2": { "name": "keyword.control.nushell" }
           },
-          "name": "meta.record-entry.nushell"
+          "end": "(?=[,}])|(?<=[^\\s:])(?=\\s)",
+          "name": "meta.record-entry.nushell",
+          "patterns": [{ "include": "#value" }]
         },
         { "include": "#spread" },
         { "include": "source.nushell" }
