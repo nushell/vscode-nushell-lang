@@ -551,7 +551,7 @@
         },
         {
           "comment": "Blocks and closures are also scanned by this rule, so the negative lookahead keeps a datetime like 2024-01-01T00:00:00Z from being split into key and value.",
-          "begin": "(?!\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2})([^\\s:,|;(){}\\[\"'$#][^\\s:,|;(){}\\[\"']*)\\s*(:)\\s*",
+          "begin": "(?!\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2})([^\\s:,|;(){}\\[\"'$#][^\\s:,|;(){}\\[\"']*)\\s*(:)\\s*",
           "beginCaptures": {
             "1": { "name": "string.bare.nushell variable.other.nushell" },
             "2": { "name": "keyword.control.nushell" }
