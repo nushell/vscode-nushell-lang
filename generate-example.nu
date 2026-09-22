@@ -1,6 +1,11 @@
 #!/usr/bin/env nu
-$nu.scope.commands | 
-where is_builtin and (not $it.is_extern) |
-get -i examples | 
-each {|r| $r.example? | append (char nl)} | 
-flatten | save -f example.nu
+
+# Collect the examples of every built-in command into example.nu.
+scope commands
+| where type == built-in
+| get examples
+| flatten
+| get example
+| each {|example| $example + (char nl)}
+| str join (char nl)
+| save --force example.nu

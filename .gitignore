@@ -5,8 +5,6 @@ dist
 # ignore the git mailmap file
 .mailmap
 client/out
-client/testFixture/completion.txt
-client/testFixture/diagnostics.txt
 client/tsconfig.tsbuildinfo
 .vscode-test
 out/

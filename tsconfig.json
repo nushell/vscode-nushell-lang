@@ -7,9 +7,8 @@
     "rootDir": "client/src",
     "sourceMap": true,
     "strict": true,
-    "composite": true
+    "skipLibCheck": true
   },
   "include": ["client/src"],
-  "exclude": ["node_modules", ".vscode-test"],
-  "references": [{ "path": "./client" }]
+  "exclude": ["node_modules", ".vscode-test"]
 }

@@ -31,7 +31,7 @@ If you have all these tools already installed, you should be able to clone this 
 2. In repo folder `npm install`
 3. Hit F5 to start debugging (or Run->Start Debugging menu item)
 4. Go to settings with `Ctrl ,` or `Cmd ,`
-5. In the settings tree on the left, go to Extensions->Nushell IDE Support and make sure `Nushell Executable Path` is pointing at where you have nu/nu.exe installed. (It must be version 0.79.0 or greater)
+5. In the settings tree on the left, go to Extensions->Nushell IDE Support and make sure `Nushell Executable Path` is pointing at where you have nu/nu.exe installed. (The extension talks to `nu --lsp`, so it must be a version that supports it; a current release is recommended.)
 6. Open a nushell script and in a moment you should see inlays and see the full functionality
 7. To see the Language Server debug messages hit `Ctrl ~`
 8. Go to the output tab
@@ -50,7 +50,13 @@ glcraft wrote a fancy program to create regexes for the extension. Here's the st
 1. clone and cargo install the tool. https://github.com/glcraft/list-to-tree
 2. on windows create a set of commands. `scope commands | where type == built-in or type == keyword or type == plugin | get name | to text | save win-cmds_20240923.txt`
 3. on linux create a set of commands. `scope commands | where type == built-in or type == keyword or type == plugin | get name | to text | save lin-cmds_20240923.txt`
-4. combine these two files, sort, and uniq them. `open win-cmds_20230919.txt | lines | append (open lin-cmds_20230919.txt | lines) | sort | uniq | save cmds_20230919.txt`
-5. run list-to-tree `list-to-tree --input cmds_20230919.txt --format regex`
+4. combine these two files, sort, and uniq them. `open win-cmds_20240923.txt | lines | append (open lin-cmds_20240923.txt | lines) | sort | uniq | save cmds_20240923.txt`
+5. run list-to-tree `list-to-tree --input cmds_20240923.txt --format regex`
 6. copy-n-paste the results to the `nushell.tmLanguage.json` file in the appropriate place (search for "list-to-tree"). Be careful, this can be tricky.
 7. test out the changes with F5 and viewing some scripts.
+
+The `generate-patterns.nu` script does steps 5 and 6 for you: `nu generate-patterns.nu --input cmds_20240923.txt` writes the regex into the grammar, and `--dry-run` prints it instead. Without `--input` it uses the commands of the `nu` that runs it, which includes whatever plugins you have registered.
+
+## Grammar tests
+
+`npm run test:grammar` checks the grammar against the snapshots in `tests/cases`. After an intentional grammar change, refresh a snapshot with `npx vscode-tmgrammar-snap --updateSnapshot tests/cases/<file>.nu` and review the diff.

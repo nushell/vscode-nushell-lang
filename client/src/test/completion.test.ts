@@ -1,43 +1,40 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
-
 import * as vscode from 'vscode';
 import * as assert from 'assert';
-import { getDocUri, activate } from './helper';
+import { getDocUri, activate, waitFor } from './helper';
 
-suite('Should do completion', () => {
-  const docUri = getDocUri('completion.txt');
+function labelsOf(list: vscode.CompletionList): string[] {
+  return list.items.map((item) =>
+    typeof item.label === 'string' ? item.label : item.label.label,
+  );
+}
 
-  test('Completes JS/TS in txt file', async () => {
-    await testCompletion(docUri, new vscode.Position(0, 0), {
-      items: [
-        { label: 'JavaScript', kind: vscode.CompletionItemKind.Text },
-        { label: 'TypeScript', kind: vscode.CompletionItemKind.Text },
-      ],
+suite('Completion from nu --lsp', () => {
+  const docUri = getDocUri('completion.nu');
+
+  test('completes a built-in subcommand', async () => {
+    await activate(docUri);
+
+    // `"hello" | str upc` -> end of line
+    const position = new vscode.Position(0, 17);
+    let lastLabels: string[] = [];
+    // VS Code also offers word-based and snippet suggestions, so keep polling
+    // until the language server's own item shows up.
+    const labels = await waitFor(async () => {
+      const result = (await vscode.commands.executeCommand(
+        'vscode.executeCompletionItemProvider',
+        docUri,
+        position,
+      )) as vscode.CompletionList;
+      lastLabels = result ? labelsOf(result) : [];
+      return lastLabels.some((label) => label.includes('upcase'))
+        ? lastLabels
+        : undefined;
+    }).catch((error) => {
+      throw new Error(
+        `expected a completion containing 'upcase', got: ${lastLabels.join(', ')} (${error})`,
+      );
     });
+
+    assert.ok(labels.some((label) => label.includes('upcase')));
   });
 });
-
-async function testCompletion(
-  docUri: vscode.Uri,
-  position: vscode.Position,
-  expectedCompletionList: vscode.CompletionList,
-) {
-  await activate(docUri);
-
-  // Executing the command `vscode.executeCompletionItemProvider` to simulate triggering completion
-  const actualCompletionList = (await vscode.commands.executeCommand(
-    'vscode.executeCompletionItemProvider',
-    docUri,
-    position,
-  )) as vscode.CompletionList;
-
-  assert.ok(actualCompletionList.items.length >= 2);
-  expectedCompletionList.items.forEach((expectedItem, i) => {
-    const actualItem = actualCompletionList.items[i];
-    assert.equal(actualItem.label, expectedItem.label);
-    assert.equal(actualItem.kind, expectedItem.kind);
-  });
-}

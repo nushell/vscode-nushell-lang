@@ -371,11 +371,6 @@
     "description": "\"encode hex\" invocation",
     "body": "${1:command} | encode hex"
   },
-  "enter": {
-    "prefix": "enter",
-    "description": "\"enter\" invocation",
-    "body": "enter ${1:path/to/directory}"
-  },
   "enumerate": {
     "prefix": "enumerate",
     "description": "\"enumerate\" invocation",
@@ -444,20 +439,10 @@
     "description": "\"export extern\" invocation",
     "body": "export extern ${1:name} [${2:param}: string${3:, }]"
   },
-  "export old-alias": {
-    "prefix": "export-old-alias",
-    "description": "\"export old-alias\" invocation",
-    "body": "export old-alias ${1:name} = ${2:value}"
-  },
   "export use": {
     "prefix": "export-use",
     "description": "\"export use\" invocation",
     "body": "export use ${1:module} ${2:members}"
-  },
-  "export env": {
-    "prefix": "export-env",
-    "description": "\"export env\" invocation",
-    "body": "export env { ${1:command ...} }"
   },
   "extern": {
     "prefix": "extern",
@@ -536,11 +521,6 @@
     "prefix": "from",
     "description": "\"from\" invocation",
     "body": "${1:command} | from ${2|csv,eml,ics,ini,json,nuon,ods,ssv,toml,tsc,url,vcf,xlsx,xml,yaml,yml|}"
-  },
-  "g": {
-    "prefix": "g",
-    "description": "\"g\" invocation",
-    "body": "g ${1:shell}"
   },
   "get": {
     "prefix": "get",
@@ -770,11 +750,6 @@
     "description": "\"let\" invocation",
     "body": ["# ${1:documentation}", "let ${2:name} = ${3:value}"]
   },
-  "let-env": {
-    "prefix": "let-env",
-    "description": "\"let-env\" invocation",
-    "body": "let-env ${1:name} = ${2:value}"
-  },
   "@let-env": {
     "prefix": "@let-env",
     "description": "\"let-env\" invocation",
@@ -855,11 +830,6 @@
     "description": "\"nu-highlight\" invocation",
     "body": "${1:command} | nu-highlight"
   },
-  "old-alias": {
-    "prefix": "old-alias",
-    "description": "\"old-alias\" invocation",
-    "body": "old-alias ${1:name} = ${2:value}"
-  },
   "@old-alias": {
     "prefix": "@old-alias",
     "description": "\"old-alias\" invocation",
@@ -920,11 +890,6 @@
     "description": "\"prepend\" invocation",
     "body": "${1:command} | prepend ${2:row}"
   },
-  "profile": {
-    "prefix": "profile",
-    "description": "\"profile\" invocation",
-    "body": "profile {|| ${1:command ...} }"
-  },
   "query": {
     "prefix": "query",
     "description": "\"query\" invocation",
@@ -969,11 +934,6 @@
     "prefix": "reduce",
     "description": "\"reduce\" invocation",
     "body": "${1:command} | reduce {|${2:el}, ${3:acc}| ${4:command ...} }"
-  },
-  "register": {
-    "prefix": "register",
-    "description": "\"register\" invocation",
-    "body": "register ${1:path/to/plugin}"
   },
   "registry query": {
     "prefix": "registry-query",
@@ -1402,5 +1362,10 @@
     "prefix": "warning",
     "description": "warning",
     "body": ["# > **Warning** ${1:warning}"]
+  },
+  "export-env": {
+    "prefix": "export-env",
+    "description": "\"export-env\" invocation",
+    "body": "export-env { ${1:command ...} }"
   }
 }
