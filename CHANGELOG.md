@@ -4,6 +4,16 @@ All notable changes to the "vscode-nushell-lang" extension will be documented in
 
 ## Release
 
+- 2.0.6 Release
+  - Update grammar command list for nushell 0.116.0 [#239](https://github.com/nushell/vscode-nushell-lang/pull/239)
+  - Fix grammar for filesize units, string escapes, negative timezone offsets, `table<>`/`oneof<>` types, redirection operators, `0b[]`/`0o[]` literals, and `$in` [#239](https://github.com/nushell/vscode-nushell-lang/pull/239)
+  - Highlight ` ```nu ` code blocks in markdown [#239](https://github.com/nushell/vscode-nushell-lang/pull/239)
+  - Fix language server start/stop commands, fall back to `nu` on PATH when the configured executable is missing, and remove settings that `nu --lsp` never used [#239](https://github.com/nushell/vscode-nushell-lang/pull/239)
+  - Remove snippets for commands that no longer exist and fix `export-env` [#239](https://github.com/nushell/vscode-nushell-lang/pull/239)
+  - Rewrite e2e tests against `nu --lsp` and fix `generate-patterns.nu`/`generate-example.nu` for current nushell [#239](https://github.com/nushell/vscode-nushell-lang/pull/239)
+  - Syntax highlighting broken for record keys containing brackets [#232](https://github.com/nushell/vscode-nushell-lang/pull/232)
+  - Syntax highlighting broken for variable declarations with type annotations [#234](https://github.com/nushell/vscode-nushell-lang/pull/234)
+  - Syntax highlighting broken for bare string values in records [#237](https://github.com/nushell/vscode-nushell-lang/pull/237)
 - 2.0.5 Release
   - Update `def` syntax [#222](https://github.com/nushell/vscode-nushell-lang/pull/222)
   - add `<>` to `autoClosingPairs` [#227](https://github.com/nushell/vscode-nushell-lang/pull/227)

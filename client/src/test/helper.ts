@@ -1,34 +1,46 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
-
 import * as vscode from 'vscode';
 import * as path from 'path';
 
 export let doc: vscode.TextDocument;
 export let editor: vscode.TextEditor;
-export let documentEol: string;
-export let platformEol: string;
+
+const EXTENSION_ID = 'TheNuProjectContributors.vscode-nushell-lang';
 
 /**
- * Activates the vscode.lsp-sample extension
+ * Activates the extension and opens the given document.
  */
 export async function activate(docUri: vscode.Uri) {
-  // The extensionId is `publisher.name` from package.json
-  const ext = vscode.extensions.getExtension('vscode-samples.lsp-sample')!;
-  await ext.activate();
-  try {
-    doc = await vscode.workspace.openTextDocument(docUri);
-    editor = await vscode.window.showTextDocument(doc);
-    await sleep(2000); // Wait for server activation
-  } catch (e) {
-    console.error(e);
+  const ext = vscode.extensions.getExtension(EXTENSION_ID);
+  if (!ext) {
+    throw new Error(`Extension ${EXTENSION_ID} not found`);
   }
+  await ext.activate();
+  doc = await vscode.workspace.openTextDocument(docUri);
+  editor = await vscode.window.showTextDocument(doc);
 }
 
-async function sleep(ms: number) {
+export async function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Polls `check` until it returns a truthy value or the timeout elapses.
+ */
+export async function waitFor<T>(
+  check: () => Promise<T | undefined> | T | undefined,
+  timeoutMs = 20000,
+  intervalMs = 250,
+): Promise<T> {
+  const deadline = Date.now() + timeoutMs;
+  let last: T | undefined;
+  while (Date.now() < deadline) {
+    last = await check();
+    if (last) {
+      return last;
+    }
+    await sleep(intervalMs);
+  }
+  throw new Error(`Timed out after ${timeoutMs}ms; last value: ${last}`);
 }
 
 export const getDocPath = (p: string) => {

@@ -1,7 +1,3 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
 import * as path from 'path';
 
 import { runTests } from '@vscode/test-electron';
@@ -16,10 +12,17 @@ async function main() {
     // Passed to --extensionTestsPath
     const extensionTestsPath = path.resolve(__dirname, './index');
 
+    // Open the fixture folder as the workspace so `nu --lsp` gets a workspace root
+    const fixturePath = path.resolve(__dirname, '../../testFixture');
+
     // Download VS Code, unzip it and run the integration test
-    await runTests({ extensionDevelopmentPath, extensionTestsPath });
+    await runTests({
+      extensionDevelopmentPath,
+      extensionTestsPath,
+      launchArgs: [fixturePath, '--disable-extensions'],
+    });
   } catch (err) {
-    console.error('Failed to run tests');
+    console.error('Failed to run tests', err);
     process.exit(1);
   }
 }
