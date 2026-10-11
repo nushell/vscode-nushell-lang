@@ -23,6 +23,18 @@ let pinnedName: string | undefined;
  */
 let generation = 0;
 
+/**
+ * Bumped per Visualize pick. A pick outranks a refresh: a refresh that
+ * started before a pick is dropped, but a refresh never drops a pick.
+ */
+let picks = 0;
+
+/** Start a Visualize pick; the returned check says whether no later pick came in. */
+export function startPick(): () => boolean {
+  const mine = ++picks;
+  return () => mine === picks;
+}
+
 export function pinVariable(name: string): void {
   pinnedName = name;
   generation++;
@@ -47,18 +59,20 @@ export async function refreshPinnedVariable(
   }
 
   const mine = ++generation;
+  const picksThen = picks;
+  const isCurrent = () => mine === generation && picksThen === picks;
   try {
     const body = await fetchVisualize(session, {
       containerReference: LOCALS_REFERENCE,
       name,
     });
-    if (mine !== generation) {
+    if (!isCurrent()) {
       return; // a later stop or a new pick superseded this answer
     }
 
     updateVisualizePanel(name, body);
   } catch {
-    if (mine !== generation) {
+    if (!isCurrent()) {
       return;
     }
 

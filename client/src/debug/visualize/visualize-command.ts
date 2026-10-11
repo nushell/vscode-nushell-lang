@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 import { activeNuSession } from '../shared/session';
-import { pinVariable, unpinVariable } from './pinned-variable';
+import { pinVariable, startPick, unpinVariable } from './pinned-variable';
 import { openVisualizePanel } from './visualize-panel';
 import {
   LOCALS_REFERENCE,
@@ -54,10 +54,19 @@ export async function visualizeVariable(
     return;
   }
 
+  const isCurrent = startPick();
   try {
     const body = await fetchVisualize(session, address);
+    if (!isCurrent()) {
+      return; // the user picked another value meanwhile
+    }
+
     openVisualizePanel(variable.name, body);
   } catch (e) {
+    if (!isCurrent()) {
+      return;
+    }
+
     void vscode.window.showWarningMessage(
       `Nushell Debug: cannot visualize '${variable.name}': ${String(e)}`,
     );
