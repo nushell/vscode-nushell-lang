@@ -16,7 +16,8 @@
     "url": "https://github.com/nushell/vscode-nushell-lang/issues"
   },
   "engines": {
-    "vscode": "^1.110.0"
+    "vscode": "^1.110.0",
+    "node": ">=20"
   },
   "icon": "assets/nushell.ico",
   "categories": [
@@ -273,7 +274,7 @@
     "lint": "npx eslint ./client/src/extension.ts",
     "compile:test": "tsc -p client",
     "test": "npm run compile:test && node ./scripts/e2e.js",
-    "test:unit": "node -e \"require('fs').rmSync('client/out-unit',{recursive:true,force:true})\" && tsc -p client/tsconfig.unit.json && node --test \"client/out-unit/**/*.test.js\"",
+    "test:unit": "node -e \"require('fs').rmSync('client/out-unit',{recursive:true,force:true})\" && tsc -p client/tsconfig.unit.json && cd client/out-unit && node --test",
     "typecheck:webview": "tsc -p client/tsconfig.webview.json",
     "test:grammar": "vscode-tmgrammar-snap tests/cases/*",
     "fmt": "prettier . --write"

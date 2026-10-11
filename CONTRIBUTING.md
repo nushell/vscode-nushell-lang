@@ -47,6 +47,8 @@ The webview pages (`*.html`) are copied to `out/debug/` and the visualizer's web
 
 ### Tests
 
+Requires Node 20 LTS or newer (see `engines.node` in `package.json`).
+
 - `npm run test:unit`: `node:test` unit tests (`client/src/**/*.test.ts`, excluding the VS Code e2e tests in `client/src/test/`)
 - `npm run typecheck:webview`: type-checks the visualizer's browser code
 
