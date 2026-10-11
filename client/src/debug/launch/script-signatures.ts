@@ -38,12 +38,14 @@ export async function readDefinitions(
         '--no-config-file',
         '--stdin',
         '-c',
-        'ast --json --minify $in | get block',
+        // Only the statements: the block also holds the compiled IR, which
+        // is ~99% of the JSON and grows faster than the script.
+        'ast --json --minify $in | get block | from json | select pipelines | to json --raw',
       ],
       {
         cwd: path.dirname(program), // so `use ./lib.nu` resolves
-        timeout: 10000,
-        maxBuffer: 256 * 1024 * 1024, // the AST is far bigger than the source
+        timeout: 30000,
+        maxBuffer: 64 * 1024 * 1024, // the AST is still far bigger than the source
       },
     );
     // A `nu` that exits before reading it all makes the write fail with
