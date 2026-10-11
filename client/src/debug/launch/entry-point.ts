@@ -29,21 +29,26 @@ export async function resolveEntryPoint(
     return config;
   }
 
-  const target = config.entryPoint ?? 'main';
-  const def = defs.find((candidate) => candidate.name === target);
+  // Read the name the way nu-dap does: trimmed, and blank means `main`.
+  const named =
+    typeof config.entryPoint === 'string'
+      ? config.entryPoint.trim() || undefined
+      : undefined;
+  const def = defs.find((candidate) => candidate.name === (named ?? 'main'));
   if (def) {
     return await ensureArgs(config, def);
   }
 
-  return await askForEntryPoint(config, defs);
+  return await askForEntryPoint(config, defs, named);
 }
 
 /** No `main`: let the user pick a function to debug (or run the script top-to-bottom). */
 async function askForEntryPoint(
   config: vscode.DebugConfiguration,
   defs: NuDefinition[],
+  named: string | undefined,
 ): Promise<vscode.DebugConfiguration | undefined> {
-  if (config.entryPoint !== undefined) {
+  if (named !== undefined) {
     return config; // the launch config names one; the adapter reports it if missing
   }
 
