@@ -40,6 +40,12 @@ export class LaunchConfigurationProvider
       return config;
     }
 
+    // A relative `cwd` is relative to the workspace folder; the adapter would
+    // resolve it against the extension host's directory instead.
+    if (folder && typeof config.cwd === 'string' && config.cwd !== '') {
+      config.cwd = path.resolve(folder.uri.fsPath, config.cwd);
+    }
+
     config.program = absoluteProgram(folder, config);
     return await resolveEntryPoint(config, config.program, quietNushell());
   }
