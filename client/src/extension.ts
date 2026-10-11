@@ -21,6 +21,7 @@ const EXTENSION_ID = 'TheNuProjectContributors.vscode-nushell-lang';
 const CONFIG_SECTION = 'nushellLanguageServer';
 
 let client: LanguageClient | undefined;
+let clientNushellPath: string | undefined; // the `nu` that `client` runs
 let fileWatcher: vscode.FileSystemWatcher | undefined;
 let outputChannel: OutputChannel | undefined; // Single output channel for server logs and trace
 
@@ -116,6 +117,7 @@ function startLanguageServer(
     clientOptions,
   );
   client = newClient;
+  clientNushellPath = nushellPath;
 
   // Log client lifecycle
   newClient.onDidChangeState((e) => {
@@ -134,6 +136,7 @@ function startLanguageServer(
     // Leave things in a state where "Nushell: Start Language Server" can retry.
     if (client === newClient) {
       client = undefined;
+      clientNushellPath = undefined;
     }
     fileWatcher?.dispose();
     fileWatcher = undefined;
@@ -148,6 +151,7 @@ async function stopLanguageServer(): Promise<boolean> {
   }
   const running = client;
   client = undefined;
+  clientNushellPath = undefined;
   fileWatcher?.dispose();
   fileWatcher = undefined;
   try {
@@ -170,6 +174,36 @@ async function restartLanguageServer(
     console.error('Failed to stop Nushell Language Server:', error);
   }
   startLanguageServer(context, nushellPath);
+}
+
+/** The Settings UI writes the path on every keystroke; wait until it settles. */
+const RESTART_DELAY_MS = 500;
+let restartTimer: ReturnType<typeof setTimeout> | undefined;
+/** The last restart; the next one waits for it, so restarts never overlap. */
+let restartQueue: Promise<void> = Promise.resolve();
+
+/**
+ * `nushellExecutablePath` changed: restart a running server on the new `nu`.
+ * A stopped server stays stopped, and a path that resolves to the running
+ * `nu` changes nothing.
+ */
+function scheduleRestart(context: vscode.ExtensionContext): void {
+  clearTimeout(restartTimer);
+  restartTimer = setTimeout(() => {
+    restartTimer = undefined;
+    restartQueue = restartQueue
+      .then(async () => {
+        if (!client) {
+          return;
+        }
+
+        const nushellPath = ensureNushell();
+        if (nushellPath && nushellPath !== clientNushellPath) {
+          await restartLanguageServer(context, nushellPath);
+        }
+      })
+      .catch(() => {});
+  }, RESTART_DELAY_MS);
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -214,17 +248,15 @@ export function activate(context: vscode.ExtensionContext) {
   // React to trace level changes for the lifetime of the extension, and
   // restart the language server when the executable path setting changes
   context.subscriptions.push(
-    vscode.workspace.onDidChangeConfiguration(async (e) => {
+    vscode.workspace.onDidChangeConfiguration((e) => {
       if (e.affectsConfiguration(`${CONFIG_SECTION}.trace.server`)) {
         applyTraceFromConfig();
       }
       if (e.affectsConfiguration(`${CONFIG_SECTION}.nushellExecutablePath`)) {
-        const nushellPath = await nushell();
-        if (nushellPath) {
-          await restartLanguageServer(context, nushellPath);
-        }
+        scheduleRestart(context);
       }
     }),
+    new vscode.Disposable(() => clearTimeout(restartTimer)),
   );
 
   // Commands are registered before the server starts so they keep working
