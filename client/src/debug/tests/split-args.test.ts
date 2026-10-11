@@ -39,3 +39,14 @@ test('splitArgs keeps an empty quoted argument', () => {
 test('splitArgs runs an unclosed quote to the end of the line', () => {
   assert.deepEqual(splitArgs('a "b c'), ['a', 'b c']);
 });
+
+// Found by parsing ~1,800 real scripts and the arguments their mains take:
+// `"say \"hi\""` is how both a POSIX shell and nushell's own double quotes
+// write an embedded quote. Backslashes before anything else stay as typed, so
+// Windows paths keep working.
+test('splitArgs reads \\" inside double quotes as a literal quote', () => {
+  assert.deepEqual(splitArgs('"say \\"hi\\""'), ['say "hi"']);
+  assert.deepEqual(splitArgs('"C:\\Program Files\\x"'), [
+    'C:\\Program Files\\x',
+  ]);
+});
