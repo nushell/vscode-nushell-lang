@@ -71,14 +71,22 @@ export function definitionsFromAst(block: unknown): NuDefinition[] {
   for (const pipeline of pipelines) {
     const elements = field(pipeline, 'elements');
     const first: unknown = Array.isArray(elements) ? elements[0] : undefined;
-    const call = field(field(field(first, 'expr'), 'expr'), 'Call');
-    const definition = definitionFromCall(call);
+    const definition = definitionFromCall(callOf(first));
     if (definition) {
       definitions.push(definition);
     }
   }
 
   return definitions;
+}
+
+/** The call a pipeline element makes, looking past `@attribute`s in front of it. */
+function callOf(element: unknown): unknown {
+  const expr = field(field(element, 'expr'), 'expr');
+  const attributed = field(expr, 'AttributeBlock');
+  const item =
+    attributed !== undefined ? field(field(attributed, 'item'), 'expr') : expr;
+  return field(item, 'Call');
 }
 
 /** `def name [...] {}` / `export def ...`, read from its call. */
