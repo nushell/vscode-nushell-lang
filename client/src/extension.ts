@@ -183,9 +183,9 @@ let restartTimer: ReturnType<typeof setTimeout> | undefined;
 let restartQueue: Promise<void> = Promise.resolve();
 
 /**
- * `nushellExecutablePath` changed: restart a running server on the new `nu`.
- * A stopped server stays stopped, and a path that resolves to the running
- * `nu` changes nothing.
+ * `nushellExecutablePath` changed: (re)start the server on the new `nu`,
+ * also when it was stopped or never started. A path that resolves to the
+ * `nu` already running changes nothing.
  */
 function scheduleRestart(context: vscode.ExtensionContext): void {
   clearTimeout(restartTimer);
@@ -193,10 +193,6 @@ function scheduleRestart(context: vscode.ExtensionContext): void {
     restartTimer = undefined;
     restartQueue = restartQueue
       .then(async () => {
-        if (!client) {
-          return;
-        }
-
         const nushellPath = ensureNushell();
         if (nushellPath && nushellPath !== clientNushellPath) {
           await restartLanguageServer(context, nushellPath);
