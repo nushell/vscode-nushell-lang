@@ -84,12 +84,19 @@ async function pickEntryPoint(
   return defs.find((def) => def.name === picked);
 }
 
-/** Prompt for arguments when the entry point requires some and the launch config has none. */
+/**
+ * Prompt for arguments when the entry point requires some and the launch
+ * config has none. `"args": []` (as in the README example) counts as none.
+ */
 async function ensureArgs(
   config: vscode.DebugConfiguration,
   def: NuDefinition,
 ): Promise<vscode.DebugConfiguration | undefined> {
-  if (config.args !== undefined) {
+  if (
+    Array.isArray(config.args)
+      ? config.args.length > 0
+      : config.args !== undefined
+  ) {
     return config;
   }
 
