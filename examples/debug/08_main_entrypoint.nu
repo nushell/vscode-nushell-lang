@@ -1,6 +1,6 @@
 # Main entrypoint: `def main` makes this a proper CLI script.
 # The debugger will prompt for arguments when launching.
-# Try: name="world" count=3 --verbose --tag="release"
+# Try: world 3 --verbose --tag=release
 
 def main [
     name: string        # Required: the name to greet
