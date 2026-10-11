@@ -58,10 +58,7 @@ test('definitionsFromAst takes what nushell parsed as required', () => {
 
 test('definitionsFromAst gives the usage line, as `help` shows it', () => {
   const usages = Object.fromEntries(
-    definitionsFromAst(block).map((def) => [
-      def.name,
-      (def as unknown as Record<string, unknown>).usage,
-    ]),
+    definitionsFromAst(block).map((def) => [def.name, def.usage]),
   );
   assert.deepEqual(usages, {
     'my cmd': 'my cmd <a>',

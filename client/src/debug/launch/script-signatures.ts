@@ -15,8 +15,8 @@ const execFileAsync = promisify(execFile);
 /** A top-level `def` in a script. */
 export interface NuDefinition {
   name: string;
-  /** The parameter list as written, without its brackets — for display. */
-  signature: string;
+  /** Nushell's usage line, e.g. `main {flags} <name> (count) ...rest` — for display. */
+  usage: string;
   /** Does it have a positional parameter the caller must supply? */
   hasRequired: boolean;
 }
@@ -115,16 +115,43 @@ function definitionFromCall(call: unknown): NuDefinition | undefined {
   );
   const signature = field(field(signatureArg, 'expr'), 'Signature');
   const required = field(signature, 'required_positional');
-  const written = field(field(signatureArg, 'span'), 'span_source');
   if (typeof name !== 'string' || !Array.isArray(required)) {
     return undefined;
   }
 
   return {
     name,
-    signature: typeof written === 'string' ? written.slice(1, -1) : '',
+    usage: usageLine(name, signature),
     hasRequired: required.length > 0,
   };
+}
+
+/**
+ * `name {flags} <required> (optional) ...rest`, the way `help` shows it.
+ * Built from the parsed signature: its source text also covers input/output
+ * types, comments and defaults.
+ */
+function usageLine(name: string, signature: unknown): string {
+  const names = (key: string): string[] => {
+    const params = field(signature, key);
+    return Array.isArray(params)
+      ? params.map((param) => field(param, 'name')).filter(isString)
+      : [];
+  };
+  const flags = field(signature, 'named');
+  const rest = field(field(signature, 'rest_positional'), 'name');
+
+  return [
+    name,
+    ...(Array.isArray(flags) && flags.length > 0 ? ['{flags}'] : []),
+    ...names('required_positional').map((param) => `<${param}>`),
+    ...names('optional_positional').map((param) => `(${param})`),
+    ...(isString(rest) ? [`...${rest}`] : []),
+  ].join(' ');
+}
+
+function isString(value: unknown): value is string {
+  return typeof value === 'string';
 }
 
 function field(value: unknown, key: string): unknown {

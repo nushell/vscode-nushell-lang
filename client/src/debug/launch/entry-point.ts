@@ -97,7 +97,7 @@ async function ensureArgs(
     return config;
   }
 
-  const args = await promptArgs(`${def.name} [${def.signature.trim()}]`);
+  const args = await promptArgs(def.usage);
   if (args === undefined) {
     return undefined; // cancelled
   }
