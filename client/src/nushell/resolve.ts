@@ -15,11 +15,16 @@ import { NUSHELL_DOWNLOAD_PAGE } from './version';
 const CONFIG_SECTION = 'nushellLanguageServer';
 const EXECUTABLE_SETTING = 'nushellExecutablePath';
 
-export type NushellSource = 'setting' | 'path';
-
+/**
+ * The `nu` found. `fellBackFrom` is the configured path when it was not found
+ * and PATH was used instead; telling the user is up to the caller.
+ */
 export type Resolution =
-  | { kind: 'found'; path: string; source: NushellSource }
+  | { kind: 'found'; path: string; fellBackFrom?: string }
   | { kind: 'missing' };
+
+/** The stale setting the user was last warned about, so it is said once. */
+let warnedFallback: string | undefined;
 
 function settings(): WorkspaceConfiguration {
   // Use null for resource to get global/workspace settings
@@ -37,24 +42,24 @@ function expandHome(p: string): string {
 /**
  * Find the `nu` used by the language server, the terminal profile and the
  * debugger, in order: the `nushellExecutablePath` setting -> `nu` on PATH.
+ * Reports nothing; see {@link ensureNushell}.
  */
 export function resolveNushell(): Resolution {
   const configured = settings().get<string>(EXECUTABLE_SETTING, 'nu').trim();
+  const usesSetting = configured !== '' && configured !== 'nu';
 
-  if (configured && configured !== 'nu') {
+  if (usesSetting) {
     const found = which.sync(expandHome(configured), { nothrow: true });
     if (found) {
-      return { kind: 'found', path: found, source: 'setting' };
+      return { kind: 'found', path: found };
     }
-
-    void window.showWarningMessage(
-      `Nushell executable not found at ${CONFIG_SECTION}.${EXECUTABLE_SETTING} (${configured}). Falling back to 'nu' on PATH.`,
-    );
   }
 
   const onPath = which.sync('nu', { nothrow: true });
   if (onPath) {
-    return { kind: 'found', path: onPath, source: 'path' };
+    return usesSetting
+      ? { kind: 'found', path: onPath, fellBackFrom: configured }
+      : { kind: 'found', path: onPath };
   }
 
   return { kind: 'missing' };
@@ -62,16 +67,33 @@ export function resolveNushell(): Resolution {
 
 /**
  * Resolve `nu`, pointing the user at the Nushell download page when nothing
- * is configured or on PATH. Returns undefined when there is no usable `nu`.
+ * is configured or on PATH, and warning (once per value) when the configured
+ * path was not found. Returns undefined when there is no usable `nu`.
  */
 export function ensureNushell(): string | undefined {
   const resolution = resolveNushell();
   if (resolution.kind === 'found') {
+    warnFallback(resolution.fellBackFrom);
     return resolution.path;
   }
 
   void showNotFound();
   return undefined;
+}
+
+function warnFallback(configured: string | undefined): void {
+  if (configured === warnedFallback) {
+    return;
+  }
+
+  warnedFallback = configured;
+  if (configured === undefined) {
+    return; // the setting works again: warn anew if it breaks
+  }
+
+  void window.showWarningMessage(
+    `Nushell executable not found at ${CONFIG_SECTION}.${EXECUTABLE_SETTING} (${configured}). Falling back to 'nu' on PATH.`,
+  );
 }
 
 async function showNotFound(): Promise<void> {
