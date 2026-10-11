@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 
 import { resolveNushell } from '../../nushell/resolve';
+import { confirmDapSupport } from '../adapter/descriptor-factory';
 import { DEBUG_TYPE } from '../shared/debug-type';
 import { isNuDocument } from '../shared/nu-document';
 import { resolveEntryPoint } from './entry-point';
@@ -47,7 +48,14 @@ export class LaunchConfigurationProvider
     }
 
     config.program = absoluteProgram(folder, config);
-    return await resolveEntryPoint(config, config.program, quietNushell());
+
+    // Before any entry-point or argument prompt: a too old `nu` stops here.
+    const nu = quietNushell();
+    if (nu && !(await confirmDapSupport(nu))) {
+      return undefined;
+    }
+
+    return await resolveEntryPoint(config, config.program, nu);
   }
 }
 

@@ -31,8 +31,6 @@ export type NushellResolver = () => Promise<string | undefined>;
  * uses) and spawn it.
  */
 export class AdapterDescriptorFactory implements DebugAdapterDescriptorFactory {
-  /** `nu` paths already known to support `--dap`. */
-  private readonly supported = new Set<string>();
   private readonly resolveNushell: NushellResolver;
 
   constructor(resolveNushell: NushellResolver) {
@@ -50,37 +48,44 @@ export class AdapterDescriptorFactory implements DebugAdapterDescriptorFactory {
       throw new CancellationError();
     }
 
-    await this.checkDapSupport(nu);
+    // Normally a cache hit: the launch configuration provider checked first.
+    if (!(await confirmDapSupport(nu))) {
+      throw new CancellationError();
+    }
+
     return new DebugAdapterExecutable(nu, ['--dap']);
   }
+}
 
-  /**
-   * Compares `nu --version` against {@link MIN_DAP_VERSION}; nightlies report
-   * the upcoming release (e.g. `0.116.0-nightly.3`), so they pass too. Not
-   * cached on failure: the user may upgrade `nu` before the next launch.
-   *
-   * A too old `nu` cancels the launch and offers the Nushell download page.
-   * VS Code doesn't show an error for a cancelled launch, so this is the only
-   * message the user sees.
-   */
-  private async checkDapSupport(nu: string): Promise<void> {
-    if (this.supported.has(nu)) {
-      return;
-    }
+/** `nu` paths already known to support `--dap`. */
+const supported = new Set<string>();
 
-    const version = await nuVersion(nu);
-    if (!version) {
-      return; // could not ask: let `nu --dap` speak for itself
-    }
-
-    if (compareVersions(version, MIN_DAP_VERSION) >= 0) {
-      this.supported.add(nu);
-      return;
-    }
-
-    void offerDownloadPage(nu, version);
-    throw new CancellationError();
+/**
+ * Compares `nu --version` against {@link MIN_DAP_VERSION}; nightlies report
+ * the upcoming release (e.g. `0.116.0-nightly.3`), so they pass too. Not
+ * cached on failure: the user may upgrade `nu` before the next launch.
+ *
+ * False for a too old `nu`, after offering the Nushell download page; the
+ * caller cancels the launch. VS Code doesn't show an error for a cancelled
+ * launch, so this is the only message the user sees.
+ */
+export async function confirmDapSupport(nu: string): Promise<boolean> {
+  if (supported.has(nu)) {
+    return true;
   }
+
+  const version = await nuVersion(nu);
+  if (!version) {
+    return true; // could not ask: let `nu --dap` speak for itself
+  }
+
+  if (compareVersions(version, MIN_DAP_VERSION) >= 0) {
+    supported.add(nu);
+    return true;
+  }
+
+  void offerDownloadPage(nu, version);
+  return false;
 }
 
 async function offerDownloadPage(nu: string, version: string): Promise<void> {
