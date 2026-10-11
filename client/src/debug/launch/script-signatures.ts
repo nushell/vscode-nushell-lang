@@ -46,6 +46,9 @@ export async function readDefinitions(
         maxBuffer: 256 * 1024 * 1024, // the AST is far bigger than the source
       },
     );
+    // A `nu` that exits before reading it all makes the write fail with
+    // EPIPE; the exit itself is reported through `parse`.
+    parse.child.stdin?.on('error', () => {});
     parse.child.stdin?.end(source);
     const { stdout } = await parse;
     return definitionsFromAst(JSON.parse(stdout));
