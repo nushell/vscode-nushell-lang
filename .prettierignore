@@ -3,3 +3,4 @@ build
 coverage
 out
 used_keywords.jsonc
+client/src/debug/tests/fixtures/

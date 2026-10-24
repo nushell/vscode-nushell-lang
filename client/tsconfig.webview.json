@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": [],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/debug/**/webview/**/*.ts",
+    "src/debug/visualize/webview-payload.ts",
+    "src/debug/visualize/cell-values.ts",
+    "src/debug/visualize/hex-dump.ts",
+    "src/debug/visualize/text-format.ts",
+    "src/debug/shared/escape-html.ts"
+  ]
+}

@@ -15,6 +15,48 @@ This [extension for VSCode](https://marketplace.visualstudio.com/items?itemName=
 - Auto-complete built-in commands
 - Inlays / Hints
 - Configuration via vscode settings
+- Step debugging of Nushell scripts (`nu --dap`, Nushell 0.116+)
+
+## Finding `nu`
+
+The language server, the Nushell terminal profile and the debugger all use the same `nu`, looked up in this order:
+
+1. the `nushellLanguageServer.nushellExecutablePath` setting (when it is not the default `nu`);
+2. `nu` on your `PATH`.
+
+When neither finds `nu`, the extension points you to the [Nushell installation page](https://www.nushell.sh/book/installation.html) or the setting. Debugging needs Nushell 0.116.0 or newer.
+
+## Debugging
+
+Press **F5** in a `.nu` file (no `launch.json` needed), or add a configuration:
+
+```json
+{
+  "type": "nushell",
+  "request": "launch",
+  "name": "Debug nu script",
+  "program": "${file}",
+  "cwd": "${workspaceFolder}",
+  "args": [],
+  "stopOnEntry": false
+}
+```
+
+The debugger is built into Nushell (`nu --dap`, available from 0.116), so it needs no extra install. It supports:
+
+- breakpoints, conditional breakpoints (`$total > 4000`), logpoints (`total {$total}`) and exception breakpoints ("Runtime errors");
+- step over / into / out, through pipeline stages too, and a call stack with command names;
+- variables inspected to any depth, an Environment scope, and watch / hover / Debug Console expressions;
+- `def main` receives the launch `args`; scripts without `main` let you pick an entry point (`entryPoint`);
+- `input` / `input list` answered through native VS Code prompts;
+- **Visualize** (right-click a variable): tables as sortable, filterable grids, binaries as a hex view, JSON/XML strings formatted;
+- **Nushell Debug: Show IR**: a live view of the compiled IR of the current block;
+- **time travel**: Step Back / Reverse Continue over a recorded timeline (`nushellDebugger.timeTravel`, `nushellDebugger.timeTravelMaxSteps`);
+- hot restart, optionally whenever you save the debugged script (`nushellDebugger.restartOnSave`; auto-saves are ignored).
+
+Known limitations: launch only (no attach), externals get no interactive stdin, `input listen` is not supported, and variables can't be edited while paused.
+
+The `examples/debug/` folder has scripts that exercise each feature.
 
 ## Screenshot (v1.5.0)
 

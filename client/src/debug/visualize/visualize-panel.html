@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+  <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-{{nonce}}' {{cspSource}};"
+    />
+    <style>
+      body {
+        font-family: var(--vscode-editor-font-family, monospace);
+        font-size: var(--vscode-editor-font-size, 13px);
+        padding: 0.5em;
+      }
+
+      h2 {
+        font-size: 1.1em;
+        margin: 0 0 0.25em 0;
+      }
+
+      .type {
+        color: var(--vscode-descriptionForeground, #999);
+        font-weight: normal;
+        margin-left: 0.75em;
+      }
+
+      .hint {
+        color: var(--vscode-descriptionForeground, #999);
+      }
+
+      input {
+        font-family: inherit;
+        font-size: inherit;
+        margin: 0.4em 0;
+        padding: 2px 6px;
+        width: 24em;
+        max-width: 90%;
+        background: var(--vscode-input-background, #3c3c3c);
+        color: var(--vscode-input-foreground, #ccc);
+        border: 1px solid var(--vscode-input-border, #555);
+      }
+
+      .toolbar {
+        margin: 0.4em 0;
+      }
+
+      .toolbar button {
+        font-family: inherit;
+        font-size: inherit;
+        margin-right: 4px;
+        padding: 1px 8px;
+        cursor: pointer;
+        background: var(--vscode-button-secondaryBackground, #3a3d41);
+        color: var(--vscode-button-secondaryForeground, #ccc);
+        border: 1px solid var(--vscode-input-border, #555);
+      }
+
+      .toolbar button.on {
+        background: var(--vscode-button-background, #0e639c);
+        color: var(--vscode-button-foreground, #fff);
+      }
+
+      table {
+        border-collapse: collapse;
+        margin-top: 0.25em;
+      }
+
+      th,
+      td {
+        border: 1px solid var(--vscode-panel-border, #444);
+        padding: 2px 10px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        position: sticky;
+        top: 0;
+        cursor: pointer;
+        user-select: none;
+        background: var(--vscode-editor-background, #1e1e1e);
+      }
+
+      tbody tr:nth-child(odd) {
+        background: var(--vscode-list-hoverBackground, transparent);
+      }
+
+      td.num {
+        text-align: right;
+      }
+
+      td.idx,
+      th.idx {
+        color: var(--vscode-descriptionForeground, #999);
+      }
+
+      pre {
+        margin: 0.25em 0;
+        line-height: 1.45;
+      }
+
+      /* Hex view: offset column, ASCII column, hovered byte group. */
+      .off {
+        color: var(--vscode-descriptionForeground, #999);
+      }
+      .asc {
+        color: var(--vscode-charts-yellow, #d7ba7d);
+      }
+      .g:hover {
+        background: var(--vscode-editor-selectionBackground, #264f78);
+      }
+
+      /* Syntax colours: JSON key, string, number, keyword; XML tag, attribute name.
+     The fallbacks follow the Dark+ theme's token colours. */
+      .k {
+        color: var(--vscode-charts-blue, #569cd6);
+      }
+      .s {
+        color: var(--vscode-charts-orange, #ce9178);
+      }
+      .n {
+        color: var(--vscode-charts-green, #b5cea8);
+      }
+      .b {
+        color: var(--vscode-charts-purple, #c586c0);
+      }
+      .t {
+        color: var(--vscode-charts-blue, #569cd6);
+      }
+      .a {
+        color: var(--vscode-charts-yellow, #d7ba7d);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>${{name}}<span class="type">{{type}}</span></h2>
+    {{truncated}}
+    <div id="root"></div>
+    <script type="application/json" id="nu-data">
+      {{data}}
+    </script>
+    <script nonce="{{nonce}}" src="{{script}}"></script>
+  </body>
+</html>

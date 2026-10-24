@@ -23,11 +23,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - run: npm install
-      - uses: lannonbr/vsce-action@master
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          args: 'package'
+          node-version: 20
+      - run: npm install
+      - run: npm run typecheck:webview
+      - run: npm run test:unit
+      - run: npx @vscode/vsce package
 
       # Runs a single command using the runners shell
       # - name: Run a one-line script

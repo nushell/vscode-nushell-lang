@@ -39,6 +39,19 @@ If you have all these tools already installed, you should be able to clone this 
 
 Instead of using VS Code, you can run `npm run compile` manually.
 
+### Debugger
+
+The debugger code lives in `client/src/debug/`, one folder per feature (a folder imports only from `shared/` and itself). The debug adapter itself is `nu --dap`, which is part of Nushell (crate `nu-dap`). To work against an unreleased Nushell, build it (`cargo build --release -p nu` in a nushell checkout) and point `nushellLanguageServer.nushellExecutablePath` at `target/release/nu`. Then press F5, open a script from `examples/debug/` in the Extension Development Host and press F5 again.
+
+The webview pages (`*.html`) are copied to `out/debug/` and the visualizer's webview script is bundled separately (`npm run esbuild-webview`); `npm run compile` does both.
+
+### Tests
+
+Requires Node 20 LTS or newer (see `engines.node` in `package.json`).
+
+- `npm run test:unit`: `node:test` unit tests (`client/src/**/*.test.ts`, excluding the VS Code e2e tests in `client/src/test/`)
+- `npm run typecheck:webview`: type-checks the visualizer's browser code
+
 ## Regex Engine
 
 TIL - VSCode uses regexes for language syntax highlighting in \*.tmLanguage.json files. Those regexes and json are based on Textmate, which uses (and here is the secret-sauce) `oniguruma` flavor of syntax. See the cheat-sheet for the [syntax here](https://github.com/kkos/oniguruma/blob/master/doc/RE). Also there's a rust-crate called `onig` or `rust-onig` if we wanted to write something to help create compatible regular expressions.
