@@ -16,7 +16,7 @@ export interface VariableAddress {
 
 /**
  * The adapter's fixed `variablesReference` for the top-level Locals scope —
- * `PauseSnapshot::LOCALS_REF` in the fork's crates/nu-dap/src/state.rs.
+ * `PauseSnapshot::LOCALS_REF` in Nushell's crates/nu-dap/src/state.rs (nushell/nushell).
  */
 export const LOCALS_REFERENCE = 1;
 
