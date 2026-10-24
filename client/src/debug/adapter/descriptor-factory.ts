@@ -22,7 +22,7 @@ const execFileAsync = promisify(execFile);
 export const MIN_DAP_VERSION = '0.116.0';
 
 /** Finds the `nu` to run; undefined when there is none, after telling the user. */
-export type NushellResolver = () => Promise<string | undefined>;
+export type NushellResolver = () => string | undefined;
 
 /**
  * The debugger ships inside Nushell itself: `nu --dap` starts a Debug Adapter
@@ -43,7 +43,7 @@ export class AdapterDescriptorFactory implements DebugAdapterDescriptorFactory {
    * VS Code from showing a second error on top of it.
    */
   async createDebugAdapterDescriptor(): Promise<DebugAdapterDescriptor> {
-    const nu = await this.resolveNushell();
+    const nu = this.resolveNushell();
     if (!nu) {
       throw new CancellationError();
     }

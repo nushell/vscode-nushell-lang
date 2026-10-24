@@ -85,8 +85,9 @@ function absoluteProgram(
 }
 
 /**
- * The `nu` to parse the script with. Unlike `ensureNushell` this doesn't
- * report a missing `nu`: the adapter factory does that once, right after.
+ * The `nu` to parse the script with. Deliberately not the resolver injected
+ * into the adapter factory: that one (`ensureNushell`) reports a missing `nu`,
+ * and the factory runs right after this, so reporting here too would warn twice.
  */
 function quietNushell(): string | undefined {
   const resolution = resolveNushell();

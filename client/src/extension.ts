@@ -210,16 +210,14 @@ export function activate(context: vscode.ExtensionContext) {
   // resolved as: nushellExecutablePath setting -> PATH.
   // It is resolved on every use so a changed setting or a fresh install is
   // picked up without reloading the window.
-  const nushell = async () => ensureNushell();
-
   context.subscriptions.push(
     vscode.window.registerTerminalProfileProvider('nushell_default', {
-      async provideTerminalProfile(
+      provideTerminalProfile(
         token: vscode.CancellationToken,
-      ): Promise<vscode.TerminalProfile | undefined> {
+      ): vscode.TerminalProfile | undefined {
         // Consume token to satisfy no-unused-vars without changing behavior
         void token;
-        const nushellPath = await nushell();
+        const nushellPath = ensureNushell();
         if (!nushellPath) {
           return undefined;
         }
@@ -239,7 +237,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   // The debugger resolves `nu` itself when a session starts
-  context.subscriptions.push(...registerDebugger(nushell));
+  context.subscriptions.push(...registerDebugger(ensureNushell));
 
   // React to trace level changes for the lifetime of the extension, and
   // restart the language server when the executable path setting changes
@@ -258,8 +256,8 @@ export function activate(context: vscode.ExtensionContext) {
   // Commands are registered before the server starts so they keep working
   // even when nushell was not found at activation time.
   context.subscriptions.push(
-    vscode.commands.registerCommand('nushell.startLanguageServer', async () => {
-      const nushellPath = await nushell();
+    vscode.commands.registerCommand('nushell.startLanguageServer', () => {
+      const nushellPath = ensureNushell();
       if (nushellPath && startLanguageServer(context, nushellPath)) {
         void vscode.window.showInformationMessage(
           'Nushell Language Server started.',
@@ -303,11 +301,10 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   // Start the language server once a `nu` is available
-  void nushell().then((nushellPath) => {
-    if (nushellPath) {
-      startLanguageServer(context, nushellPath);
-    }
-  });
+  const nushellPath = ensureNushell();
+  if (nushellPath) {
+    startLanguageServer(context, nushellPath);
+  }
 }
 
 export function deactivate(): Thenable<void> | undefined {
