@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 
-import { isNuDocument } from '../shared/nu-document';
 import { activeNuSession } from '../shared/session';
 
 /**
@@ -32,10 +31,6 @@ export function restartIfDebuggingNuScript(doc: vscode.TextDocument): void {
   }
 
   if (!isRestartOnSaveEnabled()) {
-    return;
-  }
-
-  if (!isNuDocument(doc)) {
     return;
   }
 
