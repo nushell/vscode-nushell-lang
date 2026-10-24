@@ -100,7 +100,7 @@ async function showNotFound(): Promise<void> {
   const openPage = 'Open download page';
   const configurePath = 'Configure path';
   const choice = await window.showWarningMessage(
-    'Nushell was not found in your PATH. Install Nushell, or set the path to nu.',
+    'Nushell was not found in your PATH. Install Nushell, or set the path to nu. After installing, run "Nushell: Start Language Server".',
     openPage,
     configurePath,
   );
