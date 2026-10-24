@@ -1,10 +1,11 @@
+import * as crypto from 'crypto';
 import * as fs from 'fs';
 
 import { escapeHtml } from './escape-html';
 
 /** A random nonce for a webview's Content-Security-Policy `script-src`. */
 export function makeNonce(): string {
-  return Math.random().toString(36).slice(2);
+  return crypto.randomBytes(16).toString('base64');
 }
 
 /** A muted one-line message, styled by the `.hint` rule every page carries. */
