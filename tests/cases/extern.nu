@@ -1,0 +1,7 @@
+extern git [--verbose]
+extern "git status" [--short]
+extern --strict cargo [--verbose]
+extern rustc --strict [--verbose]
+export extern --strict rustup [--verbose]
+extern --strict 'git log' [--oneline]
+extern --strict `git diff` [--stat]
