@@ -5,6 +5,7 @@
   "patterns": [
     { "include": "#define-variable" },
     { "include": "#define-alias" },
+    { "include": "#define-type" },
     { "include": "#function" },
     { "include": "#extern" },
     { "include": "#module" },
@@ -638,6 +639,19 @@
         "2": { "name": "entity.name.function.nushell" },
         "3": {
           "patterns": [{ "include": "#operators" }]
+        }
+      }
+    },
+    "define-type": {
+      "match": "\\b((?:export\\s+)?type)\\s+([\\w\\-]+)\\s+(=)\\s+((?:\"[^\"]*\"|'[^']*'|`[^`]*`|[^;#}\"'`])+)",
+      "captures": {
+        "1": { "name": "storage.type.type.nushell" },
+        "2": { "name": "entity.name.type.nushell" },
+        "3": {
+          "patterns": [{ "include": "#operators" }]
+        },
+        "4": {
+          "patterns": [{ "include": "#types" }]
         }
       }
     },
