@@ -4,7 +4,11 @@ type Shape = oneof<Point, Polygon>
 type my-id = int
 type A = int; type B = list<A>
 type Odd = record<"a}b": int, 'c;d': int, "e#f": int>
+type Esc = record<"a\"b": int>
 let after = "still a string"
+type Gt = record<"a>b": int, c: string>
+type Hash = record<a#b: int>; let hashed = 1
+type Ids = list<my-id>
 module geometry {
   export type Vector = list<float>
 }

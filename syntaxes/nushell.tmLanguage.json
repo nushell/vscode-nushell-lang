@@ -276,7 +276,7 @@
           "end": ">",
           "patterns": [
             {
-              "match": "([\\w\\-]+|\"[\\w\\- ]+\"|'[^']+')\\s*:\\s*",
+              "match": "([\\w\\-]+|\"(?:[^\"\\\\]|\\\\.)*\"|'[^']*'|`[^`]*`)\\s*:\\s*",
               "captures": {
                 "1": { "name": "variable.parameter.nushell" }
               }
@@ -285,7 +285,7 @@
           ]
         },
         {
-          "match": "\\b(\\w+)\\b",
+          "match": "(?<![\\w-])\\w[\\w-]*",
           "name": "entity.name.type.nushell"
         }
       ]
@@ -643,7 +643,7 @@
       }
     },
     "define-type": {
-      "match": "\\b((?:export\\s+)?type)\\s+([\\w\\-]+)\\s+(=)\\s+((?:\"[^\"]*\"|'[^']*'|`[^`]*`|[^;#}\"'`])+)",
+      "match": "\\b((?:export\\s+)?type)\\s+([\\w\\-]+)\\s+(=)\\s+((?:\"(?:[^\"\\\\]|\\\\.)*\"|'[^']*'|`[^`]*`|(?<=\\S)#|[^;#}\"'`])+)",
       "captures": {
         "1": { "name": "storage.type.type.nushell" },
         "2": { "name": "entity.name.type.nushell" },
