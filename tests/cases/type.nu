@@ -9,6 +9,7 @@ let after = "still a string"
 type Gt = record<"a>b": int, c: string>
 type Hash = record<a#b: int>; let hashed = 1
 type Ids = list<my-id>
+type Keys = record<a.b: int, c?: int, d-e: int, f: record<g.h: int>>
 module geometry {
   export type Vector = list<float>
 }

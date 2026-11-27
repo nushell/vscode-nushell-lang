@@ -142,9 +142,7 @@
 #           ^ source.nushell
 #            ^^^^^^ source.nushell meta.record.nushell entity.name.type.nushell
 #                  ^ source.nushell meta.record.nushell
-#                   ^ source.nushell meta.record.nushell entity.name.type.nushell
-#                    ^ source.nushell meta.record.nushell
-#                     ^ source.nushell meta.record.nushell variable.parameter.nushell
+#                   ^^^ source.nushell meta.record.nushell variable.parameter.nushell
 #                      ^^ source.nushell meta.record.nushell
 #                        ^^^ source.nushell meta.record.nushell entity.name.type.nushell
 #                           ^ source.nushell meta.record.nushell
@@ -167,6 +165,36 @@
 #               ^ source.nushell meta.list.nushell
 #                ^^^^^ source.nushell meta.list.nushell entity.name.type.nushell
 #                     ^ source.nushell meta.list.nushell
+>type Keys = record<a.b: int, c?: int, d-e: int, f: record<g.h: int>>
+#^^^^ source.nushell storage.type.type.nushell
+#    ^ source.nushell
+#     ^^^^ source.nushell entity.name.type.nushell
+#         ^ source.nushell
+#          ^ source.nushell keyword.control.nushell
+#           ^ source.nushell
+#            ^^^^^^ source.nushell meta.record.nushell entity.name.type.nushell
+#                  ^ source.nushell meta.record.nushell
+#                   ^^^ source.nushell meta.record.nushell variable.parameter.nushell
+#                      ^^ source.nushell meta.record.nushell
+#                        ^^^ source.nushell meta.record.nushell entity.name.type.nushell
+#                           ^^ source.nushell meta.record.nushell
+#                             ^^ source.nushell meta.record.nushell variable.parameter.nushell
+#                               ^^ source.nushell meta.record.nushell
+#                                 ^^^ source.nushell meta.record.nushell entity.name.type.nushell
+#                                    ^^ source.nushell meta.record.nushell
+#                                      ^^^ source.nushell meta.record.nushell variable.parameter.nushell
+#                                         ^^ source.nushell meta.record.nushell
+#                                           ^^^ source.nushell meta.record.nushell entity.name.type.nushell
+#                                              ^^ source.nushell meta.record.nushell
+#                                                ^ source.nushell meta.record.nushell variable.parameter.nushell
+#                                                 ^^ source.nushell meta.record.nushell
+#                                                   ^^^^^^ source.nushell meta.record.nushell meta.record.nushell entity.name.type.nushell
+#                                                         ^ source.nushell meta.record.nushell meta.record.nushell
+#                                                          ^^^ source.nushell meta.record.nushell meta.record.nushell variable.parameter.nushell
+#                                                             ^^ source.nushell meta.record.nushell meta.record.nushell
+#                                                               ^^^ source.nushell meta.record.nushell meta.record.nushell entity.name.type.nushell
+#                                                                  ^ source.nushell meta.record.nushell meta.record.nushell
+#                                                                   ^ source.nushell meta.record.nushell
 >module geometry {
 #^^^^^^ source.nushell meta.module.nushell storage.type.module.nushell
 #      ^ source.nushell meta.module.nushell
