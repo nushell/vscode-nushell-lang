@@ -172,4 +172,39 @@
 #                    ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
 #                      ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
 #                       ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>const cfg = {s: true}
+#^^^^^ source.nushell keyword.other.nushell
+#     ^ source.nushell
+#      ^^^ source.nushell variable.other.nushell
+#         ^ source.nushell
+#          ^ source.nushell keyword.control.nushell
+#           ^ source.nushell
+#            ^ source.nushell meta.expression.braced.nushell punctuation.section.block.begin.bracket.curly.nushell
+#             ^ source.nushell meta.expression.braced.nushell meta.record-entry.nushell string.bare.nushell variable.other.nushell
+#              ^ source.nushell meta.expression.braced.nushell meta.record-entry.nushell keyword.control.nushell
+#               ^ source.nushell meta.expression.braced.nushell meta.record-entry.nushell
+#                ^^^^ source.nushell meta.expression.braced.nushell meta.record-entry.nushell constant.language.nushell
+#                    ^ source.nushell meta.expression.braced.nushell punctuation.section.block.end.bracket.curly.nushell
+>extern --strict=$cfg.s corge [--x]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^^^^^^^^^^^^^ source.nushell storage.modifier.nushell
+#                      ^ source.nushell
+#                       ^^^^^ source.nushell entity.name.function.nushell
+#                            ^ source.nushell
+#                             ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                              ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                                ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                                 ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>extern grault --strict=$cfg.s [--x]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^^^^ source.nushell entity.name.function.nushell
+#             ^ source.nushell
+#              ^^^^^^^^^^^^^^^ source.nushell storage.modifier.nushell
+#                             ^ source.nushell
+#                              ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                               ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                                 ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                                  ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
 >

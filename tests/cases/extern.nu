@@ -14,3 +14,6 @@ extern --strict=(true) baz [--x]
 extern qux --strict=(not false) [--x]
 const c = true; extern --strict=$c quux [--x]
 extern "git \"x\"" [--a]
+const cfg = {s: true}
+extern --strict=$cfg.s corge [--x]
+extern grault --strict=$cfg.s [--x]
