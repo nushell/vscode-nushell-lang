@@ -7,7 +7,7 @@
 #            ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
 #              ^^^^^^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
 #                     ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
->extern "git status" [--short]
+>extern "git commit" [--amend]
 #^^^^^^ source.nushell storage.type.function.nushell
 #      ^ source.nushell
 #       ^^^^^^^^^^^^ source.nushell entity.name.function.nushell
@@ -71,4 +71,55 @@
 #                            ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
 #                              ^^^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
 #                                  ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>extern --strict "git status" [--short(-s)]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^^^^^^ source.nushell storage.modifier.nushell
+#               ^ source.nushell
+#                ^^^^^^^^^^^^ source.nushell entity.name.function.nushell
+#                            ^ source.nushell
+#                             ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                              ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                                ^^^^^^^^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                                         ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>extern --strict=false foo [--a]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^^^^^^^^^^^^ source.nushell storage.modifier.nushell
+#                     ^ source.nushell
+#                      ^^^ source.nushell entity.name.function.nushell
+#                         ^ source.nushell
+#                          ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                           ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                             ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                              ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>extern bar --strict=true [--a]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^ source.nushell entity.name.function.nushell
+#          ^ source.nushell
+#           ^^^^^^^^^^^^^ source.nushell storage.modifier.nushell
+#                        ^ source.nushell
+#                         ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                          ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                            ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                             ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>extern 'git.exe' [--x]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^^^^^^^ source.nushell entity.name.function.nushell
+#                ^ source.nushell
+#                 ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                  ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                    ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                     ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>extern `git:log` [--x]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^^^^^^^ source.nushell entity.name.function.nushell
+#                ^ source.nushell
+#                 ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                  ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                    ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                     ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
 >
