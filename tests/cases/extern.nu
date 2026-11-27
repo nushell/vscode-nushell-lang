@@ -17,3 +17,7 @@ extern "git \"x\"" [--a]
 const cfg = {s: true}
 extern --strict=$cfg.s corge [--x]
 extern grault --strict=$cfg.s [--x]
+extern --strict=$cfg.s? garply [--x]
+extern --strict=$cfg."s" waldo [--x]
+extern fred --strict=$cfg.s? [--x]
+extern --strict=((true)) plugh [--x]

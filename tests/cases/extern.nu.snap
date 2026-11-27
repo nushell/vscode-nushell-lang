@@ -207,4 +207,48 @@
 #                               ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
 #                                 ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
 #                                  ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>extern --strict=$cfg.s? garply [--x]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^^^^^^^^^^^^^^ source.nushell storage.modifier.nushell
+#                       ^ source.nushell
+#                        ^^^^^^ source.nushell entity.name.function.nushell
+#                              ^ source.nushell
+#                               ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                                ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                                  ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                                   ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>extern --strict=$cfg."s" waldo [--x]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^^^^^^^^^^^^^^^ source.nushell storage.modifier.nushell
+#                        ^ source.nushell
+#                         ^^^^^ source.nushell entity.name.function.nushell
+#                              ^ source.nushell
+#                               ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                                ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                                  ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                                   ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>extern fred --strict=$cfg.s? [--x]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^^ source.nushell entity.name.function.nushell
+#           ^ source.nushell
+#            ^^^^^^^^^^^^^^^^ source.nushell storage.modifier.nushell
+#                            ^ source.nushell
+#                             ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                              ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                                ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                                 ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
+>extern --strict=((true)) plugh [--x]
+#^^^^^^ source.nushell storage.type.function.nushell
+#      ^ source.nushell
+#       ^^^^^^^^^^^^^^^^^ source.nushell storage.modifier.nushell
+#                        ^ source.nushell
+#                         ^^^^^ source.nushell entity.name.function.nushell
+#                              ^ source.nushell
+#                               ^ source.nushell meta.function.parameters.nushell meta.brace.square.begin.nushell
+#                                ^^ source.nushell meta.function.parameters.nushell variable.parameter.nushell keyword.control.nushell
+#                                  ^ source.nushell meta.function.parameters.nushell variable.parameter.nushell
+#                                   ^ source.nushell meta.function.parameters.nushell meta.brace.square.end.nushell
 >
